@@ -1,9 +1,0 @@
-{
-  "sections": {
-    "main": {
-      "type": "archetype-result",
-      "settings": {}
-    }
-  },
-  "order": ["main"]
-}
