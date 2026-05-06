@@ -1,0 +1,1073 @@
+{% doc %}
+  @prompt
+    "Create a 'Review Carousel' section with a clean, minimalist design.
+    
+    Layout & Cards:
+    
+    Header: A left-aligned title 'Reviews' with the count (e.g., 37) in a smaller font next to it.
+    
+    Navigation: Top-right arrow buttons (left and right) to scroll through the carousel.
+    
+    Review Card Style: Light gray background with rounded corners. Each card must contain:
+    
+    Five-star rating icons.
+    
+    Timestamp (e.g., '2 days ago') in the top right.
+    
+    Bold Review Title and a paragraph for the review body.
+    
+    Reviewer name.
+    
+    Product Badge: A smaller, dark-gray inner card at the bottom showing a product thumbnail, product name, and its average rating.
+    
+    Functionality:
+    
+    The cards should behave as a horizontal slider/carousel.
+    
+    Include Shopify Schema Settings for:
+    
+    Container Option: Toggle between 'Full Width' and 'Fixed/Boxed Width'.
+    
+    Spacing: Independent sliders for Top, Bottom, Left, and Right Padding and Margins.
+    
+    Colors: Customizable background colors for the section and the cards."
+    
+    Technical Details to Watch For
+    To match your reference image exactly, ensure these "Fine-Tuning" details are applied:
+    
+    1. The "Box Model" Settings
+    Since you want the section to align with your page settings, make sure the AI uses CSS variables for margins and padding. This allows you to set the section to 1440px (or whatever your theme's max-width is) so it doesn't bleed to the edges of the screen unless you toggle "Full Width" on.
+    
+    2. The Product Link
+    The "Genetic Bliss" badge at the bottom of each review card is a linked product. If you are using a Shopify AI builder, ask it to make this area a "Product Picker" so you can choose which perfume bottle image appears inside each specific review.
+    
+    3. Star Ratings
+    The icons in your image are small, subtle stars. Ensure the prompt specifies "custom SVG stars" rather than standard emojis to maintain that high-end look.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-review-carousel-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.section_bg_color }};
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    padding-left: {{ block.settings.padding_left }}px;
+    padding-right: {{ block.settings.padding_right }}px;
+    margin-top: {{ block.settings.margin_top }}px;
+    margin-bottom: {{ block.settings.margin_bottom }}px;
+    margin-left: {{ block.settings.margin_left }}px;
+    margin-right: {{ block.settings.margin_right }}px;
+  }
+
+  .ai-review-carousel-container-{{ ai_gen_id }} {
+    {% if block.settings.container_width == 'boxed' %}
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    {% endif %}
+  }
+
+  .ai-review-carousel-header-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+
+  .ai-review-carousel-title-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .ai-review-carousel-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_font_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    margin: 0;
+  }
+
+  .ai-review-carousel-count-{{ ai_gen_id }} {
+    font-size: {{ block.settings.count_font_size }}px;
+    color: {{ block.settings.count_color }};
+    font-weight: 400;
+  }
+
+  .ai-review-carousel-nav-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+  }
+
+  .ai-review-carousel-nav-btn-{{ ai_gen_id }} {
+    width: 40px;
+    height: 40px;
+    border: 1px solid {{ block.settings.nav_border_color }};
+    background-color: {{ block.settings.nav_bg_color }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-review-carousel-nav-btn-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.nav_hover_bg_color }};
+    border-color: {{ block.settings.nav_hover_border_color }};
+  }
+
+  .ai-review-carousel-nav-btn-{{ ai_gen_id }}:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .ai-review-carousel-nav-btn-{{ ai_gen_id }} svg {
+    width: 20px;
+    height: 20px;
+    stroke: {{ block.settings.nav_icon_color }};
+  }
+
+  .ai-review-carousel-track-wrapper-{{ ai_gen_id }} {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ai-review-carousel-track-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.card_gap }}px;
+    transition: transform 0.5s ease;
+  }
+
+  .ai-review-carousel-card-{{ ai_gen_id }} {
+    flex: 0 0 calc((100% - {{ block.settings.card_gap | times: 2 }}px) / 3);
+    background-color: {{ block.settings.card_bg_color }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ai-review-carousel-card-header-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .ai-review-carousel-stars-{{ ai_gen_id }} {
+    display: flex;
+    gap: 4px;
+  }
+
+  .ai-review-carousel-star-{{ ai_gen_id }} {
+    width: {{ block.settings.star_size }}px;
+    height: {{ block.settings.star_size }}px;
+  }
+
+  .ai-review-carousel-star-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    fill: {{ block.settings.star_color }};
+  }
+
+  .ai-review-carousel-timestamp-{{ ai_gen_id }} {
+    font-size: {{ block.settings.timestamp_font_size }}px;
+    color: {{ block.settings.timestamp_color }};
+  }
+
+  .ai-review-carousel-review-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.review_title_font_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.review_title_color }};
+    margin: 0;
+  }
+
+  .ai-review-carousel-review-body-{{ ai_gen_id }} {
+    font-size: {{ block.settings.review_body_font_size }}px;
+    color: {{ block.settings.review_body_color }};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-review-carousel-reviewer-{{ ai_gen_id }} {
+    font-size: {{ block.settings.reviewer_font_size }}px;
+    color: {{ block.settings.reviewer_color }};
+    font-weight: 500;
+  }
+
+  .ai-review-carousel-product-badge-{{ ai_gen_id }} {
+    background-color: {{ block.settings.badge_bg_color }};
+    border-radius: {{ block.settings.badge_border_radius }}px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-review-carousel-product-badge-{{ ai_gen_id }}:hover {
+    opacity: 0.8;
+  }
+
+  .ai-review-carousel-product-image-{{ ai_gen_id }} {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .ai-review-carousel-product-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-review-carousel-product-info-{{ ai_gen_id }} {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ai-review-carousel-product-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_name_font_size }}px;
+    color: {{ block.settings.product_name_color }};
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ai-review-carousel-product-rating-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ai-review-carousel-product-stars-{{ ai_gen_id }} {
+    display: flex;
+    gap: 2px;
+  }
+
+  .ai-review-carousel-product-star-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+  }
+
+  .ai-review-carousel-product-star-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    fill: {{ block.settings.product_star_color }};
+  }
+
+  .ai-review-carousel-product-rating-text-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.product_rating_text_color }};
+  }
+
+  @media screen and (max-width: 1024px) {
+    .ai-review-carousel-card-{{ ai_gen_id }} {
+      flex: 0 0 calc((100% - {{ block.settings.card_gap }}px) / 2);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-review-carousel-card-{{ ai_gen_id }} {
+      flex: 0 0 100%;
+    }
+
+    .ai-review-carousel-header-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .ai-review-carousel-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_font_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<review-carousel-{{ ai_gen_id }} class="ai-review-carousel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-review-carousel-container-{{ ai_gen_id }}">
+    <div class="ai-review-carousel-header-{{ ai_gen_id }}">
+      <div class="ai-review-carousel-title-wrapper-{{ ai_gen_id }}">
+        <h2 class="ai-review-carousel-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        <span class="ai-review-carousel-count-{{ ai_gen_id }}">({{ block.settings.review_count }})</span>
+      </div>
+      <div class="ai-review-carousel-nav-{{ ai_gen_id }}">
+        <button class="ai-review-carousel-nav-btn-{{ ai_gen_id }} ai-review-carousel-prev-{{ ai_gen_id }}" aria-label="Previous reviews">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button class="ai-review-carousel-nav-btn-{{ ai_gen_id }} ai-review-carousel-next-{{ ai_gen_id }}" aria-label="Next reviews">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="ai-review-carousel-track-wrapper-{{ ai_gen_id }}">
+      <div class="ai-review-carousel-track-{{ ai_gen_id }}">
+        {% for i in (1..6) %}
+          {% liquid
+            assign review_title_key = 'review_' | append: i | append: '_title'
+            assign review_body_key = 'review_' | append: i | append: '_body'
+            assign reviewer_name_key = 'review_' | append: i | append: '_reviewer'
+            assign timestamp_key = 'review_' | append: i | append: '_timestamp'
+            assign product_key = 'review_' | append: i | append: '_product'
+            assign rating_key = 'review_' | append: i | append: '_rating'
+
+            assign review_title = block.settings[review_title_key]
+            assign review_body = block.settings[review_body_key]
+            assign reviewer_name = block.settings[reviewer_name_key]
+            assign timestamp = block.settings[timestamp_key]
+            assign product = block.settings[product_key]
+            assign rating = block.settings[rating_key]
+          %}
+
+          {% if review_title != blank or review_body != blank %}
+            <div class="ai-review-carousel-card-{{ ai_gen_id }}">
+              <div class="ai-review-carousel-card-header-{{ ai_gen_id }}">
+                <div class="ai-review-carousel-stars-{{ ai_gen_id }}">
+                  {% for star in (1..5) %}
+                    <span class="ai-review-carousel-star-{{ ai_gen_id }}">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                      </svg>
+                    </span>
+                  {% endfor %}
+                </div>
+                {% if timestamp != blank %}
+                  <span class="ai-review-carousel-timestamp-{{ ai_gen_id }}">{{ timestamp }}</span>
+                {% endif %}
+              </div>
+
+              {% if review_title != blank %}
+                <h3 class="ai-review-carousel-review-title-{{ ai_gen_id }}">{{ review_title }}</h3>
+              {% endif %}
+
+              {% if review_body != blank %}
+                <p class="ai-review-carousel-review-body-{{ ai_gen_id }}">{{ review_body }}</p>
+              {% endif %}
+
+              {% if reviewer_name != blank %}
+                <div class="ai-review-carousel-reviewer-{{ ai_gen_id }}">{{ reviewer_name }}</div>
+              {% endif %}
+
+              {% if product != blank %}
+                <a href="{{ product.url }}" class="ai-review-carousel-product-badge-{{ ai_gen_id }}">
+                  <div class="ai-review-carousel-product-image-{{ ai_gen_id }}">
+                    {% if product.featured_image %}
+                      <img src="{{ product.featured_image | image_url: width: 100 }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy" width="50" height="50">
+                    {% endif %}
+                  </div>
+                  <div class="ai-review-carousel-product-info-{{ ai_gen_id }}">
+                    <p class="ai-review-carousel-product-name-{{ ai_gen_id }}">{{ product.title }}</p>
+                    <div class="ai-review-carousel-product-rating-{{ ai_gen_id }}">
+                      <div class="ai-review-carousel-product-stars-{{ ai_gen_id }}">
+                        {% for star in (1..5) %}
+                          <span class="ai-review-carousel-product-star-{{ ai_gen_id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                          </span>
+                        {% endfor %}
+                      </div>
+                      <span class="ai-review-carousel-product-rating-text-{{ ai_gen_id }}">{{ rating }}</span>
+                    </div>
+                  </div>
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</review-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ReviewCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentIndex = 0;
+        this.cardsPerView = 3;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-review-carousel-track-{{ ai_gen_id }}');
+        this.cards = this.querySelectorAll('.ai-review-carousel-card-{{ ai_gen_id }}');
+        this.prevBtn = this.querySelector('.ai-review-carousel-prev-{{ ai_gen_id }}');
+        this.nextBtn = this.querySelector('.ai-review-carousel-next-{{ ai_gen_id }}');
+
+        this.updateCardsPerView();
+        this.updateButtons();
+
+        this.prevBtn.addEventListener('click', () => this.prev());
+        this.nextBtn.addEventListener('click', () => this.next());
+
+        window.addEventListener('resize', () => {
+          this.updateCardsPerView();
+          this.updatePosition();
+        });
+      }
+
+      updateCardsPerView() {
+        const width = window.innerWidth;
+        if (width <= 768) {
+          this.cardsPerView = 1;
+        } else if (width <= 1024) {
+          this.cardsPerView = 2;
+        } else {
+          this.cardsPerView = 3;
+        }
+      }
+
+      prev() {
+        if (this.currentIndex > 0) {
+          this.currentIndex--;
+          this.updatePosition();
+        }
+      }
+
+      next() {
+        const maxIndex = Math.max(0, this.cards.length - this.cardsPerView);
+        if (this.currentIndex < maxIndex) {
+          this.currentIndex++;
+          this.updatePosition();
+        }
+      }
+
+      updatePosition() {
+        const cardWidth = this.cards[0].offsetWidth;
+        const gap = {{ block.settings.card_gap }};
+        const offset = -(this.currentIndex * (cardWidth + gap));
+        this.track.style.transform = `translateX(${offset}px)`;
+        this.updateButtons();
+      }
+
+      updateButtons() {
+        const maxIndex = Math.max(0, this.cards.length - this.cardsPerView);
+        this.prevBtn.disabled = this.currentIndex === 0;
+        this.nextBtn.disabled = this.currentIndex >= maxIndex;
+      }
+    }
+
+    customElements.define('review-carousel-{{ ai_gen_id }}', ReviewCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Review carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container width",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full width"
+        },
+        {
+          "value": "boxed",
+          "label": "Boxed width"
+        }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top margin",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom margin",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_left",
+      "label": "Left margin",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_right",
+      "label": "Right margin",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Reviews"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review count",
+      "default": "37"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title font size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "count_font_size",
+      "label": "Count font size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap between cards",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "star_size",
+      "label": "Star size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "timestamp_font_size",
+      "label": "Timestamp font size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "review_title_font_size",
+      "label": "Review title font size",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "review_body_font_size",
+      "label": "Review body font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "reviewer_font_size",
+      "label": "Reviewer font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Product badge"
+    },
+    {
+      "type": "range",
+      "id": "badge_border_radius",
+      "label": "Badge border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "product_name_font_size",
+      "label": "Product name font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "count_color",
+      "label": "Count",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "nav_bg_color",
+      "label": "Navigation background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "nav_border_color",
+      "label": "Navigation border",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "nav_hover_bg_color",
+      "label": "Navigation hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "nav_hover_border_color",
+      "label": "Navigation hover border",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "nav_icon_color",
+      "label": "Navigation icon",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star",
+      "default": "#ffc107"
+    },
+    {
+      "type": "color",
+      "id": "timestamp_color",
+      "label": "Timestamp",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "review_title_color",
+      "label": "Review title",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "review_body_color",
+      "label": "Review body",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "reviewer_color",
+      "label": "Reviewer name",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge background",
+      "default": "#3a3a3a"
+    },
+    {
+      "type": "color",
+      "id": "product_name_color",
+      "label": "Product name",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "product_star_color",
+      "label": "Product star",
+      "default": "#ffc107"
+    },
+    {
+      "type": "color",
+      "id": "product_rating_text_color",
+      "label": "Product rating text",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Review 1"
+    },
+    {
+      "type": "text",
+      "id": "review_1_title",
+      "label": "Title",
+      "default": "Absolutely love it!"
+    },
+    {
+      "type": "textarea",
+      "id": "review_1_body",
+      "label": "Review text",
+      "default": "This fragrance is absolutely stunning. The scent lasts all day and I receive compliments everywhere I go. Highly recommend!"
+    },
+    {
+      "type": "text",
+      "id": "review_1_reviewer",
+      "label": "Reviewer name",
+      "default": "Sarah M."
+    },
+    {
+      "type": "text",
+      "id": "review_1_timestamp",
+      "label": "Timestamp",
+      "default": "2 days ago"
+    },
+    {
+      "type": "product",
+      "id": "review_1_product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "review_1_rating",
+      "label": "Product rating",
+      "default": "5.0"
+    },
+    {
+      "type": "header",
+      "content": "Review 2"
+    },
+    {
+      "type": "text",
+      "id": "review_2_title",
+      "label": "Title",
+      "default": "Perfect for everyday"
+    },
+    {
+      "type": "textarea",
+      "id": "review_2_body",
+      "label": "Review text",
+      "default": "A beautiful, subtle scent that works for any occasion. Not too overpowering but definitely noticeable. Will purchase again!"
+    },
+    {
+      "type": "text",
+      "id": "review_2_reviewer",
+      "label": "Reviewer name",
+      "default": "Emma L."
+    },
+    {
+      "type": "text",
+      "id": "review_2_timestamp",
+      "label": "Timestamp",
+      "default": "5 days ago"
+    },
+    {
+      "type": "product",
+      "id": "review_2_product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "review_2_rating",
+      "label": "Product rating",
+      "default": "4.8"
+    },
+    {
+      "type": "header",
+      "content": "Review 3"
+    },
+    {
+      "type": "text",
+      "id": "review_3_title",
+      "label": "Title",
+      "default": "Luxurious and elegant"
+    },
+    {
+      "type": "textarea",
+      "id": "review_3_body",
+      "label": "Review text",
+      "default": "The quality is exceptional. This perfume feels luxurious and the bottle design is gorgeous. Worth every penny!"
+    },
+    {
+      "type": "text",
+      "id": "review_3_reviewer",
+      "label": "Reviewer name",
+      "default": "Jessica K."
+    },
+    {
+      "type": "text",
+      "id": "review_3_timestamp",
+      "label": "Timestamp",
+      "default": "1 week ago"
+    },
+    {
+      "type": "product",
+      "id": "review_3_product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "review_3_rating",
+      "label": "Product rating",
+      "default": "5.0"
+    },
+    {
+      "type": "header",
+      "content": "Review 4"
+    },
+    {
+      "type": "text",
+      "id": "review_4_title",
+      "label": "Title",
+      "default": "My new signature scent"
+    },
+    {
+      "type": "textarea",
+      "id": "review_4_body",
+      "label": "Review text",
+      "default": "I've been searching for the perfect fragrance and finally found it. This has become my signature scent!"
+    },
+    {
+      "type": "text",
+      "id": "review_4_reviewer",
+      "label": "Reviewer name",
+      "default": "Olivia R."
+    },
+    {
+      "type": "text",
+      "id": "review_4_timestamp",
+      "label": "Timestamp",
+      "default": "1 week ago"
+    },
+    {
+      "type": "product",
+      "id": "review_4_product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "review_4_rating",
+      "label": "Product rating",
+      "default": "5.0"
+    },
+    {
+      "type": "header",
+      "content": "Review 5"
+    },
+    {
+      "type": "text",
+      "id": "review_5_title",
+      "label": "Title",
+      "default": "Great longevity"
+    },
+    {
+      "type": "textarea",
+      "id": "review_5_body",
+      "label": "Review text",
+      "default": "The scent stays on all day without needing to reapply. Amazing quality and beautiful packaging too!"
+    },
+    {
+      "type": "text",
+      "id": "review_5_reviewer",
+      "label": "Reviewer name",
+      "default": "Sophia T."
+    },
+    {
+      "type": "text",
+      "id": "review_5_timestamp",
+      "label": "Timestamp",
+      "default": "2 weeks ago"
+    },
+    {
+      "type": "product",
+      "id": "review_5_product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "review_5_rating",
+      "label": "Product rating",
+      "default": "4.9"
+    },
+    {
+      "type": "header",
+      "content": "Review 6"
+    },
+    {
+      "type": "text",
+      "id": "review_6_title",
+      "label": "Title",
+      "default": "Highly recommend"
+    },
+    {
+      "type": "textarea",
+      "id": "review_6_body",
+      "label": "Review text",
+      "default": "This is hands down one of the best perfumes I've ever purchased. The scent is divine and lasts forever!"
+    },
+    {
+      "type": "text",
+      "id": "review_6_reviewer",
+      "label": "Reviewer name",
+      "default": "Ava W."
+    },
+    {
+      "type": "text",
+      "id": "review_6_timestamp",
+      "label": "Timestamp",
+      "default": "3 weeks ago"
+    },
+    {
+      "type": "product",
+      "id": "review_6_product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "review_6_rating",
+      "label": "Product rating",
+      "default": "5.0"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Review carousel"
+    }
+  ]
+}
+{% endschema %}

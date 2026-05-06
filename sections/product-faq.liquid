@@ -1,0 +1,221 @@
+{%- liquid
+  assign pt  = section.settings.padding_top
+  assign pb  = section.settings.padding_bottom
+  assign mt  = section.settings.margin_top
+  assign mb  = section.settings.margin_bottom
+  assign bg_color      = section.settings.background_color
+  assign border_color  = section.settings.border_color
+  assign text_color    = section.settings.text_color
+  assign max_width     = section.settings.container_width
+  assign heading_plain  = section.settings.heading_plain
+  assign heading_italic = section.settings.heading_italic
+  assign heading_size  = section.settings.heading_font_size
+  assign q_size        = section.settings.question_font_size
+  assign a_size        = section.settings.answer_font_size
+-%}
+<style>
+  #faq-{{ section.id }} {
+    padding-top: {{ pt }}px;
+    padding-bottom: {{ pb }}px;
+    margin-top: {{ mt }}px;
+    margin-bottom: {{ mb }}px;
+    background-color: {{ bg_color }};
+    color: {{ text_color }};
+  }
+  #faq-{{ section.id }} .faq__container {
+    max-width: {{ max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    align-items: start;
+  }
+  #faq-{{ section.id }} .faq__heading {
+    font-size: {{ heading_size }}px;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    position: sticky;
+    top: 40px;
+  }
+  #faq-{{ section.id }} .faq__heading em {
+    font-style: italic;
+    font-weight: 700;
+  }
+  #faq-{{ section.id }} .faq__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  #faq-{{ section.id }} .faq__item {
+    border-bottom: 1px solid {{ border_color }};
+  }
+  #faq-{{ section.id }} .faq__item:first-child {
+    border-top: none;
+  }
+  #faq-{{ section.id }} .faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 20px 0;
+    cursor: pointer;
+    text-align: left;
+    font-size: {{ q_size }}px;
+    font-weight: 400;
+    color: {{ text_color }};
+    line-height: 1.4;
+  }
+  #faq-{{ section.id }} .faq__icon {
+    flex-shrink: 0;
+    font-size: 1.4rem;
+    font-weight: 300;
+    line-height: 1;
+    transition: transform 0.3s ease;
+    display: inline-block;
+  }
+  #faq-{{ section.id }} .faq__question[aria-expanded="true"] .faq__icon {
+    transform: rotate(45deg);
+  }
+  #faq-{{ section.id }} .faq__answer {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    font-size: {{ a_size }}px;
+    line-height: 1.7;
+    color: {{ text_color }};
+    opacity: 0.75;
+  }
+  #faq-{{ section.id }} .faq__answer.is-open {
+    max-height: 600px;
+    padding-bottom: 18px;
+  }
+  #faq-{{ section.id }} .faq__answer p { margin: 0 0 8px; }
+  #faq-{{ section.id }} .faq__answer p:last-child { margin-bottom: 0; }
+  @media (max-width: 1024px) {
+    #faq-{{ section.id }} .faq__container {
+      grid-template-columns: 1fr 2fr;
+      gap: 32px;
+    }
+  }
+  @media (max-width: 768px) {
+    #faq-{{ section.id }} {
+      padding-top: {{ pt | divided_by: 2 }}px;
+      padding-bottom: {{ pb | divided_by: 2 }}px;
+    }
+    #faq-{{ section.id }} .faq__container {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 0 16px;
+    }
+    #faq-{{ section.id }} .faq__heading {
+      position: static;
+      font-size: {{ heading_font_size | times: 0.75 | round }}px;
+    }
+  }
+</style>
+
+<div id="faq-{{ section.id }}" class="faq-section">
+  <div class="faq__container">
+
+    <div class="faq__left">
+      <h2 class="faq__heading">{{ heading_plain }} <em>{{ heading_italic }}</em></h2>
+    </div>
+
+    <div class="faq__right">
+      <ul class="faq__list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq_item' -%}
+          <li class="faq__item" {{ block.shopify_attributes }}>
+            <button class="faq__question"
+                    aria-expanded="false"
+                    aria-controls="faq-answer-{{ section.id }}-{{ forloop.index }}"
+                    onclick="toggleFaq(this)">
+              <span>{{ block.settings.question }}</span>
+              <span class="faq__icon">+</span>
+            </button>
+            <div class="faq__answer"
+                 id="faq-answer-{{ section.id }}-{{ forloop.index }}"
+                 role="region">
+              {{ block.settings.answer }}
+            </div>
+          </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  function toggleFaq(btn) {
+    var isOpen = btn.getAttribute('aria-expanded') === 'true';
+    var answerId = btn.getAttribute('aria-controls');
+    var answer = document.getElementById(answerId);
+    if (!answer) return;
+    if (isOpen) {
+      btn.setAttribute('aria-expanded', 'false');
+      answer.classList.remove('is-open');
+    } else {
+      btn.setAttribute('aria-expanded', 'true');
+      answer.classList.add('is-open');
+    }
+  }
+  window.toggleFaq = toggleFaq;
+})();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "section-faq",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "heading_plain", "label": "Heading (normal text)", "default": "Your questions, our" },
+    { "type": "text", "id": "heading_italic", "label": "Heading (italic bold word)", "default": "priority" },
+    { "type": "header", "content": "Font Sizes" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading Font Size (px)", "min": 20, "max": 72, "step": 2, "default": 36 },
+    { "type": "range", "id": "question_font_size", "label": "Question Font Size (px)", "min": 12, "max": 28, "step": 1, "default": 16 },
+    { "type": "range", "id": "answer_font_size", "label": "Answer Font Size (px)", "min": 12, "max": 24, "step": 1, "default": 15 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background Color", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#111111" },
+    { "type": "color", "id": "border_color", "label": "Border / Divider Color", "default": "#e0e0e0" },
+    { "type": "header", "content": "Container" },
+    { "type": "range", "id": "container_width", "label": "Max Container Width (px)", "min": 800, "max": 1600, "step": 40, "default": 1200 },
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding Top (px)", "min": 0, "max": 120, "step": 4, "default": 60 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom (px)", "min": 0, "max": 120, "step": 4, "default": 60 },
+    { "type": "range", "id": "margin_top", "label": "Margin Top (px)", "min": 0, "max": 100, "step": 4, "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin Bottom (px)", "min": 0, "max": 100, "step": 4, "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "What makes your fragrances unique?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Our fragrances are carefully crafted using premium ingredients sourced from around the world.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "faq_item" },
+        { "type": "faq_item" },
+        { "type": "faq_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

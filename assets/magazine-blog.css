@@ -1,0 +1,408 @@
+/* ==========================================================================
+   Magazine Blog Section
+   ========================================================================== */
+
+.magazine-blog {
+  background: var(--mb-bg, #ffffff);
+  color: var(--mb-text, #1a1a1a);
+  margin-top: var(--mb-margin-top, 0);
+  margin-bottom: var(--mb-margin-bottom, 0);
+  padding-top: var(--mb-padding-top, 40px);
+  padding-bottom: var(--mb-padding-bottom, 40px);
+}
+
+.magazine-blog__inner {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+/* ==========================================================================
+   Header Bar
+   ========================================================================== */
+
+.magazine-blog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  margin-bottom: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.magazine-blog__title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--mb-text, #1a1a1a) !important;
+}
+
+/* ==========================================================================
+   Filter Dropdown
+   ========================================================================== */
+
+.magazine-blog__filter {
+  position: relative;
+}
+
+.magazine-blog__filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mb-text, #1a1a1a);
+  padding: 4px 0;
+  transition: opacity 0.2s;
+}
+
+.magazine-blog__filter-btn:hover {
+  opacity: 0.7;
+}
+
+.magazine-blog__chevron {
+  transition: transform 0.25s ease;
+}
+
+.magazine-blog__filter-btn[aria-expanded="true"] .magazine-blog__chevron {
+  transform: rotate(180deg);
+}
+
+.magazine-blog__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 100;
+  min-width: 200px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.magazine-blog__dropdown--open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.magazine-blog__dropdown li {
+  margin: 0;
+  padding: 0;
+}
+
+.magazine-blog__dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.magazine-blog__dropdown-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.magazine-blog__dropdown-item--active {
+  font-weight: 600;
+  color: #000;
+}
+
+/* ==========================================================================
+   Grid Layout
+   ========================================================================== */
+
+.magazine-blog__grid {
+  display: grid;
+  grid-template-columns: 40% 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+/* Featured card — LEFT (default) */
+.magazine-blog__grid--featured-left .magazine-blog__card--featured {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+}
+
+/* Featured card — RIGHT */
+.magazine-blog__grid--featured-right {
+  grid-template-columns: 1fr 1fr 40%;
+}
+
+.magazine-blog__grid--featured-right .magazine-blog__card--featured {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  order: 10;
+}
+
+/* ==========================================================================
+   Card Base
+   ========================================================================== */
+
+.magazine-blog__card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--mb-card-radius, 12px);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+a.magazine-blog__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   Card Image
+   ========================================================================== */
+
+.magazine-blog__card-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--mb-card-radius, 12px);
+  background: #f0ece6;
+}
+
+/* Featured card image fills entire card */
+.magazine-blog__card--featured .magazine-blog__card-image {
+  height: 100%;
+  min-height: 460px;
+}
+
+/* Non-featured cards */
+.magazine-blog__card:not(.magazine-blog__card--featured) .magazine-blog__card-image {
+  aspect-ratio: 4 / 3;
+}
+
+.magazine-blog__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+a.magazine-blog__card:hover .magazine-blog__card-image img {
+  transform: scale(1.04);
+}
+
+.magazine-blog__card-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  background: #f0ece6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.magazine-blog__card-placeholder svg {
+  width: 60px;
+  height: 60px;
+  opacity: 0.3;
+}
+
+/* ==========================================================================
+   Featured Card Overlay
+   ========================================================================== */
+
+.magazine-blog__card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px 24px 24px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+  color: #ffffff;
+}
+
+.magazine-blog__card-overlay .magazine-blog__tag {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.magazine-blog .magazine-blog__card-overlay h3.magazine-blog__card-title.magazine-blog__card-title--featured {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 8px 0;
+  color: #ffffff !important;
+}
+
+.magazine-blog__card-excerpt {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 10px;
+}
+
+.magazine-blog__card-overlay .magazine-blog__card-meta {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ==========================================================================
+   Non-Featured Card Body
+   ========================================================================== */
+
+.magazine-blog__card-body {
+  padding: 14px 4px 8px;
+}
+
+.magazine-blog__card-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 6px 0 8px;
+  color: var(--mb-text, #1a1a1a) !important;
+}
+
+/* ==========================================================================
+   Tags & Meta
+   ========================================================================== */
+
+.magazine-blog__tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #888;
+  padding: 0;
+  margin: 0;
+}
+
+.magazine-blog__tag--small {
+  font-size: 11px;
+}
+
+.magazine-blog__card-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.magazine-blog__card-meta time {
+  color: inherit;
+}
+
+.magazine-blog__read-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: inherit;
+}
+
+.magazine-blog__read-time svg {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+
+.magazine-blog__empty {
+  text-align: center;
+  font-size: 15px;
+  color: #999;
+  padding: 60px 20px;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media screen and (max-width: 999px) {
+  .magazine-blog__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .magazine-blog__card--featured {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .magazine-blog__card--featured .magazine-blog__card-image {
+    min-height: 350px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .magazine-blog__inner {
+    padding-inline: 16px;
+  }
+
+  .magazine-blog__header {
+    margin-bottom: 16px;
+  }
+
+  .magazine-blog__title {
+    font-size: 12px;
+  }
+
+  .magazine-blog__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .magazine-blog__card--featured {
+    grid-column: auto;
+  }
+
+  .magazine-blog__card--featured .magazine-blog__card-image {
+    min-height: 280px;
+  }
+
+  .magazine-blog__card-title--featured {
+    font-size: 18px;
+  }
+
+  .magazine-blog__card-title {
+    font-size: 15px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .magazine-blog__card,
+  .magazine-blog__card-image img,
+  .magazine-blog__chevron,
+  .magazine-blog__dropdown {
+    transition: none;
+  }
+
+  a.magazine-blog__card:hover {
+    transform: none;
+  }
+
+  a.magazine-blog__card:hover .magazine-blog__card-image img {
+    transform: none;
+  }
+}

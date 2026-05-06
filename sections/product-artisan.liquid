@@ -1,0 +1,201 @@
+{%- liquid
+  assign artisan_name  = product.metafields.custom.artisan_name.value
+  assign artisan_image = product.metafields.custom.artisan_image.value
+  assign artisan_bio   = product.metafields.custom.artisan_bio.value
+  assign pt  = section.settings.padding_top
+  assign pb  = section.settings.padding_bottom
+  assign mt  = section.settings.margin_top
+  assign mb  = section.settings.margin_bottom
+  assign img_size      = section.settings.image_size
+  assign text_align    = section.settings.text_align
+  assign bg_color      = section.settings.background_color
+  assign preview_lines = section.settings.bio_preview_lines
+  assign read_more_text = section.settings.read_more_text
+  assign read_less_text = section.settings.read_less_text
+  assign heading_plain  = section.settings.heading_plain
+  assign heading_italic = section.settings.heading_italic
+  if text_align == 'left'
+    assign photo_justify = 'flex-start'
+  elsif text_align == 'right'
+    assign photo_justify = 'flex-end'
+  else
+    assign photo_justify = 'center'
+  endif
+-%}
+
+{%- if artisan_name != blank -%}
+<style>
+  #artisan-{{ section.id }} {
+    padding-top: {{ pt }}px;
+    padding-bottom: {{ pb }}px;
+    margin-top: {{ mt }}px;
+    margin-bottom: {{ mb }}px;
+    background-color: {{ bg_color }};
+    text-align: {{ text_align }};
+  }
+  #artisan-{{ section.id }} .artisan__inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  #artisan-{{ section.id }} .artisan__heading {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0 0 28px;
+    letter-spacing: -0.01em;
+  }
+  #artisan-{{ section.id }} .artisan__heading em {
+    font-style: italic;
+    font-weight: 700;
+  }
+  #artisan-{{ section.id }} .artisan__photo-wrap {
+    display: flex;
+    justify-content: {{ photo_justify }};
+    margin-bottom: 20px;
+  }
+  #artisan-{{ section.id }} .artisan__photo {
+    width: {{ img_size }}px;
+    height: {{ img_size }}px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  #artisan-{{ section.id }} .artisan__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+  #artisan-{{ section.id }} .artisan__name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+  #artisan-{{ section.id }} .artisan__bio-preview {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: {{ preview_lines }};
+    -webkit-box-orient: vertical;
+    margin: 0 0 6px;
+    color: #555;
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+  #artisan-{{ section.id }} .artisan__bio-full {
+    display: none;
+    margin: 0 0 6px;
+    color: #555;
+    line-height: 1.7;
+    font-size: 1rem;
+    white-space: pre-line;
+  }
+  #artisan-{{ section.id }} .artisan__readmore {
+    background: none;
+    border: none;
+    border-bottom: 1px solid currentColor;
+    padding: 0 0 1px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: inherit;
+    display: inline-block;
+    margin-top: 6px;
+  }
+  @media (max-width: 768px) {
+    #artisan-{{ section.id }} {
+      padding-top: {{ pt | divided_by: 2 }}px;
+      padding-bottom: {{ pb | divided_by: 2 }}px;
+    }
+    #artisan-{{ section.id }} .artisan__photo {
+      width: {{ img_size | times: 0.8 | round }}px;
+      height: {{ img_size | times: 0.8 | round }}px;
+    }
+  }
+</style>
+
+<div id="artisan-{{ section.id }}" class="artisan-section">
+  <div class="artisan__inner">
+
+    <h2 class="artisan__heading">{{ heading_plain }} <em>{{ heading_italic }}</em></h2>
+
+    {%- if artisan_image != blank -%}
+    <div class="artisan__photo-wrap">
+      <div class="artisan__photo">
+        <img src="{{ artisan_image | image_url: width: img_size, height: img_size, crop: 'center' }}"
+             alt="{{ artisan_name }}"
+             width="{{ img_size }}"
+             height="{{ img_size }}"
+             loading="lazy">
+      </div>
+    </div>
+    {%- endif -%}
+
+    <p class="artisan__name">{{ artisan_name }}</p>
+
+    {%- if artisan_bio != blank -%}
+    <div class="artisan__bio-wrap">
+      <p class="artisan__bio-preview" id="bio-preview-{{ section.id }}">{{ artisan_bio }}</p>
+      <p class="artisan__bio-full" id="bio-full-{{ section.id }}">{{ artisan_bio | newline_to_br }}</p>
+      <button class="artisan__readmore"
+              id="bio-btn-{{ section.id }}"
+              data-more="{{ read_more_text }}"
+              data-less="{{ read_less_text }}"
+              onclick="toggleArtisanBio('{{ section.id }}')">{{ read_more_text }}</button>
+    </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+(function() {
+  function toggleArtisanBio(id) {
+    var preview = document.getElementById('bio-preview-' + id);
+    var full    = document.getElementById('bio-full-' + id);
+    var btn     = document.getElementById('bio-btn-' + id);
+    if (!preview || !full || !btn) return;
+    var isOpen = full.style.display === 'block';
+    if (isOpen) {
+      full.style.display = 'none';
+      preview.style.display = '-webkit-box';
+      btn.textContent = btn.dataset.more;
+    } else {
+      preview.style.display = 'none';
+      full.style.display = 'block';
+      btn.textContent = btn.dataset.less;
+    }
+  }
+  window.toggleArtisanBio = toggleArtisanBio;
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Meet the Artisan",
+  "tag": "section",
+  "class": "section-artisan",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "heading_plain", "label": "Heading (normal text)", "default": "Meet the", "info": "This part renders in normal weight" },
+    { "type": "text", "id": "heading_italic", "label": "Heading (italic bold word)", "default": "artisan", "info": "This part renders in italic bold" },
+    { "type": "header", "content": "Button Text" },
+    { "type": "text", "id": "read_more_text", "label": "Read More text", "default": "Read on" },
+    { "type": "text", "id": "read_less_text", "label": "Read Less text", "default": "Read less" },
+    { "type": "header", "content": "Style" },
+    { "type": "select", "id": "text_align", "label": "Text Alignment", "default": "center", "options": [{ "value": "left", "label": "Left" },{ "value": "center", "label": "Center" },{ "value": "right", "label": "Right" }] },
+    { "type": "color", "id": "background_color", "label": "Background Color", "default": "#ffffff" },
+    { "type": "range", "id": "image_size", "label": "Photo Size (px)", "min": 80, "max": 300, "step": 10, "default": 180 },
+    { "type": "range", "id": "bio_preview_lines", "label": "Bio Preview Lines", "min": 1, "max": 6, "step": 1, "default": 3 },
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding Top (px)", "min": 0, "max": 120, "step": 4, "default": 60 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom (px)", "min": 0, "max": 120, "step": 4, "default": 60 },
+    { "type": "range", "id": "margin_top", "label": "Margin Top (px)", "min": 0, "max": 100, "step": 4, "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin Bottom (px)", "min": 0, "max": 100, "step": 4, "default": 0 }
+  ],
+  "presets": [
+    { "name": "Meet the Artisan" }
+  ]
+}
+{% endschema %}

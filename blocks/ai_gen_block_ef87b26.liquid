@@ -1,0 +1,526 @@
+{% doc %}
+  @prompt
+    Create a 'Featured Curator' section with a minimalist, high-end editorial aesthetic.
+    
+    Layout & Content:
+    
+    Main Image: A large, landscape-oriented hero image with subtly rounded corners at the top.
+    
+    Text Content: Centered below the image.
+    
+    Heading: A title that says 'Meet the curator' (using a serif italic font for the word 'curator').
+    
+    Description: A centered paragraph of body text for a bio or introduction.
+    
+    Link: A simple 'Read on' text link with an underline.
+    
+    Customization & Box Model Controls:
+    
+    Container Type: Include a toggle to switch between 'Full Width' and 'Fixed/Boxed Width'.
+    
+    Background Color: Option to change the section background (e.g., white or dark gray).
+    
+    Padding Controls: Independent range sliders for Top, Bottom, Left, and Right inner padding (0px to 120px).
+    
+    Margin Controls: Independent range sliders for Top, Bottom, Left, and Right outer margins to control spacing between sections.
+    
+    Max Width Slider: A slider to specifically control the width of the text block independently of the image."
+    
+    Key Details for Implementation
+    Typography: The "Meet the curator" heading uses a mix of a clean Sans-Serif and a sophisticated Italic Serif. Mentioning "theme-aware fonts" in your builder will help it pull your brand's specific typefaces.
+    
+    The "Box" Effect: If you want the section to look like a separate block (like in the dark gray background example), you would set the Section Background to a color and use Margins to create the "box" edges.
+    
+    Spacing: To get the look in the image, you will need high Top and Bottom Padding (around 80-100px) and moderate Left/Right Padding to keep the text centered and readable.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-featured-curator-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.section_background }};
+    margin-top: {{ block.settings.margin_top }}px;
+    margin-bottom: {{ block.settings.margin_bottom }}px;
+    margin-left: {{ block.settings.margin_left }}px;
+    margin-right: {{ block.settings.margin_right }}px;
+  }
+
+  .ai-featured-curator__container-{{ ai_gen_id }} {
+    {% if block.settings.container_type == 'boxed' %}
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    {% endif %}
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    padding-left: {{ block.settings.padding_left }}px;
+    padding-right: {{ block.settings.padding_right }}px;
+  }
+
+  .ai-featured-curator__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px {{ block.settings.image_border_radius }}px 0 0;
+  }
+
+  .ai-featured-curator__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-featured-curator__image-placeholder-{{ ai_gen_id }} {
+    background-color: #f4f4f4;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-featured-curator__image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
+    opacity: 0.3;
+  }
+
+  .ai-featured-curator__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-featured-curator__content-{{ ai_gen_id }} {
+    max-width: {{ block.settings.text_max_width }}px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: {{ block.settings.content_spacing }}px;
+  }
+
+  .ai-featured-curator__heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 {{ block.settings.heading_spacing }}px;
+    font-weight: {{ block.settings.heading_weight }};
+    line-height: 1.3;
+  }
+
+  .ai-featured-curator__heading-regular-{{ ai_gen_id }} {
+    font-family: var(--g-font-2);
+    font-style: normal;
+  }
+
+  .ai-featured-curator__heading-italic-{{ ai_gen_id }} {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .ai-featured-curator__description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.7;
+    margin: 0 0 {{ block.settings.description_spacing }}px;
+    opacity: 0.9;
+  }
+
+  .ai-featured-curator__link-{{ ai_gen_id }} {
+    display: inline-block;
+    font-size: {{ block.settings.link_size }}px;
+    color: {{ block.settings.link_color }};
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-featured-curator__link-{{ ai_gen_id }}:hover {
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-featured-curator__image-wrapper-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-featured-curator__heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.7 }}px;
+    }
+
+    .ai-featured-curator__description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+
+    .ai-featured-curator__content-{{ ai_gen_id }} {
+      max-width: 100%;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-featured-curator-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-featured-curator__container-{{ ai_gen_id }}">
+    <div class="ai-featured-curator__image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.curator_image %}
+        <img
+          src="{{ block.settings.curator_image | image_url: width: 2000 }}"
+          alt="{{ block.settings.curator_image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.curator_image.width }}"
+          height="{{ block.settings.curator_image.height }}"
+          class="ai-featured-curator__image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-featured-curator__image-placeholder-{{ ai_gen_id }}">
+          {{ 'hero-apparel-1' | placeholder_svg_tag }}
+          <div class="ai-featured-curator__empty-state-{{ ai_gen_id }}">
+            Add a curator image to get started
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-featured-curator__content-{{ ai_gen_id }}">
+      {% if block.settings.heading_part1 != blank or block.settings.heading_part2 != blank %}
+        <h2 class="ai-featured-curator__heading-{{ ai_gen_id }}">
+          {% if block.settings.heading_part1 != blank %}
+            <span class="ai-featured-curator__heading-regular-{{ ai_gen_id }}">{{ block.settings.heading_part1 }}</span>
+          {% endif %}
+          {% if block.settings.heading_part2 != blank %}
+            <span class="ai-featured-curator__heading-italic-{{ ai_gen_id }}">{{ block.settings.heading_part2 }}</span>
+          {% endif %}
+        </h2>
+      {% endif %}
+
+      {% if block.settings.description != blank %}
+        <div class="ai-featured-curator__description-{{ ai_gen_id }}">
+          {{ block.settings.description }}
+        </div>
+      {% endif %}
+
+      {% if block.settings.link_text != blank %}
+        <a
+          href="{{ block.settings.link_url }}"
+          class="ai-featured-curator__link-{{ ai_gen_id }}"
+        >
+          {{ block.settings.link_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured curator",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "curator_image",
+      "label": "Curator image"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading_part1",
+      "label": "Heading (regular)",
+      "default": "Meet the"
+    },
+    {
+      "type": "text",
+      "id": "heading_part2",
+      "label": "Heading (italic serif)",
+      "default": "curator"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover the story behind our carefully curated collection. Each piece is selected with intention, bringing together timeless design and contemporary elegance.</p>"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "Read on"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "container_type",
+      "label": "Container type",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full width"
+        },
+        {
+          "value": "boxed",
+          "label": "Boxed width"
+        }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "text_max_width",
+      "min": 400,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "label": "Text block max width",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "content_spacing",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Space between image and text",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Left",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Right",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_left",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Left",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_right",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Right",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#222222"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom spacing",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_spacing",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Description bottom spacing",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "link_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Link size",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured curator"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,302 @@
+/* ==========================================================================
+   Hero Banner Section
+   ========================================================================== */
+
+.hero-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-top: var(--hero-margin-top, 0);
+  margin-bottom: var(--hero-margin-bottom, 0);
+  padding: var(--hero-padding-top) var(--hero-padding-right) var(--hero-padding-bottom) var(--hero-padding-left);
+}
+
+/* Section height variants */
+.hero-banner--adapt {
+  min-height: auto;
+}
+
+.hero-banner--small {
+  min-height: 300px;
+}
+
+.hero-banner--medium {
+  min-height: 500px;
+}
+
+.hero-banner--large {
+  min-height: 700px;
+}
+
+.hero-banner--full {
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Media / Background
+   ========================================================================== */
+
+.hero-banner__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-banner__image,
+.hero-banner__video,
+.hero-banner__placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-banner__video--external {
+  border: 0;
+  pointer-events: none;
+  /* Scale iframe to cover container */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.78vh; /* 16:9 ratio */
+  height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.hero-banner__placeholder {
+  background: #2a2a2a;
+}
+
+.hero-banner__placeholder svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark overlay */
+.hero-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, var(--hero-overlay-opacity, 0.3));
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Content Card — Glassmorphism
+   ========================================================================== */
+
+.hero-banner__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Card positioning */
+.hero-banner__content--left {
+  justify-content: flex-start;
+}
+
+.hero-banner__content--center {
+  justify-content: center;
+}
+
+.hero-banner__content--right {
+  justify-content: flex-end;
+}
+
+/* Center-aligned card: center text & buttons inside */
+.hero-banner__content--center .hero-banner__card {
+  text-align: center;
+}
+
+.hero-banner__content--center .hero-banner__buttons {
+  justify-content: center;
+}
+
+/* The glass card itself */
+.hero-banner__card {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 40px 44px;
+  max-width: 560px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+.hero-banner__subheading {
+  font-size: var(--hero-desktop-subheading);
+  letter-spacing: var(--hero-subheading-spacing, 0.02em);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8) !important;
+  margin: 0 0 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.hero-banner__heading {
+  font-size: var(--hero-desktop-heading);
+  color: #ffffff !important;
+  margin: 0 0 24px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* Italic emphasis for specific words (via richtext <em>) */
+.hero-banner__heading em {
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #ffffff !important;
+}
+
+/* Strip inner <p> tags from richtext output */
+.hero-banner__heading p {
+  margin: 0;
+  color: #ffffff !important;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+.hero-banner__description {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 28px;
+  line-height: 1.6;
+}
+
+.hero-banner__description p {
+  margin: 0;
+}
+
+/* ==========================================================================
+   CTA Buttons
+   ========================================================================== */
+
+.hero-banner__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.hero-banner__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  font-size: var(--hero-btn-font-size, 15px);
+  font-weight: var(--hero-btn-font-weight, 500);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border-radius: var(--hero-btn-radius, 50px);
+  transition: opacity 0.25s ease, transform 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.hero-banner__btn:hover {
+  opacity: 1;
+    transform: translateY(-1px);
+      background: var(--hero-btn-primary-hover-bg, var(--hero-btn-primary-bg, #ffffff)) !important;
+        color: var(--hero-btn-primary-hover-text, var(--hero-btn-primary-text, #1a1a1a)) !important;
+          border-color: var(--hero-btn-primary-hover-border, transparent) !important;
+}
+
+.hero-banner__btn:active {
+  transform: translateY(0);
+}
+
+/* Primary — solid */
+.hero-banner__btn--primary {
+  background: var(--hero-btn-primary-bg, #ffffff);
+  color: var(--hero-btn-primary-text, #1a1a1a);
+  border: 2px solid var(--hero-btn-primary-border, transparent);
+}
+
+/* Secondary — ghost / outlined */
+.hero-banner__btn--secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.hero-banner__btn--secondary:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media screen and (max-width: 749px) {
+  .hero-banner {
+    min-height: 400px !important;
+    padding: 24px 16px;
+  }
+
+  .hero-banner--full {
+    min-height: 100vh !important;
+  }
+
+  .hero-banner__content {
+    padding: 12px;
+    justify-content: center !important;
+  }
+
+  .hero-banner__card {
+    padding: 28px 24px;
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  .hero-banner__subheading {
+    font-size: var(--hero-mobile-subheading);
+  }
+
+  .hero-banner__heading {
+    font-size: var(--hero-mobile-heading);
+    margin-bottom: 16px;
+  }
+
+  .hero-banner__description {
+    font-size: 14px;
+  }
+
+  .hero-banner__buttons {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .hero-banner__btn {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 14px;
+  }
+}
+
+/* Accessibility — respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-banner__btn {
+    transition: none;
+  }
+
+  .hero-banner__video {
+    animation: none;
+  }
+}

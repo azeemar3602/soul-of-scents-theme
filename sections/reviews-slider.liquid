@@ -1,0 +1,380 @@
+{%- liquid
+  assign pt         = section.settings.padding_top
+  assign pb         = section.settings.padding_bottom
+  assign mt         = section.settings.margin_top
+  assign mb         = section.settings.margin_bottom
+  assign bg         = section.settings.background_color
+  assign card_bg    = section.settings.card_background
+  assign card_r     = section.settings.card_radius
+  assign text_col   = section.settings.text_color
+  assign sub_col    = section.settings.subtext_color
+  assign heading    = section.settings.heading
+  assign review_count = section.blocks.size
+
+  assign layout = section.settings.layout_width
+  case layout
+    when 'boxed'
+      assign max_w = '1200px'
+    when 'container'
+      assign max_w = '1400px'
+    when 'full'
+      assign max_w = '100%'
+    when 'custom'
+      assign max_w = section.settings.container_width | append: 'px'
+  endcase
+-%}
+<style>
+  #rev-{{ section.id }} {
+    padding-top: {{ pt }}px;
+    padding-bottom: {{ pb }}px;
+    margin-top: {{ mt }}px;
+    margin-bottom: {{ mb }}px;
+    background-color: {{ bg }};
+  }
+  #rev-{{ section.id }} .rev__wrap {
+    max-width: {{ max_w }};
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  #rev-{{ section.id }} .rev__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  #rev-{{ section.id }} .rev__title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: {{ text_col }};
+    letter-spacing: -0.02em;
+  }
+  #rev-{{ section.id }} .rev__title span {
+    font-weight: 400;
+    font-size: 1.1rem;
+    color: {{ sub_col }};
+    margin-left: 10px;
+  }
+  #rev-{{ section.id }} .rev__arrows {
+    display: flex;
+    gap: 10px;
+    align-self: center;
+  }
+  #rev-{{ section.id }} .rev__arrow {
+    width: {{ section.settings.arrow_size }}px !important;
+    height: {{ section.settings.arrow_size }}px !important;
+    border-radius: {{ section.settings.arrow_radius }}px !important;
+    border: {{ section.settings.arrow_border_width }}px solid {{ section.settings.arrow_border_color }} !important;
+    background: {{ section.settings.arrow_bg }} !important;
+    cursor: pointer;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+    box-sizing: content-box !important;
+  }
+  #rev-{{ section.id }} .rev__arrow svg {
+    display: block;
+    flex-shrink: 0;
+    pointer-events: none;
+    overflow: visible;
+  }
+  #rev-{{ section.id }} .rev__arrow:hover { opacity: 0.7; }
+  #rev-{{ section.id }} .rev__arrow:disabled { opacity: 0.3; cursor: default; }
+  #rev-{{ section.id }} .rev__track-outer {
+    overflow: hidden;
+    width: 100%;
+  }
+  #rev-{{ section.id }} .rev__track {
+    display: flex;
+    gap: 16px;
+    transition: transform 0.4s ease;
+    will-change: transform;
+  }
+  #rev-{{ section.id }} .rev__card {
+    flex-shrink: 0;
+    width: calc((100% - 16px * ({{ section.settings.cards_per_row }} - 1)) / {{ section.settings.cards_per_row }});
+    background: {{ card_bg }};
+    border-radius: {{ card_r }}px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: {{ text_col }};
+    box-sizing: border-box;
+  }
+  #rev-{{ section.id }} .rev__card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  #rev-{{ section.id }} .rev__stars { display: flex; gap: 2px; }
+  #rev-{{ section.id }} .rev__star { color: #b8956a; font-size: 1rem; }
+  #rev-{{ section.id }} .rev__star--empty { color: #ddd; }
+  #rev-{{ section.id }} .rev__date { font-size: 0.85rem; color: {{ sub_col }}; }
+  #rev-{{ section.id }} .rev__review-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+    color: {{ text_col }};
+  }
+  #rev-{{ section.id }} .rev__reviewer {
+    font-size: 0.9rem;
+    color: {{ sub_col }};
+    margin: -6px 0 0;
+  }
+  #rev-{{ section.id }} .rev__body {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: {{ text_col }};
+    flex-grow: 1;
+  }
+  #rev-{{ section.id }} .rev__product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0,0,0,0.12);
+    border-radius: 12px;
+    padding: 10px;
+    text-decoration: none;
+    color: {{ text_col }};
+    margin-top: auto;
+  }
+  #rev-{{ section.id }} .rev__product:hover { opacity: 0.85; }
+  #rev-{{ section.id }} .rev__product-img {
+    width: 64px; height: 64px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #fff;
+  }
+  #rev-{{ section.id }} .rev__product-info { flex: 1; min-width: 0; }
+  #rev-{{ section.id }} .rev__product-name {
+    font-weight: 600; font-size: 0.9rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  #rev-{{ section.id }} .rev__product-sub { font-size: 0.8rem; opacity: 0.8; margin: 2px 0; }
+  #rev-{{ section.id }} .rev__product-rating {
+    font-size: 0.78rem;
+    display: flex; align-items: center; gap: 4px;
+    margin-top: 3px;
+  }
+  #rev-{{ section.id }} .rev__product-star { color: #b8956a; }
+  #rev-{{ section.id }} .rev__product-rating-val { font-weight: 600; }
+  #rev-{{ section.id }} .rev__product-rating-count { opacity: 0.75; }
+  #rev-{{ section.id }} .rev__product-arrow { font-size: 1.1rem; opacity: 0.7; flex-shrink: 0; }
+
+  @media (max-width: 900px) {
+    #rev-{{ section.id }} .rev__card { width: calc(80vw); }
+  }
+  @media (max-width: 600px) {
+    #rev-{{ section.id }} .rev__wrap { padding: 0 12px; }
+    #rev-{{ section.id }} .rev__card { width: calc(85vw); padding: 18px; }
+    #rev-{{ section.id }} .rev__title { font-size: 1.4rem; }
+    #rev-{{ section.id }} {
+      padding-top: {{ pt | divided_by: 2 }}px;
+      padding-bottom: {{ pb | divided_by: 2 }}px;
+    }
+  }
+</style>
+
+<div id="rev-{{ section.id }}" class="reviews-slider-section">
+  <div class="rev__wrap">
+
+    <div class="rev__header">
+      <h2 class="rev__title">
+        {{ heading }}<span>{{ review_count }}</span>
+      </h2>
+      <div class="rev__arrows">
+        <button class="rev__arrow" id="rev-prev-{{ section.id }}" aria-label="Previous reviews" disabled>
+          <svg width="{{ section.settings.arrow_icon_size }}" height="{{ section.settings.arrow_icon_size }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible">
+            <polyline points="15 18 9 12 15 6" fill="none" stroke="{{ section.settings.arrow_icon_color }}" stroke-width="{{ section.settings.arrow_stroke_width }}" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="rev__arrow" id="rev-next-{{ section.id }}" aria-label="Next reviews">
+          <svg width="{{ section.settings.arrow_icon_size }}" height="{{ section.settings.arrow_icon_size }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible">
+            <polyline points="9 18 15 12 9 6" fill="none" stroke="{{ section.settings.arrow_icon_color }}" stroke-width="{{ section.settings.arrow_stroke_width }}" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="rev__track-outer" id="rev-outer-{{ section.id }}">
+      <div class="rev__track" id="rev-track-{{ section.id }}">
+        {%- for block in section.blocks -%}
+        {%- assign stars = block.settings.stars | plus: 0 -%}
+        <div class="rev__card" {{ block.shopify_attributes }}>
+          <div class="rev__card-top">
+            <div class="rev__stars">
+              {%- for i in (1..5) -%}
+                {%- if i <= stars -%}
+                  <span class="rev__star">&#9733;</span>
+                {%- else -%}
+                  <span class="rev__star rev__star--empty">&#9733;</span>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            <span class="rev__date">{{ block.settings.date }}</span>
+          </div>
+          <p class="rev__review-title">{{ block.settings.review_title }}</p>
+          <p class="rev__reviewer">{{ block.settings.reviewer_name }}</p>
+          <p class="rev__body">{{ block.settings.review_body }}</p>
+          {%- if block.settings.product != blank -%}
+          {%- assign rev_product = block.settings.product -%}
+          {%- assign jm_rating = rev_product.metafields.judgeme.rating.value -%}
+          {%- assign jm_count  = rev_product.metafields.judgeme.rating_count.value -%}
+          <a href="{{ rev_product.url }}" class="rev__product">
+            {%- if rev_product.featured_image -%}
+            <img src="{{ rev_product.featured_image | image_url: width: 128, height: 128, crop: 'center' }}"
+                 alt="{{ rev_product.title }}"
+                 width="64" height="64"
+                 class="rev__product-img"
+                 loading="lazy">
+            {%- endif -%}
+            <div class="rev__product-info">
+              <div class="rev__product-name">{{ rev_product.title }}</div>
+              {%- if block.settings.product_subtitle != blank -%}
+              <div class="rev__product-sub">{{ block.settings.product_subtitle }}</div>
+              {%- endif -%}
+              <div class="rev__product-rating">
+                {%- if jm_rating != blank -%}
+                  {%- assign rating_val  = jm_rating | round: 1 -%}
+                  {%- assign rating_floor = jm_rating | floor -%}
+                  <span class="rev__product-star">&#9733;</span>
+                  <span class="rev__product-rating-val">[{{ rating_val }}]</span>
+                  {%- if jm_count != blank -%}
+                    <span class="rev__product-rating-count">{{ jm_count }} Reviews</span>
+                  {%- endif -%}
+                {%- else -%}
+                  {%- if block.settings.product_rating_text != blank -%}
+                    <span class="rev__product-star">&#9733;</span>
+                    <span>{{ block.settings.product_rating_text }}</span>
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+            </div>
+            <span class="rev__product-arrow">&#8250;</span>
+          </a>
+          {%- endif -%}
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  var sliders = {};
+
+  function revUpdate(id, index, cards, visibleCount) {
+    var prev = document.getElementById('rev-prev-' + id);
+    var next = document.getElementById('rev-next-' + id);
+    var maxIndex = Math.max(0, cards.length - visibleCount);
+    if (prev) prev.disabled = index <= 0;
+    if (next) next.disabled = index >= maxIndex;
+  }
+
+  function revSlide(id, dir) {
+    var track = document.getElementById('rev-track-' + id);
+    if (!track) return;
+    if (!sliders[id]) sliders[id] = 0;
+    var cards = track.querySelectorAll('.rev__card');
+    if (!cards.length) return;
+    var cardW = cards[0].offsetWidth + 16;
+    var visibleCount = Math.round(track.parentElement.offsetWidth / cardW);
+    var maxIndex = Math.max(0, cards.length - visibleCount);
+    sliders[id] = Math.min(Math.max(sliders[id] + dir, 0), maxIndex);
+    track.style.transform = 'translateX(-' + (sliders[id] * cardW) + 'px)';
+    revUpdate(id, sliders[id], cards, visibleCount);
+  }
+
+  window.revSlide = revSlide;
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var prev = document.getElementById('rev-prev-{{ section.id }}');
+    var next = document.getElementById('rev-next-{{ section.id }}');
+    if (prev) prev.addEventListener('click', function() { revSlide('{{ section.id }}', -1); });
+    if (next) next.addEventListener('click', function() { revSlide('{{ section.id }}', 1); });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Reviews Slider",
+  "tag": "section",
+  "class": "section-reviews-slider",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "heading", "label": "Heading Text", "default": "Reviews " },
+    { "type": "range", "id": "cards_per_row", "label": "Cards Visible (desktop)", "min": 2, "max": 4, "step": 1, "default": 3 },
+    { "type": "header", "content": "Layout Width" },
+    {
+      "type": "select",
+      "id": "layout_width",
+      "label": "Layout Width",
+      "options": [
+        { "value": "boxed",     "label": "Boxed (1200px)" },
+        { "value": "container", "label": "Container (1400px)" },
+        { "value": "full",      "label": "Full Width" },
+        { "value": "custom",    "label": "Custom" }
+      ],
+      "default": "container"
+    },
+    { "type": "range", "id": "container_width", "label": "Custom Width (px)", "min": 800, "max": 1800, "step": 40, "default": 1400 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section Background", "default": "#ffffff" },
+    { "type": "color", "id": "card_background", "label": "Card Background", "default": "#f0ede8" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#111111" },
+    { "type": "color", "id": "subtext_color", "label": "Subtext / Date Color", "default": "#888888" },
+    { "type": "header", "content": "Arrow Buttons" },
+    { "type": "color", "id": "arrow_bg", "label": "Arrow Background", "default": "#ffffff" },
+    { "type": "color", "id": "arrow_icon_color", "label": "Arrow Icon Color", "default": "#111111" },
+    { "type": "color", "id": "arrow_border_color", "label": "Arrow Border Color", "default": "#111111" },
+    { "type": "range", "id": "arrow_border_width", "label": "Arrow Border Width (px)", "min": 0, "max": 4, "step": 1, "default": 1 },
+    { "type": "range", "id": "arrow_size", "label": "Arrow Button Size (px)", "min": 32, "max": 64, "step": 2, "default": 44 },
+    { "type": "range", "id": "arrow_radius", "label": "Arrow Border Radius (px)", "min": 0, "max": 32, "step": 2, "default": 22 },
+    { "type": "range", "id": "arrow_icon_size", "label": "Arrow Icon Size (px)", "min": 8, "max": 32, "step": 1, "default": 16 },
+    { "type": "range", "id": "arrow_stroke_width", "label": "Arrow Stroke Width", "min": 1, "max": 5, "step": 0.5, "default": 2.5 },
+    { "type": "header", "content": "Card Style" },
+    { "type": "range", "id": "card_radius", "label": "Card Border Radius (px)", "min": 0, "max": 32, "step": 2, "default": 16 },
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding Top (px)", "min": 0, "max": 120, "step": 4, "default": 60 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom (px)", "min": 0, "max": 120, "step": 4, "default": 60 },
+    { "type": "range", "id": "margin_top", "label": "Margin Top (px)", "min": 0, "max": 100, "step": 4, "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin Bottom (px)", "min": 0, "max": 100, "step": 4, "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "stars", "label": "Star Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "date", "label": "Date", "default": "2 days ago" },
+        { "type": "text", "id": "review_title", "label": "Review Title", "default": "Amazing fragrance!" },
+        { "type": "text", "id": "reviewer_name", "label": "Reviewer Name", "default": "Jane D." },
+        { "type": "textarea", "id": "review_body", "label": "Review Text", "default": "Absolutely love this scent. It lasts all day and gets so many compliments." },
+        { "type": "header", "content": "Linked Product" },
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "product_subtitle", "label": "Product Subtitle (e.g. SKU | Type)", "default": "Eau de Parfum" },
+        { "type": "text", "id": "product_rating_text", "label": "Product Rating Text", "default": "[4.9] 37 Reviews" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews Slider",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}

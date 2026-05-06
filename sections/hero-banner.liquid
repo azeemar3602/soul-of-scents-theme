@@ -1,0 +1,597 @@
+{{ 'hero-banner.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign bg_type = section.settings.background_type
+  assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
+  assign section_width = section.settings.section_width
+  assign custom_width = section.settings.custom_width
+  assign custom_width_unit = section.settings.custom_width_unit
+  assign card_position = section.settings.card_position
+  assign section_height = section.settings.section_height
+  assign button_count = section.settings.button_count
+
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign padding_left = section.settings.padding_left
+  assign padding_right = section.settings.padding_right
+  assign margin_top = section.settings.margin_top
+  assign margin_bottom = section.settings.margin_bottom
+
+  assign desktop_heading_size = section.settings.desktop_heading_size
+  assign mobile_heading_size = section.settings.mobile_heading_size
+  assign desktop_subheading_size = section.settings.desktop_subheading_size
+  assign mobile_subheading_size = section.settings.mobile_subheading_size
+  assign subheading_letter_spacing = section.settings.subheading_letter_spacing
+-%}
+
+{%- capture section_width_style -%}
+  {%- case section_width -%}
+    {%- when 'full' -%}
+      width: 100%; max-width: 100%;
+    {%- when 'container' -%}
+      width: 100%; max-width: var(--page-width, 1200px); margin-inline: auto;
+    {%- when 'boxed' -%}
+      width: 100%; max-width: 1000px; margin-inline: auto;
+    {%- when 'custom' -%}
+      width: 100%; max-width: {{ custom_width }}{{ custom_width_unit }}; margin-inline: auto;
+  {%- endcase -%}
+{%- endcapture -%}
+
+{%- capture section_height_style -%}
+  {%- case section_height -%}
+    {%- when 'adapt' -%}
+    {%- when 'small' -%}
+      min-height: 300px;
+    {%- when 'medium' -%}
+      min-height: 500px;
+    {%- when 'large' -%}
+      min-height: 700px;
+    {%- when 'full' -%}
+      min-height: 100vh;
+  {%- endcase -%}
+{%- endcapture -%}
+
+
+<div
+  id="HeroBanner-{{ section.id }}"
+  class="hero-banner hero-banner--{{ section_height }}"
+  style="
+    {{ section_width_style }}
+    {{ section_height_style }}
+    --hero-padding-top: {{ padding_top }}px;
+    --hero-padding-bottom: {{ padding_bottom }}px;
+    --hero-padding-left: {{ padding_left }}px;
+    --hero-padding-right: {{ padding_right }}px;
+    --hero-margin-top: {{ margin_top }}px;
+    --hero-margin-bottom: {{ margin_bottom }}px;
+    --hero-overlay-opacity: {{ overlay_opacity }};
+    --hero-desktop-heading: {{ desktop_heading_size }}px;
+    --hero-mobile-heading: {{ mobile_heading_size }}px;
+    --hero-desktop-subheading: {{ desktop_subheading_size }}px;
+    --hero-mobile-subheading: {{ mobile_subheading_size }}px;
+    --hero-subheading-spacing: {{ subheading_letter_spacing }}em;
+    --hero-btn-primary-bg: {{ section.settings.button_bg_color_1 }};
+    --hero-btn-primary-text: {{ section.settings.button_text_color_1 }};
+    --hero-btn-primary-border: {{ section.settings.button_border_color_1 }};
+    --hero-btn-primary-hover-bg: {{ section.settings.button_hover_bg_color_1 }};
+    --hero-btn-primary-hover-text: {{ section.settings.button_hover_text_color_1 }};
+    --hero-btn-primary-hover-border: {{ section.settings.button_hover_border_color_1 }};
+    --hero-btn-radius: {{ section.settings.button_border_radius }}px;
+    --hero-btn-font-size: {{ section.settings.button_font_size }}px;
+    --hero-btn-font-weight: {{ section.settings.button_font_weight }};
+  "
+>
+  {%- comment -%} Background Media {%- endcomment -%}
+  <div class="hero-banner__media">
+    {%- if bg_type == 'video' and section.settings.video != blank -%}
+      {{
+        section.settings.video
+        | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true,
+          class: 'hero-banner__video'
+      }}
+    {%- elsif bg_type == 'video' and section.settings.video_url != blank -%}
+      {%- if section.settings.video_url.type == 'youtube' -%}
+        <iframe
+          class="hero-banner__video hero-banner__video--external"
+          src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay=1&mute=1&loop=1&playlist={{ section.settings.video_url.id }}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      {%- elsif section.settings.video_url.type == 'vimeo' -%}
+        <iframe
+          class="hero-banner__video hero-banner__video--external"
+          src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay=1&muted=1&loop=1&background=1&playsinline=1"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      {%- endif -%}
+    {%- elsif section.settings.image != blank -%}
+      {%- assign image = section.settings.image -%}
+      <img
+        class="hero-banner__image"
+        src="{{ image | image_url: width: 1920 }}"
+        srcset="
+          {{ image | image_url: width: 750 }} 750w,
+          {{ image | image_url: width: 1100 }} 1100w,
+          {{ image | image_url: width: 1500 }} 1500w,
+          {{ image | image_url: width: 1920 }} 1920w
+        "
+        sizes="100vw"
+        alt="{{ image.alt | escape }}"
+        width="{{ image.width }}"
+        height="{{ image.height }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-banner__placeholder' }}
+    {%- endif -%}
+
+    {%- comment -%} Dark Overlay {%- endcomment -%}
+    <div class="hero-banner__overlay" aria-hidden="true"></div>
+  </div>
+
+  {%- comment -%} Glassmorphism Content Card {%- endcomment -%}
+  <div class="hero-banner__content hero-banner__content--{{ card_position }}">
+    <div class="hero-banner__card">
+      {%- if section.settings.subheading != blank -%}
+        <p class="hero-banner__subheading">
+          {{ section.settings.subheading }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <{{ section.settings.heading_tag }} class="hero-banner__heading">
+          {{ section.settings.heading }}
+        </{{ section.settings.heading_tag }}>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="hero-banner__description">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} CTA Buttons {%- endcomment -%}
+      {%- assign has_btn1 = false -%}
+      {%- assign has_btn2 = false -%}
+      {%- if section.settings.button_label_1 != blank -%}
+        {%- assign has_btn1 = true -%}
+      {%- endif -%}
+      {%- if button_count == 'two' and section.settings.button_label_2 != blank -%}
+        {%- assign has_btn2 = true -%}
+      {%- endif -%}
+
+      {%- if has_btn1 or has_btn2 -%}
+        <div class="hero-banner__buttons">
+          {%- if has_btn1 -%}
+            <a
+              href="{{ section.settings.button_link_1 }}"
+              class="hero-banner__btn hero-banner__btn--primary"
+              {% if section.settings.button_new_tab_1 %}target="_blank" rel="noopener noreferrer"{% endif %}
+            >
+              {{ section.settings.button_label_1 | escape }}
+            </a>
+          {%- endif -%}
+
+          {%- if has_btn2 -%}
+            <a
+              href="{{ section.settings.button_link_2 }}"
+              class="hero-banner__btn hero-banner__btn--secondary"
+              {% if section.settings.button_new_tab_2 %}target="_blank" rel="noopener noreferrer"{% endif %}
+            >
+              {{ section.settings.button_label_2 | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "hero-banner-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media & Background"
+    },
+    {
+      "type": "select",
+      "id": "background_type",
+      "label": "Background type",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Autoplay Video" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Shopify-hosted video"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "External video URL (YouTube / Vimeo)",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay tint opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "full", "label": "Full Width" },
+        { "value": "container", "label": "Container" },
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "label": "Custom width value",
+      "min": 600,
+      "max": 1920,
+      "step": 20,
+      "unit": "px",
+      "default": 1200,
+      "info": "Only applies when \"Custom\" width is selected."
+    },
+    {
+      "type": "select",
+      "id": "custom_width_unit",
+      "label": "Custom width unit",
+      "options": [
+        { "value": "px", "label": "Pixels (px)" },
+        { "value": "%", "label": "Percentage (%)" }
+      ],
+      "default": "px",
+      "info": "Only applies when \"Custom\" width is selected."
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section height",
+      "options": [
+        { "value": "adapt", "label": "Adapt to content" },
+        { "value": "small", "label": "Small (300px)" },
+        { "value": "medium", "label": "Medium (500px)" },
+        { "value": "large", "label": "Large (700px)" },
+        { "value": "full", "label": "Full viewport (100vh)" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "header",
+      "content": "Content Card"
+    },
+    {
+      "type": "select",
+      "id": "card_position",
+      "label": "Card position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Find a scent that just fits with soul of scents"
+    },
+    {
+      "type": "range",
+      "id": "desktop_subheading_size",
+      "label": "Subheading size (desktop)",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_subheading_size",
+      "label": "Subheading size (mobile)",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "subheading_letter_spacing",
+      "label": "Subheading letter spacing",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2,
+      "info": "Value in 0.01em increments (e.g. 2 = 0.02em)."
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "<p>Not sure which perfume matches your <em>energy</em>?</p>",
+      "info": "Use the italic button to emphasize specific words."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading HTML tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "range",
+      "id": "desktop_heading_size",
+      "label": "Heading size (desktop)",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading size (mobile)",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description text",
+      "info": "Optional body text below the heading."
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "select",
+      "id": "button_count",
+      "label": "Number of buttons",
+      "options": [
+        { "value": "one", "label": "One button" },
+        { "value": "two", "label": "Two buttons" }
+      ],
+      "default": "one"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Primary button label",
+      "default": "Take the archetype quiz"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Primary button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_new_tab_1",
+      "label": "Open primary link in new tab",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color_1",
+      "label": "Primary button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color_1",
+      "label": "Primary button text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color_1",
+      "label": "Primary button border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color_1",
+      "label": "Primary button hover background",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color_1",
+      "label": "Primary button hover text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color_1",
+      "label": "Primary button hover border color",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Primary button border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Primary button font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "Primary button font weight",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semi-bold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Secondary button label",
+      "default": "Shop all",
+      "info": "Only shown when two buttons are selected."
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_new_tab_2",
+      "label": "Open secondary link in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Inner padding — Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inner padding — Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Inner padding — Left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Inner padding — Right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Outer margin — Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Outer margin — Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "settings": {
+        "background_type": "image",
+        "overlay_opacity": 30,
+        "section_width": "full",
+        "section_height": "large",
+        "card_position": "left",
+        "subheading": "Find a scent that just fits with soul of scents",
+        "heading": "<p>Not sure which perfume matches your <em>energy</em>?</p>",
+        "heading_tag": "h2",
+        "desktop_heading_size": 48,
+        "mobile_heading_size": 28,
+        "button_count": "one",
+        "button_label_1": "Take the archetype quiz"
+      }
+    }
+  ]
+}
+{% endschema %}

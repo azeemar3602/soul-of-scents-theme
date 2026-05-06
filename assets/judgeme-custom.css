@@ -1,0 +1,220 @@
+/* ============================================
+   Judge.me — Soul of Scents
+   ============================================ */
+
+#judgeme_product_reviews .jdgm-rev-widg__reviews {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  flex-direction: row !important;
+  gap: 16px !important;
+  overflow-x: auto !important;
+  padding-bottom: 12px !important;
+  scrollbar-width: none !important;
+}
+
+#judgeme_product_reviews .jdgm-rev-widg__reviews::-webkit-scrollbar {
+  display: none !important;
+}
+
+#judgeme_product_reviews .jdgm-rev {
+  flex: 0 0 280px !important;
+  width: 280px !important;
+  min-width: 280px !important;
+  background: #F1EFE8 !important;
+  border: none !important;
+  border-bottom: none !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+#judgeme_product_reviews .jdgm-rev::after,
+#judgeme_product_reviews .jdgm-rev::before {
+  display: none !important;
+}
+
+#judgeme_product_reviews .jdgm-rev__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 10px !important;
+}
+
+#judgeme_product_reviews .jdgm-rev__rating {
+  display: flex !important;
+}
+
+#judgeme_product_reviews .jdgm-rev__timestamp {
+  font-size: 12px !important;
+  color: #928171 !important;
+  margin: 0 !important;
+  float: none !important;
+}
+
+#judgeme_product_reviews .jdgm-rev__title {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: #030303 !important;
+  margin: 0 0 4px !important;
+  display: block !important;
+}
+
+#judgeme_product_reviews .jdgm-rev__author {
+  font-size: 13px !important;
+  color: #928171 !important;
+  font-weight: 400 !important;
+  margin: 0 0 8px !important;
+  display: block !important;
+}
+
+#judgeme_product_reviews .jdgm-rev__body {
+  font-size: 13px !important;
+  color: #2C2722 !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+}
+
+#judgeme_product_reviews .jdgm-rev__verif-badge { display: none !important; }
+#judgeme_product_reviews .jdgm-rev__pics { display: none !important; }
+#judgeme_product_reviews .jdgm-rev__prod-link { display: none !important; }
+#judgeme_product_reviews .jdgm-rev__rec-yes { display: none !important; }
+#judgeme_product_reviews .jdgm-rev__reply { display: none !important; }
+#judgeme_product_reviews .jdgm-rev-widg__footer { display: none !important; }
+#judgeme_product_reviews .jdgm-paginate { display: none !important; }
+#judgeme_product_reviews .jdgm-histogram { display: none !important; }
+#judgeme_product_reviews .jdgm-rev-widg__summary { display: none !important; }
+#judgeme_product_reviews .jdgm-rev-widg__sort { display: none !important; }
+#judgeme_product_reviews .jdgm-rev-widg__filter-btns { display: none !important; }
+
+@media (max-width: 749px) {
+  #judgeme_product_reviews .jdgm-rev { flex: 0 0 85% !important; width: 85% !important; min-width: 0 !important; }
+}
+
+/* ===== ACCOUNT: My Archetype Section ===== */
+.account-archetype-section {
+    margin-bottom: 40px;
+    }
+    .account-archetype-section__title {
+        font-size: 20px;
+          font-weight: 500;
+            color: #181212;
+              margin-bottom: 16px;
+                letter-spacing: 0.02em;
+                }
+                .account-archetype-card {
+                  background: #FFFFFF;
+                    border: 1px solid #D7D4CF;
+                      border-radius: 2px;
+                        padding: 20px 24px;
+                          display: flex;
+                            align-items: center;
+                              justify-content: space-between;
+                                gap: 24px;
+                                }
+                                .account-archetype-card__left {
+                                    display: flex;
+                                      align-items: center;
+                                        gap: 16px;
+                                        }
+                                        .account-archetype-card__image {
+                                          width: 80px;
+                                            height: 80px;
+                                              object-fit: cover;
+                                                border-radius: 2px;
+                                                  flex-shrink: 0;
+                                                  }
+                                                  .account-archetype-card__image-placeholder {
+                                                      width: 80px;
+                                                        height: 80px;
+                                                          background: #F0EDE9;
+                                                            border-radius: 2px;
+                                                              flex-shrink: 0;
+                                                              }
+                                                              .account-archetype-card__name {
+                                                                  font-size: 18px;
+                                                                    font-style: italic;
+                                                                      font-weight: 500;
+                                                                        color: #181212;
+                                                                          margin: 0 0 4px 0;
+                                                                          }
+                                                                          .account-archetype-card__date {
+                                                                              font-size: 12px;
+                                                                                color: #928171;
+                                                                                  margin: 0;
+                                                                                  }
+                                                                                  .account-archetype-card__actions {
+                                                                                      display: flex;
+                                                                                        flex-direction: column;
+                                                                                          gap: 8px;
+                                                                                            flex-shrink: 0;
+                                                                                            }
+                                                                                            .account-archetype-card__btn {
+                                                                                                display: inline-block;
+                                                                                                  padding: 10px 20px;
+                                                                                                    font-size: 12px;
+                                                                                                      letter-spacing: 0.08em;
+                                                                                                        text-transform: uppercase;
+                                                                                                          text-decoration: none;
+                                                                                                            text-align: center;
+                                                                                                              border-radius: 2px;
+                                                                                                                cursor: pointer;
+                                                                                                                  transition: background 0.2s, color 0.2s;
+                                                                                                                    font-family: inherit;
+                                                                                                                      min-width: 160px;
+                                                                                                                      }
+                                                                                                                      .account-archetype-card__btn--primary {
+                                                                                                                        background-color: #181212;
+                                                                                                                          color: #FFFFFF;
+                                                                                                                            border: none;
+                                                                                                                            }
+                                                                                                                            .account-archetype-card__btn--primary:hover {
+                                                                                                                              background-color: #928171;
+                                                                                                                                color: #FFFFFF;
+                                                                                                                                }
+                                                                                                                                .account-archetype-card__btn--secondary {
+                                                                                                                                  background-color: transparent;
+                                                                                                                                    color: #181212;
+                                                                                                                                      border: 1px solid #D7D4CF;
+                                                                                                                                      }
+                                                                                                                                      .account-archetype-card__btn--secondary:hover {
+                                                                                                                                          border-color: #928171;
+                                                                                                                                            color: #928171;
+                                                                                                                                            }
+                                                                                                                                            .account-archetype-empty {
+                                                                                                                                              background: #FAF9F7;
+                                                                                                                                                border: 1px solid #D7D4CF;
+                                                                                                                                                  border-radius: 2px;
+                                                                                                                                                    padding: 32px 24px;
+                                                                                                                                                      text-align: center;
+                                                                                                                                                      }
+                                                                                                                                                      .account-archetype-empty p {
+                                                                                                                                                          color: #928171;
+                                                                                                                                                            margin-bottom: 16px;
+                                                                                                                                                              font-size: 14px;
+                                                                                                                                                              }
+                                                                                                                                                              @media (max-width: 749px) {
+                                                                                                                                                                  .account-archetype-card {
+                                                                                                                                                                        flex-direction: column;
+                                                                                                                                                                            align-items: flex-start;
+                                                                                                                                                                  }
+                                                                                                                                                                    .account-archetype-card__actions {
+                                                                                                                                                                          width: 100%;
+                                                                                                                                                                            }
+                                                                                                                                                                              .account-archetype-card__btn {
+
+                                                                                                                                                                                /* ================================
+                                                                                                                                                                                   Mood Tag Pill Colors
+                                                                                                                                                                                      ================================ */
+                                                                                                                                                                                      .mood-tags-block .mood-tag:nth-child(n) { background: #f0f0f0; color: #444; border-color: #ddd; }
+                                                                                                                                                                                      .mood-tag--resin-heat      { background: #D64249 !important; color: #F7D697 !important; border-color: #D64249 !important; }
+                                                                                                                                                                                      .mood-tag--after-dark      { background: #1C0D96 !important; color: #CDC8F1 !important; border-color: #1C0D96 !important; }
+                                                                                                                                                                                      .mood-tag--nostalgic-notion { background: #C8E8F1 !important; color: #786CD6 !important; border-color: #C8E8F1 !important; }
+                                                                                                                                                                                      .mood-tag--sweet-escape    { background: #F7D697 !important; color: #D64249 !important; border-color: #F7D697 !important; }
+                                                                                                                                                                                      .mood-tag--second-skin     { background: #A29AE4 !important; color: #E2DFF7 !important; border-color: #A29AE4 !important; }
+                                                                                                                                                                                      .mood-tag--subtle-companion { background: #FAE7E8 !important; color: #A29AE4 !important; border-color: #FAE7E8 !important; }
+                                                                                                                                                                                      .mood-tag--grounding-greens { background: #197362 !important; color: #63DAC4 !important; border-color: #197362 !important; }
+                                                                                                                                                                                      .mood-tag--main-character  { background: #52080B !important; color: #D64249 !important; border-color: #52080B !important; }
+                                                                                                                                                                                    width: 100%;
+                                                                                                                                                                                      }
+                                                                                                                                                                                      }

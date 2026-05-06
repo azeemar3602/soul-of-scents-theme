@@ -1,0 +1,550 @@
+{% doc %}
+  @prompt
+    "Create a split-screen vertical tabs section with a minimalist aesthetic.
+    
+    Functionality: > On the left, a large image with rounded corners. On the right, four headings: 'Authenticity', 'Artisanal Excellence', 'Fearless Expression', and 'Emotional Connection'. When a heading is hovered/clicked, it turns bold and black (others stay light gray/italic), reveals a description paragraph below it, and updates the left-side image.
+    
+    Layout & Spacing Controls: > Include Shopify schema settings for:
+    
+    Container Toggle: Switch between 'Full Width' and 'Fixed/Boxed Width'.
+    
+    Padding: Independent sliders for Top, Bottom, Left, and Right inner padding.
+    
+    Margin: Independent sliders for Top, Bottom, Left, and Right outer margins.
+    
+    Rounded Corners: A slider to adjust the border-radius of the main image."
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-split-tabs-{{ ai_gen_id }} {
+    display: block;
+    margin-top: {{ block.settings.margin_top }}px;
+    margin-bottom: {{ block.settings.margin_bottom }}px;
+    margin-left: {{ block.settings.margin_left }}px;
+    margin-right: {{ block.settings.margin_right }}px;
+  }
+
+  .ai-split-tabs-container-{{ ai_gen_id }} {
+    {% if block.settings.container_width == 'boxed' %}
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    {% endif %}
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    padding-left: {{ block.settings.padding_left }}px;
+    padding-right: {{ block.settings.padding_right }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-split-tabs-wrapper-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .ai-split-tabs-image-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-split-tabs-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .ai-split-tabs-image-{{ ai_gen_id }}.active {
+    opacity: 1;
+  }
+
+  .ai-split-tabs-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-split-tabs-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-split-tabs-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .ai-split-tabs-tab-{{ ai_gen_id }} {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-split-tabs-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.inactive_color }};
+    font-weight: 300;
+    font-style: italic;
+    margin: 0 0 12px 0;
+    transition: all 0.3s ease;
+  }
+
+  .ai-split-tabs-tab-{{ ai_gen_id }}.active .ai-split-tabs-heading-{{ ai_gen_id }},
+  .ai-split-tabs-tab-{{ ai_gen_id }}:hover .ai-split-tabs-heading-{{ ai_gen_id }} {
+    color: {{ block.settings.active_color }};
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .ai-split-tabs-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s ease;
+    margin: 0;
+  }
+
+  .ai-split-tabs-tab-{{ ai_gen_id }}.active .ai-split-tabs-description-{{ ai_gen_id }} {
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-split-tabs-wrapper-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .ai-split-tabs-image-container-{{ ai_gen_id }} {
+      aspect-ratio: 16 / 9;
+    }
+
+    .ai-split-tabs-content-{{ ai_gen_id }} {
+      gap: 24px;
+    }
+  }
+{% endstyle %}
+
+<split-tabs-{{ ai_gen_id }} class="ai-split-tabs-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-split-tabs-container-{{ ai_gen_id }}">
+    <div class="ai-split-tabs-wrapper-{{ ai_gen_id }}">
+      <div class="ai-split-tabs-image-container-{{ ai_gen_id }}">
+        {% if block.settings.tab_1_image %}
+          <img
+            src="{{ block.settings.tab_1_image | image_url: width: 1200 }}"
+            alt="{{ block.settings.tab_1_heading | escape }}"
+            class="ai-split-tabs-image-{{ ai_gen_id }} active"
+            data-tab="1"
+            loading="lazy"
+            width="{{ block.settings.tab_1_image.width }}"
+            height="{{ block.settings.tab_1_image.height }}"
+          >
+        {% else %}
+          <div class="ai-split-tabs-image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.tab_2_image %}
+          <img
+            src="{{ block.settings.tab_2_image | image_url: width: 1200 }}"
+            alt="{{ block.settings.tab_2_heading | escape }}"
+            class="ai-split-tabs-image-{{ ai_gen_id }}"
+            data-tab="2"
+            loading="lazy"
+            width="{{ block.settings.tab_2_image.width }}"
+            height="{{ block.settings.tab_2_image.height }}"
+          >
+        {% endif %}
+
+        {% if block.settings.tab_3_image %}
+          <img
+            src="{{ block.settings.tab_3_image | image_url: width: 1200 }}"
+            alt="{{ block.settings.tab_3_heading | escape }}"
+            class="ai-split-tabs-image-{{ ai_gen_id }}"
+            data-tab="3"
+            loading="lazy"
+            width="{{ block.settings.tab_3_image.width }}"
+            height="{{ block.settings.tab_3_image.height }}"
+          >
+        {% endif %}
+
+        {% if block.settings.tab_4_image %}
+          <img
+            src="{{ block.settings.tab_4_image | image_url: width: 1200 }}"
+            alt="{{ block.settings.tab_4_heading | escape }}"
+            class="ai-split-tabs-image-{{ ai_gen_id }}"
+            data-tab="4"
+            loading="lazy"
+            width="{{ block.settings.tab_4_image.width }}"
+            height="{{ block.settings.tab_4_image.height }}"
+          >
+        {% endif %}
+      </div>
+
+      <div class="ai-split-tabs-content-{{ ai_gen_id }}">
+        <div class="ai-split-tabs-tab-{{ ai_gen_id }} active" data-tab="1">
+          <h3 class="ai-split-tabs-heading-{{ ai_gen_id }}">{{ block.settings.tab_1_heading }}</h3>
+          <p class="ai-split-tabs-description-{{ ai_gen_id }}">{{ block.settings.tab_1_description }}</p>
+        </div>
+
+        <div class="ai-split-tabs-tab-{{ ai_gen_id }}" data-tab="2">
+          <h3 class="ai-split-tabs-heading-{{ ai_gen_id }}">{{ block.settings.tab_2_heading }}</h3>
+          <p class="ai-split-tabs-description-{{ ai_gen_id }}">{{ block.settings.tab_2_description }}</p>
+        </div>
+
+        <div class="ai-split-tabs-tab-{{ ai_gen_id }}" data-tab="3">
+          <h3 class="ai-split-tabs-heading-{{ ai_gen_id }}">{{ block.settings.tab_3_heading }}</h3>
+          <p class="ai-split-tabs-description-{{ ai_gen_id }}">{{ block.settings.tab_3_description }}</p>
+        </div>
+
+        <div class="ai-split-tabs-tab-{{ ai_gen_id }}" data-tab="4">
+          <h3 class="ai-split-tabs-heading-{{ ai_gen_id }}">{{ block.settings.tab_4_heading }}</h3>
+          <p class="ai-split-tabs-description-{{ ai_gen_id }}">{{ block.settings.tab_4_description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</split-tabs-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class SplitTabs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.ai-split-tabs-tab-{{ ai_gen_id }}');
+        this.images = this.querySelectorAll('.ai-split-tabs-image-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.tabs.forEach((tab) => {
+          tab.addEventListener('mouseenter', () => this.switchTab(tab));
+          tab.addEventListener('click', () => this.switchTab(tab));
+        });
+      }
+
+      switchTab(activeTab) {
+        const tabId = activeTab.getAttribute('data-tab');
+
+        this.tabs.forEach((tab) => {
+          tab.classList.remove('active');
+        });
+
+        this.images.forEach((image) => {
+          image.classList.remove('active');
+        });
+
+        activeTab.classList.add('active');
+
+        const activeImage = this.querySelector(`.ai-split-tabs-image-{{ ai_gen_id }}[data-tab="${tabId}"]`);
+        if (activeImage) {
+          activeImage.classList.add('active');
+        }
+      }
+    }
+
+    customElements.define('split-tabs-{{ ai_gen_id }}', SplitTabs{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Split screen tabs",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container width",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full width"
+        },
+        {
+          "value": "boxed",
+          "label": "Boxed width"
+        }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_left",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_right",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "active_color",
+      "label": "Active heading",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "inactive_color",
+      "label": "Inactive heading",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description text",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Tab 1"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_heading",
+      "label": "Heading",
+      "default": "Authenticity"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_1_description",
+      "label": "Description",
+      "default": "We believe in genuine craftsmanship and honest ingredients that tell a true story."
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_heading",
+      "label": "Heading",
+      "default": "Artisanal Excellence"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_2_description",
+      "label": "Description",
+      "default": "Every scent is meticulously crafted by hand, ensuring unparalleled quality and attention to detail."
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_heading",
+      "label": "Heading",
+      "default": "Fearless Expression"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_3_description",
+      "label": "Description",
+      "default": "We create bold, unique fragrances that empower you to express your individuality without compromise."
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Tab 4"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_heading",
+      "label": "Heading",
+      "default": "Emotional Connection"
+    },
+    {
+      "type": "textarea",
+      "id": "tab_4_description",
+      "label": "Description",
+      "default": "Our fragrances are designed to evoke memories and emotions, creating meaningful moments in your daily life."
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_4_image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split screen tabs"
+    }
+  ]
+}
+{% endschema %}

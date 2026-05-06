@@ -1,0 +1,510 @@
+{{ 'magazine-blog.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign blog_handle = section.settings.blog
+  assign posts_to_show = section.settings.posts_to_show
+  assign section_width = section.settings.section_width
+  assign custom_width = section.settings.custom_width
+  assign heading_text = section.settings.heading_text
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign margin_top = section.settings.margin_top
+  assign margin_bottom = section.settings.margin_bottom
+  assign show_date = section.settings.show_date
+  assign show_read_time = section.settings.show_read_time
+  assign show_tag = section.settings.show_tag
+  assign card_border_radius = section.settings.card_border_radius
+  assign bg_color = section.settings.bg_color
+  assign text_color = section.settings.text_color
+  assign featured_position = section.settings.featured_position
+  assign default_category = section.settings.default_category
+-%}
+
+{%- capture width_style -%}
+  {%- case section_width -%}
+    {%- when 'full' -%}
+      max-width: 100%;
+    {%- when 'container' -%}
+      max-width: var(--page-width, 1200px);
+    {%- when 'boxed' -%}
+      max-width: 1000px;
+    {%- when 'custom' -%}
+      max-width: {{ custom_width }}px;
+  {%- endcase -%}
+{%- endcapture -%}
+
+{%- if blog_handle != blank -%}
+  {%- assign blog_obj = blogs[blog_handle] -%}
+{%- endif -%}
+{%- assign tags_array = blog_obj.all_tags -%}
+
+<div
+  id="MagazineBlog-{{ section.id }}"
+  class="magazine-blog"
+  style="
+    --mb-padding-top: {{ padding_top }}px;
+    --mb-padding-bottom: {{ padding_bottom }}px;
+    --mb-margin-top: {{ margin_top }}px;
+    --mb-margin-bottom: {{ margin_bottom }}px;
+    --mb-card-radius: {{ card_border_radius }}px;
+    --mb-bg: {{ bg_color }};
+    --mb-text: {{ text_color }};
+  "
+>
+  <div class="magazine-blog__inner" style="{{ width_style }}">
+    {%- comment -%} Header Bar {%- endcomment -%}
+    {%- if section.settings.show_header -%}
+    <div class="magazine-blog__header">
+      {%- if heading_text != blank -%}
+        <h2 class="magazine-blog__title">{{ heading_text }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.show_filter and tags_array.size > 0 -%}
+        <div class="magazine-blog__filter">
+          <button
+            class="magazine-blog__filter-btn"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mb-dropdown-{{ section.id }}"
+          >
+            <span class="magazine-blog__filter-label" data-default-text="{{ section.settings.filter_label | default: 'All Topics' }}">{% if default_category != blank %}{{ default_category }}{% else %}{{ section.settings.filter_label | default: 'All Topics' }}{% endif %}</span>
+            <svg class="magazine-blog__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="magazine-blog__dropdown" id="mb-dropdown-{{ section.id }}" role="listbox">
+            <li>
+              <button class="magazine-blog__dropdown-item {% if default_category == blank %}magazine-blog__dropdown-item--active{% endif %}" type="button" data-tag="all" role="option" aria-selected="{% if default_category == blank %}true{% else %}false{% endif %}">
+                {{ section.settings.filter_label | default: 'All Topics' }}
+              </button>
+            </li>
+            {%- for tag in tags_array -%}
+              <li>
+                <button class="magazine-blog__dropdown-item {% if default_category == tag %}magazine-blog__dropdown-item--active{% endif %}" type="button" data-tag="{{ tag | handleize }}" role="option" aria-selected="{% if default_category == tag %}true{% else %}false{% endif %}">
+                  {{ tag }}
+                </button>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+
+    {%- comment -%} Articles Grid {%- endcomment -%}
+    <div class="magazine-blog__grid magazine-blog__grid--featured-{{ featured_position }}" data-default-category="{{ default_category | handleize }}">
+      {%- if blog_obj and blog_obj.articles.size > 0 -%}
+        {%- for article in blog_obj.articles limit: posts_to_show -%}
+          {%- assign article_tags_handles = '' -%}
+          {%- for tag in article.tags -%}
+            {%- assign tag_handle = tag | handleize -%}
+            {%- assign article_tags_handles = article_tags_handles | append: ' ' | append: tag_handle -%}
+          {%- endfor -%}
+
+          <a
+            href="{{ article.url }}"
+            class="magazine-blog__card {% if forloop.first %}magazine-blog__card--featured{% endif %}"
+            data-tags="{{ article_tags_handles | strip }}"
+          >
+            <div class="magazine-blog__card-image">
+              {%- if article.image -%}
+                <img
+                  src="{{ article.image | image_url: width: 900 }}"
+                  srcset="
+                    {{ article.image | image_url: width: 400 }} 400w,
+                    {{ article.image | image_url: width: 600 }} 600w,
+                    {{ article.image | image_url: width: 900 }} 900w
+                  "
+                  sizes="(max-width: 749px) 100vw, {% if forloop.first %}50vw{% else %}25vw{% endif %}"
+                  alt="{{ article.title | escape }}"
+                  width="{{ article.image.width }}"
+                  height="{{ article.image.height }}"
+                  loading="{% if forloop.index <= 3 %}eager{% else %}lazy{% endif %}"
+                >
+              {%- else -%}
+                <div class="magazine-blog__card-placeholder">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {%- endif -%}
+
+              {%- comment -%} Featured card overlay content {%- endcomment -%}
+              {%- if forloop.first -%}
+                <div class="magazine-blog__card-overlay">
+                  {%- if show_tag and article.tags.size > 0 -%}
+                    <span class="magazine-blog__tag">{{ article.tags.first }}</span>
+                  {%- endif -%}
+                  <h3 class="magazine-blog__card-title magazine-blog__card-title--featured">{{ article.title }}</h3>
+                  {%- if article.excerpt_or_content != blank -%}
+                    <p class="magazine-blog__card-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+                  {%- endif -%}
+                  <div class="magazine-blog__card-meta">
+                    {%- if show_date -%}
+                      <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%B %d, %Y' }}</time>
+                    {%- endif -%}
+                    {%- if show_read_time -%}
+                      {%- assign words = article.content | strip_html | split: ' ' | size -%}
+                      {%- assign read_time = words | divided_by: 200 -%}
+                      {%- if read_time == 0 -%}{%- assign read_time = 1 -%}{%- endif -%}
+                      <span class="magazine-blog__read-time">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        {{ read_time }} mins to read
+                      </span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Non-featured card content below image {%- endcomment -%}
+            {%- unless forloop.first -%}
+              <div class="magazine-blog__card-body">
+                {%- if show_tag and article.tags.size > 0 -%}
+                  <span class="magazine-blog__tag magazine-blog__tag--small">{{ article.tags.first }}</span>
+                {%- endif -%}
+                <h3 class="magazine-blog__card-title">{{ article.title }}</h3>
+                <div class="magazine-blog__card-meta">
+                  {%- if show_date -%}
+                    <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%B %d, %Y' }}</time>
+                  {%- endif -%}
+                  {%- if show_read_time -%}
+                    {%- assign words = article.content | strip_html | split: ' ' | size -%}
+                    {%- assign read_time = words | divided_by: 200 -%}
+                    {%- if read_time == 0 -%}{%- assign read_time = 1 -%}{%- endif -%}
+                    <span class="magazine-blog__read-time">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      {{ read_time }} mins to read
+                    </span>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endunless -%}
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Placeholder cards for theme editor {%- endcomment -%}
+        {%- for i in (1..5) -%}
+          <div class="magazine-blog__card {% if forloop.first %}magazine-blog__card--featured{% endif %}">
+            <div class="magazine-blog__card-image">
+              <div class="magazine-blog__card-placeholder">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+              {%- if forloop.first -%}
+                <div class="magazine-blog__card-overlay">
+                  <span class="magazine-blog__tag">Topic Tag</span>
+                  <h3 class="magazine-blog__card-title magazine-blog__card-title--featured">Punchy SEO optimized blog post title</h3>
+                  <p class="magazine-blog__card-excerpt">This is where the story begins — a quick insight, a bold perspective, or a quiet observation.</p>
+                  <div class="magazine-blog__card-meta">
+                    <time>April 15, 2025</time>
+                    <span class="magazine-blog__read-time">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      10 mins to read
+                    </span>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+            {%- unless forloop.first -%}
+              <div class="magazine-blog__card-body">
+                <span class="magazine-blog__tag magazine-blog__tag--small">Topic Tag</span>
+                <h3 class="magazine-blog__card-title">Punchy SEO optimized blog post title</h3>
+                <div class="magazine-blog__card-meta">
+                  <time>April 15, 2025</time>
+                  <span class="magazine-blog__read-time">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    10 mins to read
+                  </span>
+                </div>
+              </div>
+            {%- endunless -%}
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} No results message {%- endcomment -%}
+    <p class="magazine-blog__empty" style="display:none;">No articles found for this topic.</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const section = document.getElementById('MagazineBlog-{{ section.id }}');
+    if (!section) return;
+
+    const filterBtn = section.querySelector('.magazine-blog__filter-btn');
+    const dropdown = section.querySelector('.magazine-blog__dropdown');
+    const items = section.querySelectorAll('.magazine-blog__dropdown-item');
+    const cards = section.querySelectorAll('.magazine-blog__card');
+    const label = section.querySelector('.magazine-blog__filter-label');
+    const emptyMsg = section.querySelector('.magazine-blog__empty');
+    const grid = section.querySelector('.magazine-blog__grid');
+    const defaultCategory = grid ? grid.getAttribute('data-default-category') : '';
+
+    if (!filterBtn || !dropdown) return;
+
+    /* Filter cards by tag */
+    function filterByTag(tag) {
+      var visibleCount = 0;
+      cards.forEach(function (card) {
+        if (tag === 'all' || tag === '') {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          var cardTags = (card.getAttribute('data-tags') || '').split(' ');
+          if (cardTags.indexOf(tag) !== -1) {
+            card.style.display = '';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+      if (emptyMsg) {
+        emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    /* Auto-filter on load if default category is set */
+    if (defaultCategory && defaultCategory !== '') {
+      filterByTag(defaultCategory);
+    }
+
+    /* Toggle dropdown */
+    filterBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = filterBtn.getAttribute('aria-expanded') === 'true';
+      filterBtn.setAttribute('aria-expanded', !open);
+      dropdown.classList.toggle('magazine-blog__dropdown--open', !open);
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function () {
+      filterBtn.setAttribute('aria-expanded', 'false');
+      dropdown.classList.remove('magazine-blog__dropdown--open');
+    });
+
+    /* Filter on click */
+    items.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var tag = item.getAttribute('data-tag');
+
+        /* Update active state */
+        items.forEach(function (i) {
+          i.classList.remove('magazine-blog__dropdown-item--active');
+          i.setAttribute('aria-selected', 'false');
+        });
+        item.classList.add('magazine-blog__dropdown-item--active');
+        item.setAttribute('aria-selected', 'true');
+
+        /* Update label */
+        label.textContent = item.textContent.trim();
+
+        /* Filter */
+        filterByTag(tag);
+
+        /* Close dropdown */
+        filterBtn.setAttribute('aria-expanded', 'false');
+        dropdown.classList.remove('magazine-blog__dropdown--open');
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Magazine Blog",
+  "tag": "section",
+  "class": "magazine-blog-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Blog Source"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Select blog"
+    },
+    {
+      "type": "range",
+      "id": "posts_to_show",
+      "label": "Posts to show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Section heading",
+      "default": "Soul of Scents Magazine"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header bar",
+      "default": true,
+      "info": "Toggle the entire header (heading + filter dropdown)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filter",
+      "label": "Show filter dropdown",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "filter_label",
+      "label": "Filter dropdown label",
+      "default": "All Topics"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "full", "label": "Full Width" },
+        { "value": "container", "label": "Container" },
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "label": "Custom width (px)",
+      "min": 600,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1200,
+      "info": "Only applies when \"Custom\" width is selected."
+    },
+    {
+      "type": "select",
+      "id": "featured_position",
+      "label": "Featured image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "default_category",
+      "label": "Default category on load",
+      "info": "Enter a tag name exactly as it appears in your blog. Leave blank to show all posts."
+    },
+    {
+      "type": "header",
+      "content": "Card Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag",
+      "label": "Show topic tag",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show publish date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_read_time",
+      "label": "Show read time",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Magazine Blog",
+      "settings": {
+        "heading_text": "Soul of Scents Magazine",
+        "section_width": "container",
+        "posts_to_show": 5
+      }
+    }
+  ]
+}
+{% endschema %}

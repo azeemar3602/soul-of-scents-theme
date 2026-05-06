@@ -1,0 +1,386 @@
+{% comment %}
+  sections/scent-reveal.liquid
+  Scent profile reveal section for product pages.
+  Two images toggled on button click.
+  Image uploaded as transparent PNG — background colour set in section settings.
+  Metafields: custom.image_start / custom.image_end (File – Image type)
+{% endcomment %}
+
+{%- assign img_start = product.metafields.custom.image_start.value -%}
+{%- assign img_end   = product.metafields.custom.image_end.value -%}
+
+{% if img_start != blank or img_end != blank %}
+
+{%- liquid
+  assign sec_id     = section.id
+  assign layout     = section.settings.layout
+  assign img_width  = section.settings.image_width
+-%}
+
+<div class="sr-outer sr-outer--{{ layout }}" id="sr-{{ sec_id }}">
+  <div class="sr-inner">
+
+    {% comment %} ── Heading ── {% endcomment %}
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+    <div class="sr-heading-wrap">
+      {%- if section.settings.heading != blank -%}
+        <{{ section.settings.heading_tag }} class="sr-heading">
+          {{ section.settings.heading }}
+        </{{ section.settings.heading_tag }}>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="sr-subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+
+    {% comment %} ── Image container ── {% endcomment %}
+    <div class="sr-img-container">
+      <div class="sr-img-wrap">
+
+        {%- if img_start != blank -%}
+          <img
+            src="{{ img_start | image_url: width: 1200 }}"
+            alt="{{ product.title }} — vibe"
+            class="sr-img sr-img--active"
+            id="sr-start-{{ sec_id }}"
+            width="{{ img_start.width }}"
+            height="{{ img_start.height }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+
+        {%- if img_end != blank -%}
+          <img
+            src="{{ img_end | image_url: width: 1200 }}"
+            alt="{{ product.title }} — notes"
+            class="sr-img"
+            id="sr-end-{{ sec_id }}"
+            width="{{ img_end.width }}"
+            height="{{ img_end.height }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+
+      </div>
+    </div>
+
+    {% comment %} ── Button ── {% endcomment %}
+    {%- if img_start != blank and img_end != blank -%}
+    <div class="sr-btn-wrap">
+      <button
+        class="sr-btn"
+        id="sr-btn-{{ sec_id }}"
+        data-section="{{ sec_id }}"
+        data-state="start"
+        data-label-start="{{ section.settings.btn_label_start | escape }}"
+        data-label-end="{{ section.settings.btn_label_end | escape }}"
+        aria-label="{{ section.settings.btn_label_start | escape }}"
+      >
+        <span class="sr-btn__icon sr-btn__icon--down">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="sr-btn__label">{{ section.settings.btn_label_start }}</span>
+      </button>
+    </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<style>
+  /* ── Outer section ── */
+  #sr-{{ sec_id }} {
+    background-color: transparent;
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+    padding-left: {{ section.settings.margin_left }}px;
+    padding-right: {{ section.settings.margin_right }}px;
+  }
+  #sr-{{ sec_id }} .sr-inner {
+    background-color: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    border-radius: {{ section.settings.section_radius }}px;
+  }
+
+  /* ── Inner container ── */
+  #sr-{{ sec_id }} .sr-inner {
+    background-color: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    border-radius: {{ section.settings.section_radius }}px;
+    {%- if layout == 'full' -%}
+      width: 100%;
+      padding-left: {{ section.settings.padding_h }}px;
+      padding-right: {{ section.settings.padding_h }}px;
+    {%- elsif layout == 'boxed' -%}
+      max-width: {{ section.settings.container_width }}px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: {{ section.settings.padding_h }}px;
+      padding-right: {{ section.settings.padding_h }}px;
+    {%- elsif layout == 'custom' -%}
+      max-width: {{ section.settings.custom_width }}px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: {{ section.settings.padding_h }}px;
+      padding-right: {{ section.settings.padding_h }}px;
+    {%- endif -%}
+  }
+
+  /* ── Heading ── */
+  #sr-{{ sec_id }} .sr-heading-wrap {
+    text-align: {{ section.settings.heading_align }};
+    margin-bottom: {{ section.settings.heading_gap }}px;
+  }
+  #sr-{{ sec_id }} .sr-heading {
+    font-family: {{ section.settings.heading_font }};
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: {{ section.settings.heading_weight }};
+    color: {{ section.settings.heading_color }};
+    line-height: 1.15;
+    margin: 0 0 {{ section.settings.subheading_gap }}px;
+    letter-spacing: {{ section.settings.heading_tracking }}em;
+  }
+  #sr-{{ sec_id }} .sr-subheading {
+    font-family: {{ section.settings.heading_font }};
+    font-size: {{ section.settings.subheading_size }}px;
+    color: {{ section.settings.subheading_color }};
+    margin: 0;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Image container ── */
+  #sr-{{ sec_id }} .sr-img-container {
+    display: flex;
+    justify-content: center;
+  }
+  #sr-{{ sec_id }} .sr-img-wrap {
+    position: relative;
+    width: {{ img_width }}%;
+    max-width: 100%;
+    border-radius: {{ section.settings.image_radius }}px;
+    overflow: hidden;
+  }
+
+  /* ── Images ── */
+  #sr-{{ sec_id }} .sr-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity {{ section.settings.transition_speed }}ms ease;
+  }
+  #sr-{{ sec_id }} .sr-img.sr-img--active {
+    opacity: 1;
+    position: relative;
+  }
+
+  /* ── Button wrap ── */
+  #sr-{{ sec_id }} .sr-btn-wrap {
+    display: flex;
+    justify-content: {{ section.settings.btn_align }};
+    margin-top: {{ section.settings.btn_gap }}px;
+  }
+
+  /* ── Button ── */
+  #sr-{{ sec_id }} .sr-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: {{ section.settings.btn_icon_gap }}px;
+    padding: {{ section.settings.btn_pad_v }}px {{ section.settings.btn_pad_h }}px;
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_color }};
+    border: {{ section.settings.btn_border_width }}px solid {{ section.settings.btn_border_color }};
+    border-radius: {{ section.settings.btn_radius }}px;
+    font-family: {{ section.settings.btn_font }};
+    font-size: {{ section.settings.btn_font_size }}px;
+    font-weight: {{ section.settings.btn_font_weight }};
+    letter-spacing: {{ section.settings.btn_tracking }}em;
+    cursor: pointer;
+    transition: opacity 0.2s, background 0.2s;
+  }
+  #sr-{{ sec_id }} .sr-btn:hover {
+    opacity: 0.82;
+  }
+  #sr-{{ sec_id }} .sr-btn__icon svg {
+    transition: transform 0.3s ease;
+    display: block;
+  }
+  #sr-{{ sec_id }} .sr-btn.is-end .sr-btn__icon svg {
+    transform: rotate(180deg);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 749px) {
+    #sr-{{ sec_id }} .sr-img-wrap {
+      width: {{ section.settings.image_width_mobile }}%;
+    }
+    #sr-{{ sec_id }} .sr-heading { font-size: {{ section.settings.heading_size | times: 0.75 | round }}px; }
+  }
+</style>
+
+<script>
+(function () {
+  var btn      = document.getElementById('sr-btn-{{ sec_id }}');
+  var imgStart = document.getElementById('sr-start-{{ sec_id }}');
+  var imgEnd   = document.getElementById('sr-end-{{ sec_id }}');
+  if (!btn) return;
+
+  btn.addEventListener('click', function () {
+    var isStart = btn.dataset.state === 'start';
+    if (isStart) {
+      if (imgStart) { imgStart.classList.remove('sr-img--active'); imgStart.style.position = 'absolute'; }
+      if (imgEnd)   { imgEnd.style.position = 'relative'; imgEnd.classList.add('sr-img--active'); }
+      btn.dataset.state = 'end';
+      btn.querySelector('.sr-btn__label').textContent = btn.dataset.labelEnd;
+      btn.setAttribute('aria-label', btn.dataset.labelEnd);
+      btn.classList.add('is-end');
+    } else {
+      if (imgEnd)   { imgEnd.classList.remove('sr-img--active'); imgEnd.style.position = 'absolute'; }
+      if (imgStart) { imgStart.style.position = 'relative'; imgStart.classList.add('sr-img--active'); }
+      btn.dataset.state = 'start';
+      btn.querySelector('.sr-btn__label').textContent = btn.dataset.labelStart;
+      btn.setAttribute('aria-label', btn.dataset.labelStart);
+      btn.classList.remove('is-end');
+    }
+  });
+})();
+</script>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Scent reveal",
+  "tag": "section",
+  "settings": [
+
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "layout", "label": "Container type",
+      "options": [
+        { "value": "full",   "label": "Full width" },
+        { "value": "boxed",  "label": "Boxed (page container)" },
+        { "value": "custom", "label": "Custom width" }
+      ],
+      "default": "boxed"
+    },
+    { "type": "range",  "id": "container_width", "label": "Boxed max width (px)",  "min": 600,  "max": 1600, "step": 20,  "default": 1200 },
+    { "type": "range",  "id": "custom_width",    "label": "Custom max width (px)", "min": 300,  "max": 1600, "step": 20,  "default": 800 },
+    { "type": "range",  "id": "padding_top",     "label": "Padding top (px)",      "min": 0,    "max": 160,  "step": 4,   "default": 60 },
+    { "type": "range",  "id": "padding_bottom",  "label": "Padding bottom (px)",   "min": 0,    "max": 160,  "step": 4,   "default": 60 },
+    { "type": "range",  "id": "padding_h",       "label": "Padding sides (px)",    "min": 0,    "max": 100,  "step": 4,   "default": 20 },
+    { "type": "range",  "id": "margin_top",      "label": "Margin top (px)",       "min": 0,    "max": 160,  "step": 4,   "default": 0 },
+    { "type": "range",  "id": "margin_bottom",   "label": "Margin bottom (px)",    "min": 0,    "max": 160,  "step": 4,   "default": 0 },
+    { "type": "range",  "id": "margin_left",     "label": "Margin left (px)",      "min": 0,    "max": 200,  "step": 4,   "default": 0 },
+    { "type": "range",  "id": "margin_right",    "label": "Margin right (px)",     "min": 0,    "max": 200,  "step": 4,   "default": 0 },
+    { "type": "range",  "id": "section_radius",  "label": "Section radius (px)",   "min": 0,    "max": 40,   "step": 2,   "default": 0 },
+
+    { "type": "header", "content": "Background" },
+    { "type": "color",  "id": "bg_color",        "label": "Background color",      "default": "#f5f2ee" },
+
+    { "type": "header", "content": "Heading" },
+    { "type": "text",   "id": "heading",          "label": "Heading",               "placeholder": "e.g. Scent Profile" },
+    { "type": "text",   "id": "subheading",       "label": "Subheading",            "placeholder": "e.g. Tap to reveal notes" },
+    { "type": "select", "id": "heading_tag",      "label": "Heading tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "p",  "label": "Paragraph" }
+      ],
+      "default": "h2"
+    },
+    { "type": "select", "id": "heading_align",    "label": "Alignment",
+      "options": [
+        { "value": "left",   "label": "Left"   },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right"  }
+      ],
+      "default": "left"
+    },
+    { "type": "select", "id": "heading_font",     "label": "Heading font",
+      "options": [
+        { "value": "Manrope, sans-serif",           "label": "Manrope" },
+        { "value": "'Libre Baskerville', serif",    "label": "Baskerville" },
+        { "value": "Georgia, serif",                "label": "Georgia" },
+        { "value": "'Helvetica Neue', sans-serif",  "label": "Helvetica Neue" }
+      ],
+      "default": "Manrope, sans-serif"
+    },
+    { "type": "range",  "id": "heading_size",     "label": "Heading size (px)",     "min": 14,   "max": 80,   "step": 2,   "default": 28 },
+    { "type": "select", "id": "heading_weight",   "label": "Heading weight",
+      "options": [
+        { "value": "300", "label": "Light 300"   },
+        { "value": "400", "label": "Regular 400" },
+        { "value": "500", "label": "Medium 500"  },
+        { "value": "600", "label": "Semi-bold 600" },
+        { "value": "700", "label": "Bold 700"    }
+      ],
+      "default": "400"
+    },
+    { "type": "color",  "id": "heading_color",    "label": "Heading color",         "default": "#1a1a1a" },
+    { "type": "range",  "id": "heading_tracking", "label": "Letter spacing x0.01em", "min": -5,   "max": 20,   "step": 1,   "default": 0 },
+    { "type": "range",  "id": "subheading_size",  "label": "Subheading size (px)",  "min": 10,   "max": 28,   "step": 1,   "default": 14 },
+    { "type": "color",  "id": "subheading_color", "label": "Subheading color",      "default": "#8b7355" },
+    { "type": "range",  "id": "heading_gap",      "label": "Space below heading",   "min": 0,    "max": 80,   "step": 4,   "default": 24 },
+    { "type": "range",  "id": "subheading_gap",   "label": "Space below title",     "min": 0,    "max": 40,   "step": 2,   "default": 8 },
+
+    { "type": "header", "content": "Image" },
+    { "type": "range",  "id": "image_width",        "label": "Image width % (desktop)", "min": 20, "max": 100, "step": 5, "default": 70 },
+    { "type": "range",  "id": "image_width_mobile", "label": "Image width % (mobile)",  "min": 50, "max": 100, "step": 5, "default": 100 },
+    { "type": "range",  "id": "image_radius",       "label": "Image corner radius",     "min": 0,  "max": 40,  "step": 2, "default": 0 },
+    { "type": "range",  "id": "transition_speed",   "label": "Fade speed (ms)",         "min": 100,"max": 800, "step": 50,"default": 350 },
+
+    { "type": "header", "content": "Button" },
+    { "type": "text",   "id": "btn_label_start",  "label": "Button — front label",  "default": "Reveal notes" },
+    { "type": "text",   "id": "btn_label_end",    "label": "Button — back label",   "default": "Reveal vibe"  },
+    { "type": "select", "id": "btn_align",        "label": "Button position",
+      "options": [
+        { "value": "flex-start", "label": "Left"   },
+        { "value": "center",     "label": "Center" },
+        { "value": "flex-end",   "label": "Right"  }
+      ],
+      "default": "flex-end"
+    },
+    { "type": "select", "id": "btn_font",         "label": "Button font",
+      "options": [
+        { "value": "Manrope, sans-serif",          "label": "Manrope"       },
+        { "value": "'Libre Baskerville', serif",   "label": "Baskerville"   },
+        { "value": "Georgia, serif",               "label": "Georgia"       },
+        { "value": "'Helvetica Neue', sans-serif", "label": "Helvetica Neue"}
+      ],
+      "default": "Manrope, sans-serif"
+    },
+    { "type": "range",  "id": "btn_font_size",    "label": "Button font size (px)", "min": 10,   "max": 20,   "step": 1,   "default": 12 },
+    { "type": "select", "id": "btn_font_weight",  "label": "Button font weight",
+      "options": [
+        { "value": "300", "label": "Light"   },
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium"  },
+        { "value": "600", "label": "Semi-bold" }
+      ],
+      "default": "400"
+    },
+    { "type": "range",  "id": "btn_tracking",     "label": "Letter spacing x0.01em", "min": 0,    "max": 20,   "step": 1,   "default": 4 },
+    { "type": "color",  "id": "btn_bg",           "label": "Background",            "default": "#1a1a1a" },
+    { "type": "color",  "id": "btn_color",        "label": "Text color",            "default": "#ffffff" },
+    { "type": "color",  "id": "btn_border_color", "label": "Border color",          "default": "#1a1a1a" },
+    { "type": "range",  "id": "btn_border_width", "label": "Border width (px)",     "min": 0,    "max": 4,    "step": 1,   "default": 0 },
+    { "type": "range",  "id": "btn_radius",       "label": "Corner radius (px)",    "min": 0,    "max": 40,   "step": 2,   "default": 20 },
+    { "type": "range",  "id": "btn_pad_v",        "label": "Padding vertical",      "min": 4,    "max": 24,   "step": 1,   "default": 9 },
+    { "type": "range",  "id": "btn_pad_h",        "label": "Padding horizontal",    "min": 8,    "max": 48,   "step": 2,   "default": 18 },
+    { "type": "range",  "id": "btn_icon_gap",     "label": "Icon gap (px)",         "min": 0,    "max": 16,   "step": 1,   "default": 7 },
+    { "type": "range",  "id": "btn_gap",          "label": "Space above button",    "min": 0,    "max": 60,   "step": 4,   "default": 16 }
+
+  ],
+  "presets": [{ "name": "Scent reveal" }]
+}
+{% endschema %}

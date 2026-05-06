@@ -1,0 +1,326 @@
+/* ==========================================================================
+   Blog Carousel / Grid Section
+   ========================================================================== */
+
+.blog-carousel {
+  background: var(--bc-bg, #FAF9F7);
+  color: var(--bc-text, #2C2722);
+  margin-top: var(--bc-margin-top, 0px);
+  margin-bottom: var(--bc-margin-bottom, 0px);
+  padding-top: var(--bc-padding-top, 40px);
+  padding-bottom: var(--bc-padding-bottom, 40px);
+}
+
+.blog-carousel__inner {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.blog-carousel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.blog-carousel__heading {
+  font-size: var(--bc-heading-size, 32px);
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--bc-text, #2C2722) !important;
+}
+
+/* ==========================================================================
+   Navigation Buttons
+   ========================================================================== */
+
+.blog-carousel__nav {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.blog-carousel__nav-btn {
+  width: var(--bc-nav-size, 40px);
+  height: var(--bc-nav-size, 40px);
+  border-radius: var(--bc-nav-radius, 50%);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: var(--bc-nav-bg, #ffffff);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s, background 0.2s;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.blog-carousel__nav-btn svg {
+  display: block;
+  flex-shrink: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.blog-carousel__nav-btn:hover:not(:disabled) {
+  opacity: 0.75;
+}
+
+.blog-carousel__nav-btn:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+/* ==========================================================================
+   Carousel Track
+   ========================================================================== */
+
+.blog-carousel__track-wrapper {
+  overflow: hidden;
+}
+
+.blog-carousel__track {
+  display: flex;
+  transition: transform 0.38s ease;
+}
+
+/* Card base — JS overrides width at runtime */
+.blog-carousel__track .blog-carousel__card {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   Grid
+   ========================================================================== */
+
+.blog-carousel__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--bc-grid-cols, 4), minmax(0, 1fr));
+  gap: var(--bc-gap, 16px);
+}
+
+/* ==========================================================================
+   Cards — shared
+   ========================================================================== */
+
+.blog-carousel__card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.blog-carousel__card-img {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--bc-card-radius, 10px);
+  background: #e8e4df;
+  aspect-ratio: var(--bc-card-aspect, 1 / 1);
+  flex-shrink: 0;
+}
+
+.blog-carousel__card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.38s ease;
+}
+
+.blog-carousel__card:hover .blog-carousel__card-img img {
+  transform: scale(1.04);
+}
+
+.blog-carousel__card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8e4df;
+}
+
+.blog-carousel__card-placeholder svg {
+  width: 56px;
+  height: 56px;
+  opacity: 0.25;
+}
+
+/* Card body — text below image */
+.blog-carousel__card-body {
+  padding: 10px 0 0;
+}
+
+.blog-carousel__tag {
+  display: block;
+  font-size: var(--bc-tag-size, 11px);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--bc-tag-color, #928171);
+  margin: 0 0 3px;
+}
+
+.blog-carousel__card-title {
+  font-size: var(--bc-title-size, 16px);
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0 0 8px;
+  color: var(--bc-text, #2C2722) !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-carousel__card-excerpt {
+  font-size: var(--bc-meta-size, 12px);
+  color: var(--bc-meta-color, #928171);
+  line-height: 1.5;
+  margin: 0 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-carousel__card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--bc-meta-size, 12px);
+  color: var(--bc-meta-color, #928171);
+}
+
+.blog-carousel__card-meta time {
+  color: inherit;
+}
+
+.blog-carousel__read-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.blog-carousel__read-time svg {
+  flex-shrink: 0;
+  display: block;
+  overflow: visible;
+}
+
+/* ==========================================================================
+   Overlay card style (grid only)
+   ========================================================================== */
+
+.blog-carousel__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.08) 55%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px;
+  border-radius: var(--bc-card-radius, 10px);
+}
+
+.blog-carousel__tag--overlay {
+  color: rgba(255, 255, 255, 0.72) !important;
+  font-size: var(--bc-tag-size, 11px);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.blog-carousel__card-title--overlay {
+  color: #ffffff !important;
+  font-size: var(--bc-title-size, 16px);
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0 0 7px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-carousel__card-meta--overlay {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--bc-meta-size, 12px);
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.blog-carousel__card-meta--overlay time {
+  color: inherit;
+}
+
+.blog-carousel__card-meta--overlay .blog-carousel__read-time {
+  color: inherit;
+}
+
+/* ==========================================================================
+   Responsive — Carousel
+   ========================================================================== */
+
+@media screen and (max-width: 999px) {
+  .blog-carousel__heading {
+    font-size: calc(var(--bc-heading-size, 32px) * 0.8);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .blog-carousel__inner {
+    padding-inline: 16px;
+  }
+
+  .blog-carousel__heading {
+    font-size: calc(var(--bc-heading-size, 32px) * 0.65);
+  }
+
+  .blog-carousel__header {
+    margin-bottom: 16px;
+  }
+}
+
+/* ==========================================================================
+   Responsive — Grid
+   ========================================================================== */
+
+@media screen and (max-width: 999px) {
+  .blog-carousel__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .blog-carousel__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-carousel__track,
+  .blog-carousel__card-img img {
+    transition: none;
+  }
+
+  .blog-carousel__card:hover .blog-carousel__card-img img {
+    transform: none;
+  }
+}

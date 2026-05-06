@@ -1,0 +1,269 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+{{ 'collection-filter-bar.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign section_width  = section.settings.section_width
+  assign custom_width   = section.settings.custom_width
+  assign padding_top    = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign margin_top     = section.settings.margin_top
+  assign margin_bottom  = section.settings.margin_bottom
+  assign current_blog   = blog
+-%}
+
+{%- capture width_style -%}
+  {%- case section_width -%}
+    {%- when 'full' -%}max-width: 100%;
+    {%- when 'container' -%}max-width: var(--page-width, 1200px); margin-left: auto; margin-right: auto;
+    {%- when 'boxed' -%}max-width: 1000px; margin-left: auto; margin-right: auto;
+    {%- when 'custom' -%}max-width: {{ custom_width }}px; margin-left: auto; margin-right: auto;
+  {%- endcase -%}
+{%- endcapture -%}
+
+<div class="cfb bfb" data-bfb style="margin-top: {{ margin_top }}px; margin-bottom: {{ margin_bottom }}px;">
+
+  <div class="cfb__bar" style="{{ width_style }} padding-top: {{ padding_top }}px; padding-bottom: {{ padding_bottom }}px;">
+    <span class="cfb__bar-title">
+      {%- if section.settings.bar_title != blank -%}
+        {{ section.settings.bar_title }}
+      {%- elsif current_blog != blank -%}
+        {{ current_blog.title | upcase }}
+      {%- else -%}
+        MAGAZINE
+      {%- endif -%}
+    </span>
+
+    <button class="cfb__trigger" aria-expanded="false" aria-controls="bfb-panel" aria-label="Toggle topics" data-bfb-trigger>
+      <span class="cfb__state-closed">
+        <span class="cfb__trigger-label">{{ section.settings.trigger_label | default: 'ALL TOPICS' }}</span>
+        <svg class="cfb__icon" width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M1 1L5 5.5L9 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="cfb__state-open">
+        <span class="cfb__trigger-label">{{ section.settings.trigger_label | default: 'ALL TOPICS' }}</span>
+        <svg class="cfb__icon" width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="transform:rotate(180deg)">
+          <path d="M1 1L5 5.5L9 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </span>
+    </button>
+  </div>
+
+  <div class="cfb__panel" id="bfb-panel" role="region" aria-label="Blog topics" aria-hidden="true" data-bfb-panel>
+    <div class="cfb__panel-inner bfb__panel-inner" style="{{ width_style }}">
+
+      {%- comment -%} COLUMN 1 {%- endcomment -%}
+      {%- if section.settings.col_heading_1 != blank -%}
+        <div class="cfb__col">
+          <h3 class="cfb__col-heading">{{ section.settings.col_heading_1 }}</h3>
+          <ul class="cfb__list" role="list">
+            {%- if section.settings.col_1_label_1 != blank and section.settings.col_1_url_1 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_1_url_1 }}">{{ section.settings.col_1_label_1 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_1_label_2 != blank and section.settings.col_1_url_2 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_1_url_2 }}">{{ section.settings.col_1_label_2 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_1_label_3 != blank and section.settings.col_1_url_3 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_1_url_3 }}">{{ section.settings.col_1_label_3 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_1_label_4 != blank and section.settings.col_1_url_4 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_1_url_4 }}">{{ section.settings.col_1_label_4 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_1_label_5 != blank and section.settings.col_1_url_5 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_1_url_5 }}">{{ section.settings.col_1_label_5 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_1_label_6 != blank and section.settings.col_1_url_6 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_1_url_6 }}">{{ section.settings.col_1_label_6 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_1_label_7 != blank and section.settings.col_1_url_7 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_1_url_7 }}">{{ section.settings.col_1_label_7 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_1_label_8 != blank and section.settings.col_1_url_8 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_1_url_8 }}">{{ section.settings.col_1_label_8 }}</a></li>{%- endif -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} COLUMN 2 {%- endcomment -%}
+      {%- if section.settings.col_heading_2 != blank -%}
+        <div class="cfb__col">
+          <h3 class="cfb__col-heading">{{ section.settings.col_heading_2 }}</h3>
+          <ul class="cfb__list" role="list">
+            {%- if section.settings.col_2_label_1 != blank and section.settings.col_2_url_1 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_2_url_1 }}">{{ section.settings.col_2_label_1 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_2_label_2 != blank and section.settings.col_2_url_2 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_2_url_2 }}">{{ section.settings.col_2_label_2 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_2_label_3 != blank and section.settings.col_2_url_3 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_2_url_3 }}">{{ section.settings.col_2_label_3 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_2_label_4 != blank and section.settings.col_2_url_4 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_2_url_4 }}">{{ section.settings.col_2_label_4 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_2_label_5 != blank and section.settings.col_2_url_5 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_2_url_5 }}">{{ section.settings.col_2_label_5 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_2_label_6 != blank and section.settings.col_2_url_6 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_2_url_6 }}">{{ section.settings.col_2_label_6 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_2_label_7 != blank and section.settings.col_2_url_7 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_2_url_7 }}">{{ section.settings.col_2_label_7 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_2_label_8 != blank and section.settings.col_2_url_8 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_2_url_8 }}">{{ section.settings.col_2_label_8 }}</a></li>{%- endif -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} COLUMN 3 {%- endcomment -%}
+      {%- if section.settings.col_heading_3 != blank -%}
+        <div class="cfb__col">
+          <h3 class="cfb__col-heading">{{ section.settings.col_heading_3 }}</h3>
+          <ul class="cfb__list" role="list">
+            {%- if section.settings.col_3_label_1 != blank and section.settings.col_3_url_1 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_3_url_1 }}">{{ section.settings.col_3_label_1 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_3_label_2 != blank and section.settings.col_3_url_2 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_3_url_2 }}">{{ section.settings.col_3_label_2 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_3_label_3 != blank and section.settings.col_3_url_3 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_3_url_3 }}">{{ section.settings.col_3_label_3 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_3_label_4 != blank and section.settings.col_3_url_4 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_3_url_4 }}">{{ section.settings.col_3_label_4 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_3_label_5 != blank and section.settings.col_3_url_5 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_3_url_5 }}">{{ section.settings.col_3_label_5 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_3_label_6 != blank and section.settings.col_3_url_6 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_3_url_6 }}">{{ section.settings.col_3_label_6 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_3_label_7 != blank and section.settings.col_3_url_7 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_3_url_7 }}">{{ section.settings.col_3_label_7 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_3_label_8 != blank and section.settings.col_3_url_8 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_3_url_8 }}">{{ section.settings.col_3_label_8 }}</a></li>{%- endif -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} COLUMN 4 {%- endcomment -%}
+      {%- if section.settings.col_heading_4 != blank -%}
+        <div class="cfb__col">
+          <h3 class="cfb__col-heading">{{ section.settings.col_heading_4 }}</h3>
+          <ul class="cfb__list" role="list">
+            {%- if section.settings.col_4_label_1 != blank and section.settings.col_4_url_1 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_4_url_1 }}">{{ section.settings.col_4_label_1 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_4_label_2 != blank and section.settings.col_4_url_2 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_4_url_2 }}">{{ section.settings.col_4_label_2 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_4_label_3 != blank and section.settings.col_4_url_3 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_4_url_3 }}">{{ section.settings.col_4_label_3 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_4_label_4 != blank and section.settings.col_4_url_4 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_4_url_4 }}">{{ section.settings.col_4_label_4 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_4_label_5 != blank and section.settings.col_4_url_5 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_4_url_5 }}">{{ section.settings.col_4_label_5 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_4_label_6 != blank and section.settings.col_4_url_6 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_4_url_6 }}">{{ section.settings.col_4_label_6 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_4_label_7 != blank and section.settings.col_4_url_7 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_4_url_7 }}">{{ section.settings.col_4_label_7 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_4_label_8 != blank and section.settings.col_4_url_8 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_4_url_8 }}">{{ section.settings.col_4_label_8 }}</a></li>{%- endif -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} COLUMN 5 {%- endcomment -%}
+      {%- if section.settings.col_heading_5 != blank -%}
+        <div class="cfb__col">
+          <h3 class="cfb__col-heading">{{ section.settings.col_heading_5 }}</h3>
+          <ul class="cfb__list" role="list">
+            {%- if section.settings.col_5_label_1 != blank and section.settings.col_5_url_1 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_5_url_1 }}">{{ section.settings.col_5_label_1 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_5_label_2 != blank and section.settings.col_5_url_2 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_5_url_2 }}">{{ section.settings.col_5_label_2 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_5_label_3 != blank and section.settings.col_5_url_3 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_5_url_3 }}">{{ section.settings.col_5_label_3 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_5_label_4 != blank and section.settings.col_5_url_4 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_5_url_4 }}">{{ section.settings.col_5_label_4 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_5_label_5 != blank and section.settings.col_5_url_5 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_5_url_5 }}">{{ section.settings.col_5_label_5 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_5_label_6 != blank and section.settings.col_5_url_6 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_5_url_6 }}">{{ section.settings.col_5_label_6 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_5_label_7 != blank and section.settings.col_5_url_7 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_5_url_7 }}">{{ section.settings.col_5_label_7 }}</a></li>{%- endif -%}
+            {%- if section.settings.col_5_label_8 != blank and section.settings.col_5_url_8 != blank -%}<li><a class="cfb__link" href="{{ section.settings.col_5_url_8 }}">{{ section.settings.col_5_label_8 }}</a></li>{%- endif -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .bfb__panel-inner {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+</style>
+
+<script>
+(function () {
+  'use strict';
+  function initBFB() {
+    document.querySelectorAll('[data-bfb]').forEach(function (el) {
+      var trigger = el.querySelector('[data-bfb-trigger]');
+      var panel   = el.querySelector('[data-bfb-panel]');
+      if (!trigger || !panel) return;
+
+      function isOpen() { return trigger.getAttribute('aria-expanded') === 'true'; }
+      function open()  { trigger.setAttribute('aria-expanded','true'); panel.setAttribute('aria-hidden','false'); panel.classList.add('is-open'); }
+      function close() { trigger.setAttribute('aria-expanded','false'); panel.setAttribute('aria-hidden','true'); panel.classList.remove('is-open'); }
+
+      trigger.addEventListener('click', function () { isOpen() ? close() : open(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && isOpen()) close(); });
+      document.addEventListener('click', function (e) { if (isOpen() && !el.contains(e.target)) close(); });
+      panel.querySelectorAll('.cfb__link').forEach(function (a) { a.addEventListener('click', function () { close(); }); });
+    });
+  }
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', initBFB)
+    : initBFB();
+  document.addEventListener('shopify:section:load', initBFB);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Blog Filter Bar",
+  "tag": "section",
+  "class": "section-blog-filter-bar",
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "default": "full",
+      "options": [
+        { "value": "full",      "label": "Full Width" },
+        { "value": "container", "label": "Container" },
+        { "value": "boxed",     "label": "Boxed" },
+        { "value": "custom",    "label": "Custom" }
+      ]
+    },
+    { "type": "range", "id": "custom_width", "label": "Custom width (px)", "min": 600, "max": 1600, "step": 20, "unit": "px", "default": 1200 },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top",    "label": "Padding top",    "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_top",     "label": "Margin top",     "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom",  "label": "Margin bottom",  "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
+    { "type": "header", "content": "Bar Labels" },
+    { "type": "text", "id": "bar_title",      "label": "Left title override", "info": "Leave blank to use the blog name automatically." },
+    { "type": "text", "id": "trigger_label",  "label": "Trigger button label", "default": "ALL TOPICS" },
+    { "type": "header", "content": "Column 1" },
+    { "type": "text", "id": "col_heading_1", "label": "Column 1 heading", "default": "Categories" },
+    { "type": "text", "id": "col_1_label_1", "label": "Link 1 — label" }, { "type": "url", "id": "col_1_url_1", "label": "Link 1 — URL" },
+    { "type": "text", "id": "col_1_label_2", "label": "Link 2 — label" }, { "type": "url", "id": "col_1_url_2", "label": "Link 2 — URL" },
+    { "type": "text", "id": "col_1_label_3", "label": "Link 3 — label" }, { "type": "url", "id": "col_1_url_3", "label": "Link 3 — URL" },
+    { "type": "text", "id": "col_1_label_4", "label": "Link 4 — label" }, { "type": "url", "id": "col_1_url_4", "label": "Link 4 — URL" },
+    { "type": "text", "id": "col_1_label_5", "label": "Link 5 — label" }, { "type": "url", "id": "col_1_url_5", "label": "Link 5 — URL" },
+    { "type": "text", "id": "col_1_label_6", "label": "Link 6 — label" }, { "type": "url", "id": "col_1_url_6", "label": "Link 6 — URL" },
+    { "type": "text", "id": "col_1_label_7", "label": "Link 7 — label" }, { "type": "url", "id": "col_1_url_7", "label": "Link 7 — URL" },
+    { "type": "text", "id": "col_1_label_8", "label": "Link 8 — label" }, { "type": "url", "id": "col_1_url_8", "label": "Link 8 — URL" },
+    { "type": "header", "content": "Column 2" },
+    { "type": "text", "id": "col_heading_2", "label": "Column 2 heading", "default": "News" },
+    { "type": "text", "id": "col_2_label_1", "label": "Link 1 — label" }, { "type": "url", "id": "col_2_url_1", "label": "Link 1 — URL" },
+    { "type": "text", "id": "col_2_label_2", "label": "Link 2 — label" }, { "type": "url", "id": "col_2_url_2", "label": "Link 2 — URL" },
+    { "type": "text", "id": "col_2_label_3", "label": "Link 3 — label" }, { "type": "url", "id": "col_2_url_3", "label": "Link 3 — URL" },
+    { "type": "text", "id": "col_2_label_4", "label": "Link 4 — label" }, { "type": "url", "id": "col_2_url_4", "label": "Link 4 — URL" },
+    { "type": "text", "id": "col_2_label_5", "label": "Link 5 — label" }, { "type": "url", "id": "col_2_url_5", "label": "Link 5 — URL" },
+    { "type": "text", "id": "col_2_label_6", "label": "Link 6 — label" }, { "type": "url", "id": "col_2_url_6", "label": "Link 6 — URL" },
+    { "type": "text", "id": "col_2_label_7", "label": "Link 7 — label" }, { "type": "url", "id": "col_2_url_7", "label": "Link 7 — URL" },
+    { "type": "text", "id": "col_2_label_8", "label": "Link 8 — label" }, { "type": "url", "id": "col_2_url_8", "label": "Link 8 — URL" },
+    { "type": "header", "content": "Column 3" },
+    { "type": "text", "id": "col_heading_3", "label": "Column 3 heading" },
+    { "type": "text", "id": "col_3_label_1", "label": "Link 1 — label" }, { "type": "url", "id": "col_3_url_1", "label": "Link 1 — URL" },
+    { "type": "text", "id": "col_3_label_2", "label": "Link 2 — label" }, { "type": "url", "id": "col_3_url_2", "label": "Link 2 — URL" },
+    { "type": "text", "id": "col_3_label_3", "label": "Link 3 — label" }, { "type": "url", "id": "col_3_url_3", "label": "Link 3 — URL" },
+    { "type": "text", "id": "col_3_label_4", "label": "Link 4 — label" }, { "type": "url", "id": "col_3_url_4", "label": "Link 4 — URL" },
+    { "type": "text", "id": "col_3_label_5", "label": "Link 5 — label" }, { "type": "url", "id": "col_3_url_5", "label": "Link 5 — URL" },
+    { "type": "text", "id": "col_3_label_6", "label": "Link 6 — label" }, { "type": "url", "id": "col_3_url_6", "label": "Link 6 — URL" },
+    { "type": "text", "id": "col_3_label_7", "label": "Link 7 — label" }, { "type": "url", "id": "col_3_url_7", "label": "Link 7 — URL" },
+    { "type": "text", "id": "col_3_label_8", "label": "Link 8 — label" }, { "type": "url", "id": "col_3_url_8", "label": "Link 8 — URL" },
+    { "type": "header", "content": "Column 4" },
+    { "type": "text", "id": "col_heading_4", "label": "Column 4 heading" },
+    { "type": "text", "id": "col_4_label_1", "label": "Link 1 — label" }, { "type": "url", "id": "col_4_url_1", "label": "Link 1 — URL" },
+    { "type": "text", "id": "col_4_label_2", "label": "Link 2 — label" }, { "type": "url", "id": "col_4_url_2", "label": "Link 2 — URL" },
+    { "type": "text", "id": "col_4_label_3", "label": "Link 3 — label" }, { "type": "url", "id": "col_4_url_3", "label": "Link 3 — URL" },
+    { "type": "text", "id": "col_4_label_4", "label": "Link 4 — label" }, { "type": "url", "id": "col_4_url_4", "label": "Link 4 — URL" },
+    { "type": "text", "id": "col_4_label_5", "label": "Link 5 — label" }, { "type": "url", "id": "col_4_url_5", "label": "Link 5 — URL" },
+    { "type": "text", "id": "col_4_label_6", "label": "Link 6 — label" }, { "type": "url", "id": "col_4_url_6", "label": "Link 6 — URL" },
+    { "type": "text", "id": "col_4_label_7", "label": "Link 7 — label" }, { "type": "url", "id": "col_4_url_7", "label": "Link 7 — URL" },
+    { "type": "text", "id": "col_4_label_8", "label": "Link 8 — label" }, { "type": "url", "id": "col_4_url_8", "label": "Link 8 — URL" },
+    { "type": "header", "content": "Column 5" },
+    { "type": "text", "id": "col_heading_5", "label": "Column 5 heading" },
+    { "type": "text", "id": "col_5_label_1", "label": "Link 1 — label" }, { "type": "url", "id": "col_5_url_1", "label": "Link 1 — URL" },
+    { "type": "text", "id": "col_5_label_2", "label": "Link 2 — label" }, { "type": "url", "id": "col_5_url_2", "label": "Link 2 — URL" },
+    { "type": "text", "id": "col_5_label_3", "label": "Link 3 — label" }, { "type": "url", "id": "col_5_url_3", "label": "Link 3 — URL" },
+    { "type": "text", "id": "col_5_label_4", "label": "Link 4 — label" }, { "type": "url", "id": "col_5_url_4", "label": "Link 4 — URL" },
+    { "type": "text", "id": "col_5_label_5", "label": "Link 5 — label" }, { "type": "url", "id": "col_5_url_5", "label": "Link 5 — URL" },
+    { "type": "text", "id": "col_5_label_6", "label": "Link 6 — label" }, { "type": "url", "id": "col_5_url_6", "label": "Link 6 — URL" },
+    { "type": "text", "id": "col_5_label_7", "label": "Link 7 — label" }, { "type": "url", "id": "col_5_url_7", "label": "Link 7 — URL" },
+    { "type": "text", "id": "col_5_label_8", "label": "Link 8 — label" }, { "type": "url", "id": "col_5_url_8", "label": "Link 8 — URL" }
+  ],
+  "presets": [
+    {
+      "name": "Blog Filter Bar",
+      "settings": {
+        "col_heading_1": "Categories",
+        "col_heading_2": "News",
+        "col_heading_3": "Tipps & Tricks"
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,348 @@
+.sos-reviews {
+  padding-left: var(--page-width-margin, 40px);
+  padding-right: var(--page-width-margin, 40px);
+  overflow: hidden;
+}
+
+/* ── header ── */
+.sos-reviews__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.sos-reviews__heading {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #030303;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sos-reviews__count {
+  font-size: 16px;
+  font-weight: 400;
+  color: #928171;
+}
+
+.sos-reviews__write-btn {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #030303;
+  text-decoration: none;
+  border: 1px solid #030303;
+  padding: 9px 20px;
+  border-radius: 2px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.sos-reviews__write-btn:hover {
+  background: #030303;
+  color: #fff;
+}
+
+/* ── track wrap ── */
+.sos-reviews__track-wrap {
+  position: relative;
+}
+
+.sos-reviews__track {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* ── card ── */
+.sos-reviews__card {
+  flex: 0 0 300px;
+  background: #F1EFE8;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sos-reviews__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.sos-reviews__stars {
+  display: flex;
+  gap: 2px;
+}
+
+.sos-reviews__date {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  color: #928171;
+}
+
+.sos-reviews__title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2C2722;
+  margin: 0;
+}
+
+.sos-reviews__author {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  color: #928171;
+  margin: 0;
+}
+
+.sos-reviews__body {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  color: #030303;
+  line-height: 1.65;
+  margin: 4px 0 0;
+}
+
+/* ── nav buttons ── */
+.sos-reviews__nav {
+  position: absolute;
+  top: -52px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #D7D4CF;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #030303;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.sos-reviews__nav--prev {
+  right: 48px;
+}
+
+.sos-reviews__nav:hover {
+  background: #FAF9F7;
+  border-color: #928171;
+}
+
+.sos-reviews__nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ── states ── */
+.sos-reviews__loading,
+.sos-reviews__empty {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  color: #928171;
+  padding: 20px 0;
+}
+
+/* ── mobile ── */
+@media screen and (max-width: 749px) {
+  .sos-reviews {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .sos-reviews__card {
+    flex: 0 0 260px;
+  }
+
+  .sos-reviews__nav {
+    top: -48px;
+  }
+}
+
+/* ============================================================
+   Judge.me Widget Override - soul of scents
+   ============================================================ */
+
+/* Hide Judge.me branding */
+.jdgm-widget .jdgm-branding,
+.jdgm-preview-badge { display: none !important; }
+
+/* Overall widget wrapper */
+.jdgm-widget,
+.jdgm-rev-widg {
+  font-family: 'Manrope', sans-serif !important;
+}
+
+/* Section heading */
+.jdgm-rev-widg__title,
+.jdgm-widget__title {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  color: #030303 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Write a review button */
+.jdgm-write-rev-link,
+.jdgm-write-rev-link:visited {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  color: #030303 !important;
+  background: transparent !important;
+  border: 1px solid #030303 !important;
+  border-radius: 2px !important;
+  padding: 9px 20px !important;
+  text-decoration: none !important;
+}
+
+.jdgm-write-rev-link:hover {
+  background: #030303 !important;
+  color: #fff !important;
+}
+
+/* Individual review card */
+.jdgm-rev {
+  background: #F1EFE8 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  margin-bottom: 16px !important;
+  box-shadow: none !important;
+}
+
+/* Stars */
+.jdgm-rev__rating .jdgm-star,
+.jdgm-rev__rating {
+  color: #C4956A !important;
+  font-size: 14px !important;
+}
+
+/* Review date */
+.jdgm-rev__timestamp {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 12px !important;
+  color: #928171 !important;
+}
+
+/* Reviewer name */
+.jdgm-rev__author {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 12px !important;
+  color: #928171 !important;
+  font-weight: 400 !important;
+}
+
+/* Review title */
+.jdgm-rev__title {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #2C2722 !important;
+}
+
+/* Review body text */
+.jdgm-rev__body {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 13px !important;
+  color: #030303 !important;
+  line-height: 1.65 !important;
+}
+
+/* Verified buyer badge */
+.jdgm-rev__verif-span {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 11px !important;
+  color: #928171 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Reviewer icon/avatar */
+.jdgm-rev__icon {
+  background: #D7D4CF !important;
+  color: #2C2722 !important;
+  font-family: 'Manrope', sans-serif !important;
+  font-weight: 600 !important;
+}
+
+/* Sort / filter bar */
+.jdgm-rev-widg__summary-text,
+.jdgm-rev-sort,
+.jdgm-rev-filter {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 12px !important;
+  color: #928171 !important;
+}
+
+/* Pagination */
+.jdgm-paginate .jdgm-page {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 12px !important;
+  color: #928171 !important;
+  border: 1px solid #D7D4CF !important;
+  border-radius: 2px !important;
+}
+
+.jdgm-paginate .jdgm-page.jdgm-current-page,
+.jdgm-paginate .jdgm-page:hover {
+  background: #030303 !important;
+  color: #fff !important;
+  border-color: #030303 !important;
+}
+
+/* Tabs */
+.jdgm-tab {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #928171 !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+.jdgm-tab.jdgm-current-tab,
+.jdgm-tab:hover {
+  color: #030303 !important;
+  border-bottom-color: #030303 !important;
+}
+
+/* Review form */
+.jdgm-rev-form,
+.jdgm-form {
+  font-family: 'Manrope', sans-serif !important;
+  background: #FAF9F7 !important;
+  border-radius: 8px !important;
+}
+
+.jdgm-form input,
+.jdgm-form textarea {
+  font-family: 'Manrope', sans-serif !important;
+  border: 1px solid #D7D4CF !important;
+  border-radius: 2px !important;
+  background: #fff !important;
+  color: #030303 !important;
+}
+
+.jdgm-form__submit-btn {
+  font-family: 'Manrope', sans-serif !important;
+  background: #030303 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 2px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+}
+
+.jdgm-form__submit-btn:hover {
+  background: #2C2722 !important;
+}

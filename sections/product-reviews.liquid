@@ -1,0 +1,449 @@
+<style>
+ [id$="177363755258b7f02e"] { display: none !important; }
+ </style>
+ {% comment %}Product Reviews Section - Judge.me inline form{% endcomment %}
+{%- assign section_id = 'pr-' | append: section.id -%}
+<section id="{{ section_id }}" class="product-reviews-section" style="background-color:{{ section.settings.bg_color }};padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px;">
+<div class="pr__container" style="max-width:{{ section.settings.container_width }}px;margin:0 auto;padding:0 20px;">
+<div class="pr__header">
+  <div class="pr__heading-wrap">
+    <h2 class="pr__heading" style="color:{{ section.settings.heading_color }};font-size:{{ section.settings.heading_size }}px;">
+      {{ section.settings.heading | default: 'Reviews' }}
+      <span class="pr__count" id="{{ section_id }}-count" style="color:{{ section.settings.count_color }};font-size:0.6em;font-weight:400;"></span>
+    </h2>
+    <button class="pr__write-btn" id="{{ section_id }}-write-btn" style="border-color:{{ section.settings.btn_border_color }};color:{{ section.settings.btn_text_color }};">
+      {{ section.settings.write_review_text | default: 'Write a review' }}
+    </button>
+  </div>
+  <div class="pr__nav" id="{{ section_id }}-nav" style="display:none;">
+    <button class="pr__nav-btn" id="{{ section_id }}-prev" aria-label="Previous" style="background:{{ section.settings.nav_bg_color }};color:{{ section.settings.nav_arrow_color }};">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="pr__nav-btn" id="{{ section_id }}-next" aria-label="Next" style="background:{{ section.settings.nav_bg_color }};color:{{ section.settings.nav_arrow_color }};">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</div>
+<div class="pr__viewport" id="{{ section_id }}-viewport">
+  <div class="pr__track" id="{{ section_id }}-track"></div>
+</div>
+<div class="pr__empty" id="{{ section_id }}-empty" style="display:none;">
+  <p style="color:{{ section.settings.text_color }};">{{ section.settings.no_reviews_text | default: 'No reviews yet. Be the first to share your experience!' }}</p>
+</div>
+<div class="pr__loading" id="{{ section_id }}-loading"><div class="pr__spinner"></div></div>
+<div class="pr__form-wrap" id="{{ section_id }}-form-wrap" style="display:none;">
+  <div class="pr__form-box">
+    <div class="pr__form-header">
+      <h3 class="pr__form-title" style="color:{{ section.settings.heading_color }};">{{ section.settings.form_heading | default: 'Write a Review' }}</h3>
+      <button class="pr__form-close" id="{{ section_id }}-form-close" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="pr__field">
+      <label class="pr__label" style="color:{{ section.settings.text_color }};">{{ section.settings.label_rating | default: 'Your Rating' }} <span style="color:#c0392b;">*</span></label>
+      <div class="pr__stars-input" id="{{ section_id }}-stars-input">
+        {%- for i in (1..5) -%}
+        <button type="button" class="pr__star-btn" data-val="{{ i }}" aria-label="{{ i }} stars">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.5l2.472 5.01 5.528.803-4 3.9.944 5.505L10 14.01l-4.944 2.708.944-5.505-4-3.9 5.528-.803z" stroke="{{ section.settings.star_color }}" stroke-width="1.2" class="pr__star-path"/></svg>
+        </button>
+        {%- endfor -%}
+      </div>
+    </div>
+    <div class="pr__field-row">
+      <div class="pr__field">
+        <label class="pr__label" style="color:{{ section.settings.text_color }};">{{ section.settings.label_name | default: 'Your Name' }} <span style="color:#c0392b;">*</span></label>
+        <input type="text" class="pr__input" id="{{ section_id }}-name" autocomplete="name" />
+      </div>
+      <div class="pr__field">
+        <label class="pr__label" style="color:{{ section.settings.text_color }};">{{ section.settings.label_email | default: 'Email Address' }} <span style="color:#c0392b;">*</span></label>
+        <input type="email" class="pr__input" id="{{ section_id }}-email" autocomplete="email" />
+      </div>
+    </div>
+    <div class="pr__field">
+      <label class="pr__label" style="color:{{ section.settings.text_color }};">{{ section.settings.label_title | default: 'Review Title' }}</label>
+      <input type="text" class="pr__input" id="{{ section_id }}-title" />
+    </div>
+    <div class="pr__field">
+      <label class="pr__label" style="color:{{ section.settings.text_color }};">{{ section.settings.label_body | default: 'Your Review' }} <span style="color:#c0392b;">*</span></label>
+      <textarea class="pr__input pr__textarea" id="{{ section_id }}-body" rows="4"></textarea>
+    </div>
+    <div class="pr__form-error" id="{{ section_id }}-form-error" style="display:none;"></div>
+    <button class="pr__submit-btn" id="{{ section_id }}-submit" style="background:{{ section.settings.btn_border_color }};color:{{ section.settings.bg_color }};">
+      <span id="{{ section_id }}-submit-text">{{ section.settings.submit_text | default: 'Submit Review' }}</span>
+      <span id="{{ section_id }}-submit-spin" style="display:none;">Submitting...</span>
+    </button>
+    <div class="pr__success" id="{{ section_id }}-success" style="display:none;">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#27ae60" stroke-width="1.5"/><path d="M10 16l4.5 4.5 7.5-8" stroke="#27ae60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p>{{ section.settings.success_text | default: 'Thank you! Your review has been submitted.' }}</p>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+<style>
+.product-reviews-section * { box-sizing: border-box; }
+.pr__header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:28px; flex-wrap:wrap; }
+.pr__heading-wrap { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+.pr__heading { margin:0; font-weight:600; line-height:1.2; display:flex; align-items:baseline; gap:8px; }
+.pr__write-btn { display:inline-flex; align-items:center; padding:10px 20px; border:1.5px solid; background:transparent; font-size:14px; font-weight:500; border-radius:100px; cursor:pointer; transition:opacity 0.2s; white-space:nowrap; font-family:inherit; }
+.pr__write-btn:hover { opacity:0.7; }
+.pr__nav { display:flex; gap:8px; align-items:center; flex-shrink:0; }
+.pr__nav-btn { width:40px; height:40px; border-radius:50%; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s; }
+.pr__nav-btn:hover { opacity:0.75; }
+.pr__nav-btn:disabled { opacity:0.35; cursor:not-allowed; }
+.pr__viewport { overflow:hidden; }
+.pr__track { display:flex; gap:{{ section.settings.card_gap }}px; transition:transform 0.45s cubic-bezier(0.4,0,0.2,1); will-change:transform; align-items:stretch; }
+.pr-card { background:{{ section.settings.card_bg_color }}; border-radius:{{ section.settings.card_radius }}px; padding:24px; display:flex; flex-direction:column; gap:12px; min-width:0; }
+.pr-card__top { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+.pr-card__stars { display:flex; gap:3px; }
+.pr-card__star { width:15px; height:15px; fill:{{ section.settings.star_color }}; }
+.pr-card__star--empty { fill:none; stroke:{{ section.settings.star_color }}; stroke-width:1.5; }
+.pr-card__date { font-size:13px; color:{{ section.settings.text_color }}; opacity:0.6; white-space:nowrap; }
+.pr-card__title { font-size:{{ section.settings.title_size }}px; font-weight:700; color:{{ section.settings.text_color }}; margin:0; line-height:1.3; }
+.pr-card__reviewer { font-size:13px; color:{{ section.settings.text_color }}; opacity:0.7; margin:-4px 0 0; }
+.pr-card__body { font-size:{{ section.settings.body_size }}px; color:{{ section.settings.text_color }}; line-height:1.6; margin:0; flex:1; }
+.pr__empty { text-align:center; padding:40px 20px; display:flex; flex-direction:column; align-items:center; gap:16px; }
+.pr__empty p { font-size:15px; margin:0; }
+.pr__loading { display:flex; justify-content:center; padding:40px 20px; }
+.pr__spinner { width:28px; height:28px; border:2px solid rgba(0,0,0,0.1); border-top-color:#555; border-radius:50%; animation:pr-spin 0.7s linear infinite; }
+@keyframes pr-spin { to { transform:rotate(360deg); } }
+.pr__form-wrap { margin-top:40px; }
+.pr__form-box { background:{{ section.settings.card_bg_color }}; border-radius:{{ section.settings.card_radius }}px; padding:32px; max-width:680px; }
+.pr__form-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+.pr__form-title { margin:0; font-size:18px; font-weight:600; }
+.pr__form-close { background:none; border:none; cursor:pointer; padding:4px; color:inherit; opacity:0.6; transition:opacity 0.2s; }
+.pr__form-close:hover { opacity:1; }
+.pr__field { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+.pr__field-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.pr__label { font-size:13px; font-weight:500; }
+.pr__input { border:1.5px solid rgba(0,0,0,0.15); border-radius:8px; padding:10px 14px; font-size:14px; font-family:inherit; background:#fff; color:#1a1a1a; transition:border-color 0.2s; width:100%; }
+.pr__input:focus { outline:none; border-color:{{ section.settings.btn_border_color }}; }
+.pr__textarea { resize:vertical; min-height:100px; }
+.pr__stars-input { display:flex; gap:6px; }
+.pr__star-btn { background:none; border:none; cursor:pointer; padding:2px; transition:transform 0.15s; line-height:0; }
+.pr__star-btn:hover { transform:scale(1.15); }
+.pr__star-btn svg { width:28px; height:28px; display:block; }
+.pr__star-btn.lit .pr__star-path { fill:{{ section.settings.star_color }}; stroke:{{ section.settings.star_color }}; }
+.pr__submit-btn { padding:12px 28px; border:none; border-radius:100px; font-size:15px; font-weight:500; cursor:pointer; transition:opacity 0.2s; font-family:inherit; margin-top:8px; }
+.pr__submit-btn:hover { opacity:0.85; }
+.pr__submit-btn:disabled { opacity:0.5; cursor:not-allowed; }
+.pr__form-error { color:#c0392b; font-size:13px; margin-bottom:12px; padding:10px 14px; background:#fdf0ee; border-radius:6px; }
+.pr__success { display:flex; flex-direction:column; align-items:center; gap:12px; padding:20px 0; text-align:center; }
+.pr__success p { font-size:15px; margin:0; color:{{ section.settings.text_color }}; }
+@media (max-width:1024px) { .pr__track .pr-card { flex:0 0 calc((100% - {{ section.settings.card_gap }}px) / 2) !important; } }
+@media (max-width:640px) {
+  .pr__track .pr-card { flex:0 0 calc(100% - 40px) !important; }
+  .pr__field-row { grid-template-columns:1fr; }
+  .pr__heading { font-size:{{ section.settings.heading_size | times: 0.8 | round }}px; }
+  .product-reviews-section { padding-top:{{ section.settings.padding_top | divided_by: 2 }}px !important; padding-bottom:{{ section.settings.padding_bottom | divided_by: 2 }}px !important; margin-top:{{ section.settings.margin_top | divided_by: 2 }}px !important; margin-bottom:{{ section.settings.margin_bottom | divided_by: 2 }}px !important; }
+}
+</style>
+<script>
+(function() {
+  var sid = {{ section_id | json }};
+  var shopDomain = {{ shop.permanent_domain | json }};
+  var productId = {{ product.id | json }};
+  var productHandle = {{ product.handle | json }};
+  var perPage = {{ section.settings.cards_per_row }};
+  var cardGap = {{ section.settings.card_gap }};
+  var $ = function(id) { return document.getElementById(id); };
+  var track = $(sid+'-track'), loading = $(sid+'-loading'), emptyEl = $(sid+'-empty');
+  var nav = $(sid+'-nav'), countEl = $(sid+'-count');
+  var prevBtn = $(sid+'-prev'), nextBtn = $(sid+'-next'), viewport = $(sid+'-viewport');
+  var writeBtn = $(sid+'-write-btn'), formWrap = $(sid+'-form-wrap'), formClose = $(sid+'-form-close');
+  var starsInput = $(sid+'-stars-input'), submitBtn = $(sid+'-submit');
+  var submitText = $(sid+'-submit-text'), submitSpin = $(sid+'-submit-spin');
+  var formError = $(sid+'-form-error'), successEl = $(sid+'-success');
+  var allReviews = [], currentIndex = 0, selectedRating = 0;
+
+  function getVisible() { var w=window.innerWidth; if(w<=640)return 1; if(w<=1024)return Math.min(2,perPage); return perPage; }
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function formatDate(d) {
+    if(!d) return '';
+    try {
+      var dt=new Date(d),now=new Date(),diff=Math.floor((now-dt)/1000);
+      if(diff<86400)return 'Today';
+      if(diff<172800)return '1 day ago';
+      var days=Math.floor(diff/86400);
+      if(days<30)return days+' days ago';
+      var m=Math.floor(days/30);
+      if(m<12)return m+' month'+(m>1?'s':'')+' ago';
+      var y=Math.floor(m/12);
+      return y+' year'+(y>1?'s':'')+' ago';
+    } catch(e){return '';}
+  }
+  function renderStars(r) {
+    var h='';
+    for(var i=1;i<=5;i++) {
+      if(i<=r) h+='<svg class="pr-card__star" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.5l2.472 5.01 5.528.803-4 3.9.944 5.505L10 14.01l-4.944 2.708.944-5.505-4-3.9 5.528-.803z"/></svg>';
+      else h+='<svg class="pr-card__star pr-card__star--empty" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.5l2.472 5.01 5.528.803-4 3.9.944 5.505L10 14.01l-4.944 2.708.944-5.505-4-3.9 5.528-.803z"/></svg>';
+    }
+    return h;
+  }
+  function buildCard(r) {
+    var name=r.reviewer?(r.reviewer.name||''):'';
+    return '<div class="pr-card">'+
+      '<div class="pr-card__top"><div class="pr-card__stars">'+renderStars(r.rating||5)+'</div><span class="pr-card__date">'+esc(formatDate(r.created_at))+'</span></div>'+
+      (r.title?'<h3 class="pr-card__title">'+esc(r.title)+'</h3>':'')+
+      (name?'<p class="pr-card__reviewer">'+esc(name)+'</p>':'')+
+      (r.body?'<p class="pr-card__body">'+esc(r.body)+'</p>':'')+
+      '</div>';
+  }
+  function updateSizes() {
+    var v=getVisible(), vw=viewport.offsetWidth, w=(vw-cardGap*(v-1))/v;
+    track.querySelectorAll('.pr-card').forEach(function(c){c.style.flex='0 0 '+w+'px';c.style.width=w+'px';});
+    return w;
+  }
+  function goTo(i) {
+    var v=getVisible(), max=Math.max(0,allReviews.length-v);
+    currentIndex=Math.max(0,Math.min(i,max));
+    var w=updateSizes();
+    track.style.transform='translateX(-'+(currentIndex*(w+cardGap))+'px)';
+    if(prevBtn)prevBtn.disabled=currentIndex<=0;
+    if(nextBtn)nextBtn.disabled=currentIndex>=max;
+  }
+  function showReviews(reviews) {
+    loading.style.display='none';
+    if(!reviews||reviews.length===0){emptyEl.style.display='flex';return;}
+    if(countEl)countEl.textContent='('+reviews.length+')';
+    track.innerHTML=reviews.map(buildCard).join('');
+    if(reviews.length>getVisible()&&nav)nav.style.display='flex';
+    setTimeout(function(){goTo(0);},50);
+  }
+
+  /* ── Judge.me review fetching ── */
+  function fetchViaAPI(page, acc, resolve, reject) {
+    page = page || 1; acc = acc || [];
+    var url = 'https://judge.me/api/v1/reviews?shop_domain=' + encodeURIComponent(shopDomain) +
+              '&product_id=' + productId + '&per_page=100&page=' + page;
+    fetch(url, { headers: { 'Accept': 'application/json' } })
+      .then(function(r) { if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(d) {
+        var batch = d.reviews || [];
+        var combined = acc.concat(batch);
+        if(batch.length === 100) {
+          fetchViaAPI(page + 1, combined, resolve, reject);
+        } else {
+          resolve(combined);
+        }
+      })
+      .catch(reject);
+  }
+
+  function fetchViaWidget(resolve) {
+    /* Embed a hidden Judge.me widget, wait for it to render, then parse reviews */
+    var hiddenDiv = document.createElement('div');
+    hiddenDiv.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:300px;overflow:hidden;pointer-events:none;visibility:hidden;';
+    hiddenDiv.innerHTML = '<div class="jdgm-widget jdgm-review-widget" ' +
+      'data-id="' + productId + '" ' +
+      'data-handle="' + productHandle + '" ' +
+      'data-number-of-reviews="50" ' +
+      'data-shop-domain="' + shopDomain + '">' +
+      '</div>';
+    document.body.appendChild(hiddenDiv);
+
+    function parseAndResolve() {
+      var reviewEls = hiddenDiv.querySelectorAll('.jdgm-rev');
+      if(reviewEls.length === 0) { document.body.removeChild(hiddenDiv); resolve([]); return; }
+      var reviews = [];
+      reviewEls.forEach(function(el) {
+        var scoreAttr = el.getAttribute('data-score') || el.getAttribute('data-rating') || '';
+        var rating = parseFloat(scoreAttr) || 5;
+        var titleEl = el.querySelector('.jdgm-rev__title');
+        var bodyEl = el.querySelector('.jdgm-rev__body p') || el.querySelector('.jdgm-rev__body');
+        var authorEl = el.querySelector('.jdgm-rev__author');
+        var timestampEl = el.querySelector('time') || el.querySelector('.jdgm-rev__timestamp');
+        reviews.push({
+          rating: Math.round(rating),
+          title: titleEl ? titleEl.textContent.trim() : '',
+          body: bodyEl ? bodyEl.textContent.trim() : '',
+          reviewer: { name: authorEl ? authorEl.textContent.trim() : '' },
+          created_at: timestampEl ? (timestampEl.getAttribute('datetime') || timestampEl.textContent.trim()) : ''
+        });
+      });
+      document.body.removeChild(hiddenDiv);
+      resolve(reviews);
+    }
+
+    /* Load JDGM script if not present */
+    if(window.JDGM && window.JDGM.loadWidgets) {
+      window.JDGM.loadWidgets();
+      var attempts = 0;
+      var poll = setInterval(function() {
+        attempts++;
+        if(hiddenDiv.querySelectorAll('.jdgm-rev').length > 0 || attempts > 40) {
+          clearInterval(poll);
+          parseAndResolve();
+        }
+      }, 300);
+    } else {
+      var jdgmScript = document.querySelector('script[src*="judge.me"]');
+      if(!jdgmScript) {
+        jdgmScript = document.createElement('script');
+        jdgmScript.src = '//cdn.judge.me/assets/install.js';
+        jdgmScript.async = true;
+        document.head.appendChild(jdgmScript);
+      }
+      var attempts = 0;
+      var poll = setInterval(function() {
+        attempts++;
+        var hasReviews = hiddenDiv.querySelectorAll('.jdgm-rev').length > 0;
+        if(hasReviews || attempts > 60) {
+          clearInterval(poll);
+          if(hasReviews) {
+            setTimeout(function() { parseAndResolve(); }, 200);
+          } else {
+            document.body.removeChild(hiddenDiv);
+            resolve([]);
+          }
+        }
+      }, 300);
+    }
+  }
+
+  function init() {
+    var timeout = setTimeout(function() {
+      if(loading.style.display !== 'none') {
+        loading.style.display = 'none';
+        emptyEl.style.display = 'flex';
+      }
+    }, 12000);
+
+    new Promise(function(resolve, reject) {
+      fetchViaAPI(1, [], resolve, reject);
+    })
+    .then(function(reviews) {
+      clearTimeout(timeout);
+      if(reviews && reviews.length > 0) {
+        allReviews = reviews;
+        showReviews(reviews);
+      } else {
+        /* API returned nothing – try widget embed fallback */
+        fetchViaWidget(function(widgetReviews) {
+          clearTimeout(timeout);
+          allReviews = widgetReviews || [];
+          showReviews(allReviews);
+        });
+      }
+    })
+    .catch(function() {
+      /* API failed – try widget embed fallback */
+      fetchViaWidget(function(widgetReviews) {
+        clearTimeout(timeout);
+        allReviews = widgetReviews || [];
+        showReviews(allReviews);
+      });
+    });
+  }
+
+  if(prevBtn)prevBtn.addEventListener('click',function(){goTo(currentIndex-1);});
+  if(nextBtn)nextBtn.addEventListener('click',function(){goTo(currentIndex+1);});
+  window.addEventListener('resize',function(){if(allReviews.length>0)setTimeout(function(){goTo(currentIndex);},150);});
+  if(writeBtn) {
+    writeBtn.addEventListener('click',function(){
+      var open=formWrap.style.display==='block';
+      formWrap.style.display=open?'none':'block';
+      if(!open)setTimeout(function(){formWrap.scrollIntoView({behavior:'smooth',block:'nearest'});},50);
+    });
+  }
+  if(formClose)formClose.addEventListener('click',function(){formWrap.style.display='none';});
+  if(starsInput) {
+    var starBtns=starsInput.querySelectorAll('.pr__star-btn');
+    function updateStarDisplay(val) {
+      starBtns.forEach(function(b){b.classList.toggle('lit',parseInt(b.getAttribute('data-val'))<=val);});
+    }
+    starBtns.forEach(function(btn){
+      btn.addEventListener('click',function(){selectedRating=parseInt(btn.getAttribute('data-val'));updateStarDisplay(selectedRating);});
+      btn.addEventListener('mouseenter',function(){updateStarDisplay(parseInt(btn.getAttribute('data-val')));});
+    });
+    starsInput.addEventListener('mouseleave',function(){updateStarDisplay(selectedRating);});
+  }
+  if(submitBtn) {
+    submitBtn.addEventListener('click',function(){
+      formError.style.display='none';
+      var name=($(sid+'-name').value||'').trim();
+      var email=($(sid+'-email').value||'').trim();
+      var title=($(sid+'-title').value||'').trim();
+      var body=($(sid+'-body').value||'').trim();
+      var emailRe=/^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      if(!name){formError.textContent='Please enter your name.';formError.style.display='block';return;}
+      if(!email||!emailRe.test(email)){formError.textContent='Please enter a valid email address.';formError.style.display='block';return;}
+      if(!selectedRating){formError.textContent='Please select a star rating.';formError.style.display='block';return;}
+      if(!body){formError.textContent='Please write your review.';formError.style.display='block';return;}
+      submitText.style.display='none'; submitSpin.style.display='inline'; submitBtn.disabled=true;
+      fetch('https://judge.me/api/v1/reviews',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({shop_domain:shopDomain,platform:'shopify',id:productId,email:email,name:name,rating:selectedRating,title:title,body:body})
+      })
+      .then(function(r){return r.json();})
+      .then(function(d){
+        submitText.style.display=''; submitSpin.style.display='none'; submitBtn.disabled=false;
+        if(d.review||d.id) {
+          submitBtn.style.display='none'; successEl.style.display='flex';
+          [sid+'-name',sid+'-email',sid+'-title',sid+'-body'].forEach(function(id){var el=$(id);if(el)el.value='';});
+          selectedRating=0;
+          if(starsInput)starsInput.querySelectorAll('.pr__star-btn').forEach(function(b){b.classList.remove('lit');});
+        } else {
+          formError.textContent=(d.error||d.message||'Something went wrong. Please try again.');
+          formError.style.display='block';
+        }
+      })
+      .catch(function(){
+        submitText.style.display=''; submitSpin.style.display='none'; submitBtn.disabled=false;
+        formError.textContent='Network error. Please try again.'; formError.style.display='block';
+      });
+    });
+  }
+  init();
+})();
+</script>
+{% schema %}
+{
+  "name": "Product Reviews",
+  "tag": "section",
+  "class": "product-reviews-section-wrapper",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Reviews" },
+    { "type": "range", "id": "heading_size", "min": 18, "max": 52, "step": 2, "unit": "px", "label": "Heading font size", "default": 28 },
+    { "type": "header", "content": "Write a Review Button" },
+    { "type": "text", "id": "write_review_text", "label": "Button label", "default": "Write a review" },
+    { "type": "text", "id": "no_reviews_text", "label": "No reviews message", "default": "No reviews yet. Be the first to share your experience!" },
+    { "type": "header", "content": "Review Form Labels" },
+    { "type": "text", "id": "form_heading", "label": "Form heading", "default": "Write a Review" },
+    { "type": "text", "id": "label_name", "label": "Name label", "default": "Your Name" },
+    { "type": "text", "id": "label_email", "label": "Email label", "default": "Email Address" },
+    { "type": "text", "id": "label_rating", "label": "Rating label", "default": "Your Rating" },
+    { "type": "text", "id": "label_title", "label": "Review title label", "default": "Review Title" },
+    { "type": "text", "id": "label_body", "label": "Review body label", "default": "Your Review" },
+    { "type": "text", "id": "submit_text", "label": "Submit button text", "default": "Submit Review" },
+    { "type": "text", "id": "success_text", "label": "Success message", "default": "Thank you! Your review has been submitted and will appear once approved." },
+    { "type": "header", "content": "Card Layout" },
+    { "type": "range", "id": "cards_per_row", "min": 2, "max": 4, "step": 1, "label": "Cards per row (desktop)", "default": 3 },
+    { "type": "range", "id": "card_gap", "min": 8, "max": 40, "step": 4, "unit": "px", "label": "Gap between cards", "default": 16 },
+    { "type": "range", "id": "card_radius", "min": 0, "max": 32, "step": 4, "unit": "px", "label": "Card border radius", "default": 12 },
+    { "type": "range", "id": "title_size", "min": 13, "max": 24, "step": 1, "unit": "px", "label": "Review title font size", "default": 17 },
+    { "type": "range", "id": "body_size", "min": 12, "max": 18, "step": 1, "unit": "px", "label": "Review body font size", "default": 14 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section background", "default": "#ffffff" },
+    { "type": "color", "id": "card_bg_color", "label": "Card / form background", "default": "#f0ede8" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#1a1a1a" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#1a1a1a" },
+    { "type": "color", "id": "count_color", "label": "Review count color", "default": "#888888" },
+    { "type": "color", "id": "star_color", "label": "Star color", "default": "#b5916c" },
+    { "type": "color", "id": "btn_border_color", "label": "Button / accent color", "default": "#1a1a1a" },
+    { "type": "color", "id": "btn_text_color", "label": "Write review button text", "default": "#1a1a1a" },
+    { "type": "color", "id": "nav_bg_color", "label": "Nav button background", "default": "#e8e5e0" },
+    { "type": "color", "id": "nav_arrow_color", "label": "Nav arrow color", "default": "#1a1a1a" },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "container_width", "min": 800, "max": 1600, "step": 40, "unit": "px", "label": "Max container width", "default": 1280 },
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding top", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding bottom", "default": 60 },
+    { "type": "range", "id": "margin_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Margin top", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Margin bottom", "default": 0 }
+  ],
+  "presets": [{ "name": "Product Reviews", "category": "Product" }]
+}
+{% endschema %}

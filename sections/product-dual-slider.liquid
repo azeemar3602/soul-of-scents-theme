@@ -1,0 +1,117 @@
+{%- liquid
+  assign speed_val = section.settings.slider_speed
+  case speed_val
+    when 'slow'
+      assign anim_duration = '30s'
+    when 'fast'
+      assign anim_duration = '10s'
+    else
+      assign anim_duration = '20s'
+  endcase
+  assign img_radius = section.settings.image_radius
+  assign img_gap = section.settings.image_gap
+  assign img_height = section.settings.image_height
+  assign img_ratio = section.settings.image_ratio
+  assign pt = section.settings.padding_top
+  assign pb = section.settings.padding_bottom
+  assign mt = section.settings.margin_top
+  assign mb = section.settings.margin_bottom
+  assign use_metafield = false
+  assign metafield_images = product.metafields.custom.product_slider_images.value
+  if metafield_images != blank and metafield_images.size > 0
+    assign use_metafield = true
+  endif
+-%}
+<style>
+#dual-slider-{{ section.id }} {
+  --ds-dur: {{ anim_duration }};
+  --ds-r: {{ img_radius }}px;
+  --ds-gap: {{ img_gap }}px;
+  --ds-h: {{ img_height }}px;
+  padding-top: {{ pt }}px;
+  padding-bottom: {{ pb }}px;
+  margin-top: {{ mt }}px;
+  margin-bottom: {{ mb }}px;
+}
+#dual-slider-{{ section.id }} .ds-wrap { overflow: hidden; width: 100%; }
+#dual-slider-{{ section.id }} .ds-rows { display: flex; flex-direction: column; gap: var(--ds-gap); }
+#dual-slider-{{ section.id }} .ds-row { display: flex; gap: var(--ds-gap); width: max-content; will-change: transform; }
+#dual-slider-{{ section.id }} .ds-fwd { animation: ds-scroll-fwd var(--ds-dur) linear infinite; }
+#dual-slider-{{ section.id }} .ds-rev { animation: ds-scroll-rev var(--ds-dur) linear infinite; }
+#dual-slider-{{ section.id }} .ds-wrap:hover .ds-row { animation-play-state: paused; }
+#dual-slider-{{ section.id }} .ds-img {
+  flex-shrink: 0;
+  height: var(--ds-h);
+  overflow: hidden;
+  border-radius: var(--ds-r);
+  {%- if img_ratio == 'square' %}
+  width: var(--ds-h);
+  {%- elsif img_ratio == 'portrait' %}
+  width: calc(var(--ds-h) * 0.75);
+  {%- elsif img_ratio == 'landscape' %}
+  width: calc(var(--ds-h) * 1.333);
+  {%- elsif img_ratio == 'wide' %}
+  width: calc(var(--ds-h) * 1.778);
+  {%- else %}
+  width: auto;
+  {%- endif %}
+}
+#dual-slider-{{ section.id }} .ds-img img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+@keyframes ds-scroll-fwd { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes ds-scroll-rev { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+@media (max-width: 768px) {
+  #dual-slider-{{ section.id }} {
+    --ds-h: {{ img_height | times: 0.65 | round }}px;
+    padding-top: {{ pt | divided_by: 2 }}px;
+    padding-bottom: {{ pb | divided_by: 2 }}px;
+    margin-top: {{ mt | divided_by: 2 }}px;
+    margin-bottom: {{ mb | divided_by: 2 }}px;
+  }
+}
+</style>
+<div id="dual-slider-{{ section.id }}">
+<div class="ds-wrap"><div class="ds-rows">
+<div class="ds-row ds-fwd">
+{%- if use_metafield -%}
+{%- for img in metafield_images -%}<div class="ds-img"><img src="{{ img | image_url: height: img_height }}" alt="Slide {{ forloop.index }}" loading="lazy"></div>{%- endfor -%}
+{%- for img in metafield_images -%}<div class="ds-img"><img src="{{ img | image_url: height: img_height }}" alt="Slide {{ forloop.index }}" loading="lazy"></div>{%- endfor -%}
+{%- else -%}
+{%- for block in section.blocks -%}{%- if block.settings.image != blank -%}<div class="ds-img" {{ block.shopify_attributes }}><img src="{{ block.settings.image | image_url: height: img_height }}" alt="{{ block.settings.image.alt | default: 'Slide' }}" loading="lazy"></div>{%- endif -%}{%- endfor -%}
+{%- for block in section.blocks -%}{%- if block.settings.image != blank -%}<div class="ds-img"><img src="{{ block.settings.image | image_url: height: img_height }}" alt="{{ block.settings.image.alt | default: 'Slide' }}" loading="lazy"></div>{%- endif -%}{%- endfor -%}
+{%- endif -%}
+</div>
+
+</div></div>
+</div>
+{% schema %}
+{
+  "name": "Dual Image Slider",
+  "tag": "section",
+  "class": "section-dual-slider",
+  "settings": [
+    { "type": "header", "content": "Slider Settings" },
+    { "type": "select", "id": "slider_speed", "label": "Scroll Speed", "default": "medium", "options": [{ "value": "slow", "label": "Slow" },{ "value": "medium", "label": "Medium" },{ "value": "fast", "label": "Fast" }] },
+    { "type": "header", "content": "Image Settings" },
+    { "type": "range", "id": "image_height", "label": "Image Height (px)", "min": 150, "max": 600, "step": 10, "default": 280 },
+    { "type": "select", "id": "image_ratio", "label": "Image Width / Ratio", "default": "auto", "options": [{ "value": "auto", "label": "Auto (natural)" },{ "value": "square", "label": "Square (1:1)" },{ "value": "portrait", "label": "Portrait (3:4)" },{ "value": "landscape", "label": "Landscape (4:3)" },{ "value": "wide", "label": "Wide (16:9)" }] },
+    { "type": "range", "id": "image_gap", "label": "Image Gap (px)", "min": 0, "max": 40, "step": 2, "default": 12 },
+    { "type": "select", "id": "image_radius", "label": "Border Radius", "default": "16", "options": [{ "value": "0", "label": "None (0px)" },{ "value": "8", "label": "Small (8px)" },{ "value": "16", "label": "Medium (16px)" },{ "value": "24", "label": "Large (24px)" }] },
+    { "type": "header", "content": "Section Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding Top (px)", "min": 0, "max": 100, "step": 4, "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom (px)", "min": 0, "max": 100, "step": 4, "default": 40 },
+    { "type": "range", "id": "margin_top", "label": "Margin Top (px)", "min": 0, "max": 100, "step": 4, "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin Bottom (px)", "min": 0, "max": 100, "step": 4, "default": 0 }
+  ],
+  "blocks": [
+    { "type": "slide_image", "name": "Slide Image", "settings": [{ "type": "image_picker", "id": "image", "label": "Image" }] }
+  ],
+  "presets": [
+    { "name": "Dual Image Slider", "blocks": [{ "type": "slide_image" },{ "type": "slide_image" },{ "type": "slide_image" },{ "type": "slide_image" },{ "type": "slide_image" }] }
+  ]
+}
+{% endschema %}

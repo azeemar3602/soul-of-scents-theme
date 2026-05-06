@@ -1,0 +1,171 @@
+/* ============================================================
+   Collection Filter Bar — soul of scents
+   ============================================================ */
+
+:root {
+  --sos-black:     #030303;
+  --sos-white:     #FFFFFF;
+  --sos-powder:    #FAF9F7;
+  --sos-beige:     #D7D4CF;
+  --sos-chai:      #928171;
+  --sos-chocolate: #2C2722;
+}
+
+.cfb *, .cfb *::before, .cfb *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── WRAPPER — borders always full width here ── */
+.cfb {
+  width: 100%;
+  font-family: 'Manrope', var(--font-body-family, 'Helvetica Neue', Helvetica, Arial, sans-serif);
+  border-top: 1px solid var(--sos-beige);
+  border-bottom: 1px solid var(--sos-beige);
+  background-color: var(--sos-white);
+}
+
+/* ── BAR — constrained width via inline style, no border ── */
+.cfb__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--page-width-margin, 40px);
+  height: 52px;
+}
+
+.cfb__bar-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sos-black);
+}
+
+/* ── TRIGGER ── */
+.cfb__trigger {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--sos-black);
+  font-family: 'Manrope', sans-serif;
+  gap: 8px;
+  line-height: 1;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cfb__trigger:focus,
+.cfb__trigger:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.cfb__trigger-label {
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sos-black);
+}
+
+.cfb__icon { display: block; flex-shrink: 0; }
+
+.cfb__trigger-x {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--sos-black);
+  line-height: 1;
+}
+
+.cfb__state-open   { display: none; }
+.cfb__state-closed { display: inline-flex; align-items: center; gap: 8px; }
+
+.cfb__trigger[aria-expanded="true"] .cfb__state-closed { display: none; }
+.cfb__trigger[aria-expanded="true"] .cfb__state-open   { display: inline-flex; align-items: center; gap: 8px; }
+
+/* ── PANEL — no border, wrapper handles it ── */
+.cfb__panel {
+  overflow: hidden;
+  background-color: var(--sos-white);
+  border-top: 1px solid var(--sos-beige);
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity    0.26s ease,
+    visibility 0s   linear 0.38s;
+}
+
+.cfb__panel.is-open {
+  max-height: 600px;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity    0.22s ease,
+    visibility 0s   linear 0s;
+}
+
+/* ── PANEL INNER — constrained width via inline style ── */
+.cfb__panel-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 40px var(--page-width-margin, 40px) 48px;
+}
+
+.cfb__col-heading {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sos-chocolate);
+  margin-bottom: 18px;
+}
+
+.cfb__list { list-style: none; }
+
+.cfb__link {
+  display: block;
+  padding: 5px 0;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--sos-black);
+  text-decoration: none;
+  line-height: 1.7;
+  transition: color 0.15s ease;
+}
+
+.cfb__link:hover  { color: var(--sos-chai); }
+.cfb__link.is-active { font-weight: 600; color: var(--sos-chocolate); }
+
+/* ── MOBILE ── */
+@media screen and (max-width: 749px) {
+  .cfb__bar { padding: 0 20px; height: 48px; }
+
+  .cfb__panel-inner {
+    grid-template-columns: 1fr;
+    padding: 28px 20px 36px;
+    gap: 32px;
+  }
+
+  .cfb__panel.is-open {
+    max-height: 80dvh;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,306 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+{{ 'collection-filter-bar.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign current_collection = collection
+  assign section_width = section.settings.section_width
+  assign custom_width = section.settings.custom_width
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign margin_top = section.settings.margin_top
+  assign margin_bottom = section.settings.margin_bottom
+-%}
+
+{%- capture width_style -%}
+  {%- case section_width -%}
+    {%- when 'full' -%}
+      max-width: 100%;
+    {%- when 'container' -%}
+      max-width: var(--page-width, 1200px); margin-left: auto; margin-right: auto;
+    {%- when 'boxed' -%}
+      max-width: 1000px; margin-left: auto; margin-right: auto;
+    {%- when 'custom' -%}
+      max-width: {{ custom_width }}px; margin-left: auto; margin-right: auto;
+  {%- endcase -%}
+{%- endcapture -%}
+
+<div class="cfb" data-cfb style="margin-top: {{ margin_top }}px; margin-bottom: {{ margin_bottom }}px;">
+
+  <div class="cfb__bar" style="{{ width_style }} padding-top: {{ padding_top }}px; padding-bottom: {{ padding_bottom }}px;">
+    <span class="cfb__bar-title">
+      {%- if section.settings.bar_title != blank -%}
+        {{ section.settings.bar_title }}
+      {%- elsif current_collection and current_collection.handle != 'all' -%}
+        {{ current_collection.title | upcase }}
+      {%- else -%}
+        ALL PRODUCTS
+      {%- endif -%}
+    </span>
+
+    <button
+      class="cfb__trigger"
+      aria-expanded="false"
+      aria-controls="cfb-panel"
+      aria-label="Toggle filters"
+      data-cfb-trigger
+    >
+      <span class="cfb__state-closed">
+        <svg class="cfb__icon" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M0.5 1.5H12.5L8 6.5V11.5L5 10V6.5L0.5 1.5Z" stroke="currentColor" stroke-width="1.15" stroke-linejoin="round"/>
+        </svg>
+        <span class="cfb__trigger-label">{{ section.settings.trigger_label | default: 'FILTER' }}</span>
+      </span>
+      <span class="cfb__state-open">
+        <span class="cfb__trigger-x">X</span>
+        <span class="cfb__trigger-label">CLOSE</span>
+      </span>
+    </button>
+  </div>
+
+  <div
+    class="cfb__panel"
+    id="cfb-panel"
+    role="region"
+    aria-label="Filter options"
+    aria-hidden="true"
+    data-cfb-panel
+  >
+    <!-- NEW: grid-template-columns updated to 1fr 1fr 1fr in the CSS file -->
+    <div class="cfb__panel-inner" style="{{ width_style }}">
+
+      <div class="cfb__col">
+        <h3 class="cfb__col-heading">{{ section.settings.col_left_title | default: 'Categories' }}</h3>
+        <ul class="cfb__list" role="list">
+          {%- if section.settings.show_all_link -%}
+            <li>
+              <a class="cfb__link{% if current_collection.handle == 'all' or current_collection == nil %} is-active{% endif %}"
+                href="{{ routes.all_products_collection_url }}">All products</a>
+            </li>
+          {%- endif -%}
+          {%- assign excluded = section.settings.exclude_collection_handles | split: ',' -%}
+          {%- for col in collections -%}
+            {%- assign skip = false -%}
+            {%- if col.handle == 'all' -%}{%- assign skip = true -%}{%- endif -%}
+            {%- for ex in excluded -%}
+              {%- assign ex_clean = ex | strip -%}
+              {%- if col.handle == ex_clean -%}{%- assign skip = true -%}{%- endif -%}
+            {%- endfor -%}
+            {%- unless skip -%}
+              <li>
+                <a class="cfb__link{% if current_collection.handle == col.handle %} is-active{% endif %}"
+                  href="{{ col.url }}">{{ col.title }}</a>
+              </li>
+            {%- endunless -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="cfb__col">
+        <h3 class="cfb__col-heading">{{ section.settings.col_right_title | default: 'Brand' }}</h3>
+        <ul class="cfb__list" role="list">
+          {%- if section.settings.brand_label_1 != blank and section.settings.brand_url_1 != blank -%}<li><a class="cfb__link" href="{{ section.settings.brand_url_1 }}">{{ section.settings.brand_label_1 }}</a></li>{%- endif -%}
+          {%- if section.settings.brand_label_2 != blank and section.settings.brand_url_2 != blank -%}<li><a class="cfb__link" href="{{ section.settings.brand_url_2 }}">{{ section.settings.brand_label_2 }}</a></li>{%- endif -%}
+          {%- if section.settings.brand_label_3 != blank and section.settings.brand_url_3 != blank -%}<li><a class="cfb__link" href="{{ section.settings.brand_url_3 }}">{{ section.settings.brand_label_3 }}</a></li>{%- endif -%}
+          {%- if section.settings.brand_label_4 != blank and section.settings.brand_url_4 != blank -%}<li><a class="cfb__link" href="{{ section.settings.brand_url_4 }}">{{ section.settings.brand_label_4 }}</a></li>{%- endif -%}
+          {%- if section.settings.brand_label_5 != blank and section.settings.brand_url_5 != blank -%}<li><a class="cfb__link" href="{{ section.settings.brand_url_5 }}">{{ section.settings.brand_label_5 }}</a></li>{%- endif -%}
+          {%- if section.settings.brand_label_6 != blank and section.settings.brand_url_6 != blank -%}<li><a class="cfb__link" href="{{ section.settings.brand_url_6 }}">{{ section.settings.brand_label_6 }}</a></li>{%- endif -%}
+          {%- if section.settings.brand_label_7 != blank and section.settings.brand_url_7 != blank -%}<li><a class="cfb__link" href="{{ section.settings.brand_url_7 }}">{{ section.settings.brand_label_7 }}</a></li>{%- endif -%}
+          {%- if section.settings.brand_label_8 != blank and section.settings.brand_url_8 != blank -%}<li><a class="cfb__link" href="{{ section.settings.brand_url_8 }}">{{ section.settings.brand_label_8 }}</a></li>{%- endif -%}
+          {%- if section.settings.brand_label_9 != blank and section.settings.brand_url_9 != blank -%}<li><a class="cfb__link" href="{{ section.settings.brand_url_9 }}">{{ section.settings.brand_label_9 }}</a></li>{%- endif -%}
+          {%- if section.settings.brand_label_10 != blank and section.settings.brand_url_10 != blank -%}<li><a class="cfb__link" href="{{ section.settings.brand_url_10 }}">{{ section.settings.brand_label_10 }}</a></li>{%- endif -%}
+        </ul>
+      </div>
+
+      <!-- NEW: Size column -->
+      <div class="cfb__col">
+        <h3 class="cfb__col-heading">{{ section.settings.col_size_title | default: 'Size' }}</h3>
+        <ul class="cfb__list" role="list">
+          {%- if section.settings.size_label_1 != blank and section.settings.size_url_1 != blank -%}<li><a class="cfb__link" href="{{ section.settings.size_url_1 }}">{{ section.settings.size_label_1 }}</a></li>{%- endif -%}
+          {%- if section.settings.size_label_2 != blank and section.settings.size_url_2 != blank -%}<li><a class="cfb__link" href="{{ section.settings.size_url_2 }}">{{ section.settings.size_label_2 }}</a></li>{%- endif -%}
+          {%- if section.settings.size_label_3 != blank and section.settings.size_url_3 != blank -%}<li><a class="cfb__link" href="{{ section.settings.size_url_3 }}">{{ section.settings.size_label_3 }}</a></li>{%- endif -%}
+          {%- if section.settings.size_label_4 != blank and section.settings.size_url_4 != blank -%}<li><a class="cfb__link" href="{{ section.settings.size_url_4 }}">{{ section.settings.size_label_4 }}</a></li>{%- endif -%}
+          {%- if section.settings.size_label_5 != blank and section.settings.size_url_5 != blank -%}<li><a class="cfb__link" href="{{ section.settings.size_url_5 }}">{{ section.settings.size_label_5 }}</a></li>{%- endif -%}
+        </ul>
+      </div>
+      <!-- END NEW -->
+
+    </div>
+  </div>
+
+</div>
+
+<script src="{{ 'collection-filter-bar.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Collection Filter Bar",
+  "tag": "section",
+  "class": "section-collection-filter-bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "default": "full",
+      "options": [
+        { "value": "full",      "label": "Full Width" },
+        { "value": "container", "label": "Container" },
+        { "value": "boxed",     "label": "Boxed" },
+        { "value": "custom",    "label": "Custom Width" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "label": "Custom width (px)",
+      "min": 600,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1200,
+      "info": "Only used when 'Custom Width' is selected above."
+    },
+    {
+      "type": "header",
+      "content": "Bar Labels"
+    },
+    {
+      "type": "text",
+      "id": "bar_title",
+      "label": "Left title override",
+      "info": "Leave blank to auto-use the collection name."
+    },
+    {
+      "type": "text",
+      "id": "trigger_label",
+      "label": "Filter button label",
+      "default": "FILTER"
+    },
+    {
+      "type": "header",
+      "content": "Dropdown Columns"
+    },
+    {
+      "type": "text",
+      "id": "col_left_title",
+      "label": "Left column heading",
+      "default": "Categories"
+    },
+    {
+      "type": "text",
+      "id": "col_right_title",
+      "label": "Right column heading",
+      "default": "Brand"
+    },
+    {
+      "type": "text",
+      "id": "col_size_title",
+      "label": "Size column heading",
+      "default": "Size"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_link",
+      "label": "Show 'All products' link in Categories",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "textarea",
+      "id": "exclude_collection_handles",
+      "label": "Exclude collection handles",
+      "info": "Comma-separated. e.g. meo-fuscioni,sarah-baker,frontpage"
+    },
+    {
+      "type": "header",
+      "content": "Brand Links — add up to 10"
+    },
+    { "type": "text", "id": "brand_label_1",  "label": "Brand 1 — name" },
+    { "type": "url",  "id": "brand_url_1",    "label": "Brand 1 — URL" },
+    { "type": "text", "id": "brand_label_2",  "label": "Brand 2 — name" },
+    { "type": "url",  "id": "brand_url_2",    "label": "Brand 2 — URL" },
+    { "type": "text", "id": "brand_label_3",  "label": "Brand 3 — name" },
+    { "type": "url",  "id": "brand_url_3",    "label": "Brand 3 — URL" },
+    { "type": "text", "id": "brand_label_4",  "label": "Brand 4 — name" },
+    { "type": "url",  "id": "brand_url_4",    "label": "Brand 4 — URL" },
+    { "type": "text", "id": "brand_label_5",  "label": "Brand 5 — name" },
+    { "type": "url",  "id": "brand_url_5",    "label": "Brand 5 — URL" },
+    { "type": "text", "id": "brand_label_6",  "label": "Brand 6 — name" },
+    { "type": "url",  "id": "brand_url_6",    "label": "Brand 6 — URL" },
+    { "type": "text", "id": "brand_label_7",  "label": "Brand 7 — name" },
+    { "type": "url",  "id": "brand_url_7",    "label": "Brand 7 — URL" },
+    { "type": "text", "id": "brand_label_8",  "label": "Brand 8 — name" },
+    { "type": "url",  "id": "brand_url_8",    "label": "Brand 8 — URL" },
+    { "type": "text", "id": "brand_label_9",  "label": "Brand 9 — name" },
+    { "type": "url",  "id": "brand_url_9",    "label": "Brand 9 — URL" },
+    { "type": "text", "id": "brand_label_10", "label": "Brand 10 — name" },
+    { "type": "url",  "id": "brand_url_10",   "label": "Brand 10 — URL" },
+    {
+      "type": "header",
+      "content": "Size Links — add up to 5"
+    },
+    { "type": "text", "id": "size_label_1", "label": "Size 1 — label", "default": "50ml" },
+    { "type": "url",  "id": "size_url_1",   "label": "Size 1 — URL" },
+    { "type": "text", "id": "size_label_2", "label": "Size 2 — label", "default": "100ml" },
+    { "type": "url",  "id": "size_url_2",   "label": "Size 2 — URL" },
+    { "type": "text", "id": "size_label_3", "label": "Size 3 — label" },
+    { "type": "url",  "id": "size_url_3",   "label": "Size 3 — URL" },
+    { "type": "text", "id": "size_label_4", "label": "Size 4 — label" },
+    { "type": "url",  "id": "size_url_4",   "label": "Size 4 — URL" },
+    { "type": "text", "id": "size_label_5", "label": "Size 5 — label" },
+    { "type": "url",  "id": "size_url_5",   "label": "Size 5 — URL" }
+  ],
+  "presets": [
+    { "name": "Collection Filter Bar" }
+  ]
+}
+{% endschema %}

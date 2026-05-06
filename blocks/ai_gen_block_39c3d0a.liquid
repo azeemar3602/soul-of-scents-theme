@@ -1,0 +1,622 @@
+{% doc %}
+  @prompt
+    Create a dual image/product slider section with a setting to toggle between one row or two rows layout. The slider should maintain smooth horizontal scrolling in both modes. Include settings for: row layout toggle (1 row or 2 rows), scroll speed, image height, image width/ratio, image gap, border radius, and padding/margin controls. When set to 2 rows, products should stack vertically while maintaining the horizontal carousel scroll. Use clean, minimal design with light gray image backgrounds and rounded corners.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-dual-slider-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    padding-left: {{ block.settings.padding_left }}px;
+    padding-right: {{ block.settings.padding_right }}px;
+    margin-top: {{ block.settings.margin_top }}px;
+    margin-bottom: {{ block.settings.margin_bottom }}px;
+    margin-left: {{ block.settings.margin_left }}px;
+    margin-right: {{ block.settings.margin_right }}px;
+    overflow: hidden;
+  }
+
+  .ai-dual-slider-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+  }
+
+  .ai-dual-slider-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    {% if block.settings.row_layout == '2_rows' %}
+      flex-direction: column;
+      gap: {{ block.settings.image_gap }}px;
+    {% else %}
+      flex-direction: row;
+      gap: {{ block.settings.image_gap }}px;
+    {% endif %}
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .ai-dual-slider-wrapper-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-dual-slider-row-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.image_gap }}px;
+    {% if block.settings.row_layout == '2_rows' %}
+      min-width: 100%;
+    {% endif %}
+  }
+
+  .ai-dual-slider-item-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    position: relative;
+    background-color: #F5F5F5;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    {% if block.settings.image_ratio == 'square' %}
+      aspect-ratio: 1 / 1;
+    {% elsif block.settings.image_ratio == 'portrait' %}
+      aspect-ratio: 3 / 4;
+    {% elsif block.settings.image_ratio == 'landscape' %}
+      aspect-ratio: 4 / 3;
+    {% elsif block.settings.image_ratio == 'wide' %}
+      aspect-ratio: 16 / 9;
+    {% endif %}
+    {% if block.settings.row_layout == '1_row' %}
+      width: {{ block.settings.image_width }}px;
+    {% else %}
+      width: {{ block.settings.image_width }}px;
+    {% endif %}
+  }
+
+  .ai-dual-slider-item-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-dual-slider-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F5F5F5;
+  }
+
+  .ai-dual-slider-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-dual-slider-item-{{ ai_gen_id }} {
+      width: {{ block.settings.image_width | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<dual-slider-{{ ai_gen_id }}
+  class="ai-dual-slider-{{ ai_gen_id }}"
+  data-scroll-speed="{{ block.settings.scroll_speed }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-dual-slider-container-{{ ai_gen_id }}">
+    {% if block.settings.row_layout == '2_rows' %}
+      <div class="ai-dual-slider-wrapper-{{ ai_gen_id }}">
+        <div class="ai-dual-slider-row-{{ ai_gen_id }}" data-row="1">
+          {% for i in (1..12) %}
+            {% liquid
+              assign image_key = 'image_' | append: i
+              assign product_key = 'product_' | append: i
+              assign image = block.settings[image_key]
+              assign product = block.settings[product_key]
+            %}
+            
+            {% if i <= 6 %}
+              <div class="ai-dual-slider-item-{{ ai_gen_id }}">
+                {% if image %}
+                  <img
+                    src="{{ image | image_url: width: 800 }}"
+                    alt="{{ image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.image_width }}"
+                    height="auto"
+                  >
+                {% elsif product and product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 800 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.image_width }}"
+                    height="auto"
+                  >
+                {% else %}
+                  <div class="ai-dual-slider-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="ai-dual-slider-row-{{ ai_gen_id }}" data-row="2">
+          {% for i in (1..12) %}
+            {% liquid
+              assign image_key = 'image_' | append: i
+              assign product_key = 'product_' | append: i
+              assign image = block.settings[image_key]
+              assign product = block.settings[product_key]
+            %}
+            
+            {% if i > 6 %}
+              <div class="ai-dual-slider-item-{{ ai_gen_id }}">
+                {% if image %}
+                  <img
+                    src="{{ image | image_url: width: 800 }}"
+                    alt="{{ image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.image_width }}"
+                    height="auto"
+                  >
+                {% elsif product and product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 800 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.image_width }}"
+                    height="auto"
+                  >
+                {% else %}
+                  <div class="ai-dual-slider-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% else %}
+      <div class="ai-dual-slider-wrapper-{{ ai_gen_id }}">
+        <div class="ai-dual-slider-row-{{ ai_gen_id }}" data-row="1">
+          {% for i in (1..12) %}
+            {% liquid
+              assign image_key = 'image_' | append: i
+              assign product_key = 'product_' | append: i
+              assign image = block.settings[image_key]
+              assign product = block.settings[product_key]
+            %}
+            
+            <div class="ai-dual-slider-item-{{ ai_gen_id }}">
+              {% if image %}
+                <img
+                  src="{{ image | image_url: width: 800 }}"
+                  alt="{{ image.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.image_width }}"
+                  height="auto"
+                >
+              {% elsif product and product.featured_image %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 800 }}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.image_width }}"
+                  height="auto"
+                >
+              {% else %}
+                <div class="ai-dual-slider-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</dual-slider-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class DualSlider{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.scrollSpeed = parseFloat(this.dataset.scrollSpeed) || 1;
+        this.isScrolling = false;
+        this.animationFrameId = null;
+      }
+
+      connectedCallback() {
+        this.wrapper = this.querySelector('.ai-dual-slider-wrapper-{{ ai_gen_id }}');
+        this.rows = this.querySelectorAll('.ai-dual-slider-row-{{ ai_gen_id }}');
+        
+        if (this.wrapper && this.rows.length > 0) {
+          this.startAutoScroll();
+          this.setupInteractionHandlers();
+        }
+      }
+
+      disconnectedCallback() {
+        this.stopAutoScroll();
+      }
+
+      startAutoScroll() {
+        const scroll = () => {
+          if (!this.isScrolling) {
+            this.rows.forEach((row, index) => {
+              const direction = index === 0 ? 1 : -1;
+              row.scrollLeft += this.scrollSpeed * direction;
+
+              if (direction === 1 && row.scrollLeft >= row.scrollWidth - row.clientWidth) {
+                row.scrollLeft = 0;
+              } else if (direction === -1 && row.scrollLeft <= 0) {
+                row.scrollLeft = row.scrollWidth - row.clientWidth;
+              }
+            });
+          }
+          this.animationFrameId = requestAnimationFrame(scroll);
+        };
+        
+        this.animationFrameId = requestAnimationFrame(scroll);
+      }
+
+      stopAutoScroll() {
+        if (this.animationFrameId) {
+          cancelAnimationFrame(this.animationFrameId);
+          this.animationFrameId = null;
+        }
+      }
+
+      setupInteractionHandlers() {
+        this.rows.forEach((row) => {
+          row.addEventListener('mouseenter', () => {
+            this.isScrolling = true;
+          });
+
+          row.addEventListener('mouseleave', () => {
+            this.isScrolling = false;
+          });
+
+          row.addEventListener('touchstart', () => {
+            this.isScrolling = true;
+          });
+
+          row.addEventListener('touchend', () => {
+            setTimeout(() => {
+              this.isScrolling = false;
+            }, 1000);
+          });
+        });
+      }
+    }
+
+    customElements.define('dual-slider-{{ ai_gen_id }}', DualSlider{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Dual image slider",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "row_layout",
+      "label": "Row layout",
+      "options": [
+        {
+          "value": "1_row",
+          "label": "1 row"
+        },
+        {
+          "value": "2_rows",
+          "label": "2 rows"
+        }
+      ],
+      "default": "1_row"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll speed",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.5,
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Image settings"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "wide",
+          "label": "Wide (16:9)"
+        }
+      ],
+      "default": "square"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "min": 200,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "image_gap",
+      "label": "Gap between images",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_left",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_right",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Images - Row 1 (or all images for 1 row layout)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Or product 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Or product 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Or product 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Or product 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image 5"
+    },
+    {
+      "type": "product",
+      "id": "product_5",
+      "label": "Or product 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Image 6"
+    },
+    {
+      "type": "product",
+      "id": "product_6",
+      "label": "Or product 6"
+    },
+    {
+      "type": "header",
+      "content": "Images - Row 2 (only for 2 rows layout)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_7",
+      "label": "Image 7"
+    },
+    {
+      "type": "product",
+      "id": "product_7",
+      "label": "Or product 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_8",
+      "label": "Image 8"
+    },
+    {
+      "type": "product",
+      "id": "product_8",
+      "label": "Or product 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_9",
+      "label": "Image 9"
+    },
+    {
+      "type": "product",
+      "id": "product_9",
+      "label": "Or product 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_10",
+      "label": "Image 10"
+    },
+    {
+      "type": "product",
+      "id": "product_10",
+      "label": "Or product 10"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_11",
+      "label": "Image 11"
+    },
+    {
+      "type": "product",
+      "id": "product_11",
+      "label": "Or product 11"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_12",
+      "label": "Image 12"
+    },
+    {
+      "type": "product",
+      "id": "product_12",
+      "label": "Or product 12"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dual image slider"
+    }
+  ]
+}
+{% endschema %}

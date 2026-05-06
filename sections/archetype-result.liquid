@@ -1,0 +1,89 @@
+{%- liquid
+  assign archetype_name = customer.metafields.custom.archetype_name.value
+  assign archetype_date = customer.metafields.custom.archetype_date.value
+  assign archetype_result_url = customer.metafields.custom.archetype_result_url.value
+  assign archetype_image_url = customer.metafields.custom.archetype_image_url.value
+-%}
+
+<div class="page-width py-5" id="sos-archetype-container">
+  <div class="account-archetype-section">
+    <h2 class="account-archetype-section__title">Mein Archetyp</h2>
+
+    {%- if archetype_name != blank -%}
+    <div class="account-archetype-card" id="sos-archetype-card">
+      <div class="account-archetype-card__info">
+        <p class="account-archetype-card__name">{%- echo archetype_name -%}</p>
+        {%- if archetype_date != blank -%}
+        <p class="account-archetype-card__date">Quiz abgeschlossen: {%- echo archetype_date -%}</p>
+        {%- endif -%}
+        <div class="account-archetype-card__actions">
+          {%- if archetype_result_url != blank -%}
+          <a href="{%- echo archetype_result_url -%}" class="button button--primary account-archetype-card__cta">Archetyp ansehen</a>
+          {%- else -%}
+          <a href="/pages/quiz" class="button button--secondary account-archetype-card__cta" id="sos-result-link">Quiz-Ergebnis ansehen</a>
+          {%- endif -%}
+          <a href="/pages/quiz" class="account-archetype-card__repeat">Quiz wiederholen</a>
+        </div>
+      </div>
+    </div>
+    {%- else -%}
+    <div class="account-archetype-empty" id="sos-archetype-empty">
+      <p>Du hast noch keinen Archetyp. Mach jetzt das Quiz!</p>
+      <a href="/pages/quiz" class="button button--primary">Zum Quiz</a>
+    </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+(function() {
+  var QUIZ_ID = 'KFeGjY';
+  var STORE_KEY = 'sos_archetype_data';
+
+  function getStoredData() {
+    try {
+      var d = localStorage.getItem(STORE_KEY);
+      if (d) return JSON.parse(d);
+      var rh = localStorage.getItem('revenuehunt-responseId-' + QUIZ_ID);
+      if (rh) {
+        var obj = JSON.parse(rh);
+        if (obj && obj.value) {
+          return { responseId: obj.value, resultUrl: window.location.origin + '/pages/quiz?r=' + obj.value };
+        }
+      }
+    } catch(e) {}
+    return null;
+  }
+
+  function updateResultLink(url) {
+    var link = document.getElementById('sos-result-link');
+    if (link && url) {
+      link.href = url;
+      link.textContent = 'Quiz-Ergebnis ansehen';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var data = getStoredData();
+    if (data && data.resultUrl) {
+      updateResultLink(data.resultUrl);
+    }
+    var emptyEl = document.getElementById('sos-archetype-empty');
+    if (emptyEl && data && data.resultUrl) {
+      var btn = emptyEl.querySelector('a');
+      if (btn) {
+        var link = document.createElement('a');
+        link.href = data.resultUrl;
+        link.className = 'button button--secondary';
+        link.textContent = 'Letztes Ergebnis ansehen';
+        link.style.marginTop = '0.5rem';
+        emptyEl.appendChild(link);
+      }
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{"name": "Archetype Result", "settings": [], "presets": [{"name": "Archetype Result"}]}
+{% endschema %}

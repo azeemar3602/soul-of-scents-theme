@@ -1,0 +1,110 @@
+{%- assign audio_file = product.metafields.custom.product_audio -%}
+{%- assign spotify_url = product.metafields.custom.musical_vibe_spotify -%}
+
+{% if audio_file != blank or spotify_url != blank %}
+  <div class="musical-vibe-section">
+    <p class="musical-vibe-label">Musical Vibe</p>
+
+    {% if spotify_url != blank %}
+      {%- assign spotify_id = spotify_url | split: '/' | last | split: '?' | first -%}
+      {%- assign spotify_type = spotify_url | split: 'spotify.com/' | last | split: '/' | first -%}
+      <div class="musical-vibe-spotify">
+        <iframe
+          src="https://open.spotify.com/embed/{{ spotify_type }}/{{ spotify_id }}"
+          width="100%"
+          height="80"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          style="border-radius: 12px;">
+        </iframe>
+      </div>
+    {% elsif audio_file != blank %}
+      {%- assign audio_url = audio_file | file_url -%}
+      <div class="musical-vibe-player">
+        <audio id="mvAudio" src="{{ audio_url }}" preload="metadata"></audio>
+        <button class="mv-play-btn" id="mvPlayBtn" aria-label="Play/Pause">
+          <svg id="mvPlayIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <svg id="mvPauseIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+        </button>
+        <div class="mv-progress-container">
+          <input type="range" class="mv-progress-slider" id="mvSlider" min="0" max="100" value="0" step="0.1">
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+<style>
+  .musical-vibe-section { margin: 0 0 24px 0; }
+  .musical-vibe-label { font-size: 13px; font-weight: 400; color: #1a1a1a; margin: 0 0 12px 0; letter-spacing: 0.02em; }
+  .musical-vibe-player { display: flex; align-items: center; gap: 14px; }
+  .mv-play-btn { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid #b0b0b0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color 0.2s, color 0.2s; color: #333; }
+  .mv-play-btn:hover { border-color: #333; color: #333; }
+  .mv-progress-container { flex: 1; display: flex; align-items: center; }
+  .mv-progress-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 1.5px; background: #d0d0d0; outline: none; border: none; }
+  .mv-progress-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #333; cursor: pointer; }
+  .mv-progress-slider::-webkit-slider-thumb:hover { background: #333; transform: scale(1.2); }
+  .mv-progress-slider::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #333; cursor: pointer; border: none; }
+  .musical-vibe-spotify { width: 100%; }
+</style>
+
+<script>
+  (function() {
+    var audio = document.getElementById('mvAudio');
+    if (!audio) return;
+    var playBtn = document.getElementById('mvPlayBtn');
+    var playIcon = document.getElementById('mvPlayIcon');
+    var pauseIcon = document.getElementById('mvPauseIcon');
+    var slider = document.getElementById('mvSlider');
+
+    playBtn.addEventListener('click', function() {
+      if (audio.paused) {
+        audio.play();
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = '';
+      } else {
+        audio.pause();
+        playIcon.style.display = '';
+        pauseIcon.style.display = 'none';
+      }
+    });
+
+    audio.addEventListener('timeupdate', function() {
+      if (audio.duration) {
+        slider.value = (audio.currentTime / audio.duration) * 100;
+      }
+    });
+
+    slider.addEventListener('input', function() {
+      if (audio.duration) {
+        audio.currentTime = (slider.value / 100) * audio.duration;
+      }
+    });
+
+    audio.addEventListener('ended', function() {
+      playIcon.style.display = '';
+      pauseIcon.style.display = 'none';
+      slider.value = 0;
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Musical Vibe",
+  "tag": "div",
+  "class": "musical-vibe-wrapper",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Musical Vibe"
+    }
+  ]
+}
+{% endschema %}
