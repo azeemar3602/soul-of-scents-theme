@@ -334,20 +334,27 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
 
               <div class="readmore-preview" id="readmore-preview-{{ section.id }}">
                 {%- assign rm_source = shortdesc_text | default: full_desc -%}
+                {%- assign rm_limit = 3 -%}
                 {%- if rm_source contains '</p>' -%}
-                  {%- assign rm_first = rm_source | split: '</p>' | first | replace: '<p>', '' | strip_html | strip -%}
+                  {%- assign rm_parts = rm_source | split: '</p>' -%}
                 {%- elsif rm_source contains '&nbsp;' -%}
-                  {%- assign rm_first = rm_source | split: '&nbsp;' | first | strip_html | strip -%}
+                  {%- assign rm_parts = rm_source | split: '&nbsp;' -%}
                 {%- elsif rm_source contains '
 ' -%}
-                  {%- assign rm_first = rm_source | split: '
-' | first | strip_html | strip -%}
+                  {%- assign rm_parts = rm_source | split: '
+' -%}
                 {%- else -%}
-                  {%- assign rm_first = rm_source | strip_html | truncatewords: 18, '' | strip -%}
+                  {%- assign rm_parts = rm_source | split: '. ' -%}
                 {%- endif -%}
-                {%- if rm_first != blank -%}
-                  <p>{{ rm_first }}<span class="readmore-ellipsis"> ......</span></p>
-                {%- endif -%}
+                {%- assign rm_rendered = 0 -%}
+                {%- for part in rm_parts -%}
+                  {%- if rm_rendered >= rm_limit -%}{%- break -%}{%- endif -%}
+                  {%- assign clean = part | replace: '<p>', '' | strip_html | strip -%}
+                  {%- if clean != blank -%}
+                    {%- assign rm_rendered = rm_rendered | plus: 1 -%}
+                    <p>{{ clean }}{%- if rm_rendered == rm_limit -%}<span class="readmore-ellipsis"> ......</span>{%- endif -%}</p>
+                  {%- endif -%}
+                {%- endfor -%}
               </div>
 
               <div class="readmore-full" id="readmore-full-{{ section.id }}" aria-hidden="true">
