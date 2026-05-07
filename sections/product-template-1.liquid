@@ -715,14 +715,11 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
             {%- when 'list-info' -%} 
               {%- assign block_style = block.settings.block_style -%}
             <div class="product-single__information product-block {% if block_style == 'hoz' %} d-flex product-single__information-hoz {% endif %}">
-                  {% if block.settings.product_vendor_enable %}
-                  <p class="product-single__vendor"><small class="p-attr txt-body-60">{{ 'products.product.vendor' | t }}: </small><small>{{ product.vendor }}</small></p>
+                  {% if block.settings.product_vendor_enable and product.vendor != blank %}
+                  <p class="product-single__vendor">{{ product.vendor }}</p>
                   {% endif %}
-                  {% if block.settings.product_type_enable %}
-                  <p class="product-single__type"><small class="p-attr txt-body-60">{{ 'products.product.type' | t }}: </small><small>{{ product.type | default: 'N/a'}}</small></p>
-                  {% endif %}
-                  {% if block.settings.variant_sku_enable %}
-                  <p class="product-single__sku "><small class="p-attr txt-body-60">{{ 'products.product.sku' | t }}: </small><small class="js-variant-sku">{{ current_variant.sku | default: 'N/a' }}</small></p>
+                  {% if block.settings.product_type_enable and product.type != blank %}
+                  <p class="product-single__type">{{ product.type }}</p>
                   {% endif %}
                   {% if block.settings.variant_available_enable %}
                   <p class="product-single__availability "><small class="p-attr txt-body-60">{{ 'products.product.available' | t }}: </small><small>{% if current_variant.available %}{{ 'products.product.available' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</small></p>
