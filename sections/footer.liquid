@@ -295,6 +295,80 @@
     }
   }
 
+  /* === SOS footer card + design === */
+  :root{
+    --sos-black:#030303;
+    --sos-powder:#FAF9F7;
+    --sos-beige:#D7D4CF;
+    --sos-chai:#928171;
+    --sos-chocolate:#2C2722;
+  }
+  body{ background-color: var(--sos-powder); }
+  .site-footer{
+    border-radius: 8px;
+    margin: 0 24px 24px;
+    overflow: hidden;
+    background-color: var(--sos-beige);
+    color: var(--sos-black);
+  }
+  .site-footer a{ color: var(--sos-chocolate); }
+  .site-footer a:hover{ color: var(--sos-black); }
+  .site-footer .site-footer__section-title{
+    font-weight: 600;
+    color: var(--sos-black);
+  }
+
+  .site-footer .footer-email .form-group{
+    position: relative;
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 4px 4px 4px 18px;
+    display: flex;
+    align-items: center;
+    max-width: 360px;
+    margin: 0;
+  }
+  .site-footer .footer-email .form-group .form-control{
+    flex: 1;
+    border: 0;
+    background: transparent;
+    padding: 10px 0;
+    margin: 0 !important;
+    color: var(--sos-black);
+    height: auto;
+    box-shadow: none;
+    font-size: 14px;
+    width: auto;
+  }
+  .site-footer .footer-email .form-group .form-control:focus{ outline: none; box-shadow: none; }
+  .site-footer .footer-email .form-group .form-control::placeholder{ color: #9b9b9b; opacity: 1; }
+  .site-footer .footer-email .form-group label{ display: none !important; }
+  .site-footer .footer-email .form-group > .d-flex{
+    margin: 0 !important;
+    display: flex;
+    flex-shrink: 0;
+  }
+  .site-footer .footer-email .form-group .btn-theme{
+    background: transparent !important;
+    color: var(--sos-black) !important;
+    border: 0 !important;
+    padding: 8px 18px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    white-space: nowrap;
+    box-shadow: none !important;
+    border-radius: 999px;
+    margin: 0;
+  }
+  .site-footer .footer-email .form-group .btn-theme:hover{
+    background: rgba(0,0,0,0.05) !important;
+    color: var(--sos-black) !important;
+  }
+  .site-footer .footer-email .form-group .btn-theme::before,
+  .site-footer .footer-email .form-group .btn-theme::after{ display: none !important; }
+
   /* === SOS footer bottom row === */
   .site-footer__copyright.sos-bottom{
     border-top: 0 !important;

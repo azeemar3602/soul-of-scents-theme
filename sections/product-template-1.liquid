@@ -240,10 +240,20 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
               {%- assign full_desc = product.description -%}
 
               <div class="readmore-preview" id="readmore-preview-{{ section.id }}">
-                {%- if shortdesc_text != blank -%}
-                  {{ shortdesc_text }}
+                {%- assign rm_source = shortdesc_text | default: full_desc -%}
+                {%- if rm_source contains '</p>' -%}
+                  {%- assign rm_first = rm_source | split: '</p>' | first | replace: '<p>', '' | strip_html | strip -%}
+                {%- elsif rm_source contains '&nbsp;' -%}
+                  {%- assign rm_first = rm_source | split: '&nbsp;' | first | strip_html | strip -%}
+                {%- elsif rm_source contains '
+' -%}
+                  {%- assign rm_first = rm_source | split: '
+' | first | strip_html | strip -%}
                 {%- else -%}
-                  {{ full_desc | strip_html | truncatewords: 30 }}...
+                  {%- assign rm_first = rm_source | strip_html | truncatewords: 18, '' | strip -%}
+                {%- endif -%}
+                {%- if rm_first != blank -%}
+                  <p>{{ rm_first }}<span class="readmore-ellipsis"> ......</span></p>
                 {%- endif -%}
               </div>
 
@@ -274,6 +284,14 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                 font-size: inherit;
                 line-height: 1.65;
               }
+              .readmore-preview p {
+                margin: 0 0 10px 0;
+                font-size: inherit;
+                line-height: 1.65;
+                color: inherit;
+              }
+              .readmore-preview p:last-child { margin-bottom: 0; }
+              .readmore-ellipsis { color: inherit; }
               .readmore-full {
                 max-height: 0;
                 overflow: hidden;
