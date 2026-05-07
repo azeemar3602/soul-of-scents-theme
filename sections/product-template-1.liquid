@@ -333,7 +333,7 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
               {%- assign full_desc = product.description -%}
 
               <div class="readmore-preview" id="readmore-preview-{{ section.id }}">
-                {%- assign rm_source = shortdesc_text | default: full_desc -%}
+                {%- assign rm_source = full_desc -%}
                 {%- assign rm_limit = 3 -%}
                 {%- if rm_source contains '</p>' -%}
                   {%- assign rm_parts = rm_source | split: '</p>' -%}
@@ -349,7 +349,7 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                 {%- assign rm_rendered = 0 -%}
                 {%- for part in rm_parts -%}
                   {%- if rm_rendered >= rm_limit -%}{%- break -%}{%- endif -%}
-                  {%- assign clean = part | replace: '<p>', '' | strip_html | strip -%}
+                  {%- assign clean = part | replace: '<p>', '' | replace: '&nbsp;', ' ' | strip_html | strip -%}
                   {%- if clean != blank -%}
                     {%- assign rm_rendered = rm_rendered | plus: 1 -%}
                     <p>{{ clean }}{%- if rm_rendered == rm_limit -%}<span class="readmore-ellipsis"> ......</span>{%- endif -%}</p>
