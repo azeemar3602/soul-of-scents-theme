@@ -2720,17 +2720,32 @@ initPhotoSwipeFromDOM('.my-gallery');
     function initAudioPlayer(player) {
       var btn = player.querySelector('.mv-play-btn');
       var audio = player.querySelector('.mv-audio');
-      if (!btn || !audio) return;
+      var sourceEl = audio && audio.querySelector('source');
+      var srcUrl = sourceEl ? sourceEl.getAttribute('src') : null;
+      console.log('[MV] initAudioPlayer src =', JSON.stringify(srcUrl));
+      if (!btn || !audio) { console.warn('[MV] audio: missing button or audio element'); return; }
+      if (!srcUrl) { console.warn('[MV] audio: <source> has empty src — likely metafield is not a file_reference, or file_url filter returned blank.'); }
       var progressWrap = player.querySelector('.mv-progress-bar-wrap');
       var progressFilled = player.querySelector('.mv-progress-filled');
       var progressThumb = player.querySelector('.mv-progress-thumb');
       var entry = { kind: 'audio', player: player, audio: audio };
       registry.push(entry);
 
+      audio.addEventListener('error', function() {
+        var err = audio.error || {};
+        console.error('[MV] audio element error: code=', err.code, 'message=', err.message, 'src=', srcUrl);
+      });
+      audio.addEventListener('loadedmetadata', function() {
+        console.log('[MV] audio metadata loaded, duration =', audio.duration);
+      });
+
       btn.addEventListener('click', function() {
         if (audio.paused) {
           pauseOthers(entry);
-          audio.play();
+          var p = audio.play();
+          if (p && typeof p.catch === 'function') {
+            p.catch(function(err) { console.error('[MV] audio.play() rejected:', err && err.name, err && err.message); });
+          }
           setIcons(player, true);
         } else {
           audio.pause();
