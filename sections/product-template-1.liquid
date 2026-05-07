@@ -661,8 +661,13 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                   </audio>
                 </div>
               {%- elsif product.metafields.custom.spotify_iframe_code != blank -%}
-                {%- assign sp_iframe = product.metafields.custom.spotify_iframe_code.value -%}
-                {%- assign sp_track_id = sp_iframe | split: '/track/' | last | split: '?' | first | split: '"' | first -%}
+                {%- capture sp_raw -%}{{ product.metafields.custom.spotify_iframe_code }}{%- endcapture -%}
+                {%- assign sp_raw = sp_raw | strip -%}
+                {%- if sp_raw contains '/track/' -%}
+                  {%- assign sp_track_id = sp_raw | split: '/track/' | last | split: '?' | first | split: '"' | first | split: '<' | first | split: ' ' | first | strip -%}
+                {%- else -%}
+                  {%- assign sp_track_id = sp_raw | strip_html | strip -%}
+                {%- endif -%}
                 <div class="product-block musical-vibe-player musical-vibe-player--spotify" data-spotify-track="{{ sp_track_id }}" style="margin-bottom: 18px; position: relative;">
                   <p class="musical-vibe-label" style="font-size:14px; letter-spacing:0; text-transform:none; margin-bottom:10px; font-weight:500;">Musical Vibe</p>
                   <div class="musical-vibe-controls" style="display:flex; align-items:center; gap:12px;">
