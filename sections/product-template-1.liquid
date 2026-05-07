@@ -54,10 +54,14 @@
   .product-single__type {
     margin: 0;
     color: #2C2722;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 18px;
+    line-height: 1.45;
   }
   .product-single__vendor + .product-single__type { margin-top: 2px; }
+  @media (max-width: 600px){
+    .product-single__vendor,
+    .product-single__type { font-size: 16px; }
+  }
   .product-single__information.product-single__information-hoz {
     flex-direction: column !important;
     align-items: flex-start !important;
@@ -168,7 +172,7 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                 {%- assign primary_collection = product.collections.first -%}
                 {%- if primary_collection -%}
                   <nav class="product-single__breadcrumb" aria-label="Breadcrumb">
-                    <a href="{{ routes.collections_url }}">{{ 'collections.general.all' | t | default: 'Shop' }}</a>
+                    <a href="{{ routes.collections_url }}">Shop</a>
                     <span aria-hidden="true">/</span>
                     <a href="{{ primary_collection.url }}">{{ primary_collection.title }}</a>
                   </nav>
