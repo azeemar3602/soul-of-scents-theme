@@ -5,6 +5,75 @@
   .template-product blockquote { padding: 0.75rem 1rem !important; border-left: 0 !important; background: transparent !important; margin: 1rem 0 !important; }
   .template-product .rte blockquote:empty,
   .template-product blockquote:empty { display: none !important; }
+
+  /* SOS product top info */
+  .product-single__breadcrumb {
+    font-size: 13px;
+    color: #928171;
+    margin: 0 0 10px;
+    line-height: 1.4;
+  }
+  .product-single__breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .product-single__breadcrumb a:hover { color: #2C2722; text-decoration: underline; }
+  .product-single__breadcrumb span { margin: 0 6px; color: inherit; }
+
+  .product-title--with-price .product-single__title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0;
+  }
+  .product-title--with-price .product-single__title {
+    flex: 1 1 auto;
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.15;
+    color: #030303;
+  }
+  .product-title--with-price .product-single__title-price {
+    flex: 0 0 auto;
+    text-align: right;
+    font-size: clamp(18px, 1.8vw, 22px);
+    color: #030303;
+    font-weight: 500;
+    white-space: nowrap;
+    line-height: 1.15;
+  }
+  .product-title--with-price .product-single__title-price .product-single__price--compare {
+    display: block;
+    font-size: 0.8em;
+    color: #928171;
+    margin-top: 2px;
+  }
+  .product-single__vendor,
+  .product-single__type {
+    margin: 0;
+    color: #2C2722;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .product-single__vendor + .product-single__type { margin-top: 2px; }
+  .product-single__information.product-single__information-hoz {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0;
+    margin-top: 6px;
+  }
+  @media (max-width: 600px) {
+    .product-title--with-price .product-single__title-row {
+      flex-wrap: wrap;
+    }
+    .product-title--with-price .product-single__title-price {
+      flex-basis: 100%;
+      text-align: left;
+      margin-top: 6px;
+    }
+  }
 </style>
 {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'photoswipe.min.js' | asset_url }}" defer="defer"></script>
@@ -95,14 +164,34 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                   {{- block.settings.text -}}
                 </p>
             {%- when 'title' -%}
-              <div class="product-block product-title">
-                {%- if block.settings.e_label -%}
-                {% render 'product-label',  showlabel : false %}
+              <div class="product-block product-title product-title--with-price">
+                {%- assign primary_collection = product.collections.first -%}
+                {%- if primary_collection -%}
+                  <nav class="product-single__breadcrumb" aria-label="Breadcrumb">
+                    <a href="{{ routes.collections_url }}">{{ 'collections.general.all' | t | default: 'Shop' }}</a>
+                    <span aria-hidden="true">/</span>
+                    <a href="{{ primary_collection.url }}">{{ primary_collection.title }}</a>
+                  </nav>
                 {%- endif -%}
-              <h1 itemprop="name" class="product-single__title">
-                {{ product.title }}
-              </h1>
-            </div>
+                {%- if block.settings.e_label -%}
+                  {% render 'product-label', showlabel: false %}
+                {%- endif -%}
+                <div class="product-single__title-row">
+                  <h1 itemprop="name" class="product-single__title">
+                    {{ product.title }}
+                  </h1>
+                  <div class="product-single__title-price">
+                    <span id="ProductPrice-{{ section.id }}" class="product-single__price" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+                      {{ current_variant.price | money }}
+                    </span>
+                    {% if product.compare_at_price_max > product.price %}
+                      <s id="ComparePrice-{{ section.id }}" class="product-single__price product-single__price--compare">
+                        {{ current_variant.compare_at_price | money }}
+                      </s>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
             {%- when 'icon_with_text' -%}
               {%-liquid 
                 assign block_style = block.settings.block_style
