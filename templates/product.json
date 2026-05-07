@@ -43,6 +43,7 @@
         },
         "c5c11045-e3b5-47e4-80d1-25e86ec844cc": {
           "type": "price",
+          "disabled": true,
           "settings": {}
         },
         "1affb493-1e14-4893-9876-be8d348ee475": {
