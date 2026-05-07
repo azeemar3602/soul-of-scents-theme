@@ -575,7 +575,7 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                 {% form 'product', product, class: form_class, id: form_id %}
                 {%- if product.metafields.custom.product_audio != blank -%}
                 <div class="product-block musical-vibe-player" style="margin-bottom: 18px;">
-                  <p class="musical-vibe-label" style="font-size:13px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:10px; font-weight:500;">Musical Vibe</p>
+                  <p class="musical-vibe-label" style="font-size:14px; letter-spacing:0; text-transform:none; margin-bottom:10px; font-weight:500;">Musical Vibe</p>
                   <div class="musical-vibe-controls" style="display:flex; align-items:center; gap:12px;">
                     <button type="button" class="mv-play-btn" aria-label="Play musical vibe"
                       style="width:36px; height:36px; border-radius:50%; border:1.5px solid #aaa; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; padding:0;"
@@ -601,7 +601,7 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                 {%- assign sp_iframe = product.metafields.custom.spotify_iframe_code.value -%}
                 {%- assign sp_track_id = sp_iframe | split: '/track/' | last | split: '?' | first | split: '"' | first -%}
                 <div class="product-block musical-vibe-player musical-vibe-player--spotify" data-spotify-track="{{ sp_track_id }}" style="margin-bottom: 18px; position: relative;">
-                  <p class="musical-vibe-label" style="font-size:13px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:10px; font-weight:500;">Musical Vibe</p>
+                  <p class="musical-vibe-label" style="font-size:14px; letter-spacing:0; text-transform:none; margin-bottom:10px; font-weight:500;">Musical Vibe</p>
                   <div class="musical-vibe-controls" style="display:flex; align-items:center; gap:12px;">
                     <button type="button" class="mv-play-btn" aria-label="Play musical vibe"
                       style="width:36px; height:36px; border-radius:50%; border:1.5px solid #aaa; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; padding:0;">
