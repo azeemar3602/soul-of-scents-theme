@@ -113,7 +113,7 @@
                     <div class="product-slider__pills">
                       {%- for col in product.collections -%}
                         {%- unless brand_str contains col.handle -%}
-                          <span class="product-slider__pill" role="link" tabindex="0" onclick="event.preventDefault();event.stopPropagation();window.location.href='{{ col.url }}';">{{ col.title }}</span>
+                          <span class="product-slider__pill mood-tag--{{ col.title | handle }}" role="link" tabindex="0" onclick="event.preventDefault();event.stopPropagation();window.location.href='{{ col.url }}';">{{ col.title }}</span>
                         {%- endunless -%}
                       {%- endfor -%}
                     </div>
