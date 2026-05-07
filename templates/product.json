@@ -29,7 +29,7 @@
         "bf089f50-667c-4417-a84a-9478625741a1": {
           "type": "list-info",
           "settings": {
-            "block_style": "hoz",
+            "block_style": "ver",
             "product_vendor_enable": true,
             "product_type_enable": true,
             "variant_sku_enable": false,
