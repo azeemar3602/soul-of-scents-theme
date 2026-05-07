@@ -62,9 +62,20 @@
   {%- if settings.enable_review -%}
     <div style='{{ jm_style }}' class='jdgm-widget jdgm-preview-badge  py-1 small'  data-id='{{ product.id }}' data-auto-install="false" >
       {{ product.metafields.judgeme.badge }}
-    </div>  
+    </div>
   {%- endif -%}
 {% endcapture %}
+{% capture mood_tags %}
+  {%- if product.metafields.custom.mood_tags != blank -%}
+  <div class="mood-tags-block">
+    {%- for tag in product.metafields.custom.mood_tags.value -%}
+    <span class="mood-tag mood-tag--{{ tag | handle }}">{{ tag }}</span>
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
+{% endcapture %}
+{%- comment -%} Prepend mood-tag pills to review so all 11 card layouts pick them up via existing {{ review }} placement, no per-layout edits {%- endcomment -%}
+{% assign review = mood_tags | append: review %}
 {%- liquid
   assign item = settings.productgrid
   if enable_edit_item 
