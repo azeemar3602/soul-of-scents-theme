@@ -68,6 +68,72 @@
     gap: 0;
     margin-top: 6px;
   }
+
+  /* SOS spacing rhythm between product blocks */
+  .template-product .product-single__rating { margin-top: 8px; margin-bottom: 12px; }
+  .template-product .product-single__information { margin-bottom: 12px; }
+  .template-product .mood-tags-block { margin-top: 4px !important; margin-bottom: 22px !important; }
+
+  /* SOS star rating color/size (works for shopify-product-reviews + Judge.me) */
+  .template-product .shopify-product-reviews-badge .spr-icon,
+  .template-product .shopify-product-reviews-badge .spr-icon-star,
+  .template-product .jdgm-prev-badge .jdgm-star,
+  .template-product .jdgm-prev-badge__stars { color: #C4956A !important; }
+  .template-product .shopify-product-reviews-badge,
+  .template-product .jdgm-prev-badge {
+    font-size: 13px !important;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.2;
+  }
+  .template-product .jdgm-prev-badge__text,
+  .template-product .spr-badge-caption { color: #2C2722; font-size: 13px; }
+
+  /* SOS size selector pills (non-color radio options only) */
+  .template-product .single-option-radio:not(.single-color){
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .template-product .single-option-radio:not(.single-color) input[type="radio"]{
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+  }
+  .template-product .single-option-radio:not(.single-color) label{
+    min-width: 56px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 6px;
+    border: 1px solid #D7D4CF;
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #030303;
+    cursor: pointer;
+    transition: border-color .15s, border-width .15s;
+    box-shadow: none;
+    margin: 0;
+    font-weight: 400;
+  }
+  .template-product .single-option-radio:not(.single-color) label:hover{ border-color: #2C2722; }
+  .template-product .single-option-radio:not(.single-color) input[type="radio"]:checked + label{
+    border: 1.5px solid #030303;
+    font-weight: 500;
+  }
+  .template-product .single-option-radio:not(.single-color) input[type="radio"]:disabled + label{
+    opacity: 0.45;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
   @media (max-width: 600px) {
     .product-title--with-price .product-single__title-row {
       flex-wrap: wrap;
@@ -328,89 +394,76 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
               </style>
               {%- endif -%}
               
-              <div class="product-block product-readmore-block">
-              {%- assign full_desc = product.description -%}
-
+              <div class="product-block product-readmore-block sos-product-description-wrapper">
               <div
-                class="product-description product-description--collapsed"
+                class="sos-product-description rte is-collapsed"
                 id="product-description-{{ section.id }}"
-                data-rm-lines="3"
               >
-                {{ full_desc }}
+                {{ product.description }}
               </div>
 
               <button
-                class="readmore-btn is-hidden"
+                type="button"
+                class="sos-description-toggle is-hidden"
                 id="readmore-btn-{{ section.id }}"
                 aria-expanded="false"
                 aria-controls="product-description-{{ section.id }}"
                 onclick="toggleReadMore('{{ section.id }}')"
               >
-                <span class="readmore-btn__text">Read more</span>
-                <svg class="readmore-btn__icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <span class="sos-description-toggle__text">Read more</span>
+                <svg class="sos-description-toggle__icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
             </div>
 
             <style>
-              .product-readmore-block {
-                margin-bottom: 16px;
-              }
-              .product-description {
+              .sos-product-description-wrapper { margin-bottom: 24px; }
+              .sos-product-description {
                 color: inherit;
                 font-size: inherit;
                 line-height: 1.65;
               }
-              .product-description p,
-              .product-description li {
+              .sos-product-description p,
+              .sos-product-description li {
                 font-size: inherit;
                 line-height: 1.65;
                 color: inherit;
-                margin: 0 0 10px 0;
+                margin: 0 0 18px;
               }
-              .product-description p:last-child,
-              .product-description li:last-child { margin-bottom: 0; }
-              .product-description--collapsed {
+              .sos-product-description p:last-child,
+              .sos-product-description li:last-child { margin-bottom: 0; }
+
+              .sos-product-description.is-collapsed {
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
               }
-              .product-description--collapsed p { margin: 0; display: inline; }
-              .product-description--collapsed p + p::before { content: " "; }
-              .readmore-btn {
+              .sos-product-description:not(.is-collapsed) {
+                display: block;
+                overflow: visible;
+              }
+
+              .sos-description-toggle {
                 display: inline-flex;
                 align-items: center;
                 gap: 4px;
                 background: none;
                 border: none;
                 padding: 0;
-                margin-top: 8px;
+                margin-top: 10px;
                 cursor: pointer;
                 font-size: 13px;
                 font-weight: 500;
-                color: #555;
+                color: #2C2722;
                 letter-spacing: 0.02em;
                 text-decoration: underline;
                 text-underline-offset: 3px;
                 transition: color 0.2s;
               }
-              .readmore-btn:hover { color: #111; }
-              .readmore-btn__icon {
-                transition: transform 0.3s ease;
-                flex-shrink: 0;
-              }
-              .readmore-btn[aria-expanded="true"] .readmore-btn__text::before {
-                content: "Read less";
-              }
-              .readmore-btn[aria-expanded="false"] .readmore-btn__text::before {
-                content: "Read more";
-              }
-              .readmore-btn__text { font-size: 0; }
-              .readmore-btn__text::before { font-size: 13px; }
-              .readmore-btn[aria-expanded="true"] .readmore-btn__icon {
-                transform: rotate(180deg);
-              }
-              .readmore-btn.is-hidden { display: none; }
+              .sos-description-toggle:hover { color: #030303; }
+              .sos-description-toggle__icon { transition: transform 0.3s ease; flex-shrink: 0; }
+              .sos-description-toggle[aria-expanded="true"] .sos-description-toggle__icon { transform: rotate(180deg); }
+              .sos-description-toggle.is-hidden { display: none; }
             </style>
 
             <script>
@@ -418,8 +471,10 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                 var btn = document.getElementById('readmore-btn-' + sectionId);
                 var desc = document.getElementById('product-description-' + sectionId);
                 if (!btn || !desc) return;
-                var collapsed = desc.classList.toggle('product-description--collapsed');
+                var collapsed = desc.classList.toggle('is-collapsed');
                 btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+                var label = btn.querySelector('.sos-description-toggle__text');
+                if (label) label.textContent = collapsed ? 'Read more' : 'Read less';
               }
               (function() {
                 function setupRM() {
@@ -431,9 +486,7 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                     btn.classList.add('is-hidden');
                     return;
                   }
-                  // Force collapsed state for measurement
-                  desc.classList.add('product-description--collapsed');
-                  // If real content overflows the 3-line clamp, show the toggle
+                  desc.classList.add('is-collapsed');
                   if (desc.scrollHeight > desc.clientHeight + 2) {
                     btn.classList.remove('is-hidden');
                   } else {
