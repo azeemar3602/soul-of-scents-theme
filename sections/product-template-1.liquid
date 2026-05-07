@@ -1,4 +1,11 @@
 <!-- product-template-1.liquid -->
+<style>
+  .template-product blockquote::before { content: none !important; display: none !important; }
+  .template-product .rte blockquote,
+  .template-product blockquote { padding: 0.75rem 1rem !important; border-left: 0 !important; background: transparent !important; margin: 1rem 0 !important; }
+  .template-product .rte blockquote:empty,
+  .template-product blockquote:empty { display: none !important; }
+</style>
 {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'photoswipe.min.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'photoswipe-ui-default.min.js' | asset_url }}" defer="defer"></script>
@@ -497,31 +504,28 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                   </audio>
                 </div>
               {%- elsif product.metafields.custom.spotify_iframe_code != blank -%}
-                          {%- assign sp_iframe = product.metafields.custom.spotify_iframe_code.value -%}
-                                    {%- assign sp_track_id = sp_iframe | split: '/track/' | last | split: '?' | first -%}
-                                              <div class="product-block musical-vibe-player" style="margin-bottom: 18px;">
-                                                          <p class="musical-vibe-label" style="font-size:13px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:10px; font-weight:500;">Musical Vibe</p>
-                                                                      <div class="musical-vibe-controls" style="display:flex; align-items:center; gap:12px;">
-                                                                                    <button type="button" class="mv-play-btn" aria-label="Play musical vibe"
-                                                                                                    style="width:36px; height:36px; border-radius:50%; border:1.5px solid #aaa; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0;"
-                                                                                                                    data-audio="" data-spotify-track="{{ sp_track_id }}">
-                                                                                                                                    <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="mv-play-icon">
-                                                                                                                                                      <path d="M1 1.5L11 7L1 12.5V1.5Z" fill="currentColor"/>
-                                                                                                                                                                      </svg>
-                                                                                                                                                                                      <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="mv-pause-icon" style="display:none;">
-                                                                                                                                                                                                        <rect x="1" y="1.5" width="3.5" height="11" fill="currentColor"/>
-                                                                                                                                                                                                                          <rect x="7.5" y="1.5" width="3.5" height="11" fill="currentColor"/>
-                                                                                                                                                                                                                                          </svg>
-                                                                                                                                                                                                                                                        </button>
-                                                                                                                                                                                                                                                                      <div class="mv-progress-bar-wrap" style="flex:1; position:relative; height:3px; background:#ddd; border-radius:2px; cursor:pointer;">
-                                                                                                                                                                                                                                                                                      <div class="mv-progress-filled" style="height:100%; width:0%; background:#888; border-radius:2px; pointer-events:none;"></div>
-                                                                                                                                                                                                                                                                                                      <div class="mv-progress-thumb" style="position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); width:12px; height:12px; border-radius:50%; background:#666; pointer-events:none;"></div>
-                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                            <audio class="mv-audio" preload="none" style="display:none;">
-                                                                                                                                                                                                                                                                                                                                                          <source src="" type="audio/mpeg">
-                                                                                                                                                                                                                                                                                                                                                                      </audio>
-                                                                                                                                                                                                                                                                                                                                                                                </div>}
+                {%- assign sp_iframe = product.metafields.custom.spotify_iframe_code.value -%}
+                {%- assign sp_track_id = sp_iframe | split: '/track/' | last | split: '?' | first | split: '"' | first -%}
+                <div class="product-block musical-vibe-player musical-vibe-player--spotify" data-spotify-track="{{ sp_track_id }}" style="margin-bottom: 18px; position: relative;">
+                  <p class="musical-vibe-label" style="font-size:13px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:10px; font-weight:500;">Musical Vibe</p>
+                  <div class="musical-vibe-controls" style="display:flex; align-items:center; gap:12px;">
+                    <button type="button" class="mv-play-btn" aria-label="Play musical vibe"
+                      style="width:36px; height:36px; border-radius:50%; border:1.5px solid #aaa; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; padding:0;">
+                      <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="mv-play-icon">
+                        <path d="M1 1.5L11 7L1 12.5V1.5Z" fill="currentColor"/>
+                      </svg>
+                      <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="mv-pause-icon" style="display:none;">
+                        <rect x="1" y="1.5" width="3.5" height="11" fill="currentColor"/>
+                        <rect x="7.5" y="1.5" width="3.5" height="11" fill="currentColor"/>
+                      </svg>
+                    </button>
+                    <div class="mv-progress-bar-wrap" style="flex:1; position:relative; height:3px; background:#ddd; border-radius:2px; cursor:pointer;">
+                      <div class="mv-progress-filled" style="height:100%; width:0%; background:#888; border-radius:2px; pointer-events:none;"></div>
+                      <div class="mv-progress-thumb" style="position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); width:12px; height:12px; border-radius:50%; background:#666; pointer-events:none;"></div>
+                    </div>
+                  </div>
+                  <div class="mv-spotify-mount" style="position:absolute; left:-9999px; top:0; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none;" aria-hidden="true"></div>
+                </div>
                 {%- endif -%}
                 {% unless product.has_only_default_variant %}
                 {% for option in product.options_with_values %}
@@ -2531,49 +2535,164 @@ initPhotoSwipeFromDOM('.my-gallery');
 </script>
 <script>
   (function() {
-    function initMusicalVibePlayers() {
-      var players = document.querySelectorAll('.musical-vibe-player');
-      players.forEach(function(player) {
-        var btn = player.querySelector('.mv-play-btn');
-        var audio = player.querySelector('.mv-audio');
-        var progressWrap = player.querySelector('.mv-progress-bar-wrap');
-        var progressFilled = player.querySelector('.mv-progress-filled');
-        var progressThumb = player.querySelector('.mv-progress-thumb');
-        var playIcon = player.querySelector('.mv-play-icon');
-        var pauseIcon = player.querySelector('.mv-pause-icon');
-        if (!btn || !audio) return;
-        btn.addEventListener('click', function() {
-          if (audio.paused) {
-            document.querySelectorAll('.mv-audio').forEach(function(a) {
-              if (a !== audio) { a.pause(); var p = a.closest('.musical-vibe-player'); if(p){ p.querySelector('.mv-play-icon').style.display=''; p.querySelector('.mv-pause-icon').style.display='none'; }}
-            });
-            audio.play();
-            playIcon.style.display = 'none';
-            pauseIcon.style.display = '';
-          } else {
-            audio.pause();
-            playIcon.style.display = '';
-            pauseIcon.style.display = 'none';
+    var registry = [];
+
+    function setIcons(player, playing) {
+      var pi = player.querySelector('.mv-play-icon');
+      var pa = player.querySelector('.mv-pause-icon');
+      if (pi) pi.style.display = playing ? 'none' : '';
+      if (pa) pa.style.display = playing ? '' : 'none';
+    }
+
+    function pauseOthers(except) {
+      registry.forEach(function(entry) {
+        if (entry === except) return;
+        try {
+          if (entry.kind === 'audio' && !entry.audio.paused) {
+            entry.audio.pause();
+            setIcons(entry.player, false);
+          } else if (entry.kind === 'spotify' && entry.controller && entry.isPlaying) {
+            entry.controller.pause();
           }
-        });
-        audio.addEventListener('timeupdate', function() {
-          if (audio.duration) {
-            var pct = (audio.currentTime / audio.duration) * 100;
-            progressFilled.style.width = pct + '%';
-            progressThumb.style.left = pct + '%';
-          }
-        });
-        audio.addEventListener('ended', function() {
-          playIcon.style.display = '';
-          pauseIcon.style.display = 'none';
-          progressFilled.style.width = '0%';
-          progressThumb.style.left = '0%';
-        });
+        } catch (e) {}
+      });
+    }
+
+    function initAudioPlayer(player) {
+      var btn = player.querySelector('.mv-play-btn');
+      var audio = player.querySelector('.mv-audio');
+      if (!btn || !audio) return;
+      var progressWrap = player.querySelector('.mv-progress-bar-wrap');
+      var progressFilled = player.querySelector('.mv-progress-filled');
+      var progressThumb = player.querySelector('.mv-progress-thumb');
+      var entry = { kind: 'audio', player: player, audio: audio };
+      registry.push(entry);
+
+      btn.addEventListener('click', function() {
+        if (audio.paused) {
+          pauseOthers(entry);
+          audio.play();
+          setIcons(player, true);
+        } else {
+          audio.pause();
+          setIcons(player, false);
+        }
+      });
+      audio.addEventListener('timeupdate', function() {
+        if (audio.duration) {
+          var pct = (audio.currentTime / audio.duration) * 100;
+          if (progressFilled) progressFilled.style.width = pct + '%';
+          if (progressThumb) progressThumb.style.left = pct + '%';
+        }
+      });
+      audio.addEventListener('ended', function() {
+        setIcons(player, false);
+        if (progressFilled) progressFilled.style.width = '0%';
+        if (progressThumb) progressThumb.style.left = '0%';
+      });
+      if (progressWrap) {
         progressWrap.addEventListener('click', function(e) {
           var rect = progressWrap.getBoundingClientRect();
           var pct = (e.clientX - rect.left) / rect.width;
           if (audio.duration) { audio.currentTime = pct * audio.duration; }
         });
+      }
+    }
+
+    var spotifyApiPromise = null;
+    function loadSpotifyApi() {
+      if (spotifyApiPromise) return spotifyApiPromise;
+      spotifyApiPromise = new Promise(function(resolve) {
+        if (window.__SoSSpotifyAPI) { resolve(window.__SoSSpotifyAPI); return; }
+        var prev = window.onSpotifyIframeApiReady;
+        window.onSpotifyIframeApiReady = function(IFrameAPI) {
+          window.__SoSSpotifyAPI = IFrameAPI;
+          if (typeof prev === 'function') { try { prev(IFrameAPI); } catch (e) {} }
+          resolve(IFrameAPI);
+        };
+        var s = document.createElement('script');
+        s.src = 'https://open.spotify.com/embed/iframe-api/v1';
+        s.async = true;
+        document.head.appendChild(s);
+      });
+      return spotifyApiPromise;
+    }
+
+    function initSpotifyPlayer(player) {
+      var trackId = player.getAttribute('data-spotify-track');
+      if (!trackId) return;
+      var btn = player.querySelector('.mv-play-btn');
+      var mount = player.querySelector('.mv-spotify-mount');
+      if (!btn || !mount) return;
+      var progressWrap = player.querySelector('.mv-progress-bar-wrap');
+      var progressFilled = player.querySelector('.mv-progress-filled');
+      var progressThumb = player.querySelector('.mv-progress-thumb');
+      var entry = { kind: 'spotify', player: player, controller: null, isPlaying: false, durationMs: 0, ready: false, pendingPlay: false };
+      registry.push(entry);
+
+      loadSpotifyApi().then(function(IFrameAPI) {
+        var holder = document.createElement('div');
+        mount.appendChild(holder);
+        IFrameAPI.createController(
+          holder,
+          { uri: 'spotify:track:' + trackId, width: '100%', height: '80' },
+          function(controller) {
+            entry.controller = controller;
+            entry.ready = true;
+            controller.addListener('playback_update', function(e) {
+              var d = (e && e.data) || {};
+              entry.isPlaying = !d.isPaused;
+              if (typeof d.duration === 'number' && d.duration > 0) entry.durationMs = d.duration;
+              setIcons(player, entry.isPlaying);
+              if (entry.durationMs > 0 && progressFilled) {
+                var pct = (d.position / entry.durationMs) * 100;
+                if (pct < 0) pct = 0; if (pct > 100) pct = 100;
+                progressFilled.style.width = pct + '%';
+                if (progressThumb) progressThumb.style.left = pct + '%';
+              }
+            });
+            if (entry.pendingPlay) {
+              entry.pendingPlay = false;
+              try { controller.play(); } catch (e) {}
+            }
+          }
+        );
+      });
+
+      btn.addEventListener('click', function() {
+        if (!entry.ready) {
+          entry.pendingPlay = true;
+          pauseOthers(entry);
+          setIcons(player, true);
+          return;
+        }
+        if (!entry.isPlaying) {
+          pauseOthers(entry);
+          try { entry.controller.play(); } catch (e) {}
+        } else {
+          try { entry.controller.pause(); } catch (e) {}
+        }
+      });
+
+      if (progressWrap) {
+        progressWrap.addEventListener('click', function(e) {
+          if (!entry.ready || !entry.durationMs) return;
+          var rect = progressWrap.getBoundingClientRect();
+          var pct = (e.clientX - rect.left) / rect.width;
+          try { entry.controller.seek((pct * entry.durationMs) / 1000); } catch (err) {}
+        });
+      }
+    }
+
+    function initMusicalVibePlayers() {
+      document.querySelectorAll('.musical-vibe-player').forEach(function(player) {
+        if (player.dataset.mvInit === '1') return;
+        player.dataset.mvInit = '1';
+        if (player.hasAttribute('data-spotify-track')) {
+          initSpotifyPlayer(player);
+        } else {
+          initAudioPlayer(player);
+        }
       });
     }
     document.addEventListener('DOMContentLoaded', initMusicalVibePlayers);
