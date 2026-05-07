@@ -2739,7 +2739,8 @@ initPhotoSwipeFromDOM('.my-gallery');
         console.log('[MV] audio metadata loaded, duration =', audio.duration);
       });
 
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function(ev) {
+        console.log('[MV] audio play btn clicked. paused=', audio.paused, 'src=', srcUrl);
         if (audio.paused) {
           pauseOthers(entry);
           var p = audio.play();
@@ -2843,7 +2844,8 @@ initPhotoSwipeFromDOM('.my-gallery');
         console.error('[MV] loadSpotifyApi failed:', err);
       });
 
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function(ev) {
+        console.log('[MV] spotify play btn clicked. ready=', entry.ready, 'isPlaying=', entry.isPlaying, 'trackId=', trackId);
         if (!entry.ready) {
           entry.pendingPlay = true;
           pauseOthers(entry);
@@ -2851,19 +2853,22 @@ initPhotoSwipeFromDOM('.my-gallery');
           return;
         }
         if (!entry.isPlaying) {
+          console.log('[MV] calling controller.play()');
           pauseOthers(entry);
-          try { entry.controller.play(); } catch (e) {}
+          try { entry.controller.play(); } catch (e) { console.error('[MV] controller.play() threw:', e); }
         } else {
-          try { entry.controller.pause(); } catch (e) {}
+          console.log('[MV] calling controller.pause()');
+          try { entry.controller.pause(); } catch (e) { console.error('[MV] controller.pause() threw:', e); }
         }
       });
 
       if (progressWrap) {
         progressWrap.addEventListener('click', function(e) {
+          console.log('[MV] spotify progress clicked. ready=', entry.ready, 'durationMs=', entry.durationMs);
           if (!entry.ready || !entry.durationMs) return;
           var rect = progressWrap.getBoundingClientRect();
           var pct = (e.clientX - rect.left) / rect.width;
-          try { entry.controller.seek((pct * entry.durationMs) / 1000); } catch (err) {}
+          try { entry.controller.seek((pct * entry.durationMs) / 1000); } catch (err) { console.error('[MV] controller.seek() threw:', err); }
         });
       }
     }
