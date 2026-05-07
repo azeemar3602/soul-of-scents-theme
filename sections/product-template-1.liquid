@@ -686,7 +686,7 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                       <div class="mv-progress-thumb" style="position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); width:12px; height:12px; border-radius:50%; background:#666; pointer-events:none;"></div>
                     </div>
                   </div>
-                  <div class="mv-spotify-mount" style="position:absolute; left:-9999px; top:0; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none;" aria-hidden="true"></div>
+                  <div class="mv-spotify-mount" style="position:fixed; left:-9999px; top:0; width:300px; height:80px; overflow:hidden; opacity:0; pointer-events:none;" aria-hidden="true"></div>
                 </div>
                 {%- endif -%}
                 {% unless product.has_only_default_variant %}
@@ -2761,10 +2761,11 @@ initPhotoSwipeFromDOM('.my-gallery');
     var spotifyApiPromise = null;
     function loadSpotifyApi() {
       if (spotifyApiPromise) return spotifyApiPromise;
-      spotifyApiPromise = new Promise(function(resolve) {
+      spotifyApiPromise = new Promise(function(resolve, reject) {
         if (window.__SoSSpotifyAPI) { resolve(window.__SoSSpotifyAPI); return; }
         var prev = window.onSpotifyIframeApiReady;
         window.onSpotifyIframeApiReady = function(IFrameAPI) {
+          console.log('[MV] Spotify iframe API ready');
           window.__SoSSpotifyAPI = IFrameAPI;
           if (typeof prev === 'function') { try { prev(IFrameAPI); } catch (e) {} }
           resolve(IFrameAPI);
@@ -2772,6 +2773,10 @@ initPhotoSwipeFromDOM('.my-gallery');
         var s = document.createElement('script');
         s.src = 'https://open.spotify.com/embed/iframe-api/v1';
         s.async = true;
+        s.onerror = function() {
+          console.error('[MV] Spotify iframe API script failed to load (blocked / network).');
+          reject(new Error('spotify-api-load-failed'));
+        };
         document.head.appendChild(s);
       });
       return spotifyApiPromise;
@@ -2779,10 +2784,11 @@ initPhotoSwipeFromDOM('.my-gallery');
 
     function initSpotifyPlayer(player) {
       var trackId = player.getAttribute('data-spotify-track');
-      if (!trackId) return;
+      console.log('[MV] initSpotifyPlayer with trackId =', JSON.stringify(trackId));
+      if (!trackId) { console.warn('[MV] No trackId, abort init.'); return; }
       var btn = player.querySelector('.mv-play-btn');
       var mount = player.querySelector('.mv-spotify-mount');
-      if (!btn || !mount) return;
+      if (!btn || !mount) { console.warn('[MV] Missing button or mount.'); return; }
       var progressWrap = player.querySelector('.mv-progress-bar-wrap');
       var progressFilled = player.querySelector('.mv-progress-filled');
       var progressThumb = player.querySelector('.mv-progress-thumb');
@@ -2796,6 +2802,7 @@ initPhotoSwipeFromDOM('.my-gallery');
           holder,
           { uri: 'spotify:track:' + trackId, width: '100%', height: '80' },
           function(controller) {
+            console.log('[MV] Spotify controller created for', trackId);
             entry.controller = controller;
             entry.ready = true;
             controller.addListener('playback_update', function(e) {
@@ -2811,11 +2818,14 @@ initPhotoSwipeFromDOM('.my-gallery');
               }
             });
             if (entry.pendingPlay) {
+              console.log('[MV] Flushing pending play for', trackId);
               entry.pendingPlay = false;
-              try { controller.play(); } catch (e) {}
+              try { controller.play(); } catch (e) { console.error('[MV] play() threw', e); }
             }
           }
         );
+      }).catch(function(err) {
+        console.error('[MV] loadSpotifyApi failed:', err);
       });
 
       btn.addEventListener('click', function() {
