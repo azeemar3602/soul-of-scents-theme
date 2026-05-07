@@ -1,1 +1,905 @@
-{"sections":{"text_statement_yQzm8g":{"type":"text-statement","name":"Text Statement","settings":{"line1":"We capture the one-of-a-kind signature of you","line2":"and contribute to an overall elevated, confident feel, drop by drop.","line1_color":"#c8c8c8","line2_color":"#1a1a1a","bg_color":"#ffffff","border_color":"#e0e0e0","font_size":26,"line_height":1.4,"font_weight":"400","line2_weight":"600","letter_spacing":0,"alignment":"left","section_width":"container","custom_width":1280,"show_border_top":false,"show_border_bottom":false,"padding_top":60,"padding_bottom":60,"margin_top":0,"margin_bottom":0}},"product_list_CCjFkA":{"type":"product-list","disabled":true,"name":"Product list (carousel)","settings":{"animation":"","setwidth":"container-fluid","bgsection":"#ffffff","title_top":"","title":"Community Favorites","des":"","align-heading":"left","collection":"meo-fuscioni","arrows":true,"draggable":true,"dots":false,"infinite":true,"rows":"1","limit":10,"show":4,"paddingsection":"40px 0px 40px 0px","paddingmobile":"40px 0px 40px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px"}},"product_slider_nUq6gN":{"type":"product-slider","name":"Product Slider","settings":{"collection":"frontpage","products_to_show":12,"heading_text":"Spring essentials","show_header":true,"default_view":"slider","products_per_row":3,"grid_per_page":15,"section_width":"container","custom_width":1280,"nav_color":"#2c2722","nav_bg_color":"#ffffff","nav_border_color":"#2c2722","nav_border_width":1,"nav_btn_size":40,"nav_btn_radius":50,"nav_icon_size":16,"nav_stroke_width":2,"show_price":true,"show_vendor":true,"show_badges":true,"show_category_pills":true,"show_wishlist":true,"card_border_radius":10,"bg_color":"#ffffff","text_color":"#1a1a1a","card_bg_color":"#f5f0eb","badge_color":"#2a9d8f","pill_bg_color":"#ffffff","pill_text_color":"#1a1a1a","padding_top":40,"padding_bottom":40,"margin_top":0,"margin_bottom":0}},"hero_banner_h3pnBh":{"type":"hero-banner","name":"Hero Banner","settings":{"background_type":"image","image":"shopify:\/\/shop_images\/e7d3238bdcb8dbbea71db74a98a9995ae23b33b2.jpg","video_url":"","overlay_opacity":30,"section_width":"full","custom_width":1200,"custom_width_unit":"px","section_height":"medium","card_position":"left","subheading":"Find a scent that just fits with soul of scents","desktop_subheading_size":16,"mobile_subheading_size":13,"subheading_letter_spacing":0,"heading":"<p>Do you know which erfume matches your energy?<\/p>","heading_tag":"h2","desktop_heading_size":30,"mobile_heading_size":28,"description":"","button_count":"one","button_label_1":"Take the archetype quiz","button_link_1":"","button_new_tab_1":false,"button_bg_color_1":"#ffffff","button_text_color_1":"#928171","button_border_color_1":"#ffffff","button_hover_bg_color_1":"#ffffff","button_hover_text_color_1":"#030303","button_hover_border_color_1":"#f0f0f0","button_border_radius":10,"button_font_size":15,"button_font_weight":"600","button_label_2":"Shop all","button_link_2":"","button_new_tab_2":false,"padding_top":40,"padding_bottom":40,"padding_left":40,"padding_right":40,"margin_top":0,"margin_bottom":0}},"parallax_banner_ain6eX":{"type":"parallax-banner","blocks":{"sub_title_K9ggRT":{"type":"sub_title","settings":{"subtitle":"Find a scent that just fits with soul of scents"}},"heading_4JeLjB":{"type":"heading","settings":{"title":"Do you know which perfume matches your energy?","size_text":"h2"}},"button_Lkhqgz":{"type":"button","settings":{"button":"Take the archetype quiz","link":"#","style_btn":"btn-underline btn-underline-white"}},"paragraph_eeLiqr":{"type":"paragraph","disabled":true,"settings":{"subtext":"Protection from the"}}},"block_order":["sub_title_K9ggRT","heading_4JeLjB","button_Lkhqgz","paragraph_eeLiqr"],"disabled":true,"name":"Parallax banner","settings":{"animation":"","setwidth":"full","bgsection":"rgba(0,0,0,0)","parrallax_enable":true,"image":"shopify:\/\/shop_images\/e7d3238bdcb8dbbea71db74a98a9995ae23b33b2.jpg","height_section":"550","height_section_mobile":"450","align":"left","position_text":"mid-left","bg_box":"rgba(0,0,0,0)","opacity_bgbox":1,"title_color":"#ffffff","bg_overlay":"#000000","gradient_bg":"","opacity_bg_overlay":0,"paddingsection":"0px 0px 0px 0px","marginsection":"0px 0px 0px 0px"}},"7bbfe968-615f-45fb-b164-8b8d8466d957":{"type":"backgroundvideo","blocks":{"template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-0":{"type":"sub_title","settings":{"subtitle":"Find a scent that just fits with soul of scents"}},"template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-1":{"type":"heading","settings":{"title":"Do you know which perfume matches your energy?","size_text":"h4"}},"template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-2":{"type":"paragraph","disabled":true,"settings":{"subtext":"We love seeing how you incorporate our designs into your home."}},"9e06118c-aa13-4153-bc8c-dddcde5ad4de":{"type":"button","settings":{"button":"Take the archetype quiz","link":"#","style_btn":"btn-theme btn-white"}}},"block_order":["template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-0","template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-1","template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-2","9e06118c-aa13-4153-bc8c-dddcde5ad4de"],"disabled":true,"settings":{"animation":"zoom-out","setwidth":"full","height_section":"550px","height_section_mobile":"450px","align":"left","position_text":"bot-left","link_video":"https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/4723927f415e46cb80d0d6ace49686ad.mp4","bgsection":"#ffffff","bg_overlay":"#000000","gradient_bg":"linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 100%)","opacity_bg_overlay":0.4,"title_color":"#ffffff","bg_box":"#ffffff","opacity_bgbox":0,"marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px"}},"1772471430438093bc":{"type":"_blocks","blocks":{"ai_gen_block_3e64eab_dACqck":{"type":"ai_gen_block_3e64eab","settings":{"container_width":"boxed","desktop_width_percent":100,"padding_top":60,"padding_bottom":60,"padding_left":20,"padding_right":20,"margin_top":50,"margin_bottom":50,"margin_left":0,"margin_right":0,"image_border_radius":20,"background_color":"#ffffff","active_color":"#000000","inactive_color":"#cccccc","description_color":"#666666","heading_size":28,"description_size":16,"tab_1_heading":"Authenticity","tab_1_description":"Realness in every drop, uncompromising and raw.","tab_1_image":"shopify:\/\/shop_images\/Col_1.png","tab_2_heading":"Artisanal Excellence","tab_2_description":"Celebrating the mastery, detail, and vision of perfumers who contribute to the extraordinary.","tab_2_image":"shopify:\/\/shop_images\/Slider.png","tab_3_heading":"Fearless Expression","tab_3_description":"Encouraging you to wear your identity on your skin - boldly, unapologetically, and confidently.","tab_3_image":"shopify:\/\/shop_images\/Image_1.png","tab_4_heading":"Emotional Connection","tab_4_description":"We believe smell to be one of the strongest connectors, and we are wholeheartedly devoted to providing an outstanding experience to make you feel seen, felt, and remembered through scent.","tab_4_image":"shopify:\/\/shop_images\/Slider_1.png"},"blocks":{}}},"block_order":["ai_gen_block_3e64eab_dACqck"],"custom_css":[],"settings":{}},"16485444103c52f5e9":{"type":"service","blocks":{"16485444103c52f5e9-0":{"type":"service","settings":{"bgblock":"rgba(0,0,0,0)","title":"Free shipping","description":"Get free shipping on orders of $100 or more","icon":"<svg aria-hidden=\"true\" focusable=\"false\" role=\"presentation\" class=\"icon icon-truck\" viewbox=\"0 0 82 82\"><path d=\"M7.238 68.717H1.867V2.12H58.4v16.736h3.886c9.755 0 17.663 7.908 17.663 17.663v32.199h-5.917M55.781 68.717H25.487\"><\/path><path d=\"M58.334 42.124h15.068v-4.27c0-6.82-5.53-12.35-12.351-12.35h-2.718v16.62M73.909 70.236a9.125 9.125 0 1 0-18.013-2.931 9.125 9.125 0 0 0 18.013 2.93ZM25.367 70.235a9.125 9.125 0 1 0-18.012-2.931 9.125 9.125 0 0 0 7.54 10.471 9.125 9.125 0 0 0 10.472-7.54Z\"><\/path><path d=\"M13.723 77.507c-3.966.658-7.937 1.51-11.857 2.593M60.373 76.736c-10.512-1.212-24.298-1.969-38.645-.451M79.768 80.121s-4.96-1.222-12.975-2.395\"><\/path><\/svg>"}},"8fb6874d-8c42-405c-9da3-134f7a8a0c73":{"type":"service","settings":{"bgblock":"rgba(0,0,0,0)","title":"Customer service","description":"A question? Please contact us at 123-456-7890","icon":"<svg aria-hidden=\"true\" focusable=\"false\" role=\"presentation\" class=\"icon icon-plant-based\" viewbox=\"0 0 82 82\"><path d=\"M41 20.701V80M56.735 26.294c0 8.703-7.045 15.758-15.735 15.758s-15.735-7.055-15.735-15.758C25.265 14.719 41 2 41 2s15.735 12.719 15.735 24.294ZM30.479 46.972c6.145 6.154 6.145 16.132 0 22.285-6.145 6.154-16.107 6.154-22.252 0C.054 61.072 2.2 40.936 2.2 40.936s20.106-2.149 28.279 6.036Z\"><\/path><path d=\"M41 77.861S27.525 60.403 10.092 50.177M51.412 46.972c-6.145 6.154-6.145 16.132 0 22.285 6.145 6.153 16.107 6.154 22.252 0 8.173-8.185 6.027-28.321 6.027-28.321s-20.106-2.149-28.279 6.036Z\"><\/path><path d=\"M40.891 77.861s13.475-17.458 30.908-27.684\"><\/path><\/svg>"}},"16485444103c52f5e9-1":{"type":"service","settings":{"bgblock":"rgba(0,0,0,0)","title":"Refer a friend","description":"Refer a friend and get 15% off <br> each other","icon":"<svg aria-hidden=\"true\" focusable=\"false\" role=\"presentation\" class=\"icon icon-package\" viewbox=\"0 0 82 82\"><path d=\"M80 21v39L41 80 2 60V21L41 2l39 19Z\"><\/path><path d=\"m2 21 39 20 38.571-19.807M41 41.478v38.338\"><\/path><path d=\"m27.715 8.643 38.409 19.473v17.543l-11.617 6.067V33.83L16.098 14.355\"><\/path><\/svg>"}},"16485444103c52f5e9-2":{"type":"service","settings":{"bgblock":"rgba(0,0,0,0)","title":"Secure payment","description":"Your payment information is processed securely","icon":"<svg aria-hidden=\"true\" focusable=\"false\" role=\"presentation\" class=\"icon icon-shield\" viewbox=\"0 0 64 64\"><defs><\/defs><path d=\"M21.18 31.69L28.54 39l15.91-15.88\"><\/path><path d=\"M53 12.54v15.24a31.41 31.41 0 0 1-3.7 14.95A25.46 25.46 0 0 1 32 56a25.46 25.46 0 0 1-17.3-13.27A31.41 31.41 0 0 1 11 27.78V12.54C24.88 13.67 32 8 32 8s7.12 5.67 21 4.54z\"><\/path><\/svg>"}}},"block_order":["16485444103c52f5e9-0","8fb6874d-8c42-405c-9da3-134f7a8a0c73","16485444103c52f5e9-1","16485444103c52f5e9-2"],"disabled":true,"custom_css":[".iconx8 .icon {stroke-width: 3px;}"],"settings":{"animation":"fade-up","setwidth":"container","bgsection":"#ffffff","title_top":"","title":"","des":"","align-heading":"center","paddingbox":"0px 0px 0px 0px","iconcolor":"#bb5237","titlecolor":"#222222","subcolor":"#5c6978","size":28,"service_heading":"h6","layout":"style-1","enable_carousel":false,"arrows":false,"draggable":false,"dots":false,"infinite":false,"paddingsection":"24px 0px 24px 0px","paddingmobile":"24px 0px 10px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px"}},"70da4000-c1cf-4928-8203-f21c081874c6":{"type":"line","settings":{"animation":"fade","paddingsection":"0px 0px 0px 0px","marginsection":"0px 0px 0px 0px","bgsection":"#ffffff","setwidth":"full","bgborder":"#dce2ec","wborder":"1px"}},"90256253-4427-4c0f-a280-c9d024bc8dcc":{"type":"scrolling-text","blocks":{"7a0c83fe-8b0f-4bc4-9ea3-926961e6995c":{"type":"item","settings":{"code":"Good design is everyone’s right."}},"1c76c738-0744-478b-97c6-dc5d9a44eef9":{"type":"item","settings":{"code":"Good design is everyone’s right."}},"c5356855-1cc3-44c2-a7ee-df7b554fbd4d":{"type":"item","settings":{"code":"Good design is everyone’s right."}},"b029a707-48a0-4f4e-8c1f-cf491c938152":{"type":"item","settings":{"code":"Good design is everyone’s right."}}},"block_order":["7a0c83fe-8b0f-4bc4-9ea3-926961e6995c","1c76c738-0744-478b-97c6-dc5d9a44eef9","c5356855-1cc3-44c2-a7ee-df7b554fbd4d","b029a707-48a0-4f4e-8c1f-cf491c938152"],"disabled":true,"settings":{"animation":"fade-up","size_text":"h2","text_style":"solid","size_icon":72,"speed":30,"scroll_type":"from-right","background":"rgba(0,0,0,0)","gradient_bg":"","text":"#758861","paddingsection":"20px 0px 20px 0px","paddingmobile":"40px 0px 40px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px"}},"9a4f05f1-ae72-47ea-a1c9-11ad0d6cf46e":{"type":"line","settings":{"animation":"fade","paddingsection":"0px 0px 0px 0px","marginsection":"0px 0px 0px 0px","bgsection":"#ffffff","setwidth":"full","bgborder":"#dddddd","wborder":"1px"}},"662cf23c-2a28-41c4-9bd8-b6517c99ba49":{"type":"image-content-6","blocks":{"template--19541121335616__662cf23c-2a28-41c4-9bd8-b6517c99ba49-1687424839f6967066-0":{"type":"image_block","settings":{"style_content":"custom","w_image":40,"pos_image":88,"e_image":"right","enable_video":false,"overlay_color":"#000000","overlay_opacity":0,"text_circle":"Fashion2 style store","video_url":""}},"template--19541121335616__662cf23c-2a28-41c4-9bd8-b6517c99ba49-1687424839f6967066-1":{"type":"text_block","settings":{"bgtext":"rgba(0,0,0,0)","subtitle":"Passion","title":"New collection is already here.","size_text":"h2","text":"","answer_content":"<p>Retro florals, classic dots ,and sunny shades  give the line a vintage, beachy feel.<\/p>","button":"shop now","link":"","style_btn":"btn-theme","align":"left","enable_padding_left":true,"enable_padding_right":false}}},"block_order":["template--19541121335616__662cf23c-2a28-41c4-9bd8-b6517c99ba49-1687424839f6967066-0","template--19541121335616__662cf23c-2a28-41c4-9bd8-b6517c99ba49-1687424839f6967066-1"],"disabled":true,"settings":{"animation":"fade-up","setwidth":"container","bgsection":"#f5f5f5","size":"50-50","enable_padding":true,"align_center":true,"paddingsection":"90px 0px 90px 0px","paddingmobile":"40px 0px 40px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px"}},"reviews_slider_xtqCd8":{"type":"reviews-slider","blocks":{"review_TH8Nd4":{"type":"review","settings":{"stars":5,"date":"2 days ago","review_title":"Amazing fragrance!","reviewer_name":"Jane D.","review_body":"Absolutely love this scent. It lasts all day and gets so many compliments.","product":"aura","product_subtitle":"Eau de Parfum","product_rating_text":"[{{ block.settings.product.metafields.reviews.rating | metafield_text }}] {{ block.settings.product.metafields.reviews.rating_count.value }} Reviews"}},"review_DfCEH3":{"type":"review","settings":{"stars":5,"date":"2 days ago","review_title":"Amazing fragrance!","reviewer_name":"Jane D.","review_body":"Absolutely love this scent. It lasts all day and gets so many compliments.","product":"electri","product_subtitle":"Eau de Parfum","product_rating_text":"[{{ block.settings.product.metafields.reviews.rating | metafield_text }}] {{ block.settings.product.metafields.reviews.rating_count.value }} Reviews"}},"review_WzdVfN":{"type":"review","settings":{"stars":5,"date":"2 days ago","review_title":"Amazing fragrance!","reviewer_name":"Jane D.","review_body":"Absolutely love this scent. It lasts all day and gets so many compliments.","product":"eau-coeur","product_subtitle":"Eau de Parfum","product_rating_text":"[{{ block.settings.product.metafields.reviews.rating | metafield_text }}] {{ block.settings.product.metafields.reviews.rating_count.value }} Reviews"}},"review_yDyY6c":{"type":"review","settings":{"stars":5,"date":"2 days ago","review_title":"Amazing fragrance!","reviewer_name":"Jane D.","review_body":"Absolutely love this scent. It lasts all day and gets so many compliments.","product":"","product_subtitle":"Eau de Parfum","product_rating_text":"[{{ block.settings.product.metafields.reviews.rating | metafield_text }}] {{ block.settings.product.metafields.reviews.rating_count.value }} Reviews"}}},"block_order":["review_TH8Nd4","review_DfCEH3","review_WzdVfN","review_yDyY6c"],"name":"Reviews Slider","settings":{"heading":"Reviews","cards_per_row":3,"layout_width":"boxed","container_width":1400,"background_color":"#ffffff","card_background":"#f0ede8","text_color":"#111111","subtext_color":"#888888","arrow_bg":"#ffffff","arrow_icon_color":"#d96b4f","arrow_border_color":"#111111","arrow_border_width":1,"arrow_size":44,"arrow_radius":22,"arrow_icon_size":16,"arrow_stroke_width":2.5,"card_radius":16,"padding_top":60,"padding_bottom":60,"margin_top":0,"margin_bottom":0}},"177247739214285602":{"type":"_blocks","settings":{}},"177250432466bddc37":{"type":"_blocks","blocks":{"ai_gen_block_ef87b26_mBXczU":{"type":"ai_gen_block_ef87b26","settings":{"curator_image":"shopify:\/\/shop_images\/NV_Portrait_bw_square.png","image_border_radius":12,"heading_part1":"Meet the","heading_part2":"curator","description":"<p>Discover the story behind our carefully curated collection. Each piece is selected with intention, bringing together timeless design and contemporary elegance.<\/p>","link_text":"Read on","link_url":"","container_type":"boxed","desktop_width_percent":100,"text_max_width":600,"content_spacing":50,"padding_top":60,"padding_bottom":60,"padding_left":20,"padding_right":20,"margin_top":0,"margin_bottom":0,"margin_left":0,"margin_right":0,"section_background":"#ffffff","text_color":"#222222","link_color":"#222222","heading_size":36,"heading_weight":"400","heading_spacing":24,"description_size":16,"description_spacing":24,"link_size":14},"blocks":{}}},"block_order":["ai_gen_block_ef87b26_mBXczU"],"settings":{}},"product_slider_RDmVW8":{"type":"product-slider","name":"Product Slider","settings":{"collection":"resin-heat","products_to_show":12,"heading_text":"Spring essentials","show_header":true,"default_view":"slider","products_per_row":3,"grid_per_page":15,"section_width":"container","custom_width":1200,"nav_color":"#2c2722","nav_bg_color":"#ffffff","nav_border_color":"#2c2722","nav_border_width":1,"nav_btn_size":40,"nav_btn_radius":50,"nav_icon_size":16,"nav_stroke_width":2,"show_price":true,"show_vendor":true,"show_badges":true,"show_category_pills":true,"show_wishlist":true,"card_border_radius":10,"bg_color":"#ffffff","text_color":"#1a1a1a","card_bg_color":"#f5f0eb","badge_color":"#2a9d8f","pill_bg_color":"#ffffff","pill_text_color":"#1a1a1a","padding_top":40,"padding_bottom":40,"margin_top":0,"margin_bottom":0}},"0a081843-18cc-4628-a950-350c7308b356":{"type":"parallax-banner","blocks":{"template--20258838741312__0a081843-18cc-4628-a950-350c7308b356-heading-1":{"type":"heading","settings":{"title":"Collaboration with the English designer","size_text":"h2"}},"template--20258838741312__0a081843-18cc-4628-a950-350c7308b356-paragraph-1":{"type":"paragraph","settings":{"subtext":"This collection brings the designer’s signature aesthetic and style to a higher level, transforming essential household products into decorative as well as functional objects."}},"0c9bcfdc-8196-4783-bd27-25bd7010548e":{"type":"button","settings":{"button":"View collection","link":"#","style_btn":"btn-outline btn-outline-white"}}},"block_order":["template--20258838741312__0a081843-18cc-4628-a950-350c7308b356-heading-1","template--20258838741312__0a081843-18cc-4628-a950-350c7308b356-paragraph-1","0c9bcfdc-8196-4783-bd27-25bd7010548e"],"disabled":true,"settings":{"animation":"fade-up","setwidth":"full","bgsection":"#ffffff","parrallax_enable":true,"image":"shopify:\/\/shop_images\/f64cab3d70ccca247b426c67da6e091ac69b884d.jpg","height_section":"450","height_section_mobile":"350","align":"center","position_text":"mid-center","bg_box":"#ffffff","opacity_bgbox":0,"title_color":"#ffffff","bg_overlay":"#000000","gradient_bg":"","opacity_bg_overlay":0.4,"paddingsection":"0px 0px 0px 0px","marginsection":"0px 0px 0px 0px"}},"blog_carousel_EwDDa8":{"type":"blog-carousel","name":"Blog Carousel","settings":{"blog":"magazine","posts_to_show":4,"offset":0,"layout_mode":"carousel","grid_style":"below","grid_cols":4,"cards_per_view":4,"tab_cards":2,"mob_cards":12,"section_width":"container","custom_width":1200,"show_header":true,"heading_text":"Discover your next obsession","heading_size":32,"show_nav":true,"card_aspect":"square","card_border_radius":12,"card_gap":20,"show_tag":true,"show_date":true,"show_read_time":true,"show_excerpt":false,"nav_btn_size":40,"nav_btn_radius":50,"nav_color":"#2c2722","nav_bg_color":"#ffffff","title_size":18,"tag_size":12,"meta_size":13,"bg_color":"#ffffff","text_color":"#1a1a1a","tag_color":"#9a8057","meta_color":"#999999","padding_top":40,"padding_bottom":40,"margin_top":0,"margin_bottom":0}},"hero_banner_TdGR7a":{"type":"hero-banner","name":"Hero Banner","settings":{"background_type":"image","image":"shopify:\/\/shop_images\/f64cab3d70ccca247b426c67da6e091ac69b884d.jpg","video_url":"","overlay_opacity":35,"section_width":"full","custom_width":1200,"custom_width_unit":"px","section_height":"medium","card_position":"center","subheading":"Find a scent that just fits with soul of scents","desktop_subheading_size":18,"mobile_subheading_size":13,"subheading_letter_spacing":0,"heading":"<p>Not sure which perfume matches your energy?<\/p>","heading_tag":"h2","desktop_heading_size":30,"mobile_heading_size":28,"description":"","button_count":"one","button_label_1":"Enter Our Universe","button_link_1":"","button_new_tab_1":false,"button_bg_color_1":"#ffffff","button_text_color_1":"#928171","button_border_color_1":"#ffffff","button_hover_bg_color_1":"#f0f0f0","button_hover_text_color_1":"#030303","button_hover_border_color_1":"#f0f0f0","button_border_radius":10,"button_font_size":15,"button_font_weight":"600","button_label_2":"Shop all","button_link_2":"","button_new_tab_2":false,"padding_top":40,"padding_bottom":40,"padding_left":40,"padding_right":40,"margin_top":0,"margin_bottom":0}},"featured_blog_posts_qdk4qA":{"type":"featured-blog-posts","blocks":{"post_8nWcE7":{"type":"post","settings":{"article":"","subheading":"Featured post"}},"post_CPwLfm":{"type":"post","settings":{"article":"magazine\/scents-and-memories-why-certain-smells-take-us-back-in-time-4","subheading":"Featured post","image":"shopify:\/\/shop_images\/Meo_Fusciuni_Portrait.jpg"}},"post_C4kgR8":{"type":"post","settings":{"article":"","subheading":"Featured post"}}},"block_order":["post_8nWcE7","post_CPwLfm","post_C4kgR8"],"name":"Featured blog posts","settings":{"animation":"","setwidth":"container","height_adapt":"750","enable_btn_blog":true,"enable_btn_line":false,"enable_date":true,"enable_tag":true,"enable_comment":true,"enable_author":true,"enable_short":true,"bgsection":"rgba(0,0,0,0)","clsection":"rgba(0,0,0,0)","arrows":true,"dots":false,"paddingsection":"0px 0px 0px 0px","paddingmobile":"40px 0px 40px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px"}}},"order":["text_statement_yQzm8g","product_list_CCjFkA","product_slider_nUq6gN","hero_banner_h3pnBh","parallax_banner_ain6eX","7bbfe968-615f-45fb-b164-8b8d8466d957","1772471430438093bc","16485444103c52f5e9","70da4000-c1cf-4928-8203-f21c081874c6","90256253-4427-4c0f-a280-c9d024bc8dcc","9a4f05f1-ae72-47ea-a1c9-11ad0d6cf46e","662cf23c-2a28-41c4-9bd8-b6517c99ba49","reviews_slider_xtqCd8","177247739214285602","177250432466bddc37","product_slider_RDmVW8","0a081843-18cc-4628-a950-350c7308b356","blog_carousel_EwDDa8","hero_banner_TdGR7a","featured_blog_posts_qdk4qA"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "text_statement_yQzm8g": {
+      "type": "text-statement",
+      "name": "Text Statement",
+      "settings": {
+        "line1": "We capture the one-of-a-kind signature of you",
+        "line2": "and contribute to an overall elevated, confident feel, drop by drop.",
+        "line1_color": "#c8c8c8",
+        "line2_color": "#1a1a1a",
+        "bg_color": "#ffffff",
+        "border_color": "#e0e0e0",
+        "font_size": 26,
+        "line_height": 1.4,
+        "font_weight": "400",
+        "line2_weight": "600",
+        "letter_spacing": 0,
+        "alignment": "left",
+        "section_width": "container",
+        "custom_width": 1280,
+        "show_border_top": false,
+        "show_border_bottom": false,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "product_list_CCjFkA": {
+      "type": "product-list",
+      "disabled": true,
+      "name": "Product list (carousel)",
+      "settings": {
+        "animation": "",
+        "setwidth": "container-fluid",
+        "bgsection": "#ffffff",
+        "title_top": "",
+        "title": "Community Favorites",
+        "des": "",
+        "align-heading": "left",
+        "collection": "meo-fuscioni",
+        "arrows": true,
+        "draggable": true,
+        "dots": false,
+        "infinite": true,
+        "rows": "1",
+        "limit": 10,
+        "show": 4,
+        "paddingsection": "40px 0px 40px 0px",
+        "paddingmobile": "40px 0px 40px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px"
+      }
+    },
+    "product_slider_nUq6gN": {
+      "type": "product-slider",
+      "name": "Product Slider",
+      "settings": {
+        "collection": "frontpage",
+        "products_to_show": 12,
+        "heading_text": "Spring essentials",
+        "show_header": true,
+        "default_view": "slider",
+        "products_per_row": 3,
+        "grid_per_page": 15,
+        "section_width": "container",
+        "custom_width": 1280,
+        "nav_color": "#2c2722",
+        "nav_bg_color": "#ffffff",
+        "nav_border_color": "#2c2722",
+        "nav_border_width": 1,
+        "nav_btn_size": 40,
+        "nav_btn_radius": 50,
+        "nav_icon_size": 16,
+        "nav_stroke_width": 2,
+        "show_price": true,
+        "show_vendor": true,
+        "show_badges": true,
+        "show_category_pills": true,
+        "show_wishlist": true,
+        "card_border_radius": 10,
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "card_bg_color": "#f5f0eb",
+        "badge_color": "#2a9d8f",
+        "pill_bg_color": "#ffffff",
+        "pill_text_color": "#1a1a1a",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "hero_banner_h3pnBh": {
+      "type": "hero-banner",
+      "name": "Hero Banner",
+      "settings": {
+        "background_type": "image",
+        "image": "shopify://shop_images/e7d3238bdcb8dbbea71db74a98a9995ae23b33b2.jpg",
+        "video_url": "",
+        "overlay_opacity": 30,
+        "section_width": "full",
+        "custom_width": 1200,
+        "custom_width_unit": "px",
+        "section_height": "medium",
+        "card_position": "left",
+        "subheading": "Find a scent that just fits with soul of scents",
+        "desktop_subheading_size": 16,
+        "mobile_subheading_size": 13,
+        "subheading_letter_spacing": 0,
+        "heading": "<p>Do you know which erfume matches your energy?</p>",
+        "heading_tag": "h2",
+        "desktop_heading_size": 30,
+        "mobile_heading_size": 28,
+        "description": "",
+        "button_count": "one",
+        "button_label_1": "Take the archetype quiz",
+        "button_link_1": "",
+        "button_new_tab_1": false,
+        "button_bg_color_1": "#ffffff",
+        "button_text_color_1": "#928171",
+        "button_border_color_1": "#ffffff",
+        "button_hover_bg_color_1": "#ffffff",
+        "button_hover_text_color_1": "#030303",
+        "button_hover_border_color_1": "#f0f0f0",
+        "button_border_radius": 10,
+        "button_font_size": 15,
+        "button_font_weight": "600",
+        "button_label_2": "Shop all",
+        "button_link_2": "",
+        "button_new_tab_2": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 40,
+        "padding_right": 40,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "parallax_banner_ain6eX": {
+      "type": "parallax-banner",
+      "blocks": {
+        "sub_title_K9ggRT": {
+          "type": "sub_title",
+          "settings": {
+            "subtitle": "Find a scent that just fits with soul of scents"
+          }
+        },
+        "heading_4JeLjB": {
+          "type": "heading",
+          "settings": {
+            "title": "Do you know which perfume matches your energy?",
+            "size_text": "h2"
+          }
+        },
+        "button_Lkhqgz": {
+          "type": "button",
+          "settings": {
+            "button": "Take the archetype quiz",
+            "link": "#",
+            "style_btn": "btn-underline btn-underline-white"
+          }
+        },
+        "paragraph_eeLiqr": {
+          "type": "paragraph",
+          "disabled": true,
+          "settings": {
+            "subtext": "Protection from the"
+          }
+        }
+      },
+      "block_order": [
+        "sub_title_K9ggRT",
+        "heading_4JeLjB",
+        "button_Lkhqgz",
+        "paragraph_eeLiqr"
+      ],
+      "disabled": true,
+      "name": "Parallax banner",
+      "settings": {
+        "animation": "",
+        "setwidth": "full",
+        "bgsection": "rgba(0,0,0,0)",
+        "parrallax_enable": true,
+        "image": "shopify://shop_images/e7d3238bdcb8dbbea71db74a98a9995ae23b33b2.jpg",
+        "height_section": "550",
+        "height_section_mobile": "450",
+        "align": "left",
+        "position_text": "mid-left",
+        "bg_box": "rgba(0,0,0,0)",
+        "opacity_bgbox": 1,
+        "title_color": "#ffffff",
+        "bg_overlay": "#000000",
+        "gradient_bg": "",
+        "opacity_bg_overlay": 0,
+        "paddingsection": "0px 0px 0px 0px",
+        "marginsection": "0px 0px 0px 0px"
+      }
+    },
+    "7bbfe968-615f-45fb-b164-8b8d8466d957": {
+      "type": "backgroundvideo",
+      "blocks": {
+        "template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-0": {
+          "type": "sub_title",
+          "settings": {
+            "subtitle": "Find a scent that just fits with soul of scents"
+          }
+        },
+        "template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-1": {
+          "type": "heading",
+          "settings": {
+            "title": "Do you know which perfume matches your energy?",
+            "size_text": "h4"
+          }
+        },
+        "template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-2": {
+          "type": "paragraph",
+          "disabled": true,
+          "settings": {
+            "subtext": "We love seeing how you incorporate our designs into your home."
+          }
+        },
+        "9e06118c-aa13-4153-bc8c-dddcde5ad4de": {
+          "type": "button",
+          "settings": {
+            "button": "Take the archetype quiz",
+            "link": "#",
+            "style_btn": "btn-theme btn-white"
+          }
+        }
+      },
+      "block_order": [
+        "template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-0",
+        "template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-1",
+        "template--19549173121344__7bbfe968-615f-45fb-b164-8b8d8466d957-1687372265509219e4-2",
+        "9e06118c-aa13-4153-bc8c-dddcde5ad4de"
+      ],
+      "disabled": true,
+      "settings": {
+        "animation": "zoom-out",
+        "setwidth": "full",
+        "height_section": "550px",
+        "height_section_mobile": "450px",
+        "align": "left",
+        "position_text": "bot-left",
+        "link_video": "https://cdn.shopify.com/videos/c/o/v/4723927f415e46cb80d0d6ace49686ad.mp4",
+        "bgsection": "#ffffff",
+        "bg_overlay": "#000000",
+        "gradient_bg": "linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 100%)",
+        "opacity_bg_overlay": 0.4,
+        "title_color": "#ffffff",
+        "bg_box": "#ffffff",
+        "opacity_bgbox": 0,
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px"
+      }
+    },
+    "1772471430438093bc": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_3e64eab_dACqck": {
+          "type": "ai_gen_block_3e64eab",
+          "settings": {
+            "container_width": "boxed",
+            "desktop_width_percent": 100,
+            "padding_top": 60,
+            "padding_bottom": 60,
+            "padding_left": 20,
+            "padding_right": 20,
+            "margin_top": 50,
+            "margin_bottom": 50,
+            "margin_left": 0,
+            "margin_right": 0,
+            "image_border_radius": 20,
+            "background_color": "#ffffff",
+            "active_color": "#000000",
+            "inactive_color": "#cccccc",
+            "description_color": "#666666",
+            "heading_size": 28,
+            "description_size": 16,
+            "tab_1_heading": "Authenticity",
+            "tab_1_description": "Realness in every drop, uncompromising and raw.",
+            "tab_1_image": "shopify://shop_images/Col_1.png",
+            "tab_2_heading": "Artisanal Excellence",
+            "tab_2_description": "Celebrating the mastery, detail, and vision of perfumers who contribute to the extraordinary.",
+            "tab_2_image": "shopify://shop_images/Slider.png",
+            "tab_3_heading": "Fearless Expression",
+            "tab_3_description": "Encouraging you to wear your identity on your skin - boldly, unapologetically, and confidently.",
+            "tab_3_image": "shopify://shop_images/Image_1.png",
+            "tab_4_heading": "Emotional Connection",
+            "tab_4_description": "We believe smell to be one of the strongest connectors, and we are wholeheartedly devoted to providing an outstanding experience to make you feel seen, felt, and remembered through scent.",
+            "tab_4_image": "shopify://shop_images/Slider_1.png"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_3e64eab_dACqck"
+      ],
+      "custom_css": [],
+      "settings": {}
+    },
+    "16485444103c52f5e9": {
+      "type": "service",
+      "blocks": {
+        "16485444103c52f5e9-0": {
+          "type": "service",
+          "settings": {
+            "bgblock": "rgba(0,0,0,0)",
+            "title": "Free shipping",
+            "description": "Get free shipping on orders of $100 or more",
+            "icon": "<svg aria-hidden=\"true\" focusable=\"false\" role=\"presentation\" class=\"icon icon-truck\" viewbox=\"0 0 82 82\"><path d=\"M7.238 68.717H1.867V2.12H58.4v16.736h3.886c9.755 0 17.663 7.908 17.663 17.663v32.199h-5.917M55.781 68.717H25.487\"></path><path d=\"M58.334 42.124h15.068v-4.27c0-6.82-5.53-12.35-12.351-12.35h-2.718v16.62M73.909 70.236a9.125 9.125 0 1 0-18.013-2.931 9.125 9.125 0 0 0 18.013 2.93ZM25.367 70.235a9.125 9.125 0 1 0-18.012-2.931 9.125 9.125 0 0 0 7.54 10.471 9.125 9.125 0 0 0 10.472-7.54Z\"></path><path d=\"M13.723 77.507c-3.966.658-7.937 1.51-11.857 2.593M60.373 76.736c-10.512-1.212-24.298-1.969-38.645-.451M79.768 80.121s-4.96-1.222-12.975-2.395\"></path></svg>"
+          }
+        },
+        "8fb6874d-8c42-405c-9da3-134f7a8a0c73": {
+          "type": "service",
+          "settings": {
+            "bgblock": "rgba(0,0,0,0)",
+            "title": "Customer service",
+            "description": "A question? Please contact us at 123-456-7890",
+            "icon": "<svg aria-hidden=\"true\" focusable=\"false\" role=\"presentation\" class=\"icon icon-plant-based\" viewbox=\"0 0 82 82\"><path d=\"M41 20.701V80M56.735 26.294c0 8.703-7.045 15.758-15.735 15.758s-15.735-7.055-15.735-15.758C25.265 14.719 41 2 41 2s15.735 12.719 15.735 24.294ZM30.479 46.972c6.145 6.154 6.145 16.132 0 22.285-6.145 6.154-16.107 6.154-22.252 0C.054 61.072 2.2 40.936 2.2 40.936s20.106-2.149 28.279 6.036Z\"></path><path d=\"M41 77.861S27.525 60.403 10.092 50.177M51.412 46.972c-6.145 6.154-6.145 16.132 0 22.285 6.145 6.153 16.107 6.154 22.252 0 8.173-8.185 6.027-28.321 6.027-28.321s-20.106-2.149-28.279 6.036Z\"></path><path d=\"M40.891 77.861s13.475-17.458 30.908-27.684\"></path></svg>"
+          }
+        },
+        "16485444103c52f5e9-1": {
+          "type": "service",
+          "settings": {
+            "bgblock": "rgba(0,0,0,0)",
+            "title": "Refer a friend",
+            "description": "Refer a friend and get 15% off <br> each other",
+            "icon": "<svg aria-hidden=\"true\" focusable=\"false\" role=\"presentation\" class=\"icon icon-package\" viewbox=\"0 0 82 82\"><path d=\"M80 21v39L41 80 2 60V21L41 2l39 19Z\"></path><path d=\"m2 21 39 20 38.571-19.807M41 41.478v38.338\"></path><path d=\"m27.715 8.643 38.409 19.473v17.543l-11.617 6.067V33.83L16.098 14.355\"></path></svg>"
+          }
+        },
+        "16485444103c52f5e9-2": {
+          "type": "service",
+          "settings": {
+            "bgblock": "rgba(0,0,0,0)",
+            "title": "Secure payment",
+            "description": "Your payment information is processed securely",
+            "icon": "<svg aria-hidden=\"true\" focusable=\"false\" role=\"presentation\" class=\"icon icon-shield\" viewbox=\"0 0 64 64\"><defs></defs><path d=\"M21.18 31.69L28.54 39l15.91-15.88\"></path><path d=\"M53 12.54v15.24a31.41 31.41 0 0 1-3.7 14.95A25.46 25.46 0 0 1 32 56a25.46 25.46 0 0 1-17.3-13.27A31.41 31.41 0 0 1 11 27.78V12.54C24.88 13.67 32 8 32 8s7.12 5.67 21 4.54z\"></path></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "16485444103c52f5e9-0",
+        "8fb6874d-8c42-405c-9da3-134f7a8a0c73",
+        "16485444103c52f5e9-1",
+        "16485444103c52f5e9-2"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".iconx8 .icon {stroke-width: 3px;}"
+      ],
+      "settings": {
+        "animation": "fade-up",
+        "setwidth": "container",
+        "bgsection": "#ffffff",
+        "title_top": "",
+        "title": "",
+        "des": "",
+        "align-heading": "center",
+        "paddingbox": "0px 0px 0px 0px",
+        "iconcolor": "#bb5237",
+        "titlecolor": "#222222",
+        "subcolor": "#5c6978",
+        "size": 28,
+        "service_heading": "h6",
+        "layout": "style-1",
+        "enable_carousel": false,
+        "arrows": false,
+        "draggable": false,
+        "dots": false,
+        "infinite": false,
+        "paddingsection": "24px 0px 24px 0px",
+        "paddingmobile": "24px 0px 10px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px"
+      }
+    },
+    "70da4000-c1cf-4928-8203-f21c081874c6": {
+      "type": "line",
+      "settings": {
+        "animation": "fade",
+        "paddingsection": "0px 0px 0px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "bgsection": "#ffffff",
+        "setwidth": "full",
+        "bgborder": "#dce2ec",
+        "wborder": "1px"
+      }
+    },
+    "90256253-4427-4c0f-a280-c9d024bc8dcc": {
+      "type": "scrolling-text",
+      "blocks": {
+        "7a0c83fe-8b0f-4bc4-9ea3-926961e6995c": {
+          "type": "item",
+          "settings": {
+            "code": "Good design is everyone’s right."
+          }
+        },
+        "1c76c738-0744-478b-97c6-dc5d9a44eef9": {
+          "type": "item",
+          "settings": {
+            "code": "Good design is everyone’s right."
+          }
+        },
+        "c5356855-1cc3-44c2-a7ee-df7b554fbd4d": {
+          "type": "item",
+          "settings": {
+            "code": "Good design is everyone’s right."
+          }
+        },
+        "b029a707-48a0-4f4e-8c1f-cf491c938152": {
+          "type": "item",
+          "settings": {
+            "code": "Good design is everyone’s right."
+          }
+        }
+      },
+      "block_order": [
+        "7a0c83fe-8b0f-4bc4-9ea3-926961e6995c",
+        "1c76c738-0744-478b-97c6-dc5d9a44eef9",
+        "c5356855-1cc3-44c2-a7ee-df7b554fbd4d",
+        "b029a707-48a0-4f4e-8c1f-cf491c938152"
+      ],
+      "disabled": true,
+      "settings": {
+        "animation": "fade-up",
+        "size_text": "h2",
+        "text_style": "solid",
+        "size_icon": 72,
+        "speed": 30,
+        "scroll_type": "from-right",
+        "background": "rgba(0,0,0,0)",
+        "gradient_bg": "",
+        "text": "#758861",
+        "paddingsection": "20px 0px 20px 0px",
+        "paddingmobile": "40px 0px 40px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px"
+      }
+    },
+    "9a4f05f1-ae72-47ea-a1c9-11ad0d6cf46e": {
+      "type": "line",
+      "settings": {
+        "animation": "fade",
+        "paddingsection": "0px 0px 0px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "bgsection": "#ffffff",
+        "setwidth": "full",
+        "bgborder": "#dddddd",
+        "wborder": "1px"
+      }
+    },
+    "662cf23c-2a28-41c4-9bd8-b6517c99ba49": {
+      "type": "image-content-6",
+      "blocks": {
+        "template--19541121335616__662cf23c-2a28-41c4-9bd8-b6517c99ba49-1687424839f6967066-0": {
+          "type": "image_block",
+          "settings": {
+            "style_content": "custom",
+            "w_image": 40,
+            "pos_image": 88,
+            "e_image": "right",
+            "enable_video": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "text_circle": "Fashion2 style store",
+            "video_url": ""
+          }
+        },
+        "template--19541121335616__662cf23c-2a28-41c4-9bd8-b6517c99ba49-1687424839f6967066-1": {
+          "type": "text_block",
+          "settings": {
+            "bgtext": "rgba(0,0,0,0)",
+            "subtitle": "Passion",
+            "title": "New collection is already here.",
+            "size_text": "h2",
+            "text": "",
+            "answer_content": "<p>Retro florals, classic dots ,and sunny shades  give the line a vintage, beachy feel.</p>",
+            "button": "shop now",
+            "link": "",
+            "style_btn": "btn-theme",
+            "align": "left",
+            "enable_padding_left": true,
+            "enable_padding_right": false
+          }
+        }
+      },
+      "block_order": [
+        "template--19541121335616__662cf23c-2a28-41c4-9bd8-b6517c99ba49-1687424839f6967066-0",
+        "template--19541121335616__662cf23c-2a28-41c4-9bd8-b6517c99ba49-1687424839f6967066-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "animation": "fade-up",
+        "setwidth": "container",
+        "bgsection": "#f5f5f5",
+        "size": "50-50",
+        "enable_padding": true,
+        "align_center": true,
+        "paddingsection": "90px 0px 90px 0px",
+        "paddingmobile": "40px 0px 40px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px"
+      }
+    },
+    "reviews_slider_xtqCd8": {
+      "type": "reviews-slider",
+      "blocks": {
+        "review_TH8Nd4": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "date": "2 days ago",
+            "review_title": "Amazing fragrance!",
+            "reviewer_name": "Jane D.",
+            "review_body": "Absolutely love this scent. It lasts all day and gets so many compliments.",
+            "product": "aura",
+            "product_subtitle": "Eau de Parfum",
+            "product_rating_text": "[{{ block.settings.product.metafields.reviews.rating | metafield_text }}] {{ block.settings.product.metafields.reviews.rating_count.value }} Reviews"
+          }
+        },
+        "review_DfCEH3": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "date": "2 days ago",
+            "review_title": "Amazing fragrance!",
+            "reviewer_name": "Jane D.",
+            "review_body": "Absolutely love this scent. It lasts all day and gets so many compliments.",
+            "product": "electri",
+            "product_subtitle": "Eau de Parfum",
+            "product_rating_text": "[{{ block.settings.product.metafields.reviews.rating | metafield_text }}] {{ block.settings.product.metafields.reviews.rating_count.value }} Reviews"
+          }
+        },
+        "review_WzdVfN": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "date": "2 days ago",
+            "review_title": "Amazing fragrance!",
+            "reviewer_name": "Jane D.",
+            "review_body": "Absolutely love this scent. It lasts all day and gets so many compliments.",
+            "product": "eau-coeur",
+            "product_subtitle": "Eau de Parfum",
+            "product_rating_text": "[{{ block.settings.product.metafields.reviews.rating | metafield_text }}] {{ block.settings.product.metafields.reviews.rating_count.value }} Reviews"
+          }
+        },
+        "review_yDyY6c": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "date": "2 days ago",
+            "review_title": "Amazing fragrance!",
+            "reviewer_name": "Jane D.",
+            "review_body": "Absolutely love this scent. It lasts all day and gets so many compliments.",
+            "product": "",
+            "product_subtitle": "Eau de Parfum",
+            "product_rating_text": "[{{ block.settings.product.metafields.reviews.rating | metafield_text }}] {{ block.settings.product.metafields.reviews.rating_count.value }} Reviews"
+          }
+        }
+      },
+      "block_order": [
+        "review_TH8Nd4",
+        "review_DfCEH3",
+        "review_WzdVfN",
+        "review_yDyY6c"
+      ],
+      "name": "Reviews Slider",
+      "settings": {
+        "heading": "Reviews",
+        "cards_per_row": 3,
+        "layout_width": "boxed",
+        "container_width": 1400,
+        "background_color": "#ffffff",
+        "card_background": "#f0ede8",
+        "text_color": "#111111",
+        "subtext_color": "#888888",
+        "arrow_bg": "#ffffff",
+        "arrow_icon_color": "#d96b4f",
+        "arrow_border_color": "#111111",
+        "arrow_border_width": 1,
+        "arrow_size": 44,
+        "arrow_radius": 22,
+        "arrow_icon_size": 16,
+        "arrow_stroke_width": 2.5,
+        "card_radius": 16,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "177247739214285602": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "177250432466bddc37": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_ef87b26_mBXczU": {
+          "type": "ai_gen_block_ef87b26",
+          "settings": {
+            "curator_image": "shopify://shop_images/NV_Portrait_bw_square.png",
+            "image_border_radius": 12,
+            "heading_part1": "Meet the",
+            "heading_part2": "curator",
+            "description": "<p>Discover the story behind our carefully curated collection. Each piece is selected with intention, bringing together timeless design and contemporary elegance.</p>",
+            "link_text": "Read on",
+            "link_url": "",
+            "container_type": "boxed",
+            "desktop_width_percent": 100,
+            "text_max_width": 600,
+            "content_spacing": 50,
+            "padding_top": 60,
+            "padding_bottom": 60,
+            "padding_left": 20,
+            "padding_right": 20,
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "margin_left": 0,
+            "margin_right": 0,
+            "section_background": "#ffffff",
+            "text_color": "#222222",
+            "link_color": "#222222",
+            "heading_size": 36,
+            "heading_weight": "400",
+            "heading_spacing": 24,
+            "description_size": 16,
+            "description_spacing": 24,
+            "link_size": 14
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_ef87b26_mBXczU"
+      ],
+      "settings": {}
+    },
+    "product_slider_RDmVW8": {
+      "type": "product-slider",
+      "name": "Product Slider",
+      "settings": {
+        "collection": "resin-heat",
+        "products_to_show": 12,
+        "heading_text": "Spring essentials",
+        "show_header": true,
+        "default_view": "slider",
+        "products_per_row": 3,
+        "grid_per_page": 15,
+        "section_width": "container",
+        "custom_width": 1200,
+        "nav_color": "#2c2722",
+        "nav_bg_color": "#ffffff",
+        "nav_border_color": "#2c2722",
+        "nav_border_width": 1,
+        "nav_btn_size": 40,
+        "nav_btn_radius": 50,
+        "nav_icon_size": 16,
+        "nav_stroke_width": 2,
+        "show_price": true,
+        "show_vendor": true,
+        "show_badges": true,
+        "show_category_pills": true,
+        "show_wishlist": true,
+        "card_border_radius": 10,
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "card_bg_color": "#f5f0eb",
+        "badge_color": "#2a9d8f",
+        "pill_bg_color": "#ffffff",
+        "pill_text_color": "#1a1a1a",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "0a081843-18cc-4628-a950-350c7308b356": {
+      "type": "parallax-banner",
+      "blocks": {
+        "template--20258838741312__0a081843-18cc-4628-a950-350c7308b356-heading-1": {
+          "type": "heading",
+          "settings": {
+            "title": "Collaboration with the English designer",
+            "size_text": "h2"
+          }
+        },
+        "template--20258838741312__0a081843-18cc-4628-a950-350c7308b356-paragraph-1": {
+          "type": "paragraph",
+          "settings": {
+            "subtext": "This collection brings the designer’s signature aesthetic and style to a higher level, transforming essential household products into decorative as well as functional objects."
+          }
+        },
+        "0c9bcfdc-8196-4783-bd27-25bd7010548e": {
+          "type": "button",
+          "settings": {
+            "button": "View collection",
+            "link": "#",
+            "style_btn": "btn-outline btn-outline-white"
+          }
+        }
+      },
+      "block_order": [
+        "template--20258838741312__0a081843-18cc-4628-a950-350c7308b356-heading-1",
+        "template--20258838741312__0a081843-18cc-4628-a950-350c7308b356-paragraph-1",
+        "0c9bcfdc-8196-4783-bd27-25bd7010548e"
+      ],
+      "disabled": true,
+      "settings": {
+        "animation": "fade-up",
+        "setwidth": "full",
+        "bgsection": "#ffffff",
+        "parrallax_enable": true,
+        "image": "shopify://shop_images/f64cab3d70ccca247b426c67da6e091ac69b884d.jpg",
+        "height_section": "450",
+        "height_section_mobile": "350",
+        "align": "center",
+        "position_text": "mid-center",
+        "bg_box": "#ffffff",
+        "opacity_bgbox": 0,
+        "title_color": "#ffffff",
+        "bg_overlay": "#000000",
+        "gradient_bg": "",
+        "opacity_bg_overlay": 0.4,
+        "paddingsection": "0px 0px 0px 0px",
+        "marginsection": "0px 0px 0px 0px"
+      }
+    },
+    "blog_carousel_EwDDa8": {
+      "type": "blog-carousel",
+      "name": "Blog Carousel",
+      "settings": {
+        "blog": "magazine",
+        "posts_to_show": 4,
+        "offset": 0,
+        "layout_mode": "carousel",
+        "grid_style": "below",
+        "grid_cols": 4,
+        "cards_per_view": 4,
+        "tab_cards": 2,
+        "mob_cards": 12,
+        "section_width": "container",
+        "custom_width": 1200,
+        "show_header": true,
+        "heading_text": "Discover your next obsession",
+        "heading_size": 32,
+        "show_nav": true,
+        "card_aspect": "square",
+        "card_border_radius": 12,
+        "card_gap": 20,
+        "show_tag": true,
+        "show_date": true,
+        "show_read_time": true,
+        "show_excerpt": false,
+        "nav_btn_size": 40,
+        "nav_btn_radius": 50,
+        "nav_color": "#2c2722",
+        "nav_bg_color": "#ffffff",
+        "title_size": 18,
+        "tag_size": 12,
+        "meta_size": 13,
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "tag_color": "#9a8057",
+        "meta_color": "#999999",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "hero_banner_TdGR7a": {
+      "type": "hero-banner",
+      "name": "Hero Banner",
+      "settings": {
+        "background_type": "image",
+        "image": "shopify://shop_images/f64cab3d70ccca247b426c67da6e091ac69b884d.jpg",
+        "video_url": "",
+        "overlay_opacity": 35,
+        "section_width": "full",
+        "custom_width": 1200,
+        "custom_width_unit": "px",
+        "section_height": "medium",
+        "card_position": "center",
+        "subheading": "Find a scent that just fits with soul of scents",
+        "desktop_subheading_size": 18,
+        "mobile_subheading_size": 13,
+        "subheading_letter_spacing": 0,
+        "heading": "<p>Not sure which perfume matches your energy?</p>",
+        "heading_tag": "h2",
+        "desktop_heading_size": 30,
+        "mobile_heading_size": 28,
+        "description": "",
+        "button_count": "one",
+        "button_label_1": "Enter Our Universe",
+        "button_link_1": "",
+        "button_new_tab_1": false,
+        "button_bg_color_1": "#ffffff",
+        "button_text_color_1": "#928171",
+        "button_border_color_1": "#ffffff",
+        "button_hover_bg_color_1": "#f0f0f0",
+        "button_hover_text_color_1": "#030303",
+        "button_hover_border_color_1": "#f0f0f0",
+        "button_border_radius": 10,
+        "button_font_size": 15,
+        "button_font_weight": "600",
+        "button_label_2": "Shop all",
+        "button_link_2": "",
+        "button_new_tab_2": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 40,
+        "padding_right": 40,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "featured_blog_posts_qdk4qA": {
+      "type": "featured-blog-posts",
+      "blocks": {
+        "post_8nWcE7": {
+          "type": "post",
+          "settings": {
+            "article": "",
+            "subheading": "Featured post"
+          }
+        },
+        "post_CPwLfm": {
+          "type": "post",
+          "settings": {
+            "article": "magazine/scents-and-memories-why-certain-smells-take-us-back-in-time-4",
+            "subheading": "Featured post",
+            "image": "shopify://shop_images/Meo_Fusciuni_Portrait.jpg"
+          }
+        },
+        "post_C4kgR8": {
+          "type": "post",
+          "settings": {
+            "article": "",
+            "subheading": "Featured post"
+          }
+        }
+      },
+      "block_order": [
+        "post_8nWcE7",
+        "post_CPwLfm",
+        "post_C4kgR8"
+      ],
+      "name": "Featured blog posts",
+      "settings": {
+        "animation": "",
+        "setwidth": "container",
+        "height_adapt": "750",
+        "enable_btn_blog": true,
+        "enable_btn_line": false,
+        "enable_date": true,
+        "enable_tag": true,
+        "enable_comment": true,
+        "enable_author": true,
+        "enable_short": true,
+        "bgsection": "rgba(0,0,0,0)",
+        "clsection": "rgba(0,0,0,0)",
+        "arrows": true,
+        "dots": false,
+        "paddingsection": "0px 0px 0px 0px",
+        "paddingmobile": "40px 0px 40px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px"
+      }
+    }
+  },
+  "order": [
+    "text_statement_yQzm8g",
+    "product_list_CCjFkA",
+    "product_slider_nUq6gN",
+    "hero_banner_h3pnBh",
+    "parallax_banner_ain6eX",
+    "7bbfe968-615f-45fb-b164-8b8d8466d957",
+    "1772471430438093bc",
+    "16485444103c52f5e9",
+    "70da4000-c1cf-4928-8203-f21c081874c6",
+    "90256253-4427-4c0f-a280-c9d024bc8dcc",
+    "9a4f05f1-ae72-47ea-a1c9-11ad0d6cf46e",
+    "662cf23c-2a28-41c4-9bd8-b6517c99ba49",
+    "reviews_slider_xtqCd8",
+    "177247739214285602",
+    "177250432466bddc37",
+    "product_slider_RDmVW8",
+    "0a081843-18cc-4628-a950-350c7308b356",
+    "blog_carousel_EwDDa8",
+    "hero_banner_TdGR7a",
+    "featured_blog_posts_qdk4qA"
+  ]
+}
