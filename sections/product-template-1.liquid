@@ -329,45 +329,21 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
               {%- endif -%}
               
               <div class="product-block product-readmore-block">
-              {%- assign shortdesc_text = product.metafields.info.shortdesc -%}
               {%- assign full_desc = product.description -%}
 
-              <div class="readmore-preview" id="readmore-preview-{{ section.id }}">
-                {%- assign rm_source = full_desc -%}
-                {%- assign rm_limit = 3 -%}
-                {%- if rm_source contains '</p>' -%}
-                  {%- assign rm_parts = rm_source | split: '</p>' -%}
-                {%- elsif rm_source contains '&nbsp;' -%}
-                  {%- assign rm_parts = rm_source | split: '&nbsp;' -%}
-                {%- elsif rm_source contains '
-' -%}
-                  {%- assign rm_parts = rm_source | split: '
-' -%}
-                {%- else -%}
-                  {%- assign rm_parts = rm_source | split: '. ' -%}
-                {%- endif -%}
-                {%- assign rm_rendered = 0 -%}
-                {%- for part in rm_parts -%}
-                  {%- if rm_rendered >= rm_limit -%}{%- break -%}{%- endif -%}
-                  {%- assign clean = part | replace: '<p>', '' | replace: '&nbsp;', ' ' | strip_html | strip -%}
-                  {%- if clean != blank -%}
-                    {%- assign rm_rendered = rm_rendered | plus: 1 -%}
-                    <p>{{ clean }}{%- if rm_rendered == rm_limit -%}<span class="readmore-ellipsis"> ......</span>{%- endif -%}</p>
-                  {%- endif -%}
-                {%- endfor -%}
-              </div>
-
-              <div class="readmore-full" id="readmore-full-{{ section.id }}" aria-hidden="true">
-                {%- if full_desc != blank -%}
-                  {{ full_desc }}
-                {%- endif -%}
+              <div
+                class="product-description product-description--collapsed"
+                id="product-description-{{ section.id }}"
+                data-rm-lines="3"
+              >
+                {{ full_desc }}
               </div>
 
               <button
-                class="readmore-btn"
+                class="readmore-btn is-hidden"
                 id="readmore-btn-{{ section.id }}"
                 aria-expanded="false"
-                aria-controls="readmore-full-{{ section.id }}"
+                aria-controls="product-description-{{ section.id }}"
                 onclick="toggleReadMore('{{ section.id }}')"
               >
                 <span class="readmore-btn__text">Read more</span>
@@ -379,33 +355,28 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
               .product-readmore-block {
                 margin-bottom: 16px;
               }
-              .readmore-preview {
+              .product-description {
                 color: inherit;
                 font-size: inherit;
                 line-height: 1.65;
               }
-              .readmore-preview p {
+              .product-description p,
+              .product-description li {
+                font-size: inherit;
+                line-height: 1.65;
+                color: inherit;
                 margin: 0 0 10px 0;
-                font-size: inherit;
-                line-height: 1.65;
-                color: inherit;
               }
-              .readmore-preview p:last-child { margin-bottom: 0; }
-              .readmore-ellipsis { color: inherit; }
-              .readmore-full {
-                max-height: 0;
+              .product-description p:last-child,
+              .product-description li:last-child { margin-bottom: 0; }
+              .product-description--collapsed {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
                 overflow: hidden;
-                transition: max-height 0.4s ease;
               }
-              .readmore-full.is-open {
-                max-height: 2000px;
-              }
-              .readmore-full p,
-              .readmore-full li {
-                font-size: inherit;
-                line-height: 1.65;
-                color: inherit;
-              }
+              .product-description--collapsed p { margin: 0; display: inline; }
+              .product-description--collapsed p + p::before { content: " "; }
               .readmore-btn {
                 display: inline-flex;
                 align-items: center;
@@ -439,38 +410,43 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
               .readmore-btn[aria-expanded="true"] .readmore-btn__icon {
                 transform: rotate(180deg);
               }
-              /* Hide toggle if no extra content */
               .readmore-btn.is-hidden { display: none; }
             </style>
 
             <script>
               function toggleReadMore(sectionId) {
                 var btn = document.getElementById('readmore-btn-' + sectionId);
-                var full = document.getElementById('readmore-full-' + sectionId);
-                var preview = document.getElementById('readmore-preview-' + sectionId);
-                if (!btn || !full) return;
-                var isOpen = btn.getAttribute('aria-expanded') === 'true';
-                if (isOpen) {
-                  full.classList.remove('is-open');
-                  full.setAttribute('aria-hidden', 'true');
-                  btn.setAttribute('aria-expanded', 'false');
-                  preview.style.display = '';
-                } else {
-                  full.classList.add('is-open');
-                  full.setAttribute('aria-hidden', 'false');
-                  btn.setAttribute('aria-expanded', 'true');
-                  preview.style.display = 'none';
-                }
+                var desc = document.getElementById('product-description-' + sectionId);
+                if (!btn || !desc) return;
+                var collapsed = desc.classList.toggle('product-description--collapsed');
+                btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
               }
-              document.addEventListener('DOMContentLoaded', function() {
-                var sectionId = '{{ section.id }}';
-                var full = document.getElementById('readmore-full-' + sectionId);
-                var btn = document.getElementById('readmore-btn-' + sectionId);
-                if (full && btn) {
-                  var hasContent = full.textContent.trim().length > 0;
-                  if (!hasContent) { btn.classList.add('is-hidden'); }
+              (function() {
+                function setupRM() {
+                  var sectionId = '{{ section.id }}';
+                  var desc = document.getElementById('product-description-' + sectionId);
+                  var btn = document.getElementById('readmore-btn-' + sectionId);
+                  if (!desc || !btn) return;
+                  if (!desc.textContent.trim().length) {
+                    btn.classList.add('is-hidden');
+                    return;
+                  }
+                  // Force collapsed state for measurement
+                  desc.classList.add('product-description--collapsed');
+                  // If real content overflows the 3-line clamp, show the toggle
+                  if (desc.scrollHeight > desc.clientHeight + 2) {
+                    btn.classList.remove('is-hidden');
+                  } else {
+                    btn.classList.add('is-hidden');
+                  }
                 }
-              });
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', setupRM);
+                } else {
+                  setupRM();
+                }
+                window.addEventListener('load', setupRM);
+              })();
             </script>
              
             {%- when 'description' -%}
