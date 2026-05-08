@@ -7,29 +7,29 @@
 
 <div class="page-width py-5" id="sos-archetype-container">
   <div class="account-archetype-section">
-    <h2 class="account-archetype-section__title">Mein Archetyp</h2>
+    <h2 class="account-archetype-section__title">My Archetype</h2>
 
     {%- if archetype_name != blank -%}
     <div class="account-archetype-card" id="sos-archetype-card">
       <div class="account-archetype-card__info">
         <p class="account-archetype-card__name">{%- echo archetype_name -%}</p>
         {%- if archetype_date != blank -%}
-        <p class="account-archetype-card__date">Quiz abgeschlossen: {%- echo archetype_date -%}</p>
+        <p class="account-archetype-card__date">Quiz completed: {%- echo archetype_date -%}</p>
         {%- endif -%}
         <div class="account-archetype-card__actions">
           {%- if archetype_result_url != blank -%}
-          <a href="{%- echo archetype_result_url -%}" class="button button--primary account-archetype-card__cta">Archetyp ansehen</a>
+          <a href="{%- echo archetype_result_url -%}" class="button button--primary account-archetype-card__cta">View Archetype</a>
           {%- else -%}
-          <a href="/pages/quiz" class="button button--secondary account-archetype-card__cta" id="sos-result-link">Quiz-Ergebnis ansehen</a>
+          <a href="/pages/quiz" class="button button--secondary account-archetype-card__cta" id="sos-result-link">View Quiz Result</a>
           {%- endif -%}
-          <a href="/pages/quiz" class="account-archetype-card__repeat">Quiz wiederholen</a>
+          <a href="/pages/quiz" class="account-archetype-card__repeat">Repeat the Quiz</a>
         </div>
       </div>
     </div>
     {%- else -%}
     <div class="account-archetype-empty" id="sos-archetype-empty">
-      <p>Du hast noch keinen Archetyp. Mach jetzt das Quiz!</p>
-      <a href="/pages/quiz" class="button button--primary">Zum Quiz</a>
+      <p>You don't have an archetype yet. Take the quiz now!</p>
+      <a href="/pages/quiz" class="button button--primary">Take the Quiz</a>
     </div>
     {%- endif -%}
   </div>
@@ -59,7 +59,7 @@
     var link = document.getElementById('sos-result-link');
     if (link && url) {
       link.href = url;
-      link.textContent = 'Quiz-Ergebnis ansehen';
+      link.textContent = 'View Quiz Result';
     }
   }
 
@@ -75,7 +75,7 @@
         var link = document.createElement('a');
         link.href = data.resultUrl;
         link.className = 'button button--secondary';
-        link.textContent = 'Letztes Ergebnis ansehen';
+        link.textContent = 'View Latest Result';
         link.style.marginTop = '0.5rem';
         emptyEl.appendChild(link);
       }

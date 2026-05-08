@@ -55,7 +55,7 @@
 
 <nav class=" breadcrumb g-breadcrumb text-{{ settings.align_bread }}" role="navigation" aria-label="breadcrumbs">
   <div class="{{ settings.layout_bread }}">
-    <a href="/" title="{{ 'general.breadcrumb.home' | t }}">{{ 'general.breadcrumb.home' | t }}</a>
+    <a href="{{ routes.collections_url }}" title="Shop">Shop</a>
     {% if template contains 'page' %}
     <span aria-hidden="true">/</span>
     <span>{{ page.title }}</span>

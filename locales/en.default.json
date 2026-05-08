@@ -249,11 +249,11 @@
       "delete_confirm": "Are you sure you wish to delete this address?"
     },
     "login": {
-      "title": "Login",
+      "title": "Sign in",
       "email": "Email",
       "password": "Password",
       "forgot_password": "Forgot your password?",
-      "sign_in": "Login",
+      "sign_in": "Sign in",
       "guest_title": "Continue as a guest",
       "guest_continue": "Continue"
     },
@@ -291,7 +291,7 @@
       "title": "Reset your password",
       "email": "Email",
       "submit": "Submit",
-      "cancel": "Back to login",
+      "cancel": "Back to sign in",
       "subtext": "We will send you an email to reset your password.",
       "success": "We've sent you an email with a link to update your password."
     },
@@ -311,7 +311,7 @@
       "password": "Password",
       "submit": "Create",
       "already": "Already a member?",
-      "login": "Login"
+      "login": "Sign in"
     }
   },
   "homepage": {
