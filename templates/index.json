@@ -610,14 +610,14 @@
         "ai_gen_block_ef87b26_mBXczU": {
           "type": "ai_gen_block_ef87b26",
           "settings": {
-            "curator_image": "shopify://shop_images/NV_Portrait_bw_square.png",
+            "curator_image": "shopify://shop_images/167b090b4404a78d1badfb71f9bfdd43f324204f_258cdc16-7f07-4dce-a4c7-828fe079a7b7.jpg",
             "image_border_radius": 12,
             "heading_part1": "Meet the",
             "heading_part2": "curator",
             "description": "<p>Discover the story behind our carefully curated collection. Each piece is selected with intention, bringing together timeless design and contemporary elegance.</p>",
-            "link_text": "Read on",
+            "link_text": "",
             "link_url": "",
-            "container_type": "boxed",
+            "container_type": "full",
             "desktop_width_percent": 100,
             "text_max_width": 600,
             "content_spacing": 50,
