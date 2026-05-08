@@ -1914,9 +1914,15 @@
      Outer .site-header is given an explicit width with auto margins so the
      white card sits in the middle of the viewport with equal left/right
      spacing. Mobile (<990px) is intentionally unchanged so the existing
-     full-width mobile header is preserved. The transparent/absolute homepage
-     variant is centred via left:50%/translateX rather than margin:auto since
-     auto margins do not centre absolutely positioned elements. */
+     full-width mobile header is preserved.
+
+     IMPORTANT: do not use CSS transform on .site-header here. transform on an
+     ancestor establishes a new containing block for position:fixed
+     descendants, which broke the cart drawer (it sits inside .site-header
+     and uses position:fixed to pin to the viewport edge). The transparent /
+     absolute homepage variant is therefore centred via left:0;right:0 +
+     auto margins, which centres an absolutely positioned element without
+     creating a transformed containing block. */
   @media (min-width: 990px) {
     .site-header {
       width: calc(100% - 48px);
@@ -1925,11 +1931,12 @@
       margin-right: auto;
     }
     .site-header.site-header--transparent {
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
+      left: 0;
+      right: 0;
       width: calc(100% - 48px);
       max-width: 1600px;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
   </style>
