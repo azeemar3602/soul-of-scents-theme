@@ -28,7 +28,9 @@
       --g-label-hot: {{ section.settings.menu_label_hot }};
       --g-label-sale: {{ section.settings.menu_label_sale }};
       --g-label-other: {{ section.settings.menu_label_other }};
-     
+
+      --sos-header-max-width: {{ section.settings.header_max_width | default: 1320 }}px;
+      --sos-header-gutter: {{ section.settings.header_gutter | default: 40 }}px;
     }
     #topbar .col-left{
       --color-body-text-rgb: {{ section.settings.textcolor-top.red }}, {{ section.settings.textcolor-top.green }}, {{ section.settings.textcolor-top.blue }};
@@ -1925,8 +1927,8 @@
      creating a transformed containing block. */
   @media (min-width: 990px) {
     .site-header {
-      width: calc(100% - 80px);
-      max-width: 1320px;
+      width: calc(100% - (var(--sos-header-gutter) * 2));
+      max-width: var(--sos-header-max-width);
       margin-left: auto;
       margin-right: auto;
       margin-top: 16px;
@@ -1936,12 +1938,32 @@
       left: 0;
       right: 0;
       top: 16px;
-      width: calc(100% - 80px);
-      max-width: 1320px;
+      width: calc(100% - (var(--sos-header-gutter) * 2));
+      max-width: var(--sos-header-max-width);
       margin-left: auto;
       margin-right: auto;
       border-radius: 8px;
     }
+  }
+
+  /* SoS Figma: vertical centring of the three header rows (left nav,
+     centred logo, right icons). The outer flex row in header.liquid
+     already declares align-items: center, but inner wrappers from the
+     header-logo-* snippets sometimes default to flex-start, which made
+     the icons sit higher or lower than the logo. Force align-items:
+     center on every flex row inside the card so all three groups share
+     the same horizontal axis regardless of their intrinsic height. */
+  .site-header,
+  .site-header .header-bottom,
+  .site-header .header-bottom > div,
+  .site-header .row-header,
+  .site-header .row-header > div,
+  .site-header .header-bottom .container-fluid,
+  .site-header .header-bottom .container-fluid > .d-flex,
+  .site-header .col-logo,
+  .site-header .col-menu,
+  .site-header .header-bottom__right{
+    align-items: center;
   }
 
   /* SoS Figma: the header card must render as a solid white rounded card.
