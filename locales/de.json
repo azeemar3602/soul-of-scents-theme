@@ -42,8 +42,8 @@
     },
     "newsletter_form": {
       "newsletter_label": "Sign up for the latest news, offers and styles",
-      "newsletter_placeholder": "Your email",
-      "submit": "Subscribe",
+      "newsletter_placeholder": "Email Address",
+      "submit": "Sign up",
       "confirmation": "Thanks for subscribing"
     },
     "product_bundle": {
