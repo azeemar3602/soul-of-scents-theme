@@ -17,13 +17,13 @@
   # Shopify doesn't expose fulfilled_at on the order drop; fall back to created_at.
   assign delivered_date = order.created_at
 
-  assign return_deadline = order.created_at | date: '%s' | plus: 1209600 | date: '%b %drd, %Y'
+  assign return_deadline = order.created_at | date: '%s' | plus: 1209600 | date: '%b %e, %Y'
 -%}
 
 <div class="sos-account__order">
   <div class="sos-account__order-status">
     <p class="sos-account__status-label">{{ status_label }}</p>
-    <p class="sos-account__status-date">Delivered on {{ delivered_date | date: '%b %drd, %Y' }}</p>
+    <p class="sos-account__status-date">Delivered on {{ delivered_date | date: '%b %e, %Y' }}</p>
   </div>
 
   <div class="sos-account__order-row">

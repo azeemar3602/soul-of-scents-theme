@@ -78,7 +78,7 @@
             <div>
               <p class="sos-account__archetype-name">{{ archetype_name }}</p>
               {%- if quiz_taken_date != blank -%}
-                <p class="sos-account__archetype-meta">Quiz taken on {{ quiz_taken_date | date: '%b %drd, %Y' }}</p>
+                <p class="sos-account__archetype-meta">Quiz taken on {{ quiz_taken_date | date: '%b %e, %Y' }}</p>
               {%- endif -%}
             </div>
             <div class="sos-account__archetype-actions">
@@ -126,7 +126,7 @@
             <div>
               <p class="sos-account__archetype-name">{{ archetype_name }}</p>
               {%- if quiz_taken_date != blank -%}
-                <p class="sos-account__archetype-meta">Quiz taken on {{ quiz_taken_date | date: '%b %drd, %Y' }}</p>
+                <p class="sos-account__archetype-meta">Quiz taken on {{ quiz_taken_date | date: '%b %e, %Y' }}</p>
               {%- endif -%}
             </div>
             <div class="sos-account__archetype-actions">
