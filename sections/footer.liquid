@@ -447,6 +447,79 @@
     .site-footer__bottom-links{ justify-content: center; }
     .site-footer__bottom-meta{ justify-content: center; text-align: center; }
   }
+
+  /* SoS Figma footer: float the whole footer as a centred beige rounded card
+     with white space above and to the sides. Mobile keeps a tighter outer
+     gutter so the card edges don't touch the screen. */
+  .site-footer{
+    margin: 80px 24px 24px;
+    border-radius: 12px;
+    border-top: 0;
+    overflow: hidden;
+  }
+  @media (max-width: 749px){
+    .site-footer{
+      margin: 40px 12px 12px;
+      border-radius: 10px;
+    }
+  }
+
+  /* Newsletter form: render as an inline pill -- single bordered box with the
+     email input on the left and "Sign up" text on the right, matching the
+     Figma. Mobile reverts to the stacked default so it stays readable. */
+  @media (min-width: 750px){
+    .site-footer .footer-email .form-group.flex-column{
+      flex-direction: row !important;
+      align-items: stretch;
+      border: 1px solid rgba(3,3,3,0.18);
+      background: rgba(255,255,255,0.5);
+      border-radius: 4px;
+      padding: 0;
+      position: relative;
+      max-width: 420px;
+    }
+    .site-footer .footer-email .form-group input[type="email"]{
+      flex: 1 1 auto;
+      border: 0 !important;
+      background: transparent !important;
+      margin: 0 !important;
+      padding: 12px 16px;
+      font-size: 14px;
+      min-width: 0;
+      box-shadow: none;
+    }
+    .site-footer .footer-email .form-group input[type="email"]:focus{
+      outline: none;
+      box-shadow: none;
+    }
+    .site-footer .footer-email .form-group > .d-flex{
+      flex-shrink: 0;
+      align-items: center;
+      padding: 0 16px;
+    }
+    .site-footer .footer-email .btn-theme{
+      background: transparent !important;
+      color: var(--footer-text) !important;
+      border: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      font-weight: 500;
+      font-size: 14px;
+      text-transform: none;
+      letter-spacing: 0;
+      min-height: 0;
+      height: auto;
+      line-height: 1.4;
+      cursor: pointer;
+    }
+    .site-footer .footer-email .btn-theme:hover{
+      background: transparent !important;
+      text-decoration: underline;
+    }
+    .site-footer .footer-email .form-group label[for^="NewsletterEmail"]{
+      display: none !important;
+    }
+  }
 </style>
 {%- liquid
   assign bg_image = section.settings.image_bg
