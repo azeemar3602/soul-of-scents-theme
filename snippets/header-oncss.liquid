@@ -1909,5 +1909,28 @@
     }
   }
   {%- endif -%}
+
+  /* SoS: centre the header bar/card horizontally on desktop and large desktop.
+     Outer .site-header is given an explicit width with auto margins so the
+     white card sits in the middle of the viewport with equal left/right
+     spacing. Mobile (<990px) is intentionally unchanged so the existing
+     full-width mobile header is preserved. The transparent/absolute homepage
+     variant is centred via left:50%/translateX rather than margin:auto since
+     auto margins do not centre absolutely positioned elements. */
+  @media (min-width: 990px) {
+    .site-header {
+      width: calc(100% - 48px);
+      max-width: 1600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .site-header.site-header--transparent {
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: calc(100% - 48px);
+      max-width: 1600px;
+    }
+  }
   </style>
   
