@@ -525,3 +525,59 @@ background-color: white;
   text-align: left;
   margin-top: 8px;
 }
+
+/* Complimentary Gift banner inside the drawer header. The .cardraw
+   container inherits text-align: center plus various .btn defaults, so the
+   snippet's flex row was being centred and the "..." button was inheriting
+   a heavy border. Scope a clean left-aligned layout with a borderless
+   action button. */
+.cardraw .sos-complimentary-gift{
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  padding: 12px 0 16px;
+  margin: 0;
+  border: 0;
+}
+.cardraw .sos-gift-icon{
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #030303;
+}
+.cardraw .sos-gift-text{
+  flex: 1 1 auto;
+  line-height: 1.4;
+  min-width: 0;
+}
+.cardraw .sos-gift-title{
+  font-size: 14px;
+  font-weight: 500;
+  color: #030303;
+}
+.cardraw .sos-gift-subtitle{
+  font-size: 12px;
+  color: #6f6862;
+  margin-top: 2px;
+}
+.cardraw .sos-gift-more{
+  flex-shrink: 0;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 6px 8px !important;
+  margin: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  color: #6f6862;
+  cursor: pointer;
+  border-radius: 4px;
+  align-self: center;
+  box-shadow: none !important;
+}
+.cardraw .sos-gift-more:hover,
+.cardraw .sos-gift-more:focus{
+  color: #030303;
+  background: rgba(0,0,0,0.05) !important;
+  outline: 0;
+}
