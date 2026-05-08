@@ -1956,6 +1956,17 @@
     }
   }
 
+  /* Inner pages: paint the .section-header wrapper white so the area to
+     the left/right of the centred floating header card no longer reads
+     as grey body bg, and the 16px top margin on .site-header renders
+     as visible white space above the card. Homepage is excluded
+     (.template-index .section-header stays transparent) so the absolute
+     transparent variant can continue to overlay the hero with the hero
+     image showing through above and around it. */
+  body:not(.template-index) .section-header {
+    background-color: #ffffff;
+  }
+
   /* SoS Figma: vertical centring of the three header rows (left nav,
      centred logo, right icons). The outer flex row in header.liquid
      already declares align-items: center, but inner wrappers from the
