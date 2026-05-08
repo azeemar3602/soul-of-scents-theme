@@ -110,8 +110,13 @@
 
                   {%- if show_category_pills and product.collections.size > 0 -%}
                     {%- assign brand_str = ',meo-fuscioni,meo-fuscuini,sarah-baker,thomas-de-monaco,vapor-mundum,frontpage,' -%}
+                    {%- assign sos_archetype_handles = ',the-seducer,the-cosmopolitan,the-romantic,the-indulger,the-luxury-hedonist,the-nostalgic,the-mineralist,the-smooth-operator,the-maximalist,' -%}
                     <div class="product-slider__pills">
                       {%- for col in product.collections -%}
+                        {%- assign sos_h_prefix = col.handle | slice: 0, 3 -%}
+                        {%- assign sos_h_needle = ',' | append: col.handle | append: ',' -%}
+                        {%- if sos_h_prefix == 'rh-' -%}{%- continue -%}{%- endif -%}
+                        {%- if sos_archetype_handles contains sos_h_needle -%}{%- continue -%}{%- endif -%}
                         {%- unless brand_str contains col.handle -%}
                           <span class="product-slider__pill mood-tag--{{ col.title | handle }}" role="link" tabindex="0" onclick="event.preventDefault();event.stopPropagation();window.location.href='{{ col.url }}';">{{ col.title }}</span>
                         {%- endunless -%}

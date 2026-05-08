@@ -29,17 +29,20 @@
   }
 </style>
 {%- liquid
-  if section.settings.layout == 'grid' 
-  if section.settings.display_type == 'all' 
-    assign collection_count = 0 
-    for collection in collections 
-      unless collection.handle == 'frontpage' 
-       assign collection_count = collection_count | plus: 1 
-      endunless 
-    endfor 
-  else 
-    assign collection_count = section.blocks.size 
-  endif 
+  assign sos_archetype_handles = ',the-seducer,the-cosmopolitan,the-romantic,the-indulger,the-luxury-hedonist,the-nostalgic,the-mineralist,the-smooth-operator,the-maximalist,'
+  if section.settings.layout == 'grid'
+  if section.settings.display_type == 'all'
+    assign collection_count = 0
+    for collection in collections
+      assign sos_h_prefix = collection.handle | slice: 0, 3
+      assign sos_h_needle = ',' | append: collection.handle | append: ','
+      unless collection.handle == 'frontpage' or sos_h_prefix == 'rh-' or sos_archetype_handles contains sos_h_needle
+       assign collection_count = collection_count | plus: 1
+      endunless
+    endfor
+  else
+    assign collection_count = section.blocks.size
+  endif
 
   assign number_rows = 1 
 
@@ -102,13 +105,15 @@ endif
           {%- endcapture -%}
 
           {%- liquid
-            unless collection.handle == 'frontpage' 
-              if section.settings.layout == 'list' 
+            assign sos_h_prefix = collection.handle | slice: 0, 3
+            assign sos_h_needle = ',' | append: collection.handle | append: ','
+            unless collection.handle == 'frontpage' or sos_h_prefix == 'rh-' or sos_archetype_handles contains sos_h_needle
+              if section.settings.layout == 'list'
                   echo listitem
               elsif section.settings.layout == 'grid'
-                render 'collection-grid-item', height: height, featured_collection: featured_collection 
-              endif 
-            endunless 
+                render 'collection-grid-item', height: height, featured_collection: featured_collection
+              endif
+            endunless
           -%}
         {% endfor %}
       </div>
@@ -141,15 +146,17 @@ endif
           </div>
         {%- endcapture -%}
           {%- liquid
-            unless collection.handle == 'frontpage' 
-              if section.settings.layout == 'list' 
+            assign sos_h_prefix = collection.handle | slice: 0, 3
+            assign sos_h_needle = ',' | append: collection.handle | append: ','
+            unless collection.handle == 'frontpage' or sos_h_prefix == 'rh-' or sos_archetype_handles contains sos_h_needle
+              if section.settings.layout == 'list'
                 echo listitem
               elsif section.settings.layout == 'grid'
-                if collection_count > 4 and forloop.index > 3  
-                endif 
-                render 'collection-grid-item' , height: height , featured_collection: featured_collection  
-              endif 
-            endunless 
+                if collection_count > 4 and forloop.index > 3
+                endif
+                render 'collection-grid-item' , height: height , featured_collection: featured_collection
+              endif
+            endunless
           -%}
         {% endfor %}
       </div>

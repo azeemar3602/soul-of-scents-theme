@@ -80,9 +80,14 @@
             </li>
           {%- endif -%}
           {%- assign excluded = section.settings.exclude_collection_handles | split: ',' -%}
+          {%- assign sos_archetype_handles = ',the-seducer,the-cosmopolitan,the-romantic,the-indulger,the-luxury-hedonist,the-nostalgic,the-mineralist,the-smooth-operator,the-maximalist,' -%}
           {%- for col in collections -%}
             {%- assign skip = false -%}
             {%- if col.handle == 'all' -%}{%- assign skip = true -%}{%- endif -%}
+            {%- assign sos_h_prefix = col.handle | slice: 0, 3 -%}
+            {%- if sos_h_prefix == 'rh-' -%}{%- assign skip = true -%}{%- endif -%}
+            {%- assign sos_h_needle = ',' | append: col.handle | append: ',' -%}
+            {%- if sos_archetype_handles contains sos_h_needle -%}{%- assign skip = true -%}{%- endif -%}
             {%- for ex in excluded -%}
               {%- assign ex_clean = ex | strip -%}
               {%- if col.handle == ex_clean -%}{%- assign skip = true -%}{%- endif -%}
