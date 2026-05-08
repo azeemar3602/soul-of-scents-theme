@@ -1,1 +1,352 @@
-{"type":"header","name":"Header Group","sections":{"announcement-bar":{"type":"announcement-bar","disabled":true,"settings":{"enable":true,"animation":"fade","setwidth":"container-fluid","background":"#fbec5d","gradient_bg":"","text_color":"#222222","font_size_topbar":13,"enable_image":true,"enable_name":false,"enable_money_topbar":true,"enable_language_topbar":true,"enable_social_topbar":true,"enable_login_topbar":false,"text_topbar":"Free shipping on orders over $75","buttonall_topbar":"Shop now","buttonall_link_topbar":"shopify:\/\/collections\/all"}},"announcement-bar-slide":{"type":"announcement-bar-slide","blocks":{"a00daf6f-fb1c-4351-80dc-24e405bf630e":{"type":"Item","settings":{"code":"Free Shipping on Orders Over $150","button_text":"Shop now","button_link":"shopify:\/\/collections"}},"afb084a9-2a31-4207-9d23-694c0f6b1281":{"type":"Item","settings":{"code":"Our new summer-inspired hue","button_text":"Shop Now","button_link":"shopify:\/\/collections\/best-seller"}}},"block_order":["a00daf6f-fb1c-4351-80dc-24e405bf630e","afb084a9-2a31-4207-9d23-694c0f6b1281"],"disabled":true,"settings":{"enable":true,"animation":"fade","size_text":"small","announ_type":"carousel","scroll_dot":"dot","size_icon":24,"speed":10,"scroll_type":"from-right","background":"#f5f2ea","gradient_bg":"","text":"#243f48"}},"header":{"type":"header","blocks":{"a2730c80-674d-41f6-9f75-d2dea64fcd6b":{"type":"menu-banner","disabled":true,"settings":{"menu_title":"home","menu_width":"container","menu_column":2,"enable_menu_banner":true,"menu_banner_width":60,"menu_banner_height":340,"menu_banner_size_title":"h4","menu_banner_position_text_1":"bot-center","menu_banner_subheading_1":"20% Off","menu_banner_heading_1":"Kitchen Collection","menu_banner_paragraph_1":"","menu_banner_btn_1":"shop now","menu_banner_link_1":"shopify:\/\/collections\/kitchen","menu_banner_position_text_2":"bot-center","menu_banner_subheading_2":"20% Off","menu_banner_heading_2":"Decor Collection","menu_banner_paragraph_2":"","menu_banner_btn_2":"shop now","menu_banner_link_2":"shopify:\/\/collections\/decoration","menu_banner_position_text_3":"mid-center","menu_banner_subheading_3":"Sub Heading 3","menu_banner_heading_3":"Heading 3","menu_banner_paragraph_3":"<p>Paragraph 3<\/p>","menu_banner_btn_3":"","menu_banner_link_3":""}},"281b36cf-b829-4a1c-a3a5-5a7c0a30225a":{"type":"menu-collection","disabled":true,"settings":{"menu_title":"shop","menu_width":"container","menu_column":3,"enable_menu_collection":true,"enable_items_count":true,"image_size":"portrait","menu_collection_width":40,"menu_collection_1":"books","menu_collection_2":"lighting","menu_collection_3":"","menu_collection_4":"","menu_collection_5":"","menu_collection_6":""}},"9d3d821c-82a9-439a-b2db-6700a3c6685f":{"type":"menu-product","disabled":true,"settings":{"menu_title":"product","menu_width":"container","menu_column":4,"enable_menu_product":true,"menu_product_width":20,"menu_product_1":"hay-anything-scissors","menu_product_2":"","menu_product_3":"","menu_product_4":"","menu_product_5":"","menu_product_6":""}},"0f4d122e-cf9d-4fbf-8082-85a6cb05155f":{"type":"menu-banner","disabled":true,"settings":{"menu_title":"pages","menu_width":"container","menu_column":2,"enable_menu_banner":true,"menu_banner_width":60,"menu_banner_height":300,"menu_banner_size_title":"h4","menu_banner_position_text_1":"bot-left","menu_banner_subheading_1":"All Styles","menu_banner_heading_1":"Min. 65% Off","menu_banner_paragraph_1":"","menu_banner_btn_1":"Discover now","menu_banner_link_1":"shopify:\/\/collections","menu_banner_position_text_2":"bot-left","menu_banner_subheading_2":"Lingerie","menu_banner_heading_2":"Flat 50% Off","menu_banner_paragraph_2":"","menu_banner_btn_2":"Discover now","menu_banner_link_2":"shopify:\/\/collections\/all","menu_banner_position_text_3":"mid-center","menu_banner_subheading_3":"Sub Heading 3","menu_banner_heading_3":"Heading 3","menu_banner_paragraph_3":"<p>Paragraph 3<\/p>","menu_banner_btn_3":"","menu_banner_link_3":""}},"96e8331c-f8e4-4b9d-802b-4a659893f052":{"type":"menu-banner-classic","disabled":true,"settings":{"menu_title":"blog","menu_width":"container","menu_column":3,"enable_menu_banner":true,"image_size":"wide","menu_banner_width":30,"menu_banner_html_1":"<h5 class=\"mb-2\">Flat 50% Off<\/h5>\n<p>Our products are designed for everyone.<\/p>","menu_banner_btn_1":"Shop now","menu_banner_link_1":"shopify:\/\/collections","menu_banner_html_2":"<h5 class=\"mb-0\">Flat 50% Off<\/h5>\n<p>sss<\/p>","menu_banner_btn_2":"","menu_banner_link_2":"","menu_banner_html_3":"","menu_banner_btn_3":"","menu_banner_link_3":"","menu_banner_html_4":"","menu_banner_btn_4":"","menu_banner_link_4":"","menu_banner_html_5":"","menu_banner_btn_5":"","menu_banner_link_5":"","menu_banner_html_6":"","menu_banner_btn_6":"","menu_banner_link_6":""}},"25d568c7-cca2-4e6e-bb4c-31ad2907d4f3":{"type":"level_1","disabled":true,"settings":{"menu_title_lv1":"Women","enable_menu_banner_lv1":true,"menu_gradient_bg_lv1":"linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.7) 98%)","menu_banner_position_text_lv1":"bot-left","subtitle_menu_banner_lv1":"Sale","title_menu_banner_lv1":"50% Off","menu_banner_size_title_lv1":"h2","des_menu_banner_lv1":"<p>The Linen Collection<\/p>","btn_menu_banner_lv1":"shop now","btn_link_menu_banner_lv1":"shopify:\/\/collections\/women"}},"38d779e0-19e7-45f0-b24e-4728518c7ea4":{"type":"level_1","disabled":true,"settings":{"menu_title_lv1":"Men","enable_menu_banner_lv1":true,"menu_gradient_bg_lv1":"linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.7) 100%)","menu_banner_position_text_lv1":"bot-left","subtitle_menu_banner_lv1":"sale","title_menu_banner_lv1":"40% Off","menu_banner_size_title_lv1":"h2","des_menu_banner_lv1":"<p>Men's Collections ss23<\/p>","btn_menu_banner_lv1":"shop now","btn_link_menu_banner_lv1":"shopify:\/\/collections\/men"}},"f6a2ffe9-edfd-4d1e-8d8e-7ad8c9531293":{"type":"level_2","disabled":true,"settings":{"menu_title_lv2":"Mens Tops","enable_menu_banner_lv2":true,"menu_gradient_bg_lv2":"linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.6) 100%)","menu_banner_position_text_lv2":"bot-left","subtitle_menu_banner_lv2":"deal hot","title_menu_banner_lv2":"Mens Tops","menu_banner_size_title_lv2":"h2","des_menu_banner_lv2":"","btn_menu_banner_lv2":"shop now","btn_link_menu_banner_lv2":""}}},"block_order":["a2730c80-674d-41f6-9f75-d2dea64fcd6b","281b36cf-b829-4a1c-a3a5-5a7c0a30225a","9d3d821c-82a9-439a-b2db-6700a3c6685f","0f4d122e-cf9d-4fbf-8082-85a6cb05155f","96e8331c-f8e4-4b9d-802b-4a659893f052","25d568c7-cca2-4e6e-bb4c-31ad2907d4f3","38d779e0-19e7-45f0-b24e-4728518c7ea4","f6a2ffe9-edfd-4d1e-8d8e-7ad8c9531293"],"custom_css":[".header-bottom .container-fluid {background-color: white; margin-top: 26px; margin-left: 26px; margin-right: 26px; padding-left: 50px; padding-right: 50px; border-radius: 10px;}","@media screen and (max-width: 749px) {.header-bottom .container-fluid {margin-top: 0px; margin-left: 10px; margin-right: 10px; padding-left: 10px; padding-right: 15px; border-radius: 10px; }}",".size-header-small .site-nav__link {padding: 2px var(--padding-menu);}",".site-header--sticky.active {background: #ffffff00;}"],"settings":{"logo":"shopify:\/\/shop_images\/sos_Master-Clean_Logo-Monochrome-LightContext.png","logo_white":"shopify:\/\/shop_images\/sos_Master-Clean_Logo-Monochrome-DarkContext.png","logo_max_width":190,"enable_transparent":true,"hover_transparent":false,"enable_white":false,"setwidth":"container-fluid","layout_header":"logo-center-navigation-left","type_sticky":"sticky","height_header":"small","background":"#ffffff80","textcolor":"#000000","linkcolor":"#000000","linkhover":"#000000","color_indicator":"#000000","menutext":"#000000","menutexthover":"#000000","menudroptexttitle":"#222222","menudroptext":"#6c747b","menudropbg":"#ffffff","menudropborder":"#f1f1f1","main_linklist":"main-menu","font_family_menu":"--g-font-2","font_sizemenu":"15px","font_weight":"400","menu_spacing":0,"menu_space":1,"type_menu":"capitalize","menu_active":"thin-line","menu_label_text":"#ffffff","menu_label_new":"#d96b4f","menu_label_hot":"#d24418","menu_label_sale":"#ffa800","menu_label_other":"#848484","enable_menu_vertical":false,"sl_menu_vertical":"click-menu","main_linklist_vertical":"","link_list_search":"","sidebar_search":false,"e_hd_currency":false,"enable_image":false,"enable_name":false,"enable_language_selector":false,"icon_cart":"icon","svg_cart":"cart-5","icon_wishlist":"icon","icon_login":"icon","e_link_login":"link","icon_search":"icon"}},"store-messages":{"type":"store-messages","settings":{"enable":false,"enable_homepage":false,"background":"#000000","gradient_bg":"","text":"#ffffff","paddingsection":"8px 0px 8px 0px","paddingmobile":"8px 0px 8px 0px","marginsection":"0px 0px 0px 0px","marginmobile":"0px 0px 0px 0px"}},"blocks_Dz3db3":{"type":"_blocks","name":"Content block","settings":{}}},"order":["announcement-bar","announcement-bar-slide","header","store-messages","blocks_Dz3db3"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header Group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "disabled": true,
+      "settings": {
+        "enable": true,
+        "animation": "fade",
+        "setwidth": "container-fluid",
+        "background": "#fbec5d",
+        "gradient_bg": "",
+        "text_color": "#222222",
+        "font_size_topbar": 13,
+        "enable_image": true,
+        "enable_name": false,
+        "enable_money_topbar": true,
+        "enable_language_topbar": true,
+        "enable_social_topbar": true,
+        "enable_login_topbar": false,
+        "text_topbar": "Free shipping on orders over $75",
+        "buttonall_topbar": "Shop now",
+        "buttonall_link_topbar": "shopify://collections/all"
+      }
+    },
+    "announcement-bar-slide": {
+      "type": "announcement-bar-slide",
+      "blocks": {
+        "a00daf6f-fb1c-4351-80dc-24e405bf630e": {
+          "type": "Item",
+          "settings": {
+            "code": "Free Shipping on Orders Over $150",
+            "button_text": "Shop now",
+            "button_link": "shopify://collections"
+          }
+        },
+        "afb084a9-2a31-4207-9d23-694c0f6b1281": {
+          "type": "Item",
+          "settings": {
+            "code": "Our new summer-inspired hue",
+            "button_text": "Shop Now",
+            "button_link": "shopify://collections/best-seller"
+          }
+        }
+      },
+      "block_order": [
+        "a00daf6f-fb1c-4351-80dc-24e405bf630e",
+        "afb084a9-2a31-4207-9d23-694c0f6b1281"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable": true,
+        "animation": "fade",
+        "size_text": "small",
+        "announ_type": "carousel",
+        "scroll_dot": "dot",
+        "size_icon": 24,
+        "speed": 10,
+        "scroll_type": "from-right",
+        "background": "#f5f2ea",
+        "gradient_bg": "",
+        "text": "#243f48"
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "a2730c80-674d-41f6-9f75-d2dea64fcd6b": {
+          "type": "menu-banner",
+          "disabled": true,
+          "settings": {
+            "menu_title": "home",
+            "menu_width": "container",
+            "menu_column": 2,
+            "enable_menu_banner": true,
+            "menu_banner_width": 60,
+            "menu_banner_height": 340,
+            "menu_banner_size_title": "h4",
+            "menu_banner_position_text_1": "bot-center",
+            "menu_banner_subheading_1": "20% Off",
+            "menu_banner_heading_1": "Kitchen Collection",
+            "menu_banner_paragraph_1": "",
+            "menu_banner_btn_1": "shop now",
+            "menu_banner_link_1": "shopify://collections/kitchen",
+            "menu_banner_position_text_2": "bot-center",
+            "menu_banner_subheading_2": "20% Off",
+            "menu_banner_heading_2": "Decor Collection",
+            "menu_banner_paragraph_2": "",
+            "menu_banner_btn_2": "shop now",
+            "menu_banner_link_2": "shopify://collections/decoration",
+            "menu_banner_position_text_3": "mid-center",
+            "menu_banner_subheading_3": "Sub Heading 3",
+            "menu_banner_heading_3": "Heading 3",
+            "menu_banner_paragraph_3": "<p>Paragraph 3</p>",
+            "menu_banner_btn_3": "",
+            "menu_banner_link_3": ""
+          }
+        },
+        "281b36cf-b829-4a1c-a3a5-5a7c0a30225a": {
+          "type": "menu-collection",
+          "disabled": true,
+          "settings": {
+            "menu_title": "shop",
+            "menu_width": "container",
+            "menu_column": 3,
+            "enable_menu_collection": true,
+            "enable_items_count": true,
+            "image_size": "portrait",
+            "menu_collection_width": 40,
+            "menu_collection_1": "books",
+            "menu_collection_2": "lighting",
+            "menu_collection_3": "",
+            "menu_collection_4": "",
+            "menu_collection_5": "",
+            "menu_collection_6": ""
+          }
+        },
+        "9d3d821c-82a9-439a-b2db-6700a3c6685f": {
+          "type": "menu-product",
+          "disabled": true,
+          "settings": {
+            "menu_title": "product",
+            "menu_width": "container",
+            "menu_column": 4,
+            "enable_menu_product": true,
+            "menu_product_width": 20,
+            "menu_product_1": "hay-anything-scissors",
+            "menu_product_2": "",
+            "menu_product_3": "",
+            "menu_product_4": "",
+            "menu_product_5": "",
+            "menu_product_6": ""
+          }
+        },
+        "0f4d122e-cf9d-4fbf-8082-85a6cb05155f": {
+          "type": "menu-banner",
+          "disabled": true,
+          "settings": {
+            "menu_title": "pages",
+            "menu_width": "container",
+            "menu_column": 2,
+            "enable_menu_banner": true,
+            "menu_banner_width": 60,
+            "menu_banner_height": 300,
+            "menu_banner_size_title": "h4",
+            "menu_banner_position_text_1": "bot-left",
+            "menu_banner_subheading_1": "All Styles",
+            "menu_banner_heading_1": "Min. 65% Off",
+            "menu_banner_paragraph_1": "",
+            "menu_banner_btn_1": "Discover now",
+            "menu_banner_link_1": "shopify://collections",
+            "menu_banner_position_text_2": "bot-left",
+            "menu_banner_subheading_2": "Lingerie",
+            "menu_banner_heading_2": "Flat 50% Off",
+            "menu_banner_paragraph_2": "",
+            "menu_banner_btn_2": "Discover now",
+            "menu_banner_link_2": "shopify://collections/all",
+            "menu_banner_position_text_3": "mid-center",
+            "menu_banner_subheading_3": "Sub Heading 3",
+            "menu_banner_heading_3": "Heading 3",
+            "menu_banner_paragraph_3": "<p>Paragraph 3</p>",
+            "menu_banner_btn_3": "",
+            "menu_banner_link_3": ""
+          }
+        },
+        "96e8331c-f8e4-4b9d-802b-4a659893f052": {
+          "type": "menu-banner-classic",
+          "disabled": true,
+          "settings": {
+            "menu_title": "blog",
+            "menu_width": "container",
+            "menu_column": 3,
+            "enable_menu_banner": true,
+            "image_size": "wide",
+            "menu_banner_width": 30,
+            "menu_banner_html_1": "<h5 class=\"mb-2\">Flat 50% Off</h5>\n<p>Our products are designed for everyone.</p>",
+            "menu_banner_btn_1": "Shop now",
+            "menu_banner_link_1": "shopify://collections",
+            "menu_banner_html_2": "<h5 class=\"mb-0\">Flat 50% Off</h5>\n<p>sss</p>",
+            "menu_banner_btn_2": "",
+            "menu_banner_link_2": "",
+            "menu_banner_html_3": "",
+            "menu_banner_btn_3": "",
+            "menu_banner_link_3": "",
+            "menu_banner_html_4": "",
+            "menu_banner_btn_4": "",
+            "menu_banner_link_4": "",
+            "menu_banner_html_5": "",
+            "menu_banner_btn_5": "",
+            "menu_banner_link_5": "",
+            "menu_banner_html_6": "",
+            "menu_banner_btn_6": "",
+            "menu_banner_link_6": ""
+          }
+        },
+        "25d568c7-cca2-4e6e-bb4c-31ad2907d4f3": {
+          "type": "level_1",
+          "disabled": true,
+          "settings": {
+            "menu_title_lv1": "Women",
+            "enable_menu_banner_lv1": true,
+            "menu_gradient_bg_lv1": "linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.7) 98%)",
+            "menu_banner_position_text_lv1": "bot-left",
+            "subtitle_menu_banner_lv1": "Sale",
+            "title_menu_banner_lv1": "50% Off",
+            "menu_banner_size_title_lv1": "h2",
+            "des_menu_banner_lv1": "<p>The Linen Collection</p>",
+            "btn_menu_banner_lv1": "shop now",
+            "btn_link_menu_banner_lv1": "shopify://collections/women"
+          }
+        },
+        "38d779e0-19e7-45f0-b24e-4728518c7ea4": {
+          "type": "level_1",
+          "disabled": true,
+          "settings": {
+            "menu_title_lv1": "Men",
+            "enable_menu_banner_lv1": true,
+            "menu_gradient_bg_lv1": "linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.7) 100%)",
+            "menu_banner_position_text_lv1": "bot-left",
+            "subtitle_menu_banner_lv1": "sale",
+            "title_menu_banner_lv1": "40% Off",
+            "menu_banner_size_title_lv1": "h2",
+            "des_menu_banner_lv1": "<p>Men's Collections ss23</p>",
+            "btn_menu_banner_lv1": "shop now",
+            "btn_link_menu_banner_lv1": "shopify://collections/men"
+          }
+        },
+        "f6a2ffe9-edfd-4d1e-8d8e-7ad8c9531293": {
+          "type": "level_2",
+          "disabled": true,
+          "settings": {
+            "menu_title_lv2": "Mens Tops",
+            "enable_menu_banner_lv2": true,
+            "menu_gradient_bg_lv2": "linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.6) 100%)",
+            "menu_banner_position_text_lv2": "bot-left",
+            "subtitle_menu_banner_lv2": "deal hot",
+            "title_menu_banner_lv2": "Mens Tops",
+            "menu_banner_size_title_lv2": "h2",
+            "des_menu_banner_lv2": "",
+            "btn_menu_banner_lv2": "shop now",
+            "btn_link_menu_banner_lv2": ""
+          }
+        }
+      },
+      "block_order": [
+        "a2730c80-674d-41f6-9f75-d2dea64fcd6b",
+        "281b36cf-b829-4a1c-a3a5-5a7c0a30225a",
+        "9d3d821c-82a9-439a-b2db-6700a3c6685f",
+        "0f4d122e-cf9d-4fbf-8082-85a6cb05155f",
+        "96e8331c-f8e4-4b9d-802b-4a659893f052",
+        "25d568c7-cca2-4e6e-bb4c-31ad2907d4f3",
+        "38d779e0-19e7-45f0-b24e-4728518c7ea4",
+        "f6a2ffe9-edfd-4d1e-8d8e-7ad8c9531293"
+      ],
+      "custom_css": [
+        ".header-bottom .container-fluid {background-color: white; margin-left: 26px; margin-right: 26px; padding-left: 50px; padding-right: 50px; border-radius: 10px;}",
+        "@media screen and (max-width: 749px) {.header-bottom .container-fluid {margin-top: 0px; margin-left: 10px; margin-right: 10px; padding-left: 10px; padding-right: 15px; border-radius: 10px; }}",
+        ".size-header-small .site-nav__link {padding: 2px var(--padding-menu);}",
+        ".site-header--sticky.active {background: #ffffff00;}"
+      ],
+      "settings": {
+        "logo": "shopify://shop_images/sos_Master-Clean_Logo-Monochrome-LightContext.png",
+        "logo_white": "shopify://shop_images/sos_Master-Clean_Logo-Monochrome-DarkContext.png",
+        "logo_max_width": 190,
+        "enable_transparent": true,
+        "hover_transparent": false,
+        "enable_white": false,
+        "setwidth": "container-fluid",
+        "header_max_width": 1320,
+        "header_gutter": 40,
+        "layout_header": "logo-center-navigation-left",
+        "type_sticky": "sticky",
+        "height_header": "small",
+        "background": "#ffffff80",
+        "textcolor": "#000000",
+        "linkcolor": "#000000",
+        "linkhover": "#000000",
+        "color_indicator": "#000000",
+        "menutext": "#000000",
+        "menutexthover": "#000000",
+        "menudroptexttitle": "#222222",
+        "menudroptext": "#6c747b",
+        "menudropbg": "#ffffff",
+        "menudropborder": "#f1f1f1",
+        "main_linklist": "main-menu",
+        "font_family_menu": "--g-font-2",
+        "font_sizemenu": "15px",
+        "font_weight": "400",
+        "menu_spacing": 0,
+        "menu_space": 1,
+        "type_menu": "capitalize",
+        "menu_active": "thin-line",
+        "menu_label_text": "#ffffff",
+        "menu_label_new": "#d96b4f",
+        "menu_label_hot": "#d24418",
+        "menu_label_sale": "#ffa800",
+        "menu_label_other": "#848484",
+        "enable_menu_vertical": false,
+        "sl_menu_vertical": "click-menu",
+        "main_linklist_vertical": "",
+        "link_list_search": "",
+        "sidebar_search": false,
+        "e_hd_currency": false,
+        "enable_image": false,
+        "enable_name": false,
+        "enable_language_selector": false,
+        "icon_cart": "icon",
+        "svg_cart": "cart-5",
+        "icon_wishlist": "icon",
+        "icon_login": "icon",
+        "e_link_login": "link",
+        "icon_search": "icon"
+      }
+    },
+    "store-messages": {
+      "type": "store-messages",
+      "settings": {
+        "enable": false,
+        "enable_homepage": false,
+        "background": "#000000",
+        "gradient_bg": "",
+        "text": "#ffffff",
+        "paddingsection": "8px 0px 8px 0px",
+        "paddingmobile": "8px 0px 8px 0px",
+        "marginsection": "0px 0px 0px 0px",
+        "marginmobile": "0px 0px 0px 0px"
+      }
+    },
+    "blocks_Dz3db3": {
+      "type": "_blocks",
+      "name": "Content block",
+      "settings": {}
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "announcement-bar-slide",
+    "header",
+    "store-messages",
+    "blocks_Dz3db3"
+  ]
+}
