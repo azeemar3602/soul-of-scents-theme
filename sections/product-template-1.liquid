@@ -245,14 +245,30 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                 </p>
             {%- when 'title' -%}
               <div class="product-block product-title product-title--with-price">
-                {%- assign primary_collection = product.collections.first -%}
-                {%- if primary_collection -%}
-                  <nav class="product-single__breadcrumb" aria-label="Breadcrumb">
-                    <a href="{{ routes.collections_url }}">Shop</a>
+                {%- comment -%}
+                  Breadcrumb: pick the first customer-facing mood / category
+                  collection from product.collections. RH-prefixed and
+                  archetype-result collections are excluded so they never
+                  surface in the breadcrumb. If none match, fall back to "Shop".
+                {%- endcomment -%}
+                {%- assign sos_mood_handles = ',main-character,subtle-companion,sweet-escape,second-skin,after-dark,grounding-greens,nostalgic-notion,resin-heat,' -%}
+                {%- assign primary_collection = '' -%}
+                {%- assign primary_found = false -%}
+                {%- for col in product.collections -%}
+                  {%- assign sos_h_needle = ',' | append: col.handle | append: ',' -%}
+                  {%- if sos_mood_handles contains sos_h_needle -%}
+                    {%- assign primary_collection = col -%}
+                    {%- assign primary_found = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                <nav class="product-single__breadcrumb" aria-label="Breadcrumb">
+                  <a href="{{ routes.collections_url }}">Shop</a>
+                  {%- if primary_found -%}
                     <span aria-hidden="true">/</span>
                     <a href="{{ primary_collection.url }}">{{ primary_collection.title }}</a>
-                  </nav>
-                {%- endif -%}
+                  {%- endif -%}
+                </nav>
                 {%- if block.settings.e_label -%}
                   {% render 'product-label', showlabel: false %}
                 {%- endif -%}
