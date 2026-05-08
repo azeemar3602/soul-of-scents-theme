@@ -262,12 +262,7 @@
         "38d779e0-19e7-45f0-b24e-4728518c7ea4",
         "f6a2ffe9-edfd-4d1e-8d8e-7ad8c9531293"
       ],
-      "custom_css": [
-        ".header-bottom .container-fluid {background-color: white; margin-left: 26px; margin-right: 26px; padding-left: 50px; padding-right: 50px; border-radius: 10px;}",
-        "@media screen and (max-width: 749px) {.header-bottom .container-fluid {margin-top: 0px; margin-left: 10px; margin-right: 10px; padding-left: 10px; padding-right: 15px; border-radius: 10px; }}",
-        ".size-header-small .site-nav__link {padding: 2px var(--padding-menu);}",
-        ".site-header--sticky.active {background: #ffffff00;}"
-      ],
+      "custom_css": [],
       "settings": {
         "logo": "shopify://shop_images/sos_Master-Clean_Logo-Monochrome-LightContext.png",
         "logo_white": "shopify://shop_images/sos_Master-Clean_Logo-Monochrome-DarkContext.png",
