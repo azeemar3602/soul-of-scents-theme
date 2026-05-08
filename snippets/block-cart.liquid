@@ -178,11 +178,32 @@
                 </div>
               {%- endif -%}
             </div>
+            {%- comment -%} SoS Figma totals breakdown: Subtotal / Delivery / Estimated total {%- endcomment -%}
+            <div class="sos-cart-totals">
+              <div class="sos-cart-totals__row">
+                <span>Subtotal</span>
+                <span class="js-cart-total">{{ cart.total_price | money }}</span>
+              </div>
+              <div class="sos-cart-totals__row sos-cart-totals__row--free">
+                <span>Delivery</span>
+                <span>free</span>
+              </div>
+            </div>
             <div class="bottom-total">
-              {{ 'cart.label.total' | t }}: <span class="js-cart-total">{{ cart.total_price | money }}</span>
+              <span>Estimated total</span>
+              <span class="js-cart-total">{{ cart.total_price | money }}</span>
             </div>
           </div>
-          
+
+          {%- comment -%} SoS Figma: "Add a gift pouch" expandable row above the CTA {%- endcomment -%}
+          <button type="button" class="sos-gift-pouch" aria-expanded="false">
+            <span class="sos-gift-pouch__label">
+              {% render 'icon-gift' %}
+              <span>Add a gift pouch</span>
+            </span>
+            <span class="sos-gift-pouch__chevron" aria-hidden="true">&#9662;</span>
+          </button>
+
           <div class="mini-cart-taxes">
             {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
           </div>

@@ -325,3 +325,203 @@ background-color: white;
 .btn-close-addon.link, .link.cart-note-close{
   font-size: var(--g-font-size);
 }
+
+/* ============================================================================
+   SoS Figma cart drawer alignment.
+   Pure visual overrides on top of the existing markup -- no JS / no template
+   change. Restyles drawer width, header, line items (bordered cards), totals
+   summary, action row, and primary CTA to match the Figma reference.
+   ============================================================================ */
+
+/* Wider drawer with white surface and clearer padding, matching Figma. */
+.cardraw .mini-cart-content{
+  width: 480px;
+  max-width: 100vw;
+  background: #ffffff;
+  padding: 0 28px !important;
+}
+@media (max-width: 749px){
+  .cardraw .mini-cart-content{ width: 100vw; padding: 0 18px !important; }
+}
+
+/* Title row: "Your cart" + count badge on left, X close on right. */
+.cardraw .mini-cart-header > div:first-child{
+  padding-top: 28px !important;
+  padding-bottom: 18px !important;
+  margin-bottom: 0 !important;
+  border-bottom: 1px solid #ece8e3 !important;
+}
+.cardraw .mini-cart-header > div:first-child > div:first-child > span:first-child{
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.cardraw .mini-cart-header .js-cart-count.site-header__cart-indicator{
+  background: #030303;
+  color: #ffffff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  margin-left: 10px;
+}
+.cardraw .mini-cart-header .modal-header .close{
+  font-size: 24px;
+  opacity: 1;
+  color: #030303;
+}
+
+/* Line item layout -- the JS-generated mini-cart row gets a bordered card
+   look with rounded corners + light border, matching Figma's product cards. */
+.cardraw .js-mini-cart-content{
+  padding-top: 16px !important;
+}
+.cardraw .js-mini-cart-content > .mini-cart-item,
+.cardraw .js-mini-cart-content > div{
+  border: 1px solid #ece8e3;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+  background: #ffffff;
+  text-align: left;
+}
+.cardraw .js-mini-cart-content .mini-cart-image{
+  flex: 0 0 84px !important;
+  padding-right: 14px !important;
+}
+.cardraw .js-mini-cart-content .mini-cart-image img{
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  background: #faf9f7;
+}
+.cardraw .js-mini-cart-content .mini-cart-meta{
+  flex: 0 0 calc(100% - 84px) !important;
+  padding-right: 0 !important;
+  font-size: 14px;
+}
+.cardraw .js-mini-cart-content .mini-cart-meta a{
+  font-weight: 500;
+  color: #030303;
+}
+.cardraw .js-mini-cart-content .mini-cart-meta p{
+  margin-bottom: 4px;
+}
+.cardraw .js-remove-mini-cart{
+  font-size: 12px;
+  color: #6f6862;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Footer / totals: Figma shows Subtotal / Delivery / Estimated total stacked.
+   The existing .bottom-total spans the cart total only; we restyle it to read
+   as "Estimated total" by adding a sibling row above with subtotal + delivery
+   markup that's emitted by the new Liquid block. */
+.cardraw .mini-cart-footer{
+  background: #ffffff;
+  padding-bottom: 24px !important;
+}
+.cardraw .mini-cart-footer .border-bottom{
+  border-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+.cardraw .mini-cart-footer .bottom-total{
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 14px;
+  margin-top: 6px;
+  border-top: 1px solid #ece8e3;
+}
+.cardraw .mini-cart-footer .bottom-total .js-cart-total{
+  font-weight: 500;
+  color: #030303;
+}
+
+/* SoS-rendered totals breakdown (added in block-cart.liquid). */
+.cardraw .sos-cart-totals{
+  font-size: 13px;
+  color: #030303;
+  padding-top: 14px;
+}
+.cardraw .sos-cart-totals__row{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 4px 0;
+}
+.cardraw .sos-cart-totals__row--free{ color: #197362; }
+
+/* Add a gift pouch expandable line. */
+.cardraw .sos-gift-pouch{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-top: 1px solid #ece8e3;
+  border-bottom: 1px solid #ece8e3;
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: #030303;
+  cursor: pointer;
+  background: none;
+  border-left: 0;
+  border-right: 0;
+  width: 100%;
+  text-align: left;
+}
+.cardraw .sos-gift-pouch__label{ display: inline-flex; align-items: center; gap: 10px; }
+.cardraw .sos-gift-pouch__chevron{ font-size: 14px; color: #6f6862; }
+
+/* Tighten the existing block-addon row (Order Note / Shipping / Coupon) so it
+   doesn't double-up the visual weight in the drawer. */
+.cardraw .mini-cart-footer .block-addon{
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  gap: 18px !important;
+  font-size: 12px;
+  color: #6f6862;
+}
+
+/* Primary CTA: "Continue to checkout". */
+.cardraw .js-cart-btn-checkout.btn-theme{
+  background: #030303 !important;
+  color: #ffffff !important;
+  border: 0 !important;
+  border-radius: 4px;
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none !important;
+  height: auto;
+  min-height: 0;
+}
+.cardraw .js-cart-btn-checkout.btn-theme:hover{
+  background: #2c2722 !important;
+  color: #ffffff !important;
+}
+
+/* Hide the secondary "View Cart" link inside the drawer per Figma. */
+.cardraw .mini-cart-footer .js-cart-btn-cart{
+  display: none !important;
+}
+
+/* "Taxes and shipping..." caption -- Figma omits it; mute and reduce. */
+.cardraw .mini-cart-taxes{
+  font-size: 11px;
+  color: #6f6862;
+  text-align: left;
+  margin-top: 8px;
+}

@@ -140,7 +140,7 @@
       "update": "Update Cart",
       "view": "View Cart",
       "and_more": "And more",
-      "checkout": "Check Out",
+      "checkout": "Continue to checkout",
       "note_title": "Order Note",
       "note_label": "Add Order Note",
       "save": "Save",
@@ -341,7 +341,7 @@
   },
   "layout": {
     "cart": {
-      "title": "Cart"
+      "title": "Your cart"
     },
     "customer": {
       "account": "Account",
