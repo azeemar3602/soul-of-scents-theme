@@ -1,0 +1,527 @@
+/* Soul of Scents — Account Dashboard
+ * Scoped under .sos-account so we don't bleed onto other surfaces.
+ * Brand: #030303 black, #FFFFFF white, #FAF9F7 powder, #D7D4CF beige,
+ *        #928171 chai, #2C2722 chocolate.
+ */
+
+.sos-account {
+  --sos-black: #030303;
+  --sos-white: #ffffff;
+  --sos-powder: #faf9f7;
+  --sos-beige: #d7d4cf;
+  --sos-chai: #928171;
+  --sos-chocolate: #2c2722;
+  --sos-line: #ece8e3;
+  --sos-muted: #6f6862;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 56px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 36px 24px 80px;
+  color: var(--sos-black);
+  font-family: inherit;
+  background: var(--sos-white);
+}
+
+.sos-account__breadcrumb {
+  font-size: 12px;
+  color: var(--sos-muted);
+  margin: 0 0 14px;
+  letter-spacing: 0.01em;
+}
+.sos-account__breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+.sos-account__breadcrumb a:hover { color: var(--sos-black); }
+
+/* Sidebar */
+.sos-account__sidebar {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+}
+.sos-account__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sos-account__navlink {
+  display: block;
+  font-size: 14px;
+  line-height: 1.45;
+  padding: 7px 0;
+  color: var(--sos-muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  padding-left: 10px;
+  margin-left: -12px;
+  transition: color 0.15s, border-color 0.15s;
+  letter-spacing: 0;
+}
+.sos-account__navlink:hover { color: var(--sos-black); }
+.sos-account__navlink.is-active {
+  color: var(--sos-black);
+  font-weight: 500;
+}
+.sos-account__navlink--with-caret::before {
+  content: '> ';
+  color: var(--sos-muted);
+  margin-right: 2px;
+}
+
+/* Main + panels */
+.sos-account__main { min-width: 0; }
+.sos-account__panel { display: none; }
+.sos-account__panel.is-active { display: block; }
+.sos-account__paneltitle {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0 0 24px;
+  letter-spacing: -0.01em;
+}
+
+/* Section blocks (Overview groups multiple) */
+.sos-account__section {
+  margin-bottom: 40px;
+}
+.sos-account__section + .sos-account__section {
+  border-top: 1px solid var(--sos-line);
+  padding-top: 32px;
+}
+.sos-account__section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 18px;
+}
+.sos-account__section-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+.sos-account__showall {
+  font-size: 13px;
+  color: var(--sos-black);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Archetype card */
+.sos-account__archetype {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--sos-line);
+  border-radius: 6px;
+  background: var(--sos-white);
+}
+.sos-account__archetype-image {
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  background: var(--sos-powder);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.sos-account__archetype-name {
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 500;
+  margin: 0;
+}
+.sos-account__archetype-meta {
+  font-size: 12px;
+  color: var(--sos-muted);
+  margin: 4px 0 0;
+}
+.sos-account__archetype-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+/* Buttons */
+.sos-account__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 11px 22px;
+  border-radius: 4px;
+  border: 1px solid var(--sos-black);
+  background: var(--sos-black);
+  color: var(--sos-white);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.sos-account__btn:hover { background: var(--sos-chocolate); border-color: var(--sos-chocolate); color: var(--sos-white); }
+.sos-account__btn--ghost {
+  background: var(--sos-white);
+  color: var(--sos-black);
+  border-color: var(--sos-line);
+}
+.sos-account__btn--ghost:hover { background: var(--sos-powder); color: var(--sos-black); }
+.sos-account__btn--block { width: 100%; }
+.sos-account__linkbtn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--sos-black);
+  cursor: pointer;
+}
+
+/* Order card */
+.sos-account__order {
+  border: 1px solid var(--sos-line);
+  border-radius: 6px;
+  padding: 18px;
+  margin-bottom: 14px;
+  background: var(--sos-white);
+}
+.sos-account__order-status {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 14px;
+}
+.sos-account__status-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+.sos-account__status-date {
+  font-size: 12px;
+  color: var(--sos-muted);
+  margin: 0;
+}
+.sos-account__order-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+.sos-account__order-thumbs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sos-account__order-thumb {
+  width: 64px;
+  height: 64px;
+  background: var(--sos-powder);
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.sos-account__order-thumb--more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sos-black);
+  background: var(--sos-powder);
+  border-radius: 4px;
+  width: 64px;
+  height: 64px;
+}
+.sos-account__order-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.sos-account__order-meta {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--sos-line);
+  font-size: 12px;
+  color: var(--sos-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+.sos-account__order-meta strong {
+  color: var(--sos-black);
+  font-weight: 500;
+}
+
+/* Product card grid (Buy Again, Olfactory Match, Favorites) */
+.sos-account__product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.sos-account__product-card {
+  background: var(--sos-powder);
+  border-radius: 6px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sos-account__product-card a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.sos-account__product-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.sos-account__product-cat {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 11px;
+  background: var(--sos-white);
+  color: var(--sos-black);
+  padding: 4px 10px;
+  border-radius: 50px;
+}
+.sos-account__product-fav {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--sos-white);
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sos-muted);
+}
+.sos-account__product-info {
+  padding: 10px 4px 4px;
+}
+.sos-account__product-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 2px;
+}
+.sos-account__product-vendor {
+  font-size: 12px;
+  color: var(--sos-muted);
+  margin: 0;
+}
+.sos-account__product-price {
+  font-size: 13px;
+  margin: 4px 0 0;
+}
+
+/* Favorites card layout (with info under image) */
+.sos-account__fav-card .sos-account__product-info { padding-top: 8px; }
+
+/* Addresses */
+.sos-account__address {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--sos-line);
+}
+.sos-account__address:last-of-type { border-bottom: 0; }
+.sos-account__address-label {
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0 0 2px;
+}
+.sos-account__address-body {
+  font-size: 13px;
+  color: var(--sos-muted);
+  margin: 0;
+  line-height: 1.5;
+  font-style: normal;
+}
+.sos-account__address-edit {
+  font-size: 13px;
+  color: var(--sos-black);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+/* Cards (payment placeholder) */
+.sos-account__card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--sos-line);
+}
+.sos-account__card-row:last-of-type { border-bottom: 0; }
+.sos-account__card-info { display: flex; flex-direction: column; gap: 2px; }
+.sos-account__card-info strong { font-size: 13px; font-weight: 500; }
+.sos-account__card-info small { font-size: 12px; color: var(--sos-muted); }
+
+/* Settings form (read-only) */
+.sos-account__settings-row {
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--sos-line);
+  font-size: 13px;
+}
+.sos-account__settings-row:last-of-type { border-bottom: 0; }
+.sos-account__settings-label { color: var(--sos-muted); margin: 0; }
+.sos-account__settings-value {
+  margin: 0;
+  font-weight: 500;
+  color: var(--sos-black);
+  word-break: break-word;
+}
+.sos-account__settings-edit {
+  font-size: 12px;
+  color: var(--sos-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sos-account__delete-account {
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--sos-muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* Support tab links */
+.sos-account__support-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--sos-line);
+  border-bottom: 1px solid var(--sos-line);
+  margin-bottom: 22px;
+}
+.sos-account__support-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  font-size: 13px;
+  color: var(--sos-black);
+  text-decoration: none;
+  border-bottom: 1px solid var(--sos-line);
+}
+.sos-account__support-link:last-child,
+.sos-account__support-link:nth-last-child(2) { border-bottom: 0; }
+.sos-account__support-link::after {
+  content: '>';
+  color: var(--sos-muted);
+  margin-left: 12px;
+}
+.sos-account__support-link:hover { color: var(--sos-chocolate); }
+
+/* Empty state */
+.sos-account__empty {
+  padding: 32px 18px;
+  text-align: center;
+  background: var(--sos-powder);
+  border-radius: 6px;
+  color: var(--sos-muted);
+  font-size: 13px;
+}
+.sos-account__empty p { margin: 0 0 12px; }
+.sos-account__empty p:last-child { margin-bottom: 0; }
+
+/* Helper */
+.sos-account__hide { display: none !important; }
+
+/* Responsive: <= 900px */
+@media (max-width: 900px) {
+  .sos-account {
+    display: block;
+    padding: 24px 16px 60px;
+    gap: 0;
+  }
+  .sos-account__sidebar {
+    position: static;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--sos-line);
+  }
+  .sos-account__nav {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 18px;
+    padding-bottom: 12px;
+    scrollbar-width: none;
+  }
+  .sos-account__nav::-webkit-scrollbar { display: none; }
+  .sos-account__navlink {
+    flex-shrink: 0;
+    border-left: 0;
+    border-bottom: 2px solid transparent;
+    padding: 4px 0;
+    margin: 0;
+    white-space: nowrap;
+  }
+  .sos-account__navlink.is-active {
+    border-bottom-color: var(--sos-black);
+  }
+  .sos-account__navlink--with-caret::before { display: none; }
+
+  .sos-account__archetype {
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+  }
+  .sos-account__archetype-actions {
+    grid-column: 1 / -1;
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .sos-account__archetype-actions .sos-account__btn { text-align: center; }
+
+  .sos-account__order-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .sos-account__order-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sos-account__order-actions .sos-account__btn { width: 100%; text-align: center; }
+
+  .sos-account__product-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .sos-account__support-grid { grid-template-columns: 1fr; }
+  .sos-account__support-link { border-bottom: 1px solid var(--sos-line); }
+
+  .sos-account__settings-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "label edit" "value edit";
+    row-gap: 4px;
+  }
+  .sos-account__settings-label { grid-area: label; }
+  .sos-account__settings-value { grid-area: value; }
+  .sos-account__settings-edit { grid-area: edit; align-self: center; }
+}

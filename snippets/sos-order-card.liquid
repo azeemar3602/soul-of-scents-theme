@@ -1,0 +1,56 @@
+{%- comment -%}
+  Renders one order card for the SoS account dashboard.
+  Inputs:
+    order   - a customer order drop (required)
+    compact - boolean (currently unused, reserved for future tighter variant)
+{%- endcomment -%}
+{%- liquid
+  assign visible_thumbs = 4
+  assign line_count = order.line_items.size
+  assign more_count = line_count | minus: visible_thumbs
+
+  assign status_label = order.fulfillment_status_label | default: 'Processing'
+  if status_label == 'Fulfilled'
+    assign status_label = 'Delivered!'
+  endif
+
+  # Shopify doesn't expose fulfilled_at on the order drop; fall back to created_at.
+  assign delivered_date = order.created_at
+
+  assign return_deadline = order.created_at | date: '%s' | plus: 1209600 | date: '%b %drd, %Y'
+-%}
+
+<div class="sos-account__order">
+  <div class="sos-account__order-status">
+    <p class="sos-account__status-label">{{ status_label }}</p>
+    <p class="sos-account__status-date">Delivered on {{ delivered_date | date: '%b %drd, %Y' }}</p>
+  </div>
+
+  <div class="sos-account__order-row">
+    <div class="sos-account__order-thumbs">
+      {%- for line in order.line_items limit: visible_thumbs -%}
+        {%- if line.image -%}
+          <img class="sos-account__order-thumb" src="{{ line.image | image_url: width: 160 }}" alt="{{ line.title | escape }}" loading="lazy" width="64" height="64">
+        {%- else -%}
+          <span class="sos-account__order-thumb" aria-hidden="true"></span>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if more_count > 0 -%}
+        <span class="sos-account__order-thumb sos-account__order-thumb--more">+{{ more_count }}</span>
+      {%- endif -%}
+    </div>
+    <div class="sos-account__order-actions">
+      {%- if order.order_status_url != blank -%}
+        <a class="sos-account__btn" href="{{ order.order_status_url }}">Track parcel</a>
+      {%- endif -%}
+      <a class="sos-account__btn sos-account__btn--ghost" href="{{ order.customer_url }}">View order</a>
+      <a class="sos-account__linkbtn" href="#buy-again" data-jump="buy-again">Buy again</a>
+    </div>
+  </div>
+
+  <div class="sos-account__order-meta">
+    <span><strong>Order No:</strong> {{ order.name }}</span>
+    <span><strong>Shipping Date:</strong> {{ order.created_at | date: '%d %b, %Y' }}</span>
+    <span><strong>Create Returns by:</strong> {{ return_deadline }}</span>
+  </div>
+</div>
