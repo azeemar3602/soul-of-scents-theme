@@ -130,7 +130,7 @@
     <nav class="breadcrumbs {{ width_breadcrumb }}" role="navigation" aria-label="breadcrumbs" >
       <ol class=" breadcrumbs__list d-flex">
         <li class="breadcrumbs__item ">
-          <a href="/" title="{{ 'general.breadcrumb.home' | t }}">{{ 'general.breadcrumb.home' | t }}</a>
+          <a href="{{ routes.collections_url }}" title="Shop">Shop</a>
           <span class="breadcrumb__divider" aria-hidden="true">/</span>
         </li>
         {%- if template contains 'collection' and collection.handle -%}
