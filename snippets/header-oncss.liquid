@@ -1939,5 +1939,26 @@
       margin-right: auto;
     }
   }
+
+  /* SoS Figma: the header card must render as a solid white rounded card.
+     The merchant's --header-background may resolve to a translucent value
+     (e.g. #ffffff80 from the customiser), which on pages where any
+     non-white content sits behind the centred header makes the card read
+     as grey. Force solid white on .site-header (and explicitly on the
+     .site-header--transparent variant used on the homepage) so the card
+     is fully opaque, while the margins from the centring rule above keep
+     the page / hero background visible only in the gutter around the
+     card -- never through it. Also drop the 1px hairline box-shadow so
+     no grey rim shows around the card on any breakpoint or sticky state. */
+  .site-header,
+  .site-header.site-header--transparent,
+  .template-index .site-header--transparent {
+    background-color: #ffffff !important;
+  }
+  .site-header,
+  .site-header--sticky,
+  .site-header--sticky.active {
+    box-shadow: none !important;
+  }
   </style>
   
