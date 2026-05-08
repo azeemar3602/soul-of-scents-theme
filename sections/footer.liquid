@@ -520,6 +520,65 @@
       display: none !important;
     }
   }
+
+  /* SoS Figma: enforce serif wordmark so the bottom-left "soul of scents"
+     reads as the Figma serif even if the merchant's --g-font-3 setting is
+     script or sans. Falls back to widely available system serifs. */
+  .site-footer__wordmark{
+    font-family: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif !important;
+    font-style: normal !important;
+  }
+
+  /* SoS Figma: footer Connect column should show only Instagram and TikTok.
+     Hide any other social <li> in the footer (Facebook, Twitter, Pinterest,
+     Tumblr, Snapchat, YouTube, Vimeo) without touching block-social.liquid
+     so the header / other surfaces still render their full social set. The
+     filter targets the platform name embedded in each <a title="..."> so it
+     keeps working when the merchant adds or removes social links in admin. */
+  .site-footer .social-icons li:has(a[title*="Facebook" i]),
+  .site-footer .social-icons li:has(a[title*="Twitter" i]),
+  .site-footer .social-icons li:has(a[title*="Pinterest" i]),
+  .site-footer .social-icons li:has(a[title*="Tumblr" i]),
+  .site-footer .social-icons li:has(a[title*="Snapchat" i]),
+  .site-footer .social-icons li:has(a[title*="YouTube" i]),
+  .site-footer .social-icons li:has(a[title*="Vimeo" i]){
+    display: none !important;
+  }
+  .site-footer .social-icons a[title*="Facebook" i],
+  .site-footer .social-icons a[title*="Twitter" i],
+  .site-footer .social-icons a[title*="Pinterest" i],
+  .site-footer .social-icons a[title*="Tumblr" i],
+  .site-footer .social-icons a[title*="Snapchat" i],
+  .site-footer .social-icons a[title*="YouTube" i],
+  .site-footer .social-icons a[title*="Vimeo" i]{
+    display: none !important;
+  }
+  .site-footer .social-icons{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+  }
+  .site-footer .social-icons li{ margin: 0 !important; padding: 0 !important; }
+  .site-footer .social-icons a{ margin: 0 !important; line-height: 1; display: inline-flex; align-items: center; }
+  .site-footer .social-icons .icon{ width: 20px; height: 20px; margin: 0 !important; }
+
+  /* SoS Figma: tighter newsletter intro paragraph. Smaller, less line-height,
+     matches the compact look in the Figma comp. */
+  .site-footer .site-footer__newsletter-label{
+    font-size: 13px;
+    line-height: 1.55;
+    max-width: 360px;
+    margin-bottom: 14px !important;
+    opacity: 0.85;
+  }
+
+  /* SoS Figma: payment icons row - centre, slightly smaller, matches the
+     Visa / PayPal / Amex / Mastercard / Klarna row in the Figma comp. */
+  .site-footer__bottom-row .site-footer__payment{ gap: 10px; }
+  .site-footer__bottom-row .site-footer__payment svg{ width: 32px; height: 22px; }
 </style>
 {%- liquid
   assign bg_image = section.settings.image_bg
