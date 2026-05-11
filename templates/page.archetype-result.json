@@ -1,9 +1,34 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "sos-archetype-result",
-      "settings": {}
+      "settings": {
+        "archetype_name": "",
+        "overline": "Your archetype",
+        "tagline": "",
+        "description": "",
+        "hero_align": "right",
+        "result_collection": "rh-the-seducer",
+        "products_heading": "Recommended for you",
+        "products_sub": "",
+        "product_limit": 6,
+        "cta_primary_text": "Repeat the quiz",
+        "quiz_url": "",
+        "cta_secondary_text": "View all archetypes",
+        "archetypes_url": ""
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
