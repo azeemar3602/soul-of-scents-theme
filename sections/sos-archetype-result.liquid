@@ -6,13 +6,37 @@
 {%- endcomment -%}
 
 {%- liquid
+  comment
+  Section settings live in templates/page.archetype-result.json so they are SHARED
+  across all 9 archetype pages. A merchant-picked collection in the section settings
+  would therefore force the same collection on every page — wrong for 8 of 9.
+  We resolve the collection per-page instead, in this order:
+    1. page.metafields.custom.rh_collection      (true per-page override)
+    2. Auto-resolve: collections['rh-' + page.handle]  (the-mineralist -> rh-the-mineralist)
+    3. section.settings.result_collection         (template-level fallback)
+  endcomment
+
   assign archetype_name = section.settings.archetype_name | default: page.title | replace: 'RH - ', '' | strip
-  assign tagline       = section.settings.tagline
+  assign tagline       = page.metafields.custom.archetype_tagline | default: section.settings.tagline
   assign overline      = section.settings.overline | default: 'Your archetype'
-  assign description   = section.settings.description
-  assign hero_image    = section.settings.hero_image
+  assign description   = page.metafields.custom.archetype_description | default: section.settings.description
+  assign hero_image    = page.metafields.custom.archetype_hero_image | default: section.settings.hero_image
   assign hero_align    = section.settings.hero_align | default: 'center'
-  assign source_col    = collections[section.settings.result_collection]
+
+  assign source_col = blank
+  if page.metafields.custom.rh_collection != blank
+    assign source_col = page.metafields.custom.rh_collection.value
+  elsif page.handle != blank
+    assign auto_handle = 'rh-' | append: page.handle
+    assign auto_col = collections[auto_handle]
+    if auto_col != blank and auto_col.id != blank
+      assign source_col = auto_col
+    endif
+  endif
+  if source_col == blank and section.settings.result_collection != blank
+    assign source_col = collections[section.settings.result_collection]
+  endif
+
   assign product_limit = section.settings.product_limit | default: 6
   assign products_heading = section.settings.products_heading | default: 'Recommended for you'
   assign quiz_url      = section.settings.quiz_url | default: '/pages/quiz'
@@ -109,9 +133,9 @@
       {%- else -%}
         <div class="sos-archetype__empty">
           {%- if source_col == blank -%}
-            Select a product source collection in the section settings to display recommended products.
+            Recommendations will appear here. Create a collection named "RH - {{ archetype_name }}" (handle: <code>rh-{{ page.handle }}</code>) to auto-bind, or pick one in the section settings.
           {%- else -%}
-            No products in the selected collection yet.
+            No products in the matching collection yet.
           {%- endif -%}
         </div>
       {%- endif -%}
@@ -185,8 +209,8 @@
     {
       "type": "collection",
       "id": "result_collection",
-      "label": "Product source (RH collection)",
-      "info": "Pick the backend RH collection for this archetype. Its title is never shown to customers."
+      "label": "Product source (RH collection) — optional",
+      "info": "Leave blank to auto-bind by page handle (the-mineralist -> rh-the-mineralist). Setting a collection here forces the SAME collection across ALL 9 archetype pages, which is usually wrong."
     },
     {
       "type": "text",
