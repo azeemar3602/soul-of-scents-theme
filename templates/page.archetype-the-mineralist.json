@@ -1,0 +1,71 @@
+{
+  "sections": {
+    "main": {
+      "type": "sos-archetype-result",
+      "blocks": {
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "overline": "Your archetype",
+            "italicize_name": true,
+            "subtitle": "The most-fitting result of your Signature Scent quiz. This is your olfactory fingerprint, your essence in scent form."
+          }
+        },
+        "row-1": {
+          "type": "image_row",
+          "settings": { "columns": "3" }
+        },
+        "text-1": {
+          "type": "text",
+          "settings": {
+            "style": "quote",
+            "align": "center",
+            "content": "<p>An italic quote about the archetype's character goes here. Edit in the customizer.</p>"
+          }
+        },
+        "row-2": {
+          "type": "image_row",
+          "settings": { "columns": "3" }
+        },
+        "text-2": {
+          "type": "text",
+          "settings": {
+            "style": "quote",
+            "align": "center",
+            "content": "<p>A second sensory paragraph or mood quote. Edit per archetype.</p>"
+          }
+        },
+        "row-3": {
+          "type": "image_row",
+          "settings": { "columns": "3" }
+        },
+        "read-more": {
+          "type": "read_more",
+          "settings": {
+            "label": "Read more",
+            "content": "<p>Longer descriptive copy about this archetype's personality, notes, and signature accords. Hidden by default; opens on click.</p>"
+          }
+        },
+        "products": {
+          "type": "products",
+          "settings": {
+            "title": "The Mineralist's | companions",
+            "subtitle": "Notes that mirror, every release, mood and signature.",
+            "product_limit": 6
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "title": "Share your scent archetype with your friends!",
+            "body": "Spread the discovery. Let your circle find their olfactory match too.",
+            "button_text": "Share now"
+          }
+        }
+      },
+      "block_order": ["hero", "row-1", "text-1", "row-2", "text-2", "row-3", "read-more", "products", "share"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
