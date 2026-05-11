@@ -174,8 +174,10 @@
                   {%- else -%}
                     {{ t_parts[0] | strip }}<em>{{ t_parts[1] | strip | prepend: ' ' }}</em>
                   {%- endif -%}
+                {%- elsif block.settings.title != blank -%}
+                  {{ block.settings.title }}
                 {%- else -%}
-                  {{ block.settings.title | default: archetype_name | append: "'s companions" }}
+                  The <em>{{ archetype_name }}'s</em> companions
                 {%- endif -%}
               </h2>
               {%- if block.settings.subtitle != blank -%}
