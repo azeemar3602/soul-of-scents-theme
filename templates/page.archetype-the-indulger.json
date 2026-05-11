@@ -16,11 +16,19 @@
           "type": "hero",
           "settings": {
             "overline": "Your archetype",
+            "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "Pleasure is the point. Your scent is honey and butter and slow Sundays — comfort dialled to its richest setting."
+            "subtitle": "Pleasure is the point. Your scent is honey and butter and slow Sundays — comfort dialled to its richest setting.",
+            "cta_text": "",
+            "cta_url": ""
           }
         },
-        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-1": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3"
+          }
+        },
         "text-1": {
           "type": "text",
           "settings": {
@@ -29,7 +37,15 @@
             "content": "<p>You don't ration. You don't apologise. The good thing is for taking, slowly, until the room is yours.</p>"
           }
         },
-        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-2": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "image_1": "shopify://shop_images/VaporMundum_Electri_grey_shadow.png",
+            "image_2": "shopify://shop_images/TDM_Eau_Coeur_grey.png",
+            "image_3": "shopify://shop_images/DTS_EAT_RICH_Fanette_Guilloud_Photos_ID13893.jpg"
+          }
+        },
         "text-2": {
           "type": "text",
           "settings": {
@@ -38,7 +54,12 @@
             "content": "<p>Hot chocolate, warm bread, the second helping. Fragrance as something you can almost taste.</p>"
           }
         },
-        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-3": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3"
+          }
+        },
         "read-more": {
           "type": "read_more",
           "settings": {
@@ -59,13 +80,26 @@
           "settings": {
             "title": "Share your scent archetype with your friends!",
             "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
-            "button_text": "Share now"
+            "button_text": "Share now",
+            "button_url": ""
           }
         }
       },
-      "block_order": ["hero", "row-1", "text-1", "row-2", "text-2", "row-3", "read-more", "products", "share"],
+      "block_order": [
+        "hero",
+        "row-1",
+        "text-1",
+        "row-2",
+        "text-2",
+        "row-3",
+        "read-more",
+        "products",
+        "share"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
