@@ -57,7 +57,10 @@
         "row-3": {
           "type": "image_row",
           "settings": {
-            "columns": "3"
+            "columns": "3",
+            "image_1": "shopify://shop_images/DTS_Chicago_Skyline_Patrick_Chin_Photos_ID2739.jpg",
+            "image_2": "shopify://shop_images/DTS_EAT_RICH_Fanette_Guilloud_Photos_ID13898.jpg",
+            "image_3": "shopify://shop_images/DTS_LAST_SUPPER_PALI_MENDEZ_Photos_ID13826.jpg"
           }
         },
         "read-more": {
