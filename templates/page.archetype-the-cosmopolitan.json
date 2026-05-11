@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -7,11 +16,22 @@
           "type": "hero",
           "settings": {
             "overline": "Your archetype",
+            "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "Modern, mobile, and unmistakably current. Your scent moves at the pace of the city — sharp, polished, never out of place."
+            "subtitle": "Modern, mobile, and unmistakably current. Your scent moves at the pace of the city — sharp, polished, never out of place.",
+            "cta_text": "",
+            "cta_url": ""
           }
         },
-        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-1": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "image_1": "shopify://shop_images/TDM_Fuego_Futuro_grey_Template.png",
+            "image_2": "shopify://shop_images/NV_Portrait_bw_square.png",
+            "image_3": "shopify://shop_images/VaporMundum_Deserta_grey_shadow.png"
+          }
+        },
         "text-1": {
           "type": "text",
           "settings": {
@@ -20,7 +40,12 @@
             "content": "<p>Skyline at dusk. Clean white shirts. The first sip of something cold and clear. You are already at the next thing.</p>"
           }
         },
-        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-2": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3"
+          }
+        },
         "text-2": {
           "type": "text",
           "settings": {
@@ -29,7 +54,12 @@
             "content": "<p>A signature that holds in a boardroom, a rooftop, a 6 a.m. flight. Built for now, designed to travel.</p>"
           }
         },
-        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-3": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3"
+          }
+        },
         "read-more": {
           "type": "read_more",
           "settings": {
@@ -50,13 +80,26 @@
           "settings": {
             "title": "Share your scent archetype with your friends!",
             "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
-            "button_text": "Share now"
+            "button_text": "Share now",
+            "button_url": ""
           }
         }
       },
-      "block_order": ["hero", "row-1", "text-1", "row-2", "text-2", "row-3", "read-more", "products", "share"],
+      "block_order": [
+        "hero",
+        "row-1",
+        "text-1",
+        "row-2",
+        "text-2",
+        "row-3",
+        "read-more",
+        "products",
+        "share"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
