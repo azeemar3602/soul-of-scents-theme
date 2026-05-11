@@ -8,49 +8,40 @@
           "settings": {
             "overline": "Your archetype",
             "italicize_name": true,
-            "subtitle": "The most-fitting result of your Signature Scent quiz. This is your olfactory fingerprint, your essence in scent form."
+            "subtitle": "Effortless on purpose. Your scent moves like a long pour — controlled, considered, never trying."
           }
         },
-        "row-1": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
         "text-1": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>An italic quote about the archetype's character goes here. Edit in the customizer.</p>"
+            "content": "<p>You don't rush. You let the moment land. The compliment, the deal, the goodbye — all delivered at the right tempo.</p>"
           }
         },
-        "row-2": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
         "text-2": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>A second sensory paragraph or mood quote. Edit per archetype.</p>"
+            "content": "<p>Linen, fresh shaves, the first warm note of woods at dusk. Fragrance with timing.</p>"
           }
         },
-        "row-3": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
         "read-more": {
           "type": "read_more",
           "settings": {
             "label": "Read more",
-            "content": "<p>Longer descriptive copy about this archetype's personality, notes, and signature accords. Hidden by default; opens on click.</p>"
+            "content": "<p>The Smooth-Operator sits in the sweet spot between fresh and warm — neroli, blonde woods, cardamom, ambrette, soft musks. Compositions that flow rather than announce. Charisma rendered as scent.</p>"
           }
         },
         "products": {
           "type": "products",
           "settings": {
-            "title": "The Smooth-Operator's | companions",
-            "subtitle": "Notes that mirror, every release, mood and signature.",
+            "title": "The | Smooth-Operator's | companions",
+            "subtitle": "Notes that move with grace — fluid, calm, sure.",
             "product_limit": 6
           }
         },
@@ -58,7 +49,7 @@
           "type": "share",
           "settings": {
             "title": "Share your scent archetype with your friends!",
-            "body": "Spread the discovery. Let your circle find their olfactory match too.",
+            "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
             "button_text": "Share now"
           }
         }

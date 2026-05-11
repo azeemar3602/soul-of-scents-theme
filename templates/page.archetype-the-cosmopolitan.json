@@ -8,49 +8,40 @@
           "settings": {
             "overline": "Your archetype",
             "italicize_name": true,
-            "subtitle": "The most-fitting result of your Signature Scent quiz. This is your olfactory fingerprint, your essence in scent form."
+            "subtitle": "Modern, mobile, and unmistakably current. Your scent moves at the pace of the city — sharp, polished, never out of place."
           }
         },
-        "row-1": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
         "text-1": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>An italic quote about the archetype's character goes here. Edit in the customizer.</p>"
+            "content": "<p>Skyline at dusk. Clean white shirts. The first sip of something cold and clear. You are already at the next thing.</p>"
           }
         },
-        "row-2": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
         "text-2": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>A second sensory paragraph or mood quote. Edit per archetype.</p>"
+            "content": "<p>A signature that holds in a boardroom, a rooftop, a 6 a.m. flight. Built for now, designed to travel.</p>"
           }
         },
-        "row-3": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
         "read-more": {
           "type": "read_more",
           "settings": {
             "label": "Read more",
-            "content": "<p>Longer descriptive copy about this archetype's personality, notes, and signature accords. Hidden by default; opens on click.</p>"
+            "content": "<p>The Cosmopolitan favours fragrance with edges: citrus that cuts clean, white florals tightened with metallic notes, a base that feels architectural rather than warm. Modern, mineral, decisive. The kind of scent that doesn't ask for permission — it assumes the room.</p>"
           }
         },
         "products": {
           "type": "products",
           "settings": {
-            "title": "The Cosmopolitan's | companions",
-            "subtitle": "Notes that mirror, every release, mood and signature.",
+            "title": "The | Cosmopolitan's | companions",
+            "subtitle": "Notes that move with you — clean, sharp, current.",
             "product_limit": 6
           }
         },
@@ -58,7 +49,7 @@
           "type": "share",
           "settings": {
             "title": "Share your scent archetype with your friends!",
-            "body": "Spread the discovery. Let your circle find their olfactory match too.",
+            "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
             "button_text": "Share now"
           }
         }

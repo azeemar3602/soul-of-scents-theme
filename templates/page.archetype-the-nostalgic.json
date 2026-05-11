@@ -8,49 +8,40 @@
           "settings": {
             "overline": "Your archetype",
             "italicize_name": true,
-            "subtitle": "The most-fitting result of your Signature Scent quiz. This is your olfactory fingerprint, your essence in scent form."
+            "subtitle": "Memory in a bottle. Your scent is the long hallway, the box of letters, the song you can't place but won't forget."
           }
         },
-        "row-1": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
         "text-1": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>An italic quote about the archetype's character goes here. Edit in the customizer.</p>"
+            "content": "<p>You are made of returning. The summers, the rooms, the people — they live on under your skin, in your wrists, behind your ear.</p>"
           }
         },
-        "row-2": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
         "text-2": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>A second sensory paragraph or mood quote. Edit per archetype.</p>"
+            "content": "<p>Old paper, dried flowers, the smell of rain on a coat that isn't yours anymore. Fragrance as time travel.</p>"
           }
         },
-        "row-3": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
         "read-more": {
           "type": "read_more",
           "settings": {
             "label": "Read more",
-            "content": "<p>Longer descriptive copy about this archetype's personality, notes, and signature accords. Hidden by default; opens on click.</p>"
+            "content": "<p>The Nostalgic chooses fragrance that layers history — iris, violet, tobacco, sandalwood worn smooth, dried fruit, old roses. Compositions that feel inherited rather than purchased. A signature with a past.</p>"
           }
         },
         "products": {
           "type": "products",
           "settings": {
-            "title": "The Nostalgic's | companions",
-            "subtitle": "Notes that mirror, every release, mood and signature.",
+            "title": "The | Nostalgic's | companions",
+            "subtitle": "Notes that hold a memory and release it slowly.",
             "product_limit": 6
           }
         },
@@ -58,7 +49,7 @@
           "type": "share",
           "settings": {
             "title": "Share your scent archetype with your friends!",
-            "body": "Spread the discovery. Let your circle find their olfactory match too.",
+            "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
             "button_text": "Share now"
           }
         }

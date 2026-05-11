@@ -8,49 +8,40 @@
           "settings": {
             "overline": "Your archetype",
             "italicize_name": true,
-            "subtitle": "The most-fitting result of your Signature Scent quiz. This is your olfactory fingerprint, your essence in scent form."
+            "subtitle": "Pleasure is the point. Your scent is honey and butter and slow Sundays — comfort dialled to its richest setting."
           }
         },
-        "row-1": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
         "text-1": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>An italic quote about the archetype's character goes here. Edit in the customizer.</p>"
+            "content": "<p>You don't ration. You don't apologise. The good thing is for taking, slowly, until the room is yours.</p>"
           }
         },
-        "row-2": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
         "text-2": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>A second sensory paragraph or mood quote. Edit per archetype.</p>"
+            "content": "<p>Hot chocolate, warm bread, the second helping. Fragrance as something you can almost taste.</p>"
           }
         },
-        "row-3": {
-          "type": "image_row",
-          "settings": { "columns": "3" }
-        },
+        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
         "read-more": {
           "type": "read_more",
           "settings": {
             "label": "Read more",
-            "content": "<p>Longer descriptive copy about this archetype's personality, notes, and signature accords. Hidden by default; opens on click.</p>"
+            "content": "<p>The Indulger lives in gourmand territory — vanilla, tonka, praline, caramelised woods, honey, fig. Fragrances that wrap rather than project, that invite leaning in. Decadence without irony. The closest a scent can come to a kept secret.</p>"
           }
         },
         "products": {
           "type": "products",
           "settings": {
-            "title": "The Indulger's | companions",
-            "subtitle": "Notes that mirror, every release, mood and signature.",
+            "title": "The | Indulger's | companions",
+            "subtitle": "Notes that wrap, comfort, and stay.",
             "product_limit": 6
           }
         },
@@ -58,7 +49,7 @@
           "type": "share",
           "settings": {
             "title": "Share your scent archetype with your friends!",
-            "body": "Spread the discovery. Let your circle find their olfactory match too.",
+            "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
             "button_text": "Share now"
           }
         }

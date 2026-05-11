@@ -169,7 +169,11 @@
               <h2 class="sos-arch-products__title">
                 {%- if block.settings.title contains '|' -%}
                   {%- assign t_parts = block.settings.title | split: '|' -%}
-                  {{ t_parts[0] | strip }}<em>{{ t_parts[1] | strip | prepend: ' ' }}</em>
+                  {%- if t_parts.size == 3 -%}
+                    {{ t_parts[0] | strip }} <em>{{ t_parts[1] | strip }}</em> {{ t_parts[2] | strip }}
+                  {%- else -%}
+                    {{ t_parts[0] | strip }}<em>{{ t_parts[1] | strip | prepend: ' ' }}</em>
+                  {%- endif -%}
                 {%- else -%}
                   {{ block.settings.title | default: archetype_name | append: "'s companions" }}
                 {%- endif -%}
