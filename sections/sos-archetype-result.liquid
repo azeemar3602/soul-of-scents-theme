@@ -113,11 +113,25 @@
       {%- case block.type -%}
 
         {%- when 'hero' -%}
-          <div class="sos-arch-hero" {{ block.shopify_attributes }}>
+          {%- capture hero_style -%}
+            {%- if block.settings.max_width != blank -%}max-width:{{ block.settings.max_width }}px;margin-left:auto;margin-right:auto;{%- endif -%}
+            {%- if block.settings.background_color != blank -%}background-color:{{ block.settings.background_color }};{%- endif -%}
+            {%- if block.settings.padding_top != blank -%}padding-top:{{ block.settings.padding_top }}px;{%- endif -%}
+            {%- if block.settings.padding_bottom != blank -%}padding-bottom:{{ block.settings.padding_bottom }}px;{%- endif -%}
+          {%- endcapture -%}
+          {%- capture title_style -%}
+            {%- if block.settings.title_size != blank -%}font-size:{{ block.settings.title_size }}px;{%- endif -%}
+            {%- if block.settings.title_color != blank -%}color:{{ block.settings.title_color }};{%- endif -%}
+          {%- endcapture -%}
+          {%- capture subtitle_style -%}
+            {%- if block.settings.subtitle_size != blank -%}font-size:{{ block.settings.subtitle_size }}px;{%- endif -%}
+            {%- if block.settings.subtitle_color != blank -%}color:{{ block.settings.subtitle_color }};{%- endif -%}
+          {%- endcapture -%}
+          <div class="sos-arch-hero" style="{{ hero_style | strip }}" {{ block.shopify_attributes }}>
             {%- if block.settings.overline != blank -%}
               <p class="sos-arch-hero__overline">{{ block.settings.overline }}</p>
             {%- endif -%}
-            <h1 class="sos-arch-hero__title">
+            <h1 class="sos-arch-hero__title" style="{{ title_style | strip }}">
               {%- if block.settings.italicize_name -%}
                 <em>{{ block.settings.archetype_name | default: archetype_name }}</em>
               {%- else -%}
@@ -125,7 +139,7 @@
               {%- endif -%}
             </h1>
             {%- if block.settings.subtitle != blank -%}
-              <p class="sos-arch-hero__subtitle">{{ block.settings.subtitle }}</p>
+              <p class="sos-arch-hero__subtitle" style="{{ subtitle_style | strip }}">{{ block.settings.subtitle }}</p>
             {%- endif -%}
             {%- if block.settings.cta_text != blank and block.settings.cta_url != blank -%}
               <a href="{{ block.settings.cta_url }}" class="sos-arch-hero__cta">{{ block.settings.cta_text }}</a>
@@ -155,14 +169,26 @@
           </div>
 
         {%- when 'text' -%}
+          {%- capture text_wrap_style -%}
+            {%- if block.settings.max_width != blank -%}max-width:{{ block.settings.max_width }}px;{%- endif -%}
+            {%- if block.settings.background_color != blank -%}background-color:{{ block.settings.background_color }};{%- endif -%}
+            {%- if block.settings.padding_top != blank -%}padding-top:{{ block.settings.padding_top }}px;{%- endif -%}
+            {%- if block.settings.padding_bottom != blank -%}padding-bottom:{{ block.settings.padding_bottom }}px;{%- endif -%}
+          {%- endcapture -%}
+          {%- capture text_style -%}
+            {%- if block.settings.font_size != blank -%}font-size:{{ block.settings.font_size }}px;{%- endif -%}
+            {%- if block.settings.line_height != blank -%}line-height:{{ block.settings.line_height }};{%- endif -%}
+            {%- if block.settings.color != blank -%}color:{{ block.settings.color }};{%- endif -%}
+            {%- if block.settings.font_weight != blank -%}font-weight:{{ block.settings.font_weight }};{%- endif -%}
+          {%- endcapture -%}
           <div class="sos-arch__block" {{ block.shopify_attributes }}>
-            <div class="sos-arch-text sos-arch-text--{{ block.settings.align | default: 'center' }}">
+            <div class="sos-arch-text sos-arch-text--{{ block.settings.align | default: 'center' }}" style="{{ text_wrap_style | strip }}">
               {%- if block.settings.style == 'quote' -%}
                 {%- comment -%} Strip the rich-text wrapper <p> so the quote class applies cleanly. {%- endcomment -%}
                 {%- assign quote_text = block.settings.content | replace: '<p>', '' | replace: '</p>', '' -%}
-                <p class="sos-arch-text__quote">{{ quote_text }}</p>
+                <p class="sos-arch-text__quote" style="{{ text_style | strip }}">{{ quote_text }}</p>
               {%- else -%}
-                <div class="sos-arch-text__body rte">{{ block.settings.content }}</div>
+                <div class="sos-arch-text__body rte" style="{{ text_style | strip }}">{{ block.settings.content }}</div>
               {%- endif -%}
             </div>
           </div>
@@ -250,7 +276,16 @@
         { "type": "checkbox", "id": "italicize_name", "label": "Italicize the name", "default": true },
         { "type": "text", "id": "subtitle", "label": "Subtitle" },
         { "type": "text", "id": "cta_text", "label": "Optional button text" },
-        { "type": "url", "id": "cta_url", "label": "Optional button URL" }
+        { "type": "url", "id": "cta_url", "label": "Optional button URL" },
+        { "type": "header", "content": "Hero styling" },
+        { "type": "range", "id": "title_size", "label": "Title font size", "min": 32, "max": 140, "step": 2, "unit": "px", "default": 72 },
+        { "type": "color", "id": "title_color", "label": "Title color" },
+        { "type": "range", "id": "subtitle_size", "label": "Subtitle font size", "min": 12, "max": 32, "step": 1, "unit": "px", "default": 16 },
+        { "type": "color", "id": "subtitle_color", "label": "Subtitle color" },
+        { "type": "range", "id": "max_width", "label": "Hero max width", "min": 480, "max": 1400, "step": 20, "unit": "px", "default": 880 },
+        { "type": "color", "id": "background_color", "label": "Background color" },
+        { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 80 },
+        { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 56 }
       ]
     },
     {
@@ -310,7 +345,30 @@
           ],
           "default": "center"
         },
-        { "type": "richtext", "id": "content", "label": "Content" }
+        { "type": "richtext", "id": "content", "label": "Content" },
+        { "type": "header", "content": "Typography" },
+        { "type": "range", "id": "font_size", "label": "Font size", "min": 12, "max": 48, "step": 1, "unit": "px", "default": 18 },
+        { "type": "range", "id": "line_height", "label": "Line height", "min": 1, "max": 2.5, "step": 0.05, "default": 1.55 },
+        { "type": "color", "id": "color", "label": "Text color" },
+        {
+          "type": "select",
+          "id": "font_weight",
+          "label": "Font weight",
+          "options": [
+            { "value": "",     "label": "Default" },
+            { "value": "300",  "label": "Light (300)" },
+            { "value": "400",  "label": "Regular (400)" },
+            { "value": "500",  "label": "Medium (500)" },
+            { "value": "600",  "label": "Semibold (600)" },
+            { "value": "700",  "label": "Bold (700)" }
+          ],
+          "default": ""
+        },
+        { "type": "header", "content": "Layout" },
+        { "type": "range", "id": "max_width", "label": "Max width", "min": 320, "max": 1200, "step": 20, "unit": "px", "default": 760 },
+        { "type": "color", "id": "background_color", "label": "Background color" },
+        { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+        { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 }
       ]
     },
     {
