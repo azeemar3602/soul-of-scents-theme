@@ -16,11 +16,23 @@
           "type": "hero",
           "settings": {
             "overline": "Your archetype",
+            "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "Magnetic by intention. Your scent enters the room a heartbeat before you do — and stays in the conversation long after."
+            "subtitle": "Magnetic by intention. Your scent enters the room a heartbeat before you do — and stays in the conversation long after.",
+            "cta_text": "",
+            "cta_url": ""
           }
         },
-        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-1": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_lemon_closeup.png",
+            "image_2": "shopify://shop_images/sos_orangeblossom.jpg",
+            "image_3": "shopify://shop_images/sos_jasmine.heic"
+          }
+        },
         "text-1": {
           "type": "text",
           "settings": {
@@ -29,7 +41,16 @@
             "content": "<p>You do not chase. You are the centre of gravity in a room that didn't know it was looking.</p>"
           }
         },
-        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-2": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_Tradition_Chris_Abatzis_Photos_ID9161.jpg",
+            "image_2": "shopify://shop_images/DTS_Taste_DTS_Studio_Photos_ID4644.jpg",
+            "image_3": "shopify://shop_images/DTS_Tone_Chris_Abatzis_Photos_ID5691.jpg"
+          }
+        },
         "text-2": {
           "type": "text",
           "settings": {
@@ -38,7 +59,16 @@
             "content": "<p>Velvet, low light, the slow draw of a line. You are felt in the space between glances.</p>"
           }
         },
-        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-3": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_Warp_Nick_Fancher_Photos_ID4239.jpg",
+            "image_2": "shopify://shop_images/DTS_The_Internet_Fanette_Guilloud_Photos_ID5236.jpg",
+            "image_3": "shopify://shop_images/DTS_TREASURE_Daniel_Faro_Photos_ID8399.jpg"
+          }
+        },
         "read-more": {
           "type": "read_more",
           "settings": {
@@ -56,16 +86,76 @@
         },
         "share": {
           "type": "share",
+          "disabled": true,
           "settings": {
             "title": "Share your scent archetype with your friends!",
             "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
-            "button_text": "Share now"
+            "button_text": "Share now",
+            "button_url": ""
           }
         }
       },
-      "block_order": ["hero", "row-1", "text-1", "row-2", "text-2", "row-3", "read-more", "products", "share"],
+      "block_order": [
+        "hero",
+        "row-1",
+        "text-1",
+        "row-2",
+        "text-2",
+        "row-3",
+        "read-more",
+        "products",
+        "share"
+      ],
       "settings": {}
+    },
+    "hero_banner_bJmVCL": {
+      "type": "hero-banner",
+      "name": "Hero Banner",
+      "settings": {
+        "background_type": "image",
+        "image": "shopify://shop_images/DTS_Staycation_Mathew_Addington_Photos_ID3358.jpg",
+        "overlay_opacity": 30,
+        "section_width": "full",
+        "custom_width": 1200,
+        "custom_width_unit": "px",
+        "section_height": "large",
+        "card_position": "left",
+        "subheading": "See who matches your vibe",
+        "desktop_subheading_size": 16,
+        "mobile_subheading_size": 13,
+        "subheading_letter_spacing": 0,
+        "heading": "<p>Share your scent archetypewith your friends!</p>",
+        "heading_tag": "h2",
+        "desktop_heading_size": 48,
+        "mobile_heading_size": 28,
+        "description": "",
+        "button_count": "one",
+        "button_label_1": "Take the archetype quiz",
+        "button_link_1": "",
+        "button_new_tab_1": false,
+        "button_bg_color_1": "#ffffff",
+        "button_text_color_1": "#1a1a1a",
+        "button_border_color_1": "#ffffff",
+        "button_hover_bg_color_1": "#f0f0f0",
+        "button_hover_text_color_1": "#1a1a1a",
+        "button_hover_border_color_1": "#f0f0f0",
+        "button_border_radius": 50,
+        "button_font_size": 15,
+        "button_font_weight": "500",
+        "button_label_2": "Shop all",
+        "button_link_2": "",
+        "button_new_tab_2": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 40,
+        "padding_right": 40,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "hero_banner_bJmVCL"
+  ]
 }
