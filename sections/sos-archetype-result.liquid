@@ -146,7 +146,9 @@
           <div class="sos-arch__block" {{ block.shopify_attributes }}>
             <div class="sos-arch-text sos-arch-text--{{ block.settings.align | default: 'center' }}">
               {%- if block.settings.style == 'quote' -%}
-                <p class="sos-arch-text__quote">{{ block.settings.content }}</p>
+                {%- comment -%} Strip the rich-text wrapper <p> so the quote class applies cleanly. {%- endcomment -%}
+                {%- assign quote_text = block.settings.content | replace: '<p>', '' | replace: '</p>', '' -%}
+                <p class="sos-arch-text__quote">{{ quote_text }}</p>
               {%- else -%}
                 <div class="sos-arch-text__body rte">{{ block.settings.content }}</div>
               {%- endif -%}
