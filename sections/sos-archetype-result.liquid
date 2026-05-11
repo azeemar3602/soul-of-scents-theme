@@ -127,7 +127,8 @@
           </div>
 
         {%- when 'image_row' -%}
-          {%- assign cols = block.settings.columns | default: 3 -%}
+          {%- comment -%} columns is a string ("1"/"2"/"3"); cast to int for comparison {%- endcomment -%}
+          {%- assign cols = block.settings.columns | default: '3' | plus: 0 -%}
           <div class="sos-arch__block" {{ block.shopify_attributes }}>
             <div class="sos-arch-row sos-arch-row--{{ cols }}">
               {%- if block.settings.image_1 != blank -%}
