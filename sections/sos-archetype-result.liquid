@@ -1,0 +1,244 @@
+{%- comment -%}
+  SOS Archetype Result Section
+  Used by templates/page.archetype-result.json
+  One section instance per page (the-mineralist, the-seducer, etc.)
+  Pulls products from the matching backend RH collection but never shows the "RH -" prefix.
+{%- endcomment -%}
+
+{%- liquid
+  assign archetype_name = section.settings.archetype_name | default: page.title | replace: 'RH - ', '' | strip
+  assign tagline       = section.settings.tagline
+  assign overline      = section.settings.overline | default: 'Your archetype'
+  assign description   = section.settings.description
+  assign hero_image    = section.settings.hero_image
+  assign hero_align    = section.settings.hero_align | default: 'center'
+  assign source_col    = collections[section.settings.result_collection]
+  assign product_limit = section.settings.product_limit | default: 6
+  assign products_heading = section.settings.products_heading | default: 'Recommended for you'
+  assign quiz_url      = section.settings.quiz_url | default: '/pages/quiz'
+  assign archetypes_url= section.settings.archetypes_url | default: '/pages/archetypes'
+  assign cta_primary_text   = section.settings.cta_primary_text   | default: 'Repeat the quiz'
+  assign cta_secondary_text = section.settings.cta_secondary_text | default: 'View all archetypes'
+-%}
+
+<style>
+  .sos-archetype{ --sos-archetype-fg:#030303; --sos-archetype-bg:#fbf9f6; --sos-archetype-card:#ffffff; --sos-archetype-muted:#6b6258; --sos-archetype-line:#ece8e3; }
+  .sos-archetype{ background:var(--sos-archetype-bg); color:var(--sos-archetype-fg); padding:64px 0 96px; }
+  .sos-archetype__inner{ max-width:1240px; margin:0 auto; padding:0 24px; }
+  .sos-archetype__hero{ display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center; }
+  .sos-archetype__hero--text-only{ grid-template-columns:1fr; max-width:760px; margin:0 auto; text-align:center; }
+  .sos-archetype__hero--{{ hero_align }}{ {% if hero_align == 'right' %}direction:rtl;{% endif %} }
+  .sos-archetype__hero--{{ hero_align }} > *{ direction:ltr; }
+  .sos-archetype__overline{ font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--sos-archetype-muted); margin:0 0 14px; }
+  .sos-archetype__title{ font-family:var(--g-font-2, 'EB Garamond', Georgia, serif); font-weight:400; font-size:clamp(40px, 6vw, 72px); line-height:1.05; letter-spacing:-.01em; margin:0 0 20px; }
+  .sos-archetype__tagline{ font-style:italic; font-size:18px; color:var(--sos-archetype-muted); margin:0 0 24px; }
+  .sos-archetype__description{ font-size:16px; line-height:1.7; color:var(--sos-archetype-fg); }
+  .sos-archetype__description p{ margin:0 0 1em; }
+  .sos-archetype__media{ position:relative; aspect-ratio:4/5; border-radius:12px; overflow:hidden; background:var(--sos-archetype-line); }
+  .sos-archetype__media img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .sos-archetype__products{ margin-top:80px; }
+  .sos-archetype__products-head{ display:flex; justify-content:space-between; align-items:baseline; margin:0 0 28px; gap:24px; flex-wrap:wrap; }
+  .sos-archetype__products-title{ font-family:var(--g-font-2, 'EB Garamond', Georgia, serif); font-weight:400; font-size:32px; margin:0; }
+  .sos-archetype__products-sub{ font-size:14px; color:var(--sos-archetype-muted); margin:0; }
+  .sos-archetype__product-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:24px; }
+  .sos-archetype__product-grid > *{ background:var(--sos-archetype-card); border:1px solid var(--sos-archetype-line); border-radius:8px; padding:16px; }
+  .sos-archetype__ctas{ margin-top:64px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .sos-archetype__btn{ display:inline-flex; align-items:center; justify-content:center; height:48px; padding:0 28px; border-radius:4px; font-size:14px; letter-spacing:.04em; text-transform:uppercase; text-decoration:none; transition:opacity .2s ease; }
+  .sos-archetype__btn--primary{ background:var(--sos-archetype-fg); color:#fff; }
+  .sos-archetype__btn--secondary{ background:transparent; color:var(--sos-archetype-fg); border:1px solid var(--sos-archetype-fg); }
+  .sos-archetype__btn:hover{ opacity:.85; }
+  .sos-archetype__empty{ padding:48px; text-align:center; color:var(--sos-archetype-muted); border:1px dashed var(--sos-archetype-line); border-radius:8px; }
+  @media (max-width: 990px){
+    .sos-archetype{ padding:48px 0 72px; }
+    .sos-archetype__hero{ grid-template-columns:1fr; gap:32px; text-align:center; }
+    .sos-archetype__product-grid{ grid-template-columns:repeat(2, 1fr); gap:16px; }
+    .sos-archetype__products{ margin-top:56px; }
+  }
+  @media (max-width: 600px){
+    .sos-archetype__title{ font-size:clamp(36px, 9vw, 48px); }
+    .sos-archetype__product-grid{ grid-template-columns:1fr 1fr; gap:12px; }
+    .sos-archetype__ctas{ flex-direction:column; align-items:stretch; }
+  }
+</style>
+
+<section class="sos-archetype" data-section-id="{{ section.id }}" data-archetype="{{ archetype_name | handleize }}">
+  <div class="sos-archetype__inner">
+
+    <div class="sos-archetype__hero {% if hero_image == blank %}sos-archetype__hero--text-only{% endif %} sos-archetype__hero--{{ hero_align }}">
+      <div class="sos-archetype__hero-text">
+        {%- if overline != blank -%}
+          <p class="sos-archetype__overline">{{ overline }}</p>
+        {%- endif -%}
+        <h1 class="sos-archetype__title">{{ archetype_name }}</h1>
+        {%- if tagline != blank -%}
+          <p class="sos-archetype__tagline">{{ tagline }}</p>
+        {%- endif -%}
+        {%- if description != blank -%}
+          <div class="sos-archetype__description rte">{{ description }}</div>
+        {%- endif -%}
+      </div>
+      {%- if hero_image != blank -%}
+        <div class="sos-archetype__media">
+          <img
+            src="{{ hero_image | image_url: width: 1200 }}"
+            srcset="{{ hero_image | image_url: width: 600 }} 600w, {{ hero_image | image_url: width: 900 }} 900w, {{ hero_image | image_url: width: 1200 }} 1200w"
+            sizes="(min-width: 990px) 580px, 100vw"
+            alt="{{ hero_image.alt | default: archetype_name | escape }}"
+            loading="eager"
+            width="{{ hero_image.width }}"
+            height="{{ hero_image.height }}"
+          >
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="sos-archetype__products">
+      <div class="sos-archetype__products-head">
+        <h2 class="sos-archetype__products-title">{{ products_heading }}</h2>
+        {%- if section.settings.products_sub != blank -%}
+          <p class="sos-archetype__products-sub">{{ section.settings.products_sub }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if source_col != blank and source_col.products.size > 0 -%}
+        <div class="sos-archetype__product-grid">
+          {%- for product in source_col.products limit: product_limit -%}
+            {%- render 'product-card', product: product, collection: source_col -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div class="sos-archetype__empty">
+          {%- if source_col == blank -%}
+            Select a product source collection in the section settings to display recommended products.
+          {%- else -%}
+            No products in the selected collection yet.
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="sos-archetype__ctas">
+      <a href="{{ quiz_url }}" class="sos-archetype__btn sos-archetype__btn--primary">{{ cta_primary_text }}</a>
+      <a href="{{ archetypes_url }}" class="sos-archetype__btn sos-archetype__btn--secondary">{{ cta_secondary_text }}</a>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Archetype Result",
+  "tag": "section",
+  "class": "section-sos-archetype",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Archetype identity"
+    },
+    {
+      "type": "text",
+      "id": "archetype_name",
+      "label": "Archetype name",
+      "info": "Customer-facing name, e.g. 'The Mineralist'. Leave blank to use the page title. Any 'RH - ' prefix is stripped automatically."
+    },
+    {
+      "type": "text",
+      "id": "overline",
+      "label": "Overline",
+      "default": "Your archetype"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "info": "Short italic line under the name."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Hero image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "select",
+      "id": "hero_align",
+      "label": "Image position",
+      "options": [
+        { "value": "left",  "label": "Image left, text right" },
+        { "value": "right", "label": "Image right, text left" },
+        { "value": "center","label": "Centered (no image)" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Product recommendations"
+    },
+    {
+      "type": "collection",
+      "id": "result_collection",
+      "label": "Product source (RH collection)",
+      "info": "Pick the backend RH collection for this archetype. Its title is never shown to customers."
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "Section heading",
+      "default": "Recommended for you"
+    },
+    {
+      "type": "text",
+      "id": "products_sub",
+      "label": "Section subheading"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Number of products",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Calls to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_text",
+      "label": "Primary button text",
+      "default": "Repeat the quiz"
+    },
+    {
+      "type": "url",
+      "id": "quiz_url",
+      "label": "Primary button URL"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_text",
+      "label": "Secondary button text",
+      "default": "View all archetypes"
+    },
+    {
+      "type": "url",
+      "id": "archetypes_url",
+      "label": "Secondary button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Archetype Result"
+    }
+  ]
+}
+{% endschema %}
