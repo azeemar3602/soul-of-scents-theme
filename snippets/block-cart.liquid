@@ -297,3 +297,74 @@
     </div>
   </span>
 {%- endif -%}
+
+{%- comment -%} SoS — kill the brief "empty cart" flash when adding an item to cart. {%- endcomment -%}
+<script>
+(function(){
+  if (window.__sosCartFlashFixInit) return;
+  window.__sosCartFlashFixInit = true;
+
+  function getDrawer(){
+    return document.querySelector('.cardraw')
+        || document.querySelector('#cartDrawer')
+        || document.querySelector('.js-mini-cart');
+  }
+  function setLoading(on){
+    var d = getDrawer();
+    if (!d) return;
+    d.setAttribute('data-sos-cart-state', on ? 'loading' : 'ready');
+  }
+
+  // (1) Intercept native form submits to /cart/add*
+  document.addEventListener('submit', function(e){
+    var form = e.target;
+    if (!form || !form.action) return;
+    if (form.action.indexOf('/cart/add') === -1) return;
+    setLoading(true);
+    setTimeout(function(){ setLoading(false); }, 6000); // hard safety reset
+  }, true);
+
+  // (2) Patch fetch() so ajax-based add-to-cart (Liquid AJAX, custom JS, etc.)
+  //     also flips the drawer into loading state.
+  if (window.fetch) {
+    var origFetch = window.fetch;
+    window.fetch = function(input, init){
+      try {
+        var url = (typeof input === 'string') ? input : (input && input.url) || '';
+        var method = ((init && init.method) || (input && input.method) || 'GET').toUpperCase();
+        if (method === 'POST' && url.indexOf('/cart/add') !== -1) {
+          setLoading(true);
+          setTimeout(function(){ setLoading(false); }, 6000);
+        }
+      } catch(_){}
+      return origFetch.apply(this, arguments);
+    };
+  }
+
+  // (3) Patch jQuery.ajax (theme.js uses it for /cart/add.js) so we catch the
+  //     legacy AJAX path too.
+  if (window.jQuery && window.jQuery.ajaxPrefilter) {
+    window.jQuery.ajaxPrefilter(function(opts){
+      if (opts && opts.url && String(opts.url).indexOf('/cart/add') !== -1) {
+        setLoading(true);
+        setTimeout(function(){ setLoading(false); }, 6000);
+      }
+    });
+  }
+
+  // (4) Observe the cart content for the first real .mini-cart-item to land,
+  //     then drop the loading state immediately (snappy reveal).
+  function attach(){
+    var d = getDrawer();
+    if (!d) { setTimeout(attach, 200); return; }
+    var content = d.querySelector('.js-mini-cart-content') || d.querySelector('.mini-cart-content');
+    if (!content) { setTimeout(attach, 200); return; }
+    var mo = new MutationObserver(function(){
+      if (content.querySelector('.mini-cart-item')) setLoading(false);
+    });
+    mo.observe(content, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', attach);
+  else attach();
+})();
+</script>

@@ -675,10 +675,7 @@ background-color: white;
 .cardraw .mini-cart-empty{
   overflow: hidden !important;
 }
-/* Center the empty state vertically + tidy spacing.
-   Fade in with a small delay so the empty state never flashes during
-   the brief loading window when the user adds an item to the cart and
-   the drawer is still showing the previous (empty) state.            */
+/* Center the empty state vertically + tidy spacing. */
 .cardraw .mini-cart-empty{
   display: flex !important;
   flex-direction: column;
@@ -688,12 +685,34 @@ background-color: white;
   padding: 40px 24px;
   text-align: center;
   border: 0 !important;
-  opacity: 0;
-  animation: sosCartEmptyIn 0.25s ease-out 0.35s forwards;
 }
-@keyframes sosCartEmptyIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+/* While an add-to-cart is in flight, hide the (stale) empty state and
+   show a spinner instead so the user never sees the flash. JS sets
+   data-sos-cart-state=loading on the drawer (snippets/block-cart.liquid)
+   and clears it once a real cart item appears via MutationObserver.    */
+.cardraw[data-sos-cart-state="loading"] .mini-cart-empty{
+  display: none !important;
+}
+.cardraw[data-sos-cart-state="loading"] .js-mini-cart-content{
+  position: relative;
+  min-height: 200px;
+}
+.cardraw[data-sos-cart-state="loading"] .js-mini-cart-content::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.12);
+  border-top-color: #030303;
+  animation: sosCartSpin 0.7s linear infinite;
+  z-index: 2;
+}
+@keyframes sosCartSpin {
+  to { transform: rotate(360deg); }
 }
 .cardraw .mini-cart-empty .iconcart-empty{
   width: 96px !important;
