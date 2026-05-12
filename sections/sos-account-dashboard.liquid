@@ -329,22 +329,116 @@
   });
 })();
 (function(){
+  // Hydrate the Favorites tab from the theme's existing wishlist storage.
+  // theme.js (line ~4622) stores product handles in localStorage key 'localWishlist'.
   var grid = document.getElementById('sosFavoritesGrid');
   var empty = document.getElementById('sosFavoritesEmpty');
   if (!grid) return;
-  var ids = [];
-  try {
-    var raw = localStorage.getItem('shopify_wishlist') || localStorage.getItem('ps-wishlist') || localStorage.getItem('wishlist');
-    if (raw) {
+
+  function formatMoney(cents){
+    var amount = (cents / 100);
+    var symbol = (window.Shopify && Shopify.currency && Shopify.currency.active === 'EUR') ? '€' : '';
+    var formatted = amount.toFixed(2).replace('.', ',');
+    return symbol + formatted;
+  }
+
+  function readWishlist(){
+    try {
+      var raw = localStorage.getItem('localWishlist');
+      if (!raw) return [];
       var parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) { ids = parsed; }
-      else if (parsed && typeof parsed === 'object') { ids = Object.keys(parsed); }
-    }
-  } catch(e) { ids = []; }
-  if (!ids.length) {
+      return Array.isArray(parsed) ? parsed : [];
+    } catch(e) { return []; }
+  }
+
+  function showEmpty(){
     grid.classList.add('sos-account__hide');
     if (empty) empty.classList.remove('sos-account__hide');
   }
+  function showGrid(){
+    grid.classList.remove('sos-account__hide');
+    if (empty) empty.classList.add('sos-account__hide');
+  }
+
+  function renderCard(product){
+    var url   = product.url || ('/products/' + product.handle);
+    var img   = product.featured_image || (product.media && product.media[0] && product.media[0].preview_image && product.media[0].preview_image.src) || '';
+    var title = product.title || product.handle;
+    var vendor = product.vendor || '';
+    var price = product.price_varies
+      ? ('from ' + formatMoney(product.price_min))
+      : formatMoney(product.price);
+    var card = document.createElement('div');
+    card.className = 'sos-account__product-card sos-account__fav-card';
+    card.setAttribute('data-handle', product.handle);
+    card.innerHTML = ''
+      + '<a href="' + url + '" aria-label="' + (title.replace(/"/g,'&quot;')) + '" class="sos-account__fav-link">'
+      +   (img ? '<img src="' + img + '" alt="' + (title.replace(/"/g,'&quot;')) + '" loading="lazy" width="360" height="360">' : '')
+      +   '<div class="sos-account__fav-meta">'
+      +     '<p class="sos-account__fav-title">' + title + '</p>'
+      +     (vendor ? '<p class="sos-account__fav-vendor">' + vendor + '</p>' : '')
+      +     '<p class="sos-account__fav-price">' + price + '</p>'
+      +   '</div>'
+      + '</a>'
+      + '<button type="button" class="sos-account__fav-remove" aria-label="Remove from favorites" data-handle="' + product.handle + '">&times;</button>';
+    return card;
+  }
+
+  function removeHandle(handle){
+    var list = readWishlist();
+    var next = list.filter(function(h){ return h !== handle; });
+    try { localStorage.setItem('localWishlist', JSON.stringify(next)); } catch(e){}
+    // also keep the global theme wishlist UI count in sync if visible
+    var countEl = document.querySelector('.js-wishlist-count');
+    if (countEl) countEl.textContent = next.length;
+    return next;
+  }
+
+  function hydrate(){
+    var handles = readWishlist();
+    grid.innerHTML = '';
+    if (!handles.length) { showEmpty(); return; }
+    showGrid();
+    var pending = handles.length;
+    var fetched = [];
+    var root = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
+    handles.forEach(function(h){
+      fetch(root + 'products/' + encodeURIComponent(h) + '.js', { credentials: 'same-origin' })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(p){
+          if (p) fetched.push(p);
+        })
+        .catch(function(){ /* ignore one-off failures */ })
+        .finally(function(){
+          pending -= 1;
+          if (pending === 0) {
+            // Preserve original wishlist order
+            var byHandle = {};
+            fetched.forEach(function(p){ byHandle[p.handle] = p; });
+            handles.forEach(function(h){
+              if (byHandle[h]) grid.appendChild(renderCard(byHandle[h]));
+            });
+            if (!grid.children.length) showEmpty();
+            // attach remove handlers
+            grid.querySelectorAll('.sos-account__fav-remove').forEach(function(btn){
+              btn.addEventListener('click', function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                var handle = btn.getAttribute('data-handle');
+                var card = btn.closest('.sos-account__fav-card');
+                removeHandle(handle);
+                if (card) card.remove();
+                if (!grid.children.length) showEmpty();
+              });
+            });
+          }
+        });
+    });
+  }
+
+  hydrate();
+  // Re-hydrate if user adds/removes a favorite in another tab while this one is open
+  window.addEventListener('storage', function(e){ if (e.key === 'localWishlist') hydrate(); });
 })();
 </script>
 

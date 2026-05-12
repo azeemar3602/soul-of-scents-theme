@@ -374,6 +374,69 @@
 
 /* Favorites card layout (with info under image) */
 .sos-account__fav-card .sos-account__product-info { padding-top: 8px; }
+.sos-account__fav-card {
+  position: relative;
+  background: var(--sos-powder);
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: auto;
+  height: auto;
+}
+.sos-account__fav-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.sos-account__fav-link img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+.sos-account__fav-meta {
+  padding: 12px 12px 14px;
+}
+.sos-account__fav-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 2px;
+  color: var(--sos-black);
+  line-height: 1.3;
+}
+.sos-account__fav-vendor {
+  font-size: 12px;
+  color: var(--sos-muted);
+  margin: 0 0 6px;
+}
+.sos-account__fav-price {
+  font-size: 13px;
+  color: var(--sos-black);
+  margin: 0;
+}
+.sos-account__fav-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255,255,255,0.9);
+  color: var(--sos-black);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color .2s, color .2s;
+  z-index: 2;
+}
+.sos-account__fav-remove:hover {
+  background: var(--sos-black);
+  color: #fff;
+}
 
 /* Addresses */
 .sos-account__address {
