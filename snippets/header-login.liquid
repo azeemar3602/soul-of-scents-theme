@@ -13,7 +13,8 @@
   %}
     {% if customer %}
     <div class="header--acount d-none d-lg-flex topbar-block">
-      <a href="{{ routes.account_url }}" class="site-header__link site-account">
+      {%- comment -%} Send logged-in customers to our custom dashboard, not Shopify's hosted /account redirect. {%- endcomment -%}
+      <a href="/pages/account-dashboard" class="site-header__link site-account">
         {%- render 'icon-user' -%}
       </a>
     </div>

@@ -25,9 +25,9 @@
               {% if shop.customer_accounts_optional or shop.customer_accounts_enabled %}
               {% if customer %}
               <div class="header--acount d-none d-lg-inline-block topbar-block">
-                <a href="/account"  title="{{ 'customer.account.title' | t }}"  class="site-header__link site-account ">
+                <a href="/pages/account-dashboard"  title="{{ 'customer.account.title' | t }}"  class="site-header__link site-account ">
                   <span class="account-text">{{ 'customer.account.title' | t }}</span>
-                </a> | 
+                </a> |
                 <a href="/account/logout" title="{{ 'layout.customer.log_out' | t }}"  class="site-header__link site-logout ">
                   <span class="logout-text">{{ 'layout.customer.log_out' | t }}</span>
                 </a>
