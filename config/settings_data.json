@@ -503,7 +503,7 @@
               "subheading": "<style>\n@media (max-width: 768px) {\n  .hero-heading {\n    font-size: 32px !important;\n  }\n}\n\n@media (max-width: 480px) {\n  .hero-heading {\n    font-size: 26px !important;\n  }\n}\n</style>\n\n<h2 class=\"hero-heading\" style=\"font-size:40px; color:white; line-height:1.2; font-weight: 500;\">\n  Your \n  <span style=\"font-family:'Libre Baskerville', serif; font-style:italic;\">\n    Olfactory Match\n  </span><br>\n  in Niche Perfume\n</h2>",
               "subheading_color": "#ffffff",
               "button_label": "Take the archetype quiz",
-              "button_link": "shopify://collections/tools",
+              "button_link": "https://soul-of-scents-4.myshopify.com/pages/quiz",
               "stylebtns": "btn-theme",
               "bg_button": "#ffffff",
               "color_button": "#202025",
