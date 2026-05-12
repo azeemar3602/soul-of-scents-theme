@@ -67,12 +67,12 @@
             </li>
           {%- else -%}
             <li class="drawer__nav-item drawer-nav__item--secondary d-flex align-items-center d-flex align-items-center">
-              <a href="/account" class="drawer__nav-link drawer__nav-link--top-level font-weight-normal pr-1 d-flex align-items-center">
+              <a href="/pages/account-dashboard" class="drawer__nav-link drawer__nav-link--top-level font-weight-normal pr-1 d-flex align-items-center">
                 {% render 'icon-user' %}
                 <span class="account-text letter-spacing-0 pl-2">{{ 'customer.login.sign_in' | t }}
                 </span>
-              </a> 
-              <span class="drawer__nav-link--top-level small px-1">/</span> 
+              </a>
+              <span class="drawer__nav-link--top-level small px-1">/</span>
               <a href="/account/register" class="drawer__nav-link drawer__nav-link--top-level font-weight-normal pl-1 letter-spacing-0 d-flex align-items-center">
                 {{ 'customer.register.title' | t }}
               </a>
