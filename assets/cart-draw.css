@@ -667,3 +667,47 @@ background-color: white;
   padding: 0 8px !important;
   font-size: 13px;
 }
+
+/* ============================================================
+   Empty cart state — hide the unnecessary scrollbar
+   ============================================================ */
+.cardraw .js-mini-cart-content:has(.mini-cart-empty),
+.cardraw .mini-cart-empty{
+  overflow: hidden !important;
+}
+/* Center the empty state vertically + tidy spacing */
+.cardraw .mini-cart-empty{
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 40px 24px;
+  text-align: center;
+  border: 0 !important;
+}
+.cardraw .mini-cart-empty .iconcart-empty{
+  margin-bottom: 18px;
+}
+.cardraw .mini-cart-empty p,
+.cardraw .mini-cart-empty .empty-cart-text{
+  margin: 0 0 22px;
+  color: #6f6862;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+/* Slim down the regular scrollbar when the cart actually has items */
+.cardraw .js-mini-cart-content{
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.18) transparent;
+}
+.cardraw .js-mini-cart-content::-webkit-scrollbar{
+  width: 6px;
+}
+.cardraw .js-mini-cart-content::-webkit-scrollbar-track{
+  background: transparent;
+}
+.cardraw .js-mini-cart-content::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,0.18);
+  border-radius: 3px;
+}
