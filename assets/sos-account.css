@@ -26,18 +26,27 @@
 
 /* Signed-out state: disable the 2-column grid so the CTA renders as a centered single column. */
 .sos-account.sos-account--signedout {
-  display: block;
-  grid-template-columns: none;
-  max-width: 600px;
+  display: block !important;
+  grid-template-columns: none !important;
+  max-width: 880px;
   padding: 96px 24px 120px;
   text-align: center;
 }
 .sos-account.sos-account--signedout h1 {
-  font-family: var(--g-font-2, 'EB Garamond', Georgia, serif);
-  font-weight: 400;
-  font-size: clamp(32px, 4vw, 48px) !important;
-  line-height: 1.15;
-  margin: 0 0 18px;
+  font-family: var(--g-font-2, 'EB Garamond', Georgia, serif) !important;
+  font-weight: 400 !important;
+  font-size: clamp(28px, 4.2vw, 48px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.01em !important;
+  margin: 0 0 18px !important;
+  white-space: nowrap !important;
+  text-transform: none !important;
+}
+@media (max-width: 640px) {
+  .sos-account.sos-account--signedout h1 {
+    font-size: clamp(22px, 7vw, 34px) !important;
+    white-space: normal !important;
+  }
 }
 .sos-account.sos-account--signedout p {
   font-size: 15px;
