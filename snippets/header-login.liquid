@@ -27,10 +27,11 @@
         {%- render 'icon-user' -%}
       </button> 
       {%- else -%}
-      <a href="{{ routes.account_login_url }}" class=" site-header__link site-account">
+      {%- comment -%} Send post-login traffic back to our custom dashboard rather than the storefront root. {%- endcomment -%}
+      <a href="{{ routes.account_login_url }}?return_to=%2Fpages%2Faccount-dashboard" class=" site-header__link site-account">
         <span class="account-text">{{ 'customer.login.sign_in' | t }}</span>
         {%- render 'icon-user' -%}
-      </a> 
+      </a>
       {%- endif -%}
     </div>
     {% endif %}
