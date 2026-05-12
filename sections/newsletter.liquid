@@ -85,6 +85,7 @@
             {%- endif -%}
             <div class="form-vertical mail-section  {% if e_left %} col-lg-6 col-12  pt-2 {% else %} mt-n3  {% endif %}">
               {%- form 'customer', id: 'newletter-section' -%}
+                {% render 'sos-honeypot' %}
                 {{ form.errors | default_errors }}
                 {%- if form.posted_successfully? -%}
                   <p class="form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>

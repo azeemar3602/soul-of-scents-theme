@@ -1,0 +1,50 @@
+{%- comment -%}
+  SOS Honeypot — bot trap for Shopify forms.
+
+  How it works:
+  - Renders a visually-hidden text field that real users cannot see or focus.
+  - Many spambots auto-fill every input they encounter; humans never touch it.
+  - A page-wide submit listener (registered once) intercepts forms whose
+    honeypot has been filled and silently aborts the submission so the bot
+    thinks it succeeded.
+
+  Usage: inside any {%- form ... -%} block:
+    {%- form 'contact', id: 'ContactForm' -%}
+      {% render 'sos-honeypot' %}
+      ... rest of form fields ...
+    {%- endform -%}
+
+  Field name is intentionally innocuous-looking ("website") so naive bots
+  treat it as a real URL field and fill it.
+{%- endcomment -%}
+
+<div class="sos-hp" aria-hidden="true">
+  <label for="sos-hp-{{ unique }}">Website (leave blank)</label>
+  <input type="text" name="sos_hp_website" id="sos-hp-{{ unique }}" tabindex="-1" autocomplete="off" value="">
+</div>
+
+{%- unless sos_honeypot_styles_done -%}
+  {%- assign sos_honeypot_styles_done = true -%}
+  <style>
+    .sos-hp { position: absolute !important; left: -9999px !important; top: -9999px !important; height: 0 !important; width: 0 !important; overflow: hidden !important; opacity: 0 !important; pointer-events: none !important; }
+    .sos-hp input { position: absolute; left: -9999px; }
+  </style>
+  <script>
+  (function(){
+    if (window.__sosHoneypotInit) return;
+    window.__sosHoneypotInit = true;
+    document.addEventListener('submit', function(e){
+      var form = e.target;
+      if (!form || !form.elements) return;
+      var trap = form.querySelector('input[name="sos_hp_website"]');
+      if (trap && trap.value && trap.value.length > 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        // Silently abort — pretend success so the bot doesn't retry.
+        try { console.warn('[SoS] honeypot caught a bot submission'); } catch(_){}
+        return false;
+      }
+    }, true);
+  })();
+  </script>
+{%- endunless -%}

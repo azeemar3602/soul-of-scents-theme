@@ -66,6 +66,7 @@ data-section-type="newletter-footer"  >
             {%- endif -%}
             <div class="form-vertical mail-section-footer  {% if e_left %} col-lg-6 col-12  pt-2 {% else %} mt-n3  {% endif %}">
               {%- form 'customer' , id: 'ContactFooterTop' -%}
+                {% render 'sos-honeypot' %}
                 {{ form.errors | default_errors }}
                 {%- if form.posted_successfully? -%}
                   <p class="form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>

@@ -6,6 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-9 col-12">
         {%- form 'contact', id: 'ContactForm', class: 'isolate' -%}
+            {% render 'sos-honeypot' %}
             {%- if form.posted_successfully? -%}
               <p class="form-status form-status-list form__message" tabindex="-1" autofocus> {{ 'contact.form.post_success' | t }}</p>
             {%- elsif form.errors -%}

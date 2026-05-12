@@ -738,6 +738,7 @@
           <div class="site-footer-block ">
             <div class="form-vertical footer-email ">
               {%- form 'customer' , id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
+              {% render 'sos-honeypot' %}
               {{ form.errors | default_errors }}
               {%- if form.posted_successfully? -%}
               <p class="form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
