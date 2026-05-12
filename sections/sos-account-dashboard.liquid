@@ -280,19 +280,51 @@
   var TABS = ['overview','archetype','orders','buy-again','favorites','addresses','cards','settings','support'];
   var nav = document.querySelectorAll('.sos-account__navlink');
   var panels = document.querySelectorAll('.sos-account__panel');
-  function activate(hash) {
-    var id = (hash || '').replace('#','');
-    if (TABS.indexOf(id) === -1) { id = 'overview'; }
+  function activate(id) {
+    if (!id || TABS.indexOf(id) === -1) { id = 'overview'; }
     nav.forEach(function(a){ a.classList.toggle('is-active', a.dataset.tab === id); });
     panels.forEach(function(p){ p.classList.toggle('is-active', p.id === id); });
-    if (window.scrollY > 0) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
   }
-  activate(window.location.hash);
-  window.addEventListener('hashchange', function(){ activate(window.location.hash); });
+  function activateFromHash(){
+    var id = (window.location.hash || '').replace('#','');
+    activate(id);
+  }
+  activateFromHash();
+  window.addEventListener('hashchange', activateFromHash);
+  // Explicit click handlers so tab switching works even if hashchange is delayed
+  // or the page is inside an iframe / preview frame where hash events get swallowed.
+  nav.forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.dataset.tab;
+      if (id && TABS.indexOf(id) !== -1) {
+        e.preventDefault();
+        if (history && history.replaceState) {
+          history.replaceState(null, '', '#' + id);
+        } else {
+          window.location.hash = '#' + id;
+        }
+        activate(id);
+        // gentle scroll to top of the main panel area
+        var main = document.querySelector('.sos-account__main');
+        if (main && main.scrollIntoView) {
+          main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+  // "Show all >" inline jumps inside panels
   document.querySelectorAll('[data-jump]').forEach(function(el){
     el.addEventListener('click', function(e){
       var target = el.getAttribute('data-jump');
-      if (target) { e.preventDefault(); window.location.hash = '#' + target; }
+      if (target) {
+        e.preventDefault();
+        if (history && history.replaceState) {
+          history.replaceState(null, '', '#' + target);
+        } else {
+          window.location.hash = '#' + target;
+        }
+        activate(target);
+      }
     });
   });
 })();
