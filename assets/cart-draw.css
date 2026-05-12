@@ -675,7 +675,10 @@ background-color: white;
 .cardraw .mini-cart-empty{
   overflow: hidden !important;
 }
-/* Center the empty state vertically + tidy spacing */
+/* Center the empty state vertically + tidy spacing.
+   Fade in with a small delay so the empty state never flashes during
+   the brief loading window when the user adds an item to the cart and
+   the drawer is still showing the previous (empty) state.            */
 .cardraw .mini-cart-empty{
   display: flex !important;
   flex-direction: column;
@@ -685,16 +688,59 @@ background-color: white;
   padding: 40px 24px;
   text-align: center;
   border: 0 !important;
+  opacity: 0;
+  animation: sosCartEmptyIn 0.25s ease-out 0.35s forwards;
+}
+@keyframes sosCartEmptyIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 .cardraw .mini-cart-empty .iconcart-empty{
-  margin-bottom: 18px;
+  width: 96px !important;
+  height: 96px !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #f5f2ec !important;
+  border-radius: 50%;
+  margin: 0 auto 22px auto !important;
+}
+.cardraw .mini-cart-empty .iconcart-empty .svg-cart,
+.cardraw .mini-cart-empty .iconcart-empty svg{
+  width: 36px !important;
+  height: 36px !important;
+  color: #6f6862;
+  stroke-width: 1.4;
 }
 .cardraw .mini-cart-empty p,
-.cardraw .mini-cart-empty .empty-cart-text{
+.cardraw .mini-cart-empty .empty-cart-text,
+.cardraw .mini-cart-empty .txtcart-empty{
   margin: 0 0 22px;
-  color: #6f6862;
-  font-size: 14px;
+  color: #2c2722;
+  font-size: 15px;
   letter-spacing: 0;
+  font-family: var(--g-font-2, 'EB Garamond', Georgia, serif);
+}
+.cardraw .mini-cart-empty .btn-outline{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 28px;
+  border: 1px solid #030303 !important;
+  background: transparent !important;
+  color: #030303 !important;
+  border-radius: 4px !important;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 0 !important;
+}
+.cardraw .mini-cart-empty .btn-outline:hover{
+  background: #030303 !important;
+  color: #ffffff !important;
 }
 /* Slim down the regular scrollbar when the cart actually has items */
 .cardraw .js-mini-cart-content{
