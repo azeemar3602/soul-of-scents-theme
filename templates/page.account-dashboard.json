@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "sos-account-dashboard",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
