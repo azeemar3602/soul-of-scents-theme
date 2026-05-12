@@ -143,7 +143,7 @@
                   {%- endif -%}
 
                   {%- if show_wishlist -%}
-                    <button class="product-slider__wishlist" type="button" data-product-id="{{ product.id }}" aria-label="Add {{ product.title | escape }} to wishlist" onclick="event.preventDefault();event.stopPropagation();var id=this.dataset.productId;this.classList.toggle('is-active');var w=JSON.parse(localStorage.getItem('ps-wishlist')||'{}');if(this.classList.contains('is-active')){w[id]=true}else{delete w[id]}localStorage.setItem('ps-wishlist',JSON.stringify(w));">
+                    <button class="product-slider__wishlist" type="button" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}" aria-label="Add {{ product.title | escape }} to wishlist" onclick="event.preventDefault();event.stopPropagation();var h=this.dataset.productHandle;this.classList.toggle('is-active');var list=[];try{list=JSON.parse(localStorage.getItem('localWishlist')||'[]');if(!Array.isArray(list))list=[]}catch(e){list=[]}var idx=list.indexOf(h);if(this.classList.contains('is-active')){if(idx===-1)list.push(h)}else{if(idx>-1)list.splice(idx,1)}localStorage.setItem('localWishlist',JSON.stringify(list));var c=document.querySelector('.js-wishlist-count');if(c)c.textContent=list.length;">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                       </svg>
@@ -320,9 +320,36 @@
       });
     }
 
-    var wishlist = JSON.parse(localStorage.getItem('ps-wishlist') || '{}');
-    section.querySelectorAll('.product-slider__wishlist[data-product-id]').forEach(function (btn) {
-      if (wishlist[btn.dataset.productId]) btn.classList.add('is-active');
+    // Hydrate heart state from the unified 'localWishlist' (theme-wide).
+    // One-time migration: if the legacy 'ps-wishlist' (keyed by product.id) has
+    // entries that aren't yet in 'localWishlist' (keyed by handle), merge them
+    // using each heart button's data-product-handle, then drop the legacy key.
+    (function migrateLegacyWishlist(){
+      try {
+        var legacy = JSON.parse(localStorage.getItem('ps-wishlist') || '{}');
+        if (legacy && typeof legacy === 'object' && Object.keys(legacy).length) {
+          var list = [];
+          try {
+            var parsed = JSON.parse(localStorage.getItem('localWishlist') || '[]');
+            if (Array.isArray(parsed)) list = parsed;
+          } catch(e){}
+          document.querySelectorAll('.product-slider__wishlist[data-product-id][data-product-handle]').forEach(function(btn){
+            if (legacy[btn.dataset.productId] && list.indexOf(btn.dataset.productHandle) === -1) {
+              list.push(btn.dataset.productHandle);
+            }
+          });
+          localStorage.setItem('localWishlist', JSON.stringify(list));
+          localStorage.removeItem('ps-wishlist');
+        }
+      } catch(e){ /* ignore */ }
+    })();
+    var wlList = [];
+    try {
+      var parsed = JSON.parse(localStorage.getItem('localWishlist') || '[]');
+      if (Array.isArray(parsed)) wlList = parsed;
+    } catch(e){}
+    section.querySelectorAll('.product-slider__wishlist[data-product-handle]').forEach(function (btn) {
+      if (wlList.indexOf(btn.dataset.productHandle) !== -1) btn.classList.add('is-active');
     });
 
     if (currentView === 'slider') { slideTo(0); }
