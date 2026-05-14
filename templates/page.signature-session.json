@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -10,7 +19,8 @@
             "heading": "A private discovery journey to your signature scent.",
             "italicize": false,
             "cta_text": "Request an appointment",
-            "cta_url": ""
+            "cta_url": "",
+            "image": "shopify://shop_images/DTS_Tone_Chris_Abatzis_Photos_ID5669.jpg"
           }
         },
         "offering": {
@@ -25,7 +35,8 @@
           "settings": {
             "heading": "Tailored Experience",
             "content": "<p>Our consultants move with utmost care to understand who you are at your core and guide you through a customized session to uncover your desires in enhancing your unique personality. Our highly personalized curation ensures a level of exclusivity that simply cannot be replicated by commercial stores.</p>",
-            "text_align": "left"
+            "text_align": "left",
+            "image": "shopify://shop_images/DTS_Tradition_Chris_Abatzis_Photos_ID9161.jpg"
           }
         },
         "promise": {
@@ -33,7 +44,8 @@
           "settings": {
             "heading": "Our Promise",
             "content": "<p>We vow to find the perfect match for our clients every time, and help them elevate their self-expression. Scent is identity, and our signature sessions unveil yours — to accompany you in all stages of life.</p>",
-            "text_align": "right"
+            "text_align": "right",
+            "image": "shopify://shop_images/DTS_SOJOURN_Franco_Dupuy_Photos_ID10749.jpg"
           }
         },
         "form": {
@@ -63,11 +75,20 @@
           }
         }
       },
-      "block_order": ["hero", "offering", "tailored", "promise", "form", "faq"],
+      "block_order": [
+        "hero",
+        "offering",
+        "tailored",
+        "promise",
+        "form",
+        "faq"
+      ],
       "settings": {
         "form_anchor": "signature-session-form"
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
