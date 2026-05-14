@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "main": {
+      "type": "sos-signature-session",
+      "blocks": {
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "overline": "Signature Session",
+            "heading": "A private discovery journey to your signature scent.",
+            "italicize": false,
+            "cta_text": "Request an appointment",
+            "cta_url": ""
+          }
+        },
+        "offering": {
+          "type": "text_center",
+          "settings": {
+            "heading": "Our Offering",
+            "content": "<p>A dedicated session, with our senior scent consultant translating who you are into a scent that is unmistakably you. Our team operates internationally and entirely on your terms: your space, your schedule.</p>"
+          }
+        },
+        "tailored": {
+          "type": "media_text",
+          "settings": {
+            "heading": "Tailored Experience",
+            "content": "<p>Our consultants move with utmost care to understand who you are at your core and guide you through a customized session to uncover your desires in enhancing your unique personality. Our highly personalized curation ensures a level of exclusivity that simply cannot be replicated by commercial stores.</p>",
+            "text_align": "left"
+          }
+        },
+        "promise": {
+          "type": "media_text",
+          "settings": {
+            "heading": "Our Promise",
+            "content": "<p>We vow to find the perfect match for our clients every time, and help them elevate their self-expression. Scent is identity, and our signature sessions unveil yours — to accompany you in all stages of life.</p>",
+            "text_align": "right"
+          }
+        },
+        "form": {
+          "type": "form",
+          "settings": {
+            "heading": "Find your olfactive signature with soul of scents.",
+            "subheading": "Request a senior consultant to get in touch.",
+            "submit_label": "Request a senior consultant",
+            "success_message": "Thank you. A senior consultant will be in touch shortly.",
+            "notification_email": "admin@soulofscents.de"
+          }
+        },
+        "faq": {
+          "type": "faq",
+          "settings": {
+            "heading": "Frequently asked questions",
+            "q1": "Who is the Signature Session for?",
+            "a1": "<p>Anyone seeking a fragrance that genuinely reflects them rather than a trend. Whether you're new to fragrance or a long-time collector, our consultants build a profile that captures your personality and stage of life.</p>",
+            "q2": "How does the session work?",
+            "a2": "<p>After you submit the form, a senior consultant gets in touch to schedule a private session at a time and place that suits you — in person where possible, or virtually. Pricing is discussed during this conversation.</p>",
+            "q3": "Where do you operate?",
+            "a3": "<p>Internationally. Our consultants travel for in-person sessions in major cities and offer guided virtual sessions worldwide.</p>",
+            "q4": "What can I expect from the session itself?",
+            "a4": "<p>A guided conversation about your lifestyle, memories, and aesthetic preferences, followed by a curated set of fragrances to explore together. Each session ends with one or more recommendations tailored exactly to you.</p>",
+            "q5": "How much does it cost?",
+            "a5": "<p>Pricing is upon request because each session is bespoke. We discuss it during the introductory call so you know exactly what to expect before we proceed.</p>"
+          }
+        }
+      },
+      "block_order": ["hero", "offering", "tailored", "promise", "form", "faq"],
+      "settings": {
+        "form_anchor": "signature-session-form"
+      }
+    }
+  },
+  "order": ["main"]
+}
