@@ -15,10 +15,10 @@
         "hero": {
           "type": "hero",
           "settings": {
-            "overline": "Your archetype",
+            "overline": "Your scent archetype is",
             "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "Modern, mobile, and unmistakably current. Your scent moves at the pace of the city — sharp, polished, never out of place.",
+            "subtitle": "Adrenaline your oxygen. Who relies on sleep when you got flights to catch and places to be. You are that guest.",
             "cta_text": "",
             "cta_url": ""
           }
@@ -27,9 +27,10 @@
           "type": "image_row",
           "settings": {
             "columns": "3",
-            "image_1": "shopify://shop_images/TDM_Fuego_Futuro_grey_Template.png",
-            "image_2": "shopify://shop_images/NV_Portrait_bw_square.png",
-            "image_3": "shopify://shop_images/VaporMundum_Deserta_grey_shadow.png"
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_FIRST_ROUND_JELLY_LUISE_Photos_ID10674.jpg",
+            "image_2": "shopify://shop_images/DTS_FIRST_ROUND_JELLY_LUISE_Photos_ID10658.jpg",
+            "image_3": "shopify://shop_images/DTS_Remedy_Fanette_Guilloud_Photos_ID4826.jpg"
           }
         },
         "text-1": {
@@ -37,13 +38,17 @@
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>Skyline at dusk. Clean white shirts. The first sip of something cold and clear. You are already at the next thing.</p>"
+            "content": "<p>You don’t wait for life to happen to you, you create your reality. Chaos? Somehow, it feels like order in your world. Mostly turbulent, at times modestly low key - never dull. Dopamine highs, bitter drinks and a little rush from sugar. How sweet this life is. </p>"
           }
         },
         "row-2": {
           "type": "image_row",
           "settings": {
-            "columns": "3"
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_Money_Bag__Mackenzie_Freemire_Photos_ID3423.jpg",
+            "image_2": "shopify://shop_images/DTS_FIRST_ROUND_JELLY_LUISE_Photos_ID10631.jpg",
+            "image_3": "shopify://shop_images/DTS_ISOLA_Daniel_Faro_Photos_ID13159.jpg"
           }
         },
         "text-2": {
@@ -51,13 +56,14 @@
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>A signature that holds in a boardroom, a rooftop, a 6 a.m. flight. Built for now, designed to travel.</p>"
+            "content": "<p>You set the trend, you radiate extravagance. No need to seek for attention, your fragrance has already introduced you so boldly. You are one to know. The night bends for you, stretching longer just to keep up. Dynamic, bougee, cheeky. </p>"
           }
         },
         "row-3": {
           "type": "image_row",
           "settings": {
-            "columns": "3"
+            "columns": "3",
+            "aspect": "square"
           }
         },
         "read-more": {
@@ -71,7 +77,7 @@
           "type": "products",
           "settings": {
             "title": "The | Cosmopolitan's | companions",
-            "subtitle": "Notes that move with you — clean, sharp, current.",
+            "subtitle": "Notes that keep you on the move - clean, sharp, current.",
             "product_limit": 6
           }
         },
