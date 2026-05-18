@@ -8,6 +8,37 @@
     "theme_support_email": "oranthemes@gmail.com"
   },
   {
+    "name": "SoS — Tester mode (quiz only)",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Quiz-only preview"
+      },
+      {
+        "type": "paragraph",
+        "content": "When ON, every URL except the quiz and the 9 archetype result pages redirects to /pages/quiz. Header nav, cart icon and footer links are hidden. Use for the first round of testers before shipping & checkout are live. Flip OFF to fully open the store."
+      },
+      {
+        "type": "checkbox",
+        "id": "tester_mode",
+        "label": "Enable tester mode (quiz-only)",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "tester_mode_message",
+        "label": "Top banner message",
+        "default": "Preview mode — take the quiz to discover your scent. Shop launches soon."
+      },
+      {
+        "type": "text",
+        "id": "tester_mode_whitelist",
+        "label": "Extra allowed page handles (comma-separated)",
+        "info": "Quiz + 9 archetype pages are always allowed. Add any extra handles you want testers to reach (e.g. signature-session,about)."
+      }
+    ]
+  },
+  {
     "name": "General settings",
     "settings": [
       {
