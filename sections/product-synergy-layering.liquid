@@ -1,0 +1,204 @@
+{%- comment -%}
+  SOS — Layer it with (scent synergy) section
+  Renders directly below the artisan section on the product page.
+  Renders only when product.metafields.custom.synergy_product is set.
+
+  Required metafields (namespace: custom):
+    synergy_product        → product reference (single)
+    synergy_main_color     → color
+    synergy_partner_color  → color
+  Optional metafields:
+    synergy_blend_color    → color
+    synergy_heading        → text
+    synergy_description    → multi-line text
+    synergy_collage_images → list of files
+{%- endcomment -%}
+
+{%- liquid
+  assign synergy_product = product.metafields.custom.synergy_product.value
+-%}
+
+{%- if synergy_product != blank -%}
+  {{ 'product-synergy-layering.css' | asset_url | stylesheet_tag }}
+
+  {%- liquid
+    assign main_color    = product.metafields.custom.synergy_main_color
+    assign partner_color = product.metafields.custom.synergy_partner_color
+    assign blend_color   = product.metafields.custom.synergy_blend_color
+    assign heading_text  = product.metafields.custom.synergy_heading | default: section.settings.default_heading
+    assign description   = product.metafields.custom.synergy_description | default: section.settings.default_description
+    assign collage_list  = product.metafields.custom.synergy_collage_images.value
+    assign synergy_variant = synergy_product.selected_or_first_available_variant
+    assign main_color_value    = main_color | default: '#D7D4CF'
+    assign partner_color_value = partner_color | default: '#928171'
+  -%}
+
+  <section class="sos-synergy" data-product-synergy aria-labelledby="sos-synergy-heading-{{ section.id }}">
+    <div class="sos-synergy__inner">
+
+      <div class="sos-synergy__content">
+        <p class="sos-synergy__eyebrow">{{ section.settings.eyebrow | default: 'Scent Synergy' }}</p>
+
+        <h2 class="sos-synergy__heading" id="sos-synergy-heading-{{ section.id }}">
+          {{ heading_text }}
+        </h2>
+
+        {%- if description != blank -%}
+          <p class="sos-synergy__description">{{ description }}</p>
+        {%- endif -%}
+
+        <div class="sos-synergy__pair">
+          <span class="sos-synergy__pair-name">{{ product.title }}</span>
+          <span class="sos-synergy__pair-plus" aria-hidden="true">+</span>
+          <a class="sos-synergy__pair-name sos-synergy__pair-link" href="{{ synergy_product.url }}">{{ synergy_product.title }}</a>
+        </div>
+
+        <div class="sos-synergy-circles" aria-hidden="true">
+          <span class="sos-synergy-circle sos-synergy-circle--main"
+                style="background-color: {{ main_color_value }};"></span>
+          <span class="sos-synergy-circle sos-synergy-circle--partner"
+                style="background-color: {{ partner_color_value }};"></span>
+          {%- if blend_color != blank -%}
+            <span class="sos-synergy-circle sos-synergy-circle--blend"
+                  style="background-color: {{ blend_color }};"></span>
+          {%- endif -%}
+        </div>
+
+        {%- if synergy_variant.available -%}
+          <button type="button" class="sos-synergy-add-both"
+                  data-synergy-variant-id="{{ synergy_variant.id }}"
+                  aria-describedby="sos-synergy-msg-{{ section.id }}">
+            {{ section.settings.button_label | default: 'Add both to cart' }}
+          </button>
+        {%- else -%}
+          <button type="button" class="sos-synergy-add-both" disabled>
+            Pairing currently unavailable
+          </button>
+        {%- endif -%}
+        <p class="sos-synergy-message" id="sos-synergy-msg-{{ section.id }}" role="status" aria-live="polite"></p>
+
+        <a class="sos-synergy__view-link" href="{{ synergy_product.url }}">
+          View {{ synergy_product.title }} &rarr;
+        </a>
+      </div>
+
+      <div class="sos-synergy__visual">
+        {%- comment -%}
+          Build the collage image list:
+            1) Use synergy_collage_images metafield if present (2–3 images)
+            2) Otherwise: current product featured image + synergy product featured image
+               + optionally a second image from either product
+        {%- endcomment -%}
+        {%- assign collage_built = false -%}
+        {%- if collage_list != blank and collage_list.size > 0 -%}
+          <div class="sos-synergy-collage sos-synergy-collage--count-{{ collage_list.size }}">
+            {%- for img in collage_list limit: 3 -%}
+              <div class="sos-synergy-collage__cell">
+                <img src="{{ img | image_url: width: 700 }}"
+                     srcset="{{ img | image_url: width: 400 }} 400w, {{ img | image_url: width: 700 }} 700w, {{ img | image_url: width: 1000 }} 1000w"
+                     sizes="(min-width: 880px) 320px, 50vw"
+                     alt="{{ img.alt | default: product.title | escape }}"
+                     loading="lazy"
+                     width="{{ img.width }}" height="{{ img.height }}">
+              </div>
+            {%- endfor -%}
+          </div>
+          {%- assign collage_built = true -%}
+        {%- endif -%}
+
+        {%- unless collage_built -%}
+          {%- assign collage_count = 0 -%}
+          {%- if product.featured_image -%}{%- assign collage_count = collage_count | plus: 1 -%}{%- endif -%}
+          {%- if synergy_product.featured_image -%}{%- assign collage_count = collage_count | plus: 1 -%}{%- endif -%}
+          {%- assign secondary_img = nil -%}
+          {%- if product.images.size > 1 -%}
+            {%- assign secondary_img = product.images[1] -%}
+          {%- elsif synergy_product.images.size > 1 -%}
+            {%- assign secondary_img = synergy_product.images[1] -%}
+          {%- endif -%}
+          {%- if secondary_img -%}{%- assign collage_count = collage_count | plus: 1 -%}{%- endif -%}
+
+          {%- if collage_count > 0 -%}
+          <div class="sos-synergy-collage sos-synergy-collage--count-{{ collage_count }}">
+            {%- if product.featured_image -%}
+              <div class="sos-synergy-collage__cell">
+                <img src="{{ product.featured_image | image_url: width: 700 }}"
+                     srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 700 }} 700w"
+                     sizes="(min-width: 880px) 320px, 50vw"
+                     alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                     loading="lazy"
+                     width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}">
+              </div>
+            {%- endif -%}
+            {%- if synergy_product.featured_image -%}
+              <div class="sos-synergy-collage__cell">
+                <img src="{{ synergy_product.featured_image | image_url: width: 700 }}"
+                     srcset="{{ synergy_product.featured_image | image_url: width: 400 }} 400w, {{ synergy_product.featured_image | image_url: width: 700 }} 700w"
+                     sizes="(min-width: 880px) 320px, 50vw"
+                     alt="{{ synergy_product.featured_image.alt | default: synergy_product.title | escape }}"
+                     loading="lazy"
+                     width="{{ synergy_product.featured_image.width }}" height="{{ synergy_product.featured_image.height }}">
+              </div>
+            {%- endif -%}
+            {%- if secondary_img -%}
+              <div class="sos-synergy-collage__cell">
+                <img src="{{ secondary_img | image_url: width: 700 }}"
+                     srcset="{{ secondary_img | image_url: width: 400 }} 400w, {{ secondary_img | image_url: width: 700 }} 700w"
+                     sizes="(min-width: 880px) 320px, 50vw"
+                     alt="{{ secondary_img.alt | default: product.title | escape }}"
+                     loading="lazy"
+                     width="{{ secondary_img.width }}" height="{{ secondary_img.height }}">
+              </div>
+            {%- endif -%}
+          </div>
+          {%- endif -%}
+        {%- endunless -%}
+
+        <a class="sos-synergy-card" href="{{ synergy_product.url }}">
+          {%- if synergy_product.featured_image -%}
+            <div class="sos-synergy-card__image">
+              <img src="{{ synergy_product.featured_image | image_url: width: 320 }}"
+                   srcset="{{ synergy_product.featured_image | image_url: width: 240 }} 240w, {{ synergy_product.featured_image | image_url: width: 320 }} 320w, {{ synergy_product.featured_image | image_url: width: 480 }} 480w"
+                   sizes="120px"
+                   alt="{{ synergy_product.featured_image.alt | default: synergy_product.title | escape }}"
+                   loading="lazy"
+                   width="{{ synergy_product.featured_image.width }}" height="{{ synergy_product.featured_image.height }}">
+            </div>
+          {%- endif -%}
+          <div class="sos-synergy-card__info">
+            <p class="sos-synergy-card__eyebrow">Pair with</p>
+            <p class="sos-synergy-card__title">{{ synergy_product.title }}</p>
+            <p class="sos-synergy-card__price">{{ synergy_variant.price | money }}</p>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="{{ 'product-synergy-layering.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Layer it with",
+  "tag": "section",
+  "class": "section-sos-synergy",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This section only renders if the current product has 'custom.synergy_product' assigned in product metafields."
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow label", "default": "Scent Synergy" },
+    { "type": "text", "id": "default_heading", "label": "Default heading", "default": "Layer it with" },
+    { "type": "text", "id": "default_description", "label": "Default description", "default": "Create a layered scent story by pairing this fragrance with its selected synergy partner." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Add both to cart" }
+  ],
+  "presets": [
+    { "name": "Layer it with" }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  }
+}
+{% endschema %}

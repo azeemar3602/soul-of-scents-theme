@@ -564,6 +564,15 @@
         "margin_bottom": 0
       }
     },
+    "product_synergy_layering": {
+      "type": "product-synergy-layering",
+      "settings": {
+        "eyebrow": "Scent Synergy",
+        "default_heading": "Layer it with",
+        "default_description": "Create a layered scent story by pairing this fragrance with its selected synergy partner.",
+        "button_label": "Add both to cart"
+      }
+    },
     "1774554020c4b23827": {
       "type": "apps",
       "blocks": {
@@ -1048,6 +1057,7 @@
     "product_dual_slider_QYHWPq",
     "scent_reveal_pVmafg",
     "product_artisan_kJeU7X",
+    "product_synergy_layering",
     "1774554020c4b23827",
     "reviews_slider_9aUp9z",
     "hero_banner_fwwhTE",

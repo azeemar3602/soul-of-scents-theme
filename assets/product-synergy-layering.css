@@ -1,0 +1,251 @@
+/* Soul of Scents — Layer It With (scent synergy) section
+   Scoped under .sos-synergy so it doesn't bleed onto the rest of the theme.
+   Brand: #030303 black, #fbf9f6 powder, #ece8e3 line, #6f6862 muted. */
+
+.sos-synergy {
+  --sos-fg: #030303;
+  --sos-bg: #fbf9f6;
+  --sos-card: #ffffff;
+  --sos-line: #ece8e3;
+  --sos-muted: #6f6862;
+  background: var(--sos-bg);
+  padding: 72px 24px;
+  margin: 0;
+  color: var(--sos-fg);
+}
+
+.sos-synergy__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+/* LEFT COLUMN */
+.sos-synergy__content { min-width: 0; }
+.sos-synergy__eyebrow {
+  margin: 0 0 14px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sos-muted);
+}
+.sos-synergy__heading {
+  font-family: var(--g-font-2, 'EB Garamond', Georgia, serif);
+  font-weight: 400;
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 18px;
+}
+.sos-synergy__description {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--sos-fg);
+  margin: 0 0 28px;
+  max-width: 520px;
+}
+.sos-synergy__pair {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 22px;
+  font-size: 15px;
+  color: var(--sos-fg);
+}
+.sos-synergy__pair-name {
+  font-family: var(--g-font-2, 'EB Garamond', Georgia, serif);
+  font-size: 18px;
+  letter-spacing: 0;
+}
+.sos-synergy__pair-link {
+  color: var(--sos-fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sos-synergy__pair-link:hover { opacity: 0.7; }
+.sos-synergy__pair-plus { color: var(--sos-muted); font-size: 16px; }
+
+/* OVERLAPPING CIRCLES */
+.sos-synergy-circles {
+  position: relative;
+  width: 180px;
+  height: 110px;
+  margin: 0 0 32px;
+}
+.sos-synergy-circle {
+  position: absolute;
+  top: 0;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+}
+.sos-synergy-circle--main    { left: 0; }
+.sos-synergy-circle--partner { left: 70px; }
+.sos-synergy-circle--blend   {
+  left: 35px; top: 0;
+  width: 110px; height: 110px;
+  mix-blend-mode: normal;
+  opacity: 0.85;
+}
+
+/* CTA */
+.sos-synergy-add-both {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding: 0 32px;
+  background: var(--sos-fg);
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.sos-synergy-add-both:hover { opacity: 0.85; }
+.sos-synergy-add-both:focus-visible {
+  outline: 2px solid var(--sos-fg);
+  outline-offset: 3px;
+}
+.sos-synergy-add-both:disabled {
+  background: transparent;
+  border: 1px solid var(--sos-line);
+  color: var(--sos-muted);
+  cursor: not-allowed;
+  opacity: 1;
+}
+.sos-synergy-add-both.is-loading { opacity: 0.7; cursor: progress; }
+.sos-synergy-add-both.is-success { background: #2a6b2a; }
+
+.sos-synergy-message {
+  min-height: 1.2em;
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--sos-muted);
+}
+.sos-synergy-message.is-error { color: #8a2424; }
+.sos-synergy-message.is-success { color: #2a6b2a; }
+
+.sos-synergy__view-link {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 13px;
+  color: var(--sos-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sos-synergy__view-link:hover { color: var(--sos-fg); }
+
+/* RIGHT COLUMN — collage + card */
+.sos-synergy__visual {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.sos-synergy-collage {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+.sos-synergy-collage--count-1 { grid-template-columns: 1fr; }
+.sos-synergy-collage--count-2 { grid-template-columns: 1fr 1fr; }
+.sos-synergy-collage--count-3 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+}
+.sos-synergy-collage--count-3 .sos-synergy-collage__cell:nth-child(1) {
+  grid-column: 1 / 2; grid-row: 1 / 3;
+}
+.sos-synergy-collage--count-3 .sos-synergy-collage__cell:nth-child(2) {
+  grid-column: 2 / 3; grid-row: 1 / 2;
+}
+.sos-synergy-collage--count-3 .sos-synergy-collage__cell:nth-child(3) {
+  grid-column: 2 / 3; grid-row: 2 / 3;
+}
+.sos-synergy-collage__cell {
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--sos-line);
+  aspect-ratio: 1 / 1;
+}
+.sos-synergy-collage__cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Synergy mini-card under the collage */
+.sos-synergy-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  background: var(--sos-card);
+  border: 1px solid var(--sos-line);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--sos-fg);
+  transition: border-color 0.2s;
+}
+.sos-synergy-card:hover { border-color: var(--sos-fg); }
+.sos-synergy-card__image {
+  flex: 0 0 96px;
+  width: 96px;
+  height: 96px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--sos-line);
+}
+.sos-synergy-card__image img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.sos-synergy-card__info { min-width: 0; }
+.sos-synergy-card__eyebrow {
+  margin: 0 0 4px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sos-muted);
+}
+.sos-synergy-card__title {
+  margin: 0 0 4px;
+  font-family: var(--g-font-2, 'EB Garamond', Georgia, serif);
+  font-size: 18px;
+  line-height: 1.2;
+}
+.sos-synergy-card__price {
+  margin: 0;
+  font-size: 14px;
+  color: var(--sos-fg);
+}
+
+/* MOBILE */
+@media (max-width: 880px) {
+  .sos-synergy { padding: 48px 20px; }
+  .sos-synergy__inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .sos-synergy__visual { order: 2; }
+  .sos-synergy__content { order: 1; }
+  .sos-synergy__heading { font-size: clamp(28px, 7vw, 36px); }
+  .sos-synergy-circles {
+    width: 140px; height: 86px;
+  }
+  .sos-synergy-circle {
+    width: 86px; height: 86px;
+  }
+  .sos-synergy-circle--partner { left: 54px; }
+  .sos-synergy-circle--blend   { left: 27px; width: 86px; height: 86px; }
+  .sos-synergy-add-both { width: 100%; }
+}
