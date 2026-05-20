@@ -15,30 +15,54 @@
         "hero": {
           "type": "hero",
           "settings": {
-            "overline": "Your archetype",
+            "overline": "Your scent archetype is",
+            "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "More is more. Your scent is fireworks, full chorus, every note turned to ten — and somehow it works."
+            "subtitle": "More is more. Every day is a day to express yourself to the fullest. You don’t wait for occasions to unfold, you create them. The world is your oyster, and here we are thirsting for you to let us in.",
+            "cta_text": "",
+            "cta_url": ""
           }
         },
-        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-1": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_LAST_SUPPER_PALI_MENDEZ_Photos_ID13826.jpg",
+            "image_2": "shopify://shop_images/DTS_EAT_RICH_Fanette_Guilloud_Photos_ID13892.jpg",
+            "image_3": "shopify://shop_images/DTS_Cosmic_masculinity_Marlen_Stahlhuth_Photos_ID9060.jpg"
+          }
+        },
         "text-1": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>You don't dilute. The bigger feeling, the brighter colour, the louder room. You came to live in technicolour.</p>"
+            "content": "<p>Every eye in the room catches your presence. You are the moment. Loud outfits, daring combinations, and a scent that is polarizing. You like to be the exception, to pull off what others couldn’t. - And oh you are so good at it. <br/></p>"
           }
         },
-        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-2": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square"
+          }
+        },
         "text-2": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>Velvet on velvet, gold on gold, opera at noon. Fragrance as celebration with no occasion required.</p>"
+            "content": "<p>Your fragrance is your partner in crime, your confidante, and maybe even a little secret you like to keep. It works with you, for you. An extension of your vibrant being. <br/>It is out there, eccentric, just like yourself.<br/>Bold, expressive, not for everyone. </p>"
           }
         },
-        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-3": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square"
+          }
+        },
         "read-more": {
           "type": "read_more",
           "settings": {
@@ -59,13 +83,26 @@
           "settings": {
             "title": "Share your scent archetype with your friends!",
             "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
-            "button_text": "Share now"
+            "button_text": "Share now",
+            "button_url": ""
           }
         }
       },
-      "block_order": ["hero", "row-1", "text-1", "row-2", "text-2", "row-3", "read-more", "products", "share"],
+      "block_order": [
+        "hero",
+        "row-1",
+        "text-1",
+        "row-2",
+        "text-2",
+        "row-3",
+        "read-more",
+        "products",
+        "share"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
