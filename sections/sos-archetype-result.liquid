@@ -259,6 +259,55 @@
   </div>
 </section>
 
+{%- comment -%}
+  Save archetype result so the account dashboard can show it.
+  Writes to localStorage immediately (works for all visitors).
+  Also fires a silent POST to /account to write the customer metafield
+  when the visitor is logged in (requires metafield to have storefront
+  Read/Write access in Shopify admin → Custom data → Customers).
+{%- endcomment -%}
+<script>
+(function () {
+  var archetype = {{ archetype_name | json }};
+  var pageUrl   = {{ page.url | json }};
+  var today     = new Date().toISOString().split('T')[0];
+
+  /* 1 — localStorage (always works, any visitor) */
+  try {
+    var prev = null;
+    try { prev = JSON.parse(localStorage.getItem('sos_archetype') || 'null'); } catch (_) {}
+    var payload = {
+      name: archetype,
+      url:  pageUrl,
+      /* keep the original quiz date if this same archetype was already saved */
+      date: (prev && prev.url === pageUrl && prev.date) ? prev.date : today
+    };
+    localStorage.setItem('sos_archetype', JSON.stringify(payload));
+  } catch (_) {}
+
+  /* 2 — server-side metafield write (only when logged in)
+     Works when the three metafields below exist in Shopify admin under
+     Settings → Custom data → Customers and have storefront access = Read/Write.
+     Metafield keys: custom.archetype_name, custom.archetype_result_url, custom.archetype_date
+     This is a fire-and-forget request; failures are silently ignored. */
+  {%- if customer -%}
+  try {
+    var fd = new FormData();
+    fd.append('_method', 'put');
+    fd.append('customer[metafields][custom][archetype_name]',       archetype);
+    fd.append('customer[metafields][custom][archetype_result_url]', pageUrl);
+    fd.append('customer[metafields][custom][archetype_date]',       today);
+    fetch('/account', {
+      method:      'POST',
+      credentials: 'same-origin',
+      headers:     { 'Accept': 'application/json' },
+      body:        fd
+    }).catch(function () {});
+  } catch (_) {}
+  {%- endif -%}
+})();
+</script>
+
 {% schema %}
 {
   "name": "Archetype Result",

@@ -441,6 +441,73 @@
   // Re-hydrate if user adds/removes a favorite in another tab while this one is open
   window.addEventListener('storage', function(e){ if (e.key === 'localWishlist') hydrate(); });
 })();
+
+/* ── Archetype localStorage fallback ─────────────────────────────────────────
+   When the Liquid server-render didn't find a customer metafield value for
+   archetype_name, we check localStorage (written by sos-archetype-result.liquid
+   every time a visitor lands on a quiz result page).
+   This makes the archetype card appear in the dashboard immediately after
+   the quiz, even before any Shopify Flow / admin metafield is set up.
+─────────────────────────────────────────────────────────────────────────── */
+(function () {
+  var hasArchetype = {{ has_archetype | json }};
+  if (hasArchetype) return; /* server-side metafield already populated — nothing to do */
+
+  var data = null;
+  try { data = JSON.parse(localStorage.getItem('sos_archetype') || 'null'); } catch (_) {}
+  if (!data || !data.name) return;
+
+  var name    = data.name;
+  var url     = data.url || '#archetype';
+  var rawDate = data.date || '';
+
+  /* Format date for display */
+  var dateStr = '';
+  if (rawDate) {
+    try {
+      var d = new Date(rawDate + 'T00:00:00');
+      dateStr = d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+    } catch (_) { dateStr = rawDate; }
+  }
+
+  function buildCard(actionsHtml) {
+    return '<div class="sos-account__archetype">'
+      + '<span class="sos-account__archetype-image" aria-hidden="true"></span>'
+      + '<div>'
+      +   '<p class="sos-account__archetype-name">' + name + '</p>'
+      +   (dateStr ? '<p class="sos-account__archetype-meta">Quiz taken on ' + dateStr + '</p>' : '')
+      + '</div>'
+      + actionsHtml
+      + '</div>';
+  }
+
+  /* Replace the empty state in #overview */
+  var overviewSection = document.querySelector('#overview .sos-account__empty');
+  if (overviewSection) {
+    overviewSection.outerHTML = buildCard(
+      '<div class="sos-account__archetype-actions">'
+      + '<a class="sos-account__btn" href="' + url + '">View Archetype</a>'
+      + '<a class="sos-account__linkbtn" href="/pages/quiz">Repeat the Quiz</a>'
+      + '</div>'
+    );
+  }
+
+  /* Replace the empty state in #archetype */
+  var archetypeSection = document.querySelector('#archetype .sos-account__empty');
+  if (archetypeSection) {
+    var safeName = name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    archetypeSection.outerHTML = buildCard(
+      '<div class="sos-account__archetype-actions">'
+      + '<a class="sos-account__btn" href="' + url + '">View Archetype</a>'
+      + '<a class="sos-account__btn sos-account__btn--ghost" href="#" '
+      +   'onclick="event.preventDefault();'
+      +     'if(navigator.share){navigator.share({title:\'' + safeName + '\',url:window.location.href});}'
+      +     'else{navigator.clipboard.writeText(window.location.href);this.textContent=\'Link copied\';}">Share Results</a>'
+      + '<a class="sos-account__linkbtn" href="/pages/quiz">Get sample bundle</a>'
+      + '</div>'
+    );
+  }
+})();
 </script>
 
 {%- endif -%}
