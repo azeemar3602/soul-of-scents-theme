@@ -15,10 +15,10 @@
         "hero": {
           "type": "hero",
           "settings": {
-            "overline": "Your archetype",
+            "overline": "Your scent archetype is",
             "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "Pleasure is the point. Your scent is honey and butter and slow Sundays — comfort dialled to its richest setting.",
+            "subtitle": "Quality over quantity. Savoring every bite, every sip, every ray of the sun winking at you so generously.",
             "cta_text": "",
             "cta_url": ""
           }
@@ -26,7 +26,11 @@
         "row-1": {
           "type": "image_row",
           "settings": {
-            "columns": "3"
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_ISOLA_Daniel_Faro_Photos_ID13168.jpg",
+            "image_2": "shopify://shop_images/DTS_Derma_Danny_Owens_Photos_ID5116.jpg",
+            "image_3": "shopify://shop_images/DTS_DECADENT_Debora_Spanhol_Photos_ID12512.jpg"
           }
         },
         "text-1": {
@@ -34,16 +38,17 @@
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>You don't ration. You don't apologise. The good thing is for taking, slowly, until the room is yours.</p>"
+            "content": "<p> You adore the sweet, and devour the saturated. You are your own best company. Your fragrance and you a conspiring dream team. Good things take time. <br/>Or do they? Who’s counting if you have it so abundantly. </p>"
           }
         },
         "row-2": {
           "type": "image_row",
           "settings": {
             "columns": "3",
-            "image_1": "shopify://shop_images/VaporMundum_Electri_grey_shadow.png",
-            "image_2": "shopify://shop_images/TDM_Eau_Coeur_grey.png",
-            "image_3": "shopify://shop_images/DTS_EAT_RICH_Fanette_Guilloud_Photos_ID13893.jpg"
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_croissant_lavender.png",
+            "image_2": "shopify://shop_images/sos_book_matcha.jpg",
+            "image_3": "shopify://shop_images/sos_chess_oval.png"
           }
         },
         "text-2": {
@@ -51,16 +56,17 @@
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>Hot chocolate, warm bread, the second helping. Fragrance as something you can almost taste.</p>"
+            "content": "<p>Slow, confident, and intentional at any stage. Patience your rebellion in a world addicted to consumerism. <br/><br/>Your scent lingers in the air like the syrupy juice of this morning’s peach accompanying your butter drenched artisanal croissant. You are wholeness. Notes of you cling like honey on fingertips. Sticky, indulgent, soothing.</p>"
           }
         },
         "row-3": {
           "type": "image_row",
           "settings": {
             "columns": "3",
-            "image_1": "shopify://shop_images/DTS_Chicago_Skyline_Patrick_Chin_Photos_ID2739.jpg",
-            "image_2": "shopify://shop_images/DTS_EAT_RICH_Fanette_Guilloud_Photos_ID13898.jpg",
-            "image_3": "shopify://shop_images/DTS_LAST_SUPPER_PALI_MENDEZ_Photos_ID13826.jpg"
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_drink_round.png",
+            "image_2": "shopify://shop_images/DTS_ISOLA_Daniel_Faro_Photos_ID13188.jpg",
+            "image_3": "shopify://shop_images/DTS_Caldo_Daniel_Faro_Photos_ID3956.jpg"
           }
         },
         "read-more": {
