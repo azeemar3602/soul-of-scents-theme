@@ -579,6 +579,57 @@
      Visa / PayPal / Amex / Mastercard / Klarna row in the Figma comp. */
   .site-footer__bottom-row .site-footer__payment{ gap: 10px; }
   .site-footer__bottom-row .site-footer__payment svg{ width: 32px; height: 22px; }
+
+  /* ------------------------------------------------------------
+     SoS — final-pass footer tweaks (Figma alignment)
+     ------------------------------------------------------------ */
+
+  /* Shrink the bottom-row "soul of scents" wordmark from the giant
+     clamp(48px, 7vw, 96px) to a quieter mark that doesn't dominate. */
+  .site-footer__wordmark{
+    font-size: clamp(20px, 2.4vw, 32px) !important;
+    letter-spacing: 0 !important;
+  }
+  @media (max-width: 760px){
+    .site-footer__wordmark{ font-size: 22px !important; }
+  }
+
+  /* Hide Shopify's dynamic single-icon payment row in favour of the
+     hardcoded multi-method row injected below. */
+  #footer-payment-methods{ display: none !important; }
+
+  /* Hardcoded payment-methods row container (rendered just below). */
+  .sos-footer-payments{
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; padding: 0; margin: 0;
+    list-style: none;
+  }
+  .sos-footer-payments li{ display: inline-flex; }
+  .sos-footer-payments svg{
+    width: 38px; height: 24px; display: block;
+    border-radius: 3px;
+  }
+
+  /* Newsletter placeholder — force visible muted brand color so the
+     "Email Address" label is legible against the beige input fill. */
+  .site-footer .footer-email .form-control,
+  .footer__newsletter .form-control{
+    color: #030303 !important;
+  }
+  .site-footer .footer-email .form-control::placeholder,
+  .footer__newsletter .form-control::placeholder{
+    color: #6f6862 !important;
+    opacity: 1 !important;
+  }
+  .site-footer .footer-email .form-control::-moz-placeholder,
+  .footer__newsletter .form-control::-moz-placeholder{
+    color: #6f6862 !important;
+    opacity: 1 !important;
+  }
+  .site-footer .footer-email .form-control:-ms-input-placeholder,
+  .footer__newsletter .form-control:-ms-input-placeholder{
+    color: #6f6862 !important;
+  }
 </style>
 {%- liquid
   assign bg_image = section.settings.image_bg
@@ -808,6 +859,15 @@
           {%- else -%}
             <span></span>
           {%- endif -%}
+          {%- comment -%} SoS: always show a curated multi-method row so the footer looks complete even before all gateways are enabled in Shopify admin. {%- endcomment -%}
+          <ul class="sos-footer-payments" aria-label="Accepted payment methods">
+            <li><svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa"><rect width="38" height="24" rx="3" fill="#1A1F71"/><text x="19" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="700" font-style="italic" fill="#FFFFFF" letter-spacing="0.5">VISA</text></svg></li>
+            <li><svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mastercard"><rect width="38" height="24" rx="3" fill="#FFFFFF" stroke="#E5E5E5"/><circle cx="15" cy="12" r="6" fill="#EB001B"/><circle cx="23" cy="12" r="6" fill="#F79E1B"/><path d="M19 7.5a6 6 0 0 0 0 9 6 6 0 0 0 0-9z" fill="#FF5F00"/></svg></li>
+            <li><svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="American Express"><rect width="38" height="24" rx="3" fill="#1F72CD"/><text x="19" y="11" text-anchor="middle" font-family="Arial, sans-serif" font-size="5" font-weight="700" fill="#FFFFFF">AMERICAN</text><text x="19" y="17" text-anchor="middle" font-family="Arial, sans-serif" font-size="5" font-weight="700" fill="#FFFFFF">EXPRESS</text></svg></li>
+            <li><svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PayPal"><rect width="38" height="24" rx="3" fill="#FFFFFF" stroke="#E5E5E5"/><text x="19" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" font-style="italic" fill="#003087">Pay<tspan fill="#009CDE">Pal</tspan></text></svg></li>
+            <li><svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Klarna"><rect width="38" height="24" rx="3" fill="#FFA8CD"/><text x="19" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#000000">Klarna.</text></svg></li>
+            <li><svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Apple Pay"><rect width="38" height="24" rx="3" fill="#000000"/><text x="19" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="600" fill="#FFFFFF">&#xf8ff; Pay</text></svg></li>
+          </ul>
         {%- elsif section.settings.imgpayment != blank -%}
           <div class="site-footer__payment">
             <img class="lazyload" src="{{ section.settings.imgpayment | image_url: width: 1, height: 1 }}" data-src="{{ section.settings.imgpayment | image_url: width: 400 }}"
