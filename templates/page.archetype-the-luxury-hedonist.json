@@ -15,30 +15,60 @@
         "hero": {
           "type": "hero",
           "settings": {
-            "overline": "Your archetype",
+            "overline": "Your scent archetype is",
+            "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "Refined excess. Your scent is the rarest stone, the longest aged spirit, the deliberate quiet of expensive things."
+            "subtitle": "A matter of exclusivity. Top notch, just like you. We keep it classy here. Refined palettes, on every level. A timeless elegance that is expressed through every movement.",
+            "cta_text": "",
+            "cta_url": ""
           }
         },
-        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-1": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_FIRST_ROUND_JELLY_LUISE_Photos_ID10660.jpg",
+            "image_2": "shopify://shop_images/DTS_TREASURE_Daniel_Faro_Photos_ID8399.jpg",
+            "image_3": "shopify://shop_images/36a7825e8cac11baecbb80786d773f860112baba.jpg"
+          }
+        },
         "text-1": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>You collect. You curate. The only standard is the highest one, and it never has to be explained.</p>"
+            "content": "<p>You know what to ask for, you’ve seen it, smelled it, felt it. No imitations here, solely elevated vibes, wrapping you in a sophisticated scarf of perfume. </p>"
           }
         },
-        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-2": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_luxury_hedonist_edit.png",
+            "image_2": "shopify://shop_images/DTS_EAT_RICH_Fanette_Guilloud_Photos_ID13885.jpg",
+            "image_3": "shopify://shop_images/sos_olives_oval.png"
+          }
+        },
         "text-2": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>Oud, amber, the smoke of resin you can taste on the air. Fragrance with provenance and patience.</p>"
+            "content": "<p>Every detail matters. A slow gaze, the pause before the first sip of the crystal cut glass.  You orchestrate the moment, layer for layer. An allure of distinct poise. <br/>One might think you’d bleed blue. <br/>Rarity always attracts attention, and so does your scent. <br/>You don’t chase novelties, you embody the eternal.<br/>A tad bit opulent, a sumptuous sliver, and a drop of lushness to complete.  </p>"
           }
         },
-        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-3": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_TREASURE_Daniel_Faro_Photos_ID8422.jpg",
+            "image_2": "shopify://shop_images/DTS_DECADENT_Debora_Spanhol_Photos_ID12497.jpg",
+            "image_3": "shopify://shop_images/DTS_LAST_SUPPER_PALI_MENDEZ_Photos_ID13820.jpg"
+          }
+        },
         "read-more": {
           "type": "read_more",
           "settings": {
@@ -59,13 +89,26 @@
           "settings": {
             "title": "Share your scent archetype with your friends!",
             "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
-            "button_text": "Share now"
+            "button_text": "Share now",
+            "button_url": ""
           }
         }
       },
-      "block_order": ["hero", "row-1", "text-1", "row-2", "text-2", "row-3", "read-more", "products", "share"],
+      "block_order": [
+        "hero",
+        "row-1",
+        "text-1",
+        "row-2",
+        "text-2",
+        "row-3",
+        "read-more",
+        "products",
+        "share"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
