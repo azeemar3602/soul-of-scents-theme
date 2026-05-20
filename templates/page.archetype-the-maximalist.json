@@ -45,7 +45,10 @@
           "type": "image_row",
           "settings": {
             "columns": "3",
-            "aspect": "square"
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_maximalist_edit.png",
+            "image_2": "shopify://shop_images/DTS_Chaotic_Beauty_Marlen_Stahlhuth_Photos_ID6304.jpg",
+            "image_3": "shopify://shop_images/sos_maximalist_lady_round.png"
           }
         },
         "text-2": {
