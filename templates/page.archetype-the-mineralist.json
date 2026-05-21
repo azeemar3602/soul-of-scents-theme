@@ -15,30 +15,60 @@
         "hero": {
           "type": "hero",
           "settings": {
-            "overline": "Your archetype",
+            "overline": "Your scent archetype is",
+            "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "Clean, structural, unmistakable. Your scent is salt and stone and clarified air — nothing wasted, every note essential."
+            "subtitle": "Textured, raw, rough. Untouched yet poignant. The clearer the better. Because you are not into materials, are you?",
+            "cta_text": "",
+            "cta_url": ""
           }
         },
-        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-1": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_texture_ground_dark.jpg",
+            "image_2": "shopify://shop_images/sos_dark_rock_texture.jpg",
+            "image_3": "shopify://shop_images/sos_quartz_crystals.png"
+          }
+        },
         "text-1": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>You do not over-explain. The good idea, the right cut, the clean line. You strip a thing down until only what matters is left.</p>"
+            "content": "<p>You move with the shapes of nature. You adapt rather than disrupt.<br/>A sparkle of excitement every time someone catches your scent in the crisp air. You are grounded, in connection with your core. Your fragrance pulsating with life force. </p>"
           }
         },
-        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-2": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_texture_shell.jpg",
+            "image_2": "shopify://shop_images/sos_skin_closeup.jpg",
+            "image_3": "shopify://shop_images/dts_champagne_fizz_sparkle.png"
+          }
+        },
         "text-2": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>Wet rock, cold metal, the high note of citrus over a cement floor. Fragrance with the discipline of an architect.</p>"
+            "content": "<p>A formless warmth that embraces your silhouette. <br/>You like to blend in while still shining in your iridescent element. <br/>Fluorescent, deeply rooted, soothing.  </p>"
           }
         },
-        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-3": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_flower_closeup.jpg",
+            "image_2": "shopify://shop_images/DTS_man_skin_greenjpg.jpg",
+            "image_3": "shopify://shop_images/sos_shattered_window.jpg"
+          }
+        },
         "read-more": {
           "type": "read_more",
           "settings": {
@@ -59,13 +89,26 @@
           "settings": {
             "title": "Share your scent archetype with your friends!",
             "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
-            "button_text": "Share now"
+            "button_text": "Share now",
+            "button_url": ""
           }
         }
       },
-      "block_order": ["hero", "row-1", "text-1", "row-2", "text-2", "row-3", "read-more", "products", "share"],
+      "block_order": [
+        "hero",
+        "row-1",
+        "text-1",
+        "row-2",
+        "text-2",
+        "row-3",
+        "read-more",
+        "products",
+        "share"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
