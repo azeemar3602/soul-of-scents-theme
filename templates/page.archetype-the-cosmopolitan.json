@@ -28,9 +28,9 @@
           "settings": {
             "columns": "3",
             "aspect": "square",
-            "image_1": "shopify://shop_images/DTS_FIRST_ROUND_JELLY_LUISE_Photos_ID10674.jpg",
-            "image_2": "shopify://shop_images/DTS_FIRST_ROUND_JELLY_LUISE_Photos_ID10658.jpg",
-            "image_3": "shopify://shop_images/DTS_Remedy_Fanette_Guilloud_Photos_ID4826.jpg"
+            "image_1": "shopify://shop_images/DTS_woman_afro_cocktail.jpg",
+            "image_2": "shopify://shop_images/DTS_pills.jpg",
+            "image_3": "shopify://shop_images/DTS_Money_green.jpg"
           }
         },
         "text-1": {
@@ -46,9 +46,9 @@
           "settings": {
             "columns": "3",
             "aspect": "square",
-            "image_1": "shopify://shop_images/DTS_Money_Bag__Mackenzie_Freemire_Photos_ID3423.jpg",
-            "image_2": "shopify://shop_images/DTS_FIRST_ROUND_JELLY_LUISE_Photos_ID10631.jpg",
-            "image_3": "shopify://shop_images/DTS_ISOLA_Daniel_Faro_Photos_ID13159.jpg"
+            "image_1": "shopify://shop_images/DTS_face_glitter.jpg",
+            "image_2": "shopify://shop_images/DTS_caviar.jpg",
+            "image_3": "shopify://shop_images/sos_bentley.jpg"
           }
         },
         "text-2": {
@@ -63,7 +63,10 @@
           "type": "image_row",
           "settings": {
             "columns": "3",
-            "aspect": "square"
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_disco_head.jpg",
+            "image_2": "shopify://shop_images/sos_sunglasses_pears.jpg",
+            "image_3": "shopify://shop_images/DTS_woman_coktail_red.jpg"
           }
         },
         "read-more": {
