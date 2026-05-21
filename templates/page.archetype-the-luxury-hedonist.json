@@ -28,8 +28,8 @@
           "settings": {
             "columns": "3",
             "aspect": "square",
-            "image_1": "shopify://shop_images/DTS_FIRST_ROUND_JELLY_LUISE_Photos_ID10660.jpg",
-            "image_2": "shopify://shop_images/DTS_TREASURE_Daniel_Faro_Photos_ID8399.jpg",
+            "image_1": "shopify://shop_images/DTS_martini_caviar.jpg",
+            "image_2": "shopify://shop_images/DTS_egg_yolk.jpg",
             "image_3": "shopify://shop_images/36a7825e8cac11baecbb80786d773f860112baba.jpg"
           }
         },
@@ -47,7 +47,7 @@
             "columns": "3",
             "aspect": "square",
             "image_1": "shopify://shop_images/sos_luxury_hedonist_edit.png",
-            "image_2": "shopify://shop_images/DTS_EAT_RICH_Fanette_Guilloud_Photos_ID13885.jpg",
+            "image_2": "shopify://shop_images/DTS_creditcard.jpg",
             "image_3": "shopify://shop_images/sos_olives_oval.png"
           }
         },
@@ -64,9 +64,9 @@
           "settings": {
             "columns": "3",
             "aspect": "square",
-            "image_1": "shopify://shop_images/DTS_TREASURE_Daniel_Faro_Photos_ID8422.jpg",
-            "image_2": "shopify://shop_images/DTS_DECADENT_Debora_Spanhol_Photos_ID12497.jpg",
-            "image_3": "shopify://shop_images/DTS_LAST_SUPPER_PALI_MENDEZ_Photos_ID13820.jpg"
+            "image_1": "shopify://shop_images/sos_cake_round.png",
+            "image_2": "shopify://shop_images/dts_champagne_earrings.jpg",
+            "image_3": "shopify://shop_images/DTS_teatime.jpg"
           }
         },
         "read-more": {
