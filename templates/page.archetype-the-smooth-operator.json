@@ -15,30 +15,60 @@
         "hero": {
           "type": "hero",
           "settings": {
-            "overline": "Your archetype",
+            "overline": "Your scent archetype is",
+            "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "Effortless on purpose. Your scent moves like a long pour — controlled, considered, never trying."
+            "subtitle": "Velvety textures, graceful movements. Like dancing to a timeless piece by Chopin on your toes. Floating elegantly through the life you fell so deeply in love with.",
+            "cta_text": "",
+            "cta_url": ""
           }
         },
-        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-1": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_eyes_closeup.jpg",
+            "image_2": "shopify://shop_images/DTS_bed_sunny.jpg",
+            "image_3": "shopify://shop_images/sos_man_closeup.jpg"
+          }
+        },
         "text-1": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>You don't rush. You let the moment land. The compliment, the deal, the goodbye — all delivered at the right tempo.</p>"
+            "content": "<p>All’s soft, all’s tender through your misty eyes. <br/>Romanticizing your fragrance? Mais Oui. An extension of your vulnerability, a whiff into your soul. Your surroundings mesmerized with one piercing look of yours. Yielding, surrendering to your suave energy.</p>"
           }
         },
-        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-2": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_apple_tree.png",
+            "image_2": "shopify://shop_images/sos_underwater_2.jpg",
+            "image_3": "shopify://shop_images/DTS_nectarines_light.jpg"
+          }
+        },
         "text-2": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>Linen, fresh shaves, the first warm note of woods at dusk. Fragrance with timing.</p>"
+            "content": "<p>Your scent opening the world of imagination - moonlit nights, the red wax of candles melted to your feet. <br/>Memorable, enchanting, wistful.</p>"
           }
         },
-        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-3": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_flight.jpg",
+            "image_2": "shopify://shop_images/DTS_horse.jpg",
+            "image_3": "shopify://shop_images/DTS_lemons_bag.jpg"
+          }
+        },
         "read-more": {
           "type": "read_more",
           "settings": {
@@ -59,13 +89,26 @@
           "settings": {
             "title": "Share your scent archetype with your friends!",
             "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
-            "button_text": "Share now"
+            "button_text": "Share now",
+            "button_url": ""
           }
         }
       },
-      "block_order": ["hero", "row-1", "text-1", "row-2", "text-2", "row-3", "read-more", "products", "share"],
+      "block_order": [
+        "hero",
+        "row-1",
+        "text-1",
+        "row-2",
+        "text-2",
+        "row-3",
+        "read-more",
+        "products",
+        "share"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
