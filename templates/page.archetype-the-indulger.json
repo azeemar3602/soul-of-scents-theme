@@ -28,9 +28,9 @@
           "settings": {
             "columns": "3",
             "aspect": "square",
-            "image_1": "shopify://shop_images/DTS_ISOLA_Daniel_Faro_Photos_ID13168.jpg",
-            "image_2": "shopify://shop_images/DTS_Derma_Danny_Owens_Photos_ID5116.jpg",
-            "image_3": "shopify://shop_images/DTS_DECADENT_Debora_Spanhol_Photos_ID12512.jpg"
+            "image_1": "shopify://shop_images/DTS_bag_tomato.jpg",
+            "image_2": "shopify://shop_images/DTS_macarons.jpg",
+            "image_3": "shopify://shop_images/DTS_woman_skin.jpg"
           }
         },
         "text-1": {
@@ -65,8 +65,8 @@
             "columns": "3",
             "aspect": "square",
             "image_1": "shopify://shop_images/sos_drink_round.png",
-            "image_2": "shopify://shop_images/DTS_ISOLA_Daniel_Faro_Photos_ID13188.jpg",
-            "image_3": "shopify://shop_images/DTS_Caldo_Daniel_Faro_Photos_ID3956.jpg"
+            "image_2": "shopify://shop_images/DTS_peach_nectarine.jpg",
+            "image_3": "shopify://shop_images/sos_book_sky.jpg"
           }
         },
         "read-more": {
