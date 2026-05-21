@@ -15,30 +15,60 @@
         "hero": {
           "type": "hero",
           "settings": {
-            "overline": "Your archetype",
+            "overline": "Your scent archetype is",
+            "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "Soft, sentimental, devotional. Your scent is a love letter — petals on skin, light through a window, the long pause before a kiss."
+            "subtitle": "Brontë’s novel in one hand, while still indulging in the memory of last night. Gentle and raw, you don’t fear to be seen - or smelled. Vulnerability your strong suite. And how well it suits you to just move shapelessly and adapt the colors of your environment.",
+            "cta_text": "",
+            "cta_url": ""
           }
         },
-        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-1": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_books.jpg",
+            "image_2": "shopify://shop_images/sos_wax_red.png",
+            "image_3": "shopify://shop_images/sos_lip_closeup_bw.png"
+          }
+        },
         "text-1": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>You believe in the long look, the handwritten note, the song that plays at the wrong moment and ruins you for the rest of the week.</p>"
+            "content": "<p>Quality time one of your many love languages. You take your time to open up, and so does your fragrance. Layered and saturated like a delicate rose. Introducing you petal for petal.</p>"
           }
         },
-        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-2": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_bra_shower_curtain.png",
+            "image_2": "shopify://shop_images/DTS_woman_skin_closeup.jpg",
+            "image_3": "shopify://shop_images/DTS_shell.jpg"
+          }
+        },
         "text-2": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>Powder, silk, white musk on warm skin. A perfume that arrives like a memory you didn't know you had.</p>"
+            "content": "<p>What a joy to unfold you. Settling into rooms like fine powder, soft but pervasive. Felt more than seen, leaving a trail of lucid dreams. Magnetic, charming, intimate. </p>"
           }
         },
-        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-3": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_flower_red.jpg",
+            "image_2": "shopify://shop_images/DTS_spoon.jpg",
+            "image_3": "shopify://shop_images/sos_cherry_sky.jpg"
+          }
+        },
         "read-more": {
           "type": "read_more",
           "settings": {
@@ -59,13 +89,26 @@
           "settings": {
             "title": "Share your scent archetype with your friends!",
             "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
-            "button_text": "Share now"
+            "button_text": "Share now",
+            "button_url": ""
           }
         }
       },
-      "block_order": ["hero", "row-1", "text-1", "row-2", "text-2", "row-3", "read-more", "products", "share"],
+      "block_order": [
+        "hero",
+        "row-1",
+        "text-1",
+        "row-2",
+        "text-2",
+        "row-3",
+        "read-more",
+        "products",
+        "share"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
