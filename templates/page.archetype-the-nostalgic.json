@@ -15,30 +15,60 @@
         "hero": {
           "type": "hero",
           "settings": {
-            "overline": "Your archetype",
+            "overline": "Your scent archetype is",
+            "archetype_name": "",
             "italicize_name": true,
-            "subtitle": "Memory in a bottle. Your scent is the long hallway, the box of letters, the song you can't place but won't forget."
+            "subtitle": "You don’t follow any trends or hypes, you are the moment, always. Time but just a construct. Between desaturated film and polished old-timers lies a slow life of indulgence.  One you know very well how to cherish.",
+            "cta_text": "",
+            "cta_url": ""
           }
         },
-        "row-1": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-1": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_oldtimer_car.jpg",
+            "image_2": "shopify://shop_images/sos_library.jpg",
+            "image_3": "shopify://shop_images/DTS_phone_beige.jpg"
+          }
+        },
         "text-1": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>You are made of returning. The summers, the rooms, the people — they live on under your skin, in your wrists, behind your ear.</p>"
+            "content": "<p>Your scent a reflection of timelessness, value rising with maturity.  <br/>Never outdated. A golden sunset the only competition to your refined fragrance. </p>"
           }
         },
-        "row-2": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-2": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/DTS_man_legs.jpg",
+            "image_2": "shopify://shop_images/DTS_touch_fingers_connect.jpg",
+            "image_3": "shopify://shop_images/DTS_VR_video_camera.jpg"
+          }
+        },
         "text-2": {
           "type": "text",
           "settings": {
             "style": "quote",
             "align": "center",
-            "content": "<p>Old paper, dried flowers, the smell of rain on a coat that isn't yours anymore. Fragrance as time travel.</p>"
+            "content": "<p>You are one to be savored, enjoyed in small sips, just like your perfume. Every drop a golden serenade. <br/>Vintage with an eternal appeal. Evoking, sentimental, complex. </p>"
           }
         },
-        "row-3": { "type": "image_row", "settings": { "columns": "3" } },
+        "row-3": {
+          "type": "image_row",
+          "settings": {
+            "columns": "3",
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_burnt_book.jpg",
+            "image_2": "shopify://shop_images/DTS_men_bw.jpg",
+            "image_3": "shopify://shop_images/DTS_blurry_rose.jpg"
+          }
+        },
         "read-more": {
           "type": "read_more",
           "settings": {
@@ -59,13 +89,26 @@
           "settings": {
             "title": "Share your scent archetype with your friends!",
             "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
-            "button_text": "Share now"
+            "button_text": "Share now",
+            "button_url": ""
           }
         }
       },
-      "block_order": ["hero", "row-1", "text-1", "row-2", "text-2", "row-3", "read-more", "products", "share"],
+      "block_order": [
+        "hero",
+        "row-1",
+        "text-1",
+        "row-2",
+        "text-2",
+        "row-3",
+        "read-more",
+        "products",
+        "share"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
