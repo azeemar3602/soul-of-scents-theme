@@ -28,9 +28,9 @@
           "settings": {
             "columns": "3",
             "aspect": "square",
-            "image_1": "shopify://shop_images/DTS_LAST_SUPPER_PALI_MENDEZ_Photos_ID13826.jpg",
-            "image_2": "shopify://shop_images/DTS_EAT_RICH_Fanette_Guilloud_Photos_ID13892.jpg",
-            "image_3": "shopify://shop_images/DTS_Cosmic_masculinity_Marlen_Stahlhuth_Photos_ID9060.jpg"
+            "image_1": "shopify://shop_images/DTS_woman_on_table.jpg",
+            "image_2": "shopify://shop_images/DTS_caviar_porcelain.jpg",
+            "image_3": "shopify://shop_images/DTS_glitter_eye_gold.jpg"
           }
         },
         "text-1": {
@@ -47,8 +47,8 @@
             "columns": "3",
             "aspect": "square",
             "image_1": "shopify://shop_images/sos_maximalist_edit.png",
-            "image_2": "shopify://shop_images/DTS_Chaotic_Beauty_Marlen_Stahlhuth_Photos_ID6304.jpg",
-            "image_3": "shopify://shop_images/sos_maximalist_lady_round.png"
+            "image_2": "shopify://shop_images/sos_olives_ceccadff-641b-43a9-baf6-6906d988678f.jpg",
+            "image_3": "shopify://shop_images/sos_stockings_oval.png"
           }
         },
         "text-2": {
@@ -63,7 +63,10 @@
           "type": "image_row",
           "settings": {
             "columns": "3",
-            "aspect": "square"
+            "aspect": "square",
+            "image_1": "shopify://shop_images/sos_maximalist_lady_round.png",
+            "image_2": "shopify://shop_images/DTS_table_lipstick.jpg",
+            "image_3": "shopify://shop_images/DTS_lobster.jpg"
           }
         },
         "read-more": {
