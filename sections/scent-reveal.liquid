@@ -3,17 +3,17 @@
   Scent profile reveal section for product pages.
 
   ── Mode 1: HTML iframe (priority) ─────────────────────────────────────────
-  Metafield: custom.scent_profile_html  (type: single_line_text)
-  Two accepted values:
-    a) Just the asset filename:  scent-profile-aura.html
-       → section applies | asset_url filter (theme file, correct MIME type)
-    b) A full https:// URL — used as-is (e.g. if hosted elsewhere)
-  Recommended workflow:
-    1. Add the HTML file to the theme repo under assets/
-       e.g. assets/scent-profile-aura.html
-    2. Set the product metafield to just the filename: scent-profile-aura.html
-  The section renders the file in an <iframe>. All heading / layout /
-  background settings still apply.
+  Metafield: custom.scent_profile_html  (type: single_line_text OR url)
+  Accepted values — any of these work:
+    a) Full Shopify Files CDN URL (from Settings → Files upload)
+       e.g. https://cdn.shopify.com/s/files/…/eccco_scent_profile.html.liquid
+    b) Just a theme asset filename:  scent-profile-aura.html
+       (file must be in the theme's assets/ folder)
+    c) Any external https:// URL
+  The section JS fetches the file content and loads it via a Blob URL, which
+  forces the correct text/html MIME type regardless of file extension — so
+  Shopify's .html.liquid CDN rename is handled transparently.
+  All heading / layout / background settings still apply.
 
   ── Mode 2: Image toggle (legacy fallback) ──────────────────────────────────
   Metafields: custom.image_start / custom.image_end  (File – Image type)
@@ -79,20 +79,45 @@
     {%- if has_html -%}
       {%- comment -%}
         HTML iframe mode.
-        The file is self-contained (its own CSS, fonts, JS).
-        Cross-origin iframe: fixed height; no scrollbar.
+        We load the file via fetch() and create a Blob URL with type text/html.
+        This forces the correct MIME type regardless of the file extension,
+        so Shopify Files CDN uploads (which get renamed to .html.liquid) work
+        exactly the same as theme assets or external URLs.
       {%- endcomment -%}
       <div class="sr-iframe-wrap">
         <iframe
-          src="{{ scent_html_url }}"
+          id="sr-html-frame-{{ sec_id }}"
           class="sr-iframe"
           frameborder="0"
           scrolling="no"
           title="{{ product.title | escape }} — Scent Profile"
-          loading="lazy"
           allow="autoplay"
         ></iframe>
       </div>
+      <script>
+      (function () {
+        var iframe = document.getElementById('sr-html-frame-{{ sec_id }}');
+        var src    = {{ scent_html_url | json }};
+        if (!iframe || !src) return;
+
+        /* Fetch the HTML text and re-serve it via a Blob URL with the correct
+           text/html MIME type. This bypasses any wrong Content-Type the CDN
+           might send (e.g. Shopify Files renames .html → .html.liquid). */
+        fetch(src, { mode: 'cors', credentials: 'omit' })
+          .then(function (r) { return r.ok ? r.text() : Promise.reject(r.status); })
+          .then(function (html) {
+            var blob    = new Blob([html], { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(blob);
+            iframe.src  = blobUrl;
+            /* Revoke blob URL after iframe has loaded to free memory */
+            iframe.addEventListener('load', function () { URL.revokeObjectURL(blobUrl); }, { once: true });
+          })
+          .catch(function () {
+            /* Fallback: set src directly (works if MIME type happens to be correct) */
+            iframe.src = src;
+          });
+      })();
+      </script>
 
     {%- elsif has_images -%}
       {%- comment -%} Legacy image toggle mode {%- endcomment -%}
@@ -390,7 +415,7 @@
     { "type": "range",  "id": "subheading_gap",   "label": "Space below title",     "min": 0,    "max": 40,   "step": 2,   "default": 8 },
 
     { "type": "header",    "content": "HTML scent profile (iframe mode)" },
-    { "type": "paragraph", "content": "Priority mode. Add the HTML file to the theme under assets/ (e.g. assets/scent-profile-aura.html), then set the product metafield 'custom.scent_profile_html' (type: single-line text) to just the filename: scent-profile-aura.html. The section resolves it to the correct CDN URL. When this metafield is set the image toggle below is hidden." },
+    { "type": "paragraph", "content": "Priority mode. Upload the HTML file via Shopify admin → Settings → Files, copy the CDN URL, and paste it into the product metafield 'custom.scent_profile_html' (type: single-line text or URL). The section JS fetches the file and loads it via a Blob URL, so Shopify's .html.liquid renaming causes no issues. Alternatively, store just a filename like scent-profile-aura.html to use a theme asset. When this metafield is set the image toggle below is hidden." },
     { "type": "range",  "id": "iframe_height",        "label": "Iframe height — desktop (px)", "min": 300, "max": 800, "step": 10, "default": 460, "unit": "px" },
     { "type": "range",  "id": "iframe_height_mobile", "label": "Iframe height — mobile (px)",  "min": 280, "max": 700, "step": 10, "default": 420, "unit": "px" },
     { "type": "range",  "id": "iframe_width",         "label": "Iframe width %",               "min": 30,  "max": 100, "step": 5,  "default": 100 },
