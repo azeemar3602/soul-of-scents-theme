@@ -3,12 +3,16 @@
   Scent profile reveal section for product pages.
 
   ── Mode 1: HTML iframe (priority) ─────────────────────────────────────────
-  Metafield: custom.scent_profile_html  (type: url  OR  single_line_text)
-  Workflow:
-    1. Shopify admin → Settings → Files → Upload the HTML file.
-    2. Copy the CDN URL (https://cdn.shopify.com/s/files/…html).
-    3. Open the product → Metafields → scent_profile_html → paste the URL.
-  The section renders the file in an <iframe>. All section heading / layout /
+  Metafield: custom.scent_profile_html  (type: single_line_text)
+  Two accepted values:
+    a) Just the asset filename:  scent-profile-aura.html
+       → section applies | asset_url filter (theme file, correct MIME type)
+    b) A full https:// URL — used as-is (e.g. if hosted elsewhere)
+  Recommended workflow:
+    1. Add the HTML file to the theme repo under assets/
+       e.g. assets/scent-profile-aura.html
+    2. Set the product metafield to just the filename: scent-profile-aura.html
+  The section renders the file in an <iframe>. All heading / layout /
   background settings still apply.
 
   ── Mode 2: Image toggle (legacy fallback) ──────────────────────────────────
@@ -16,15 +20,28 @@
   Two images toggled on "Reveal notes" button click.
 {% endcomment %}
 
-{%- comment -%} ── Resolve HTML URL (handles both url-string and file_reference metafield types) ── {%- endcomment -%}
-{%- assign _scent_meta     = product.metafields.custom.scent_profile_html -%}
-{%- assign scent_html_url  = '' -%}
+{%- comment -%}
+  Resolve the HTML URL from the metafield.
+  If the value is a plain filename (no protocol) we apply | asset_url so the
+  file is served from the theme CDN with the correct text/html MIME type.
+  If it already starts with http/https we use it directly.
+{%- endcomment -%}
+{%- assign _scent_meta    = product.metafields.custom.scent_profile_html -%}
+{%- assign scent_html_url = '' -%}
 {%- if _scent_meta != blank -%}
   {%- assign _meta_val = _scent_meta.value -%}
+  {%- comment -%} file_reference type → .value is an object with .url {%- endcomment -%}
   {%- if _meta_val.url != blank -%}
     {%- assign scent_html_url = _meta_val.url -%}
   {%- elsif _meta_val != blank -%}
-    {%- assign scent_html_url = _meta_val -%}
+    {%- assign _meta_str = _meta_val | downcase -%}
+    {%- if _meta_str contains 'https://' or _meta_str contains 'http://' -%}
+      {%- comment -%} Full URL — use as-is {%- endcomment -%}
+      {%- assign scent_html_url = _meta_val -%}
+    {%- else -%}
+      {%- comment -%} Just a filename — resolve via theme asset_url for correct MIME type {%- endcomment -%}
+      {%- assign scent_html_url = _meta_val | asset_url -%}
+    {%- endif -%}
   {%- endif -%}
 {%- endif -%}
 
@@ -373,7 +390,7 @@
     { "type": "range",  "id": "subheading_gap",   "label": "Space below title",     "min": 0,    "max": 40,   "step": 2,   "default": 8 },
 
     { "type": "header",    "content": "HTML scent profile (iframe mode)" },
-    { "type": "paragraph", "content": "Priority mode. Upload the HTML file via Shopify admin → Settings → Files, copy the CDN URL, then set it as the product metafield 'custom.scent_profile_html' (type: URL or single-line text). When this metafield is set the image toggle below is hidden." },
+    { "type": "paragraph", "content": "Priority mode. Add the HTML file to the theme under assets/ (e.g. assets/scent-profile-aura.html), then set the product metafield 'custom.scent_profile_html' (type: single-line text) to just the filename: scent-profile-aura.html. The section resolves it to the correct CDN URL. When this metafield is set the image toggle below is hidden." },
     { "type": "range",  "id": "iframe_height",        "label": "Iframe height — desktop (px)", "min": 300, "max": 800, "step": 10, "default": 460, "unit": "px" },
     { "type": "range",  "id": "iframe_height_mobile", "label": "Iframe height — mobile (px)",  "min": 280, "max": 700, "step": 10, "default": 420, "unit": "px" },
     { "type": "range",  "id": "iframe_width",         "label": "Iframe width %",               "min": 30,  "max": 100, "step": 5,  "default": 100 },
