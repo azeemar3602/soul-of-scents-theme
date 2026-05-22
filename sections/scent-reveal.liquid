@@ -1,26 +1,51 @@
 {% comment %}
   sections/scent-reveal.liquid
   Scent profile reveal section for product pages.
-  Two images toggled on button click.
-  Image uploaded as transparent PNG — background colour set in section settings.
-  Metafields: custom.image_start / custom.image_end (File – Image type)
+
+  ── Mode 1: HTML iframe (priority) ─────────────────────────────────────────
+  Metafield: custom.scent_profile_html  (type: url  OR  single_line_text)
+  Workflow:
+    1. Shopify admin → Settings → Files → Upload the HTML file.
+    2. Copy the CDN URL (https://cdn.shopify.com/s/files/…html).
+    3. Open the product → Metafields → scent_profile_html → paste the URL.
+  The section renders the file in an <iframe>. All section heading / layout /
+  background settings still apply.
+
+  ── Mode 2: Image toggle (legacy fallback) ──────────────────────────────────
+  Metafields: custom.image_start / custom.image_end  (File – Image type)
+  Two images toggled on "Reveal notes" button click.
 {% endcomment %}
+
+{%- comment -%} ── Resolve HTML URL (handles both url-string and file_reference metafield types) ── {%- endcomment -%}
+{%- assign _scent_meta     = product.metafields.custom.scent_profile_html -%}
+{%- assign scent_html_url  = '' -%}
+{%- if _scent_meta != blank -%}
+  {%- assign _meta_val = _scent_meta.value -%}
+  {%- if _meta_val.url != blank -%}
+    {%- assign scent_html_url = _meta_val.url -%}
+  {%- elsif _meta_val != blank -%}
+    {%- assign scent_html_url = _meta_val -%}
+  {%- endif -%}
+{%- endif -%}
 
 {%- assign img_start = product.metafields.custom.image_start.value -%}
 {%- assign img_end   = product.metafields.custom.image_end.value -%}
 
-{% if img_start != blank or img_end != blank %}
+{%- assign has_html   = false -%}
+{%- assign has_images = false -%}
+{%- if scent_html_url != blank -%}{%- assign has_html   = true -%}{%- endif -%}
+{%- if img_start != blank or img_end != blank -%}{%- assign has_images = true -%}{%- endif -%}
+
+{% if has_html or has_images %}
 
 {%- liquid
-  assign sec_id     = section.id
-  assign layout     = section.settings.layout
-  assign img_width  = section.settings.image_width
+  assign sec_id = section.id
+  assign layout = section.settings.layout
 -%}
 
 <div class="sr-outer sr-outer--{{ layout }}" id="sr-{{ sec_id }}">
   <div class="sr-inner">
 
-    {% comment %} ── Heading ── {% endcomment %}
     {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
     <div class="sr-heading-wrap">
       {%- if section.settings.heading != blank -%}
@@ -34,57 +59,74 @@
     </div>
     {%- endif -%}
 
-    {% comment %} ── Image container ── {% endcomment %}
-    <div class="sr-img-container">
-      <div class="sr-img-wrap">
-
-        {%- if img_start != blank -%}
-          <img
-            src="{{ img_start | image_url: width: 1200 }}"
-            alt="{{ product.title }} — vibe"
-            class="sr-img sr-img--active"
-            id="sr-start-{{ sec_id }}"
-            width="{{ img_start.width }}"
-            height="{{ img_start.height }}"
-            loading="lazy"
-          >
-        {%- endif -%}
-
-        {%- if img_end != blank -%}
-          <img
-            src="{{ img_end | image_url: width: 1200 }}"
-            alt="{{ product.title }} — notes"
-            class="sr-img"
-            id="sr-end-{{ sec_id }}"
-            width="{{ img_end.width }}"
-            height="{{ img_end.height }}"
-            loading="lazy"
-          >
-        {%- endif -%}
-
+    {%- if has_html -%}
+      {%- comment -%}
+        HTML iframe mode.
+        The file is self-contained (its own CSS, fonts, JS).
+        Cross-origin iframe: fixed height; no scrollbar.
+      {%- endcomment -%}
+      <div class="sr-iframe-wrap">
+        <iframe
+          src="{{ scent_html_url }}"
+          class="sr-iframe"
+          frameborder="0"
+          scrolling="no"
+          title="{{ product.title | escape }} — Scent Profile"
+          loading="lazy"
+          allow="autoplay"
+        ></iframe>
       </div>
-    </div>
 
-    {% comment %} ── Button ── {% endcomment %}
-    {%- if img_start != blank and img_end != blank -%}
-    <div class="sr-btn-wrap">
-      <button
-        class="sr-btn"
-        id="sr-btn-{{ sec_id }}"
-        data-section="{{ sec_id }}"
-        data-state="start"
-        data-label-start="{{ section.settings.btn_label_start | escape }}"
-        data-label-end="{{ section.settings.btn_label_end | escape }}"
-        aria-label="{{ section.settings.btn_label_start | escape }}"
-      >
-        <span class="sr-btn__icon sr-btn__icon--down">
-          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="sr-btn__label">{{ section.settings.btn_label_start }}</span>
-      </button>
-    </div>
+    {%- elsif has_images -%}
+      {%- comment -%} Legacy image toggle mode {%- endcomment -%}
+      {%- assign img_width = section.settings.image_width -%}
+      <div class="sr-img-container">
+        <div class="sr-img-wrap">
+          {%- if img_start != blank -%}
+            <img
+              src="{{ img_start | image_url: width: 1200 }}"
+              alt="{{ product.title }} — vibe"
+              class="sr-img sr-img--active"
+              id="sr-start-{{ sec_id }}"
+              width="{{ img_start.width }}"
+              height="{{ img_start.height }}"
+              loading="lazy"
+            >
+          {%- endif -%}
+          {%- if img_end != blank -%}
+            <img
+              src="{{ img_end | image_url: width: 1200 }}"
+              alt="{{ product.title }} — notes"
+              class="sr-img"
+              id="sr-end-{{ sec_id }}"
+              width="{{ img_end.width }}"
+              height="{{ img_end.height }}"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if img_start != blank and img_end != blank -%}
+      <div class="sr-btn-wrap">
+        <button
+          class="sr-btn"
+          id="sr-btn-{{ sec_id }}"
+          data-section="{{ sec_id }}"
+          data-state="start"
+          data-label-start="{{ section.settings.btn_label_start | escape }}"
+          data-label-end="{{ section.settings.btn_label_end | escape }}"
+          aria-label="{{ section.settings.btn_label_start | escape }}"
+        >
+          <span class="sr-btn__icon sr-btn__icon--down">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="sr-btn__label">{{ section.settings.btn_label_start }}</span>
+        </button>
+      </div>
+      {%- endif -%}
     {%- endif -%}
 
   </div>
@@ -99,14 +141,6 @@
     padding-left: {{ section.settings.margin_left }}px;
     padding-right: {{ section.settings.margin_right }}px;
   }
-  #sr-{{ sec_id }} .sr-inner {
-    background-color: {{ section.settings.bg_color }};
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-    border-radius: {{ section.settings.section_radius }}px;
-  }
-
-  /* ── Inner container ── */
   #sr-{{ sec_id }} .sr-inner {
     background-color: {{ section.settings.bg_color }};
     padding-top: {{ section.settings.padding_top }}px;
@@ -154,20 +188,32 @@
     letter-spacing: 0.02em;
   }
 
-  /* ── Image container ── */
+  /* ── HTML iframe mode ── */
+  #sr-{{ sec_id }} .sr-iframe-wrap {
+    width: {{ section.settings.iframe_width | default: 100 }}%;
+    max-width: {{ section.settings.iframe_max_width | default: 520 }}px;
+    margin: 0 auto;
+  }
+  #sr-{{ sec_id }} .sr-iframe {
+    display: block;
+    width: 100%;
+    height: {{ section.settings.iframe_height | default: 460 }}px;
+    border: none;
+    background: transparent;
+  }
+
+  /* ── Image container (legacy) ── */
   #sr-{{ sec_id }} .sr-img-container {
     display: flex;
     justify-content: center;
   }
   #sr-{{ sec_id }} .sr-img-wrap {
     position: relative;
-    width: {{ img_width }}%;
+    width: {{ section.settings.image_width }}%;
     max-width: 100%;
     border-radius: {{ section.settings.image_radius }}px;
     overflow: hidden;
   }
-
-  /* ── Images ── */
   #sr-{{ sec_id }} .sr-img {
     display: block;
     width: 100%;
@@ -182,15 +228,11 @@
     opacity: 1;
     position: relative;
   }
-
-  /* ── Button wrap ── */
   #sr-{{ sec_id }} .sr-btn-wrap {
     display: flex;
     justify-content: {{ section.settings.btn_align }};
     margin-top: {{ section.settings.btn_gap }}px;
   }
-
-  /* ── Button ── */
   #sr-{{ sec_id }} .sr-btn {
     display: inline-flex;
     align-items: center;
@@ -207,33 +249,29 @@
     cursor: pointer;
     transition: opacity 0.2s, background 0.2s;
   }
-  #sr-{{ sec_id }} .sr-btn:hover {
-    opacity: 0.82;
-  }
+  #sr-{{ sec_id }} .sr-btn:hover { opacity: 0.82; }
   #sr-{{ sec_id }} .sr-btn__icon svg {
     transition: transform 0.3s ease;
     display: block;
   }
-  #sr-{{ sec_id }} .sr-btn.is-end .sr-btn__icon svg {
-    transform: rotate(180deg);
-  }
+  #sr-{{ sec_id }} .sr-btn.is-end .sr-btn__icon svg { transform: rotate(180deg); }
 
   /* ── Responsive ── */
   @media (max-width: 749px) {
-    #sr-{{ sec_id }} .sr-img-wrap {
-      width: {{ section.settings.image_width_mobile }}%;
-    }
+    #sr-{{ sec_id }} .sr-iframe { height: {{ section.settings.iframe_height_mobile | default: 420 }}px; }
+    #sr-{{ sec_id }} .sr-iframe-wrap { width: 100%; }
+    #sr-{{ sec_id }} .sr-img-wrap { width: {{ section.settings.image_width_mobile }}%; }
     #sr-{{ sec_id }} .sr-heading { font-size: {{ section.settings.heading_size | times: 0.75 | round }}px; }
   }
 </style>
 
+{%- if has_images and img_start != blank and img_end != blank -%}
 <script>
 (function () {
   var btn      = document.getElementById('sr-btn-{{ sec_id }}');
   var imgStart = document.getElementById('sr-start-{{ sec_id }}');
   var imgEnd   = document.getElementById('sr-end-{{ sec_id }}');
   if (!btn) return;
-
   btn.addEventListener('click', function () {
     var isStart = btn.dataset.state === 'start';
     if (isStart) {
@@ -254,6 +292,7 @@
   });
 })();
 </script>
+{%- endif -%}
 
 {% endif %}
 
@@ -333,13 +372,21 @@
     { "type": "range",  "id": "heading_gap",      "label": "Space below heading",   "min": 0,    "max": 80,   "step": 4,   "default": 24 },
     { "type": "range",  "id": "subheading_gap",   "label": "Space below title",     "min": 0,    "max": 40,   "step": 2,   "default": 8 },
 
-    { "type": "header", "content": "Image" },
+    { "type": "header",    "content": "HTML scent profile (iframe mode)" },
+    { "type": "paragraph", "content": "Priority mode. Upload the HTML file via Shopify admin → Settings → Files, copy the CDN URL, then set it as the product metafield 'custom.scent_profile_html' (type: URL or single-line text). When this metafield is set the image toggle below is hidden." },
+    { "type": "range",  "id": "iframe_height",        "label": "Iframe height — desktop (px)", "min": 300, "max": 800, "step": 10, "default": 460, "unit": "px" },
+    { "type": "range",  "id": "iframe_height_mobile", "label": "Iframe height — mobile (px)",  "min": 280, "max": 700, "step": 10, "default": 420, "unit": "px" },
+    { "type": "range",  "id": "iframe_width",         "label": "Iframe width %",               "min": 30,  "max": 100, "step": 5,  "default": 100 },
+    { "type": "range",  "id": "iframe_max_width",     "label": "Iframe max width (px)",        "min": 300, "max": 900, "step": 20, "default": 520 },
+
+    { "type": "header", "content": "Image (legacy fallback)" },
+    { "type": "paragraph", "content": "Used only when 'custom.scent_profile_html' is not set. Product metafields: custom.image_start and custom.image_end (File – Image type)." },
     { "type": "range",  "id": "image_width",        "label": "Image width % (desktop)", "min": 20, "max": 100, "step": 5, "default": 70 },
     { "type": "range",  "id": "image_width_mobile", "label": "Image width % (mobile)",  "min": 50, "max": 100, "step": 5, "default": 100 },
     { "type": "range",  "id": "image_radius",       "label": "Image corner radius",     "min": 0,  "max": 40,  "step": 2, "default": 0 },
     { "type": "range",  "id": "transition_speed",   "label": "Fade speed (ms)",         "min": 100,"max": 800, "step": 50,"default": 350 },
 
-    { "type": "header", "content": "Button" },
+    { "type": "header", "content": "Button (image mode only)" },
     { "type": "text",   "id": "btn_label_start",  "label": "Button — front label",  "default": "Reveal notes" },
     { "type": "text",   "id": "btn_label_end",    "label": "Button — back label",   "default": "Reveal vibe"  },
     { "type": "select", "id": "btn_align",        "label": "Button position",
