@@ -264,7 +264,7 @@
             {%- if source_col != blank and source_col.products.size > 0 -%}
               <div class="sos-arch-products__grid">
                 {%- for product in source_col.products limit: limit -%}
-                  {%- render 'product-card', product: product, collection: source_col -%}
+                  {%- render 'product-card', product: product, collection: source_col, enable_edit_item: true, select_item: 'product-10' -%}
                 {%- endfor -%}
               </div>
             {%- else -%}

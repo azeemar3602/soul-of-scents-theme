@@ -193,28 +193,28 @@
                                                                                                                                                             margin-bottom: 16px;
                                                                                                                                                               font-size: 14px;
                                                                                                                                                               }
-                                                                                                                                                              @media (max-width: 749px) {
-                                                                                                                                                                  .account-archetype-card {
-                                                                                                                                                                        flex-direction: column;
-                                                                                                                                                                            align-items: flex-start;
-                                                                                                                                                                  }
-                                                                                                                                                                    .account-archetype-card__actions {
-                                                                                                                                                                          width: 100%;
-                                                                                                                                                                            }
-                                                                                                                                                                              .account-archetype-card__btn {
+                                                                                                                                                              /* ================================
+                                                                                                                                                                   Mood Tag Pill Colors
+                                                                                                                                                                   ================================ */
+.mood-tags-block .mood-tag:nth-child(n) { background: #f0f0f0; color: #444; border-color: #ddd; }
+.mood-tag--resin-heat      { background: #D64249 !important; color: #F7D697 !important; border-color: #D64249 !important; }
+.mood-tag--after-dark      { background: #1C0D96 !important; color: #CDC8F1 !important; border-color: #1C0D96 !important; }
+.mood-tag--nostalgic-notion { background: #C8E8F1 !important; color: #786CD6 !important; border-color: #C8E8F1 !important; }
+.mood-tag--sweet-escape    { background: #F7D697 !important; color: #D64249 !important; border-color: #F7D697 !important; }
+.mood-tag--second-skin     { background: #A29AE4 !important; color: #E2DFF7 !important; border-color: #A29AE4 !important; }
+.mood-tag--subtle-companion { background: #FAE7E8 !important; color: #A29AE4 !important; border-color: #FAE7E8 !important; }
+.mood-tag--grounding-greens { background: #197362 !important; color: #63DAC4 !important; border-color: #197362 !important; }
+.mood-tag--main-character  { background: #52080B !important; color: #D64249 !important; border-color: #52080B !important; }
 
-                                                                                                                                                                                /* ================================
-                                                                                                                                                                                   Mood Tag Pill Colors
-                                                                                                                                                                                      ================================ */
-                                                                                                                                                                                      .mood-tags-block .mood-tag:nth-child(n) { background: #f0f0f0; color: #444; border-color: #ddd; }
-                                                                                                                                                                                      .mood-tag--resin-heat      { background: #D64249 !important; color: #F7D697 !important; border-color: #D64249 !important; }
-                                                                                                                                                                                      .mood-tag--after-dark      { background: #1C0D96 !important; color: #CDC8F1 !important; border-color: #1C0D96 !important; }
-                                                                                                                                                                                      .mood-tag--nostalgic-notion { background: #C8E8F1 !important; color: #786CD6 !important; border-color: #C8E8F1 !important; }
-                                                                                                                                                                                      .mood-tag--sweet-escape    { background: #F7D697 !important; color: #D64249 !important; border-color: #F7D697 !important; }
-                                                                                                                                                                                      .mood-tag--second-skin     { background: #A29AE4 !important; color: #E2DFF7 !important; border-color: #A29AE4 !important; }
-                                                                                                                                                                                      .mood-tag--subtle-companion { background: #FAE7E8 !important; color: #A29AE4 !important; border-color: #FAE7E8 !important; }
-                                                                                                                                                                                      .mood-tag--grounding-greens { background: #197362 !important; color: #63DAC4 !important; border-color: #197362 !important; }
-                                                                                                                                                                                      .mood-tag--main-character  { background: #52080B !important; color: #D64249 !important; border-color: #52080B !important; }
-                                                                                                                                                                                    width: 100%;
-                                                                                                                                                                                      }
-                                                                                                                                                                                      }
+@media (max-width: 749px) {
+  .account-archetype-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .account-archetype-card__actions {
+    width: 100%;
+  }
+  .account-archetype-card__btn {
+    width: 100%;
+  }
+}
