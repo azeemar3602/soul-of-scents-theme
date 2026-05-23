@@ -27,4 +27,5 @@ jobs:
           shopify theme push \
             --store=soul-of-scents-4.myshopify.com \
             --theme=186999341441 \
+            --allow-live \
             --no-color
