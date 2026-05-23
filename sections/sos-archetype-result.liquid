@@ -276,9 +276,42 @@
 
         {%- when 'sample_set' -%}
           {%- liquid
+            comment
+              Try 4 handle patterns in order — whichever the merchant used when creating the product:
+              1. indulger-sample-set          (slug-sample-set)
+              2. the-indulger-sample-set      (page.handle-sample-set)
+              3. sample-the-indulger          (sample-page.handle)
+              4. sample-indulger              (sample-slug)
+            endcomment
             assign _slug           = page.handle | remove: 'the-'
-            assign _sample_handle  = _slug | append: '-sample-set'
-            assign _sample_product = all_products[_sample_handle]
+            assign _sample_product = blank
+
+            assign _try = _slug | append: '-sample-set'
+            if all_products[_try] != blank
+              assign _sample_product = all_products[_try]
+            endif
+
+            unless _sample_product != blank
+              assign _try = page.handle | append: '-sample-set'
+              if all_products[_try] != blank
+                assign _sample_product = all_products[_try]
+              endif
+            endunless
+
+            unless _sample_product != blank
+              assign _try = 'sample-' | append: page.handle
+              if all_products[_try] != blank
+                assign _sample_product = all_products[_try]
+              endif
+            endunless
+
+            unless _sample_product != blank
+              assign _try = 'sample-' | append: _slug
+              if all_products[_try] != blank
+                assign _sample_product = all_products[_try]
+              endif
+            endunless
+
             assign _sample_variant = _sample_product.selected_or_first_available_variant
           -%}
           {%- if _sample_product != blank -%}
