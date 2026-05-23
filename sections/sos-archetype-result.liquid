@@ -84,8 +84,20 @@
   .sos-arch-products__title{ font-family:var(--g-font-2, 'EB Garamond', Georgia, serif); font-weight:400; font-size:clamp(28px, 3.5vw, 40px); margin:0 0 8px; }
   .sos-arch-products__title em{ font-style:italic; }
   .sos-arch-products__sub{ font-size:14px; color:var(--muted); margin:0; }
-  .sos-arch-products__grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:24px 20px; }
+  .sos-arch-products__grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:24px 20px; align-items:start; }
   .sos-arch-products__empty{ padding:40px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:8px; }
+
+  /* ── Card alignment fixes inside archetype grid ───────────────────────── */
+  /* Stretch cards to fill their grid cell so overlay buttons stay consistent */
+  .sos-arch-products__grid .product-card{ display:flex; flex-direction:column; height:100%; }
+  .sos-arch-products__grid .product-card__image-wr{ flex-shrink:0; }
+  .sos-arch-products__grid .product-card__info{ flex:1; display:flex; flex-direction:column; }
+  /* Pin price to the bottom of the info block so all cards align */
+  .sos-arch-products__grid .product-card__price{ margin-top:auto; padding-top:6px; }
+  /* Give mood-tag rows a fixed minimum height so 1-tag vs 2-tag cards don't differ */
+  .sos-arch-products__grid .mood-tags-block{ min-height:30px; display:flex; flex-wrap:wrap; gap:4px; align-content:flex-start; margin-bottom:4px; }
+  /* Overlay buttons: ensure they sit flush at the bottom of the image wrapper */
+  .sos-arch-products__grid .product-card__overlay{ bottom:0; width:100%; }
 
   /* SAMPLE SET */
   .sos-arch-sample{ padding:48px 0 32px; }
