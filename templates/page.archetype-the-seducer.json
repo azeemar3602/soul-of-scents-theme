@@ -76,6 +76,10 @@
             "content": "<p>The Seducer wears fragrance the way it was meant to be worn — quietly powerful, deliberately laid. Think low-cut amber, dark florals, animalic warmth, a hint of musk that asks the question without answering it. Notes that lean closer rather than announce. This is not perfume to please; it is presence.</p>"
           }
         },
+        "sample_set": {
+          "type": "sample_set",
+          "settings": {}
+        },
         "products": {
           "type": "products",
           "settings": {
@@ -103,6 +107,7 @@
         "text-2",
         "row-3",
         "read-more",
+        "sample_set",
         "products",
         "share"
       ],

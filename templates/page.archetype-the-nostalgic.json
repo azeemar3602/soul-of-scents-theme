@@ -76,6 +76,10 @@
             "content": "<p>The Nostalgic chooses fragrance that layers history — iris, violet, tobacco, sandalwood worn smooth, dried fruit, old roses. Compositions that feel inherited rather than purchased. A signature with a past.</p>"
           }
         },
+        "sample_set": {
+          "type": "sample_set",
+          "settings": {}
+        },
         "products": {
           "type": "products",
           "settings": {
@@ -102,6 +106,7 @@
         "text-2",
         "row-3",
         "read-more",
+        "sample_set",
         "products",
         "share"
       ],

@@ -76,6 +76,10 @@
             "content": "<p>The Luxury Hedonist seeks compositions that read as artefact rather than accessory — rare oud, ambergris, leather aged like a vintage, smoke that lingers in the wood. Scents that don't trend. Scents that don't need to.</p>"
           }
         },
+        "sample_set": {
+          "type": "sample_set",
+          "settings": {}
+        },
         "products": {
           "type": "products",
           "settings": {
@@ -102,6 +106,7 @@
         "text-2",
         "row-3",
         "read-more",
+        "sample_set",
         "products",
         "share"
       ],

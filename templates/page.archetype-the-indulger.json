@@ -76,6 +76,10 @@
             "content": "<p>The Indulger lives in gourmand territory — vanilla, tonka, praline, caramelised woods, honey, fig. Fragrances that wrap rather than project, that invite leaning in. Decadence without irony. The closest a scent can come to a kept secret.</p>"
           }
         },
+        "sample_set": {
+          "type": "sample_set",
+          "settings": {}
+        },
         "products": {
           "type": "products",
           "settings": {
@@ -102,6 +106,7 @@
         "text-2",
         "row-3",
         "read-more",
+        "sample_set",
         "products",
         "share"
       ],

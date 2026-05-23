@@ -76,6 +76,10 @@
             "content": "<p>The Cosmopolitan favours fragrance with edges: citrus that cuts clean, white florals tightened with metallic notes, a base that feels architectural rather than warm. Modern, mineral, decisive. The kind of scent that doesn't ask for permission — it assumes the room.</p>"
           }
         },
+        "sample_set": {
+          "type": "sample_set",
+          "settings": {}
+        },
         "products": {
           "type": "products",
           "settings": {
@@ -102,6 +106,7 @@
         "text-2",
         "row-3",
         "read-more",
+        "sample_set",
         "products",
         "share"
       ],

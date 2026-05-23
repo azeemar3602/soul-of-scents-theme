@@ -76,6 +76,10 @@
             "content": "<p>The Mineralist favours austere compositions — vetiver dry as flint, iris root, salt, ambergris, frankincense, the high mineral edge of certain citruses. Scents that read as material rather than mood. Less ornament, more truth.</p>"
           }
         },
+        "sample_set": {
+          "type": "sample_set",
+          "settings": {}
+        },
         "products": {
           "type": "products",
           "settings": {
@@ -102,6 +106,7 @@
         "text-2",
         "row-3",
         "read-more",
+        "sample_set",
         "products",
         "share"
       ],

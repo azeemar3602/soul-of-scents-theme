@@ -87,6 +87,30 @@
   .sos-arch-products__grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:24px 20px; }
   .sos-arch-products__empty{ padding:40px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:8px; }
 
+  /* SAMPLE SET */
+  .sos-arch-sample{ padding:48px 0 32px; }
+  .sos-arch-sample__card{ display:grid; grid-template-columns:300px 1fr; gap:40px; align-items:center; background:var(--bg,#fbf9f6); border:1px solid var(--line,#ece8e3); border-radius:12px; overflow:hidden; }
+  .sos-arch-sample__img{ aspect-ratio:1/1; overflow:hidden; background:var(--line,#ece8e3); }
+  .sos-arch-sample__img img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .sos-arch-sample__body{ padding:32px 40px 32px 0; }
+  .sos-arch-sample__eyebrow{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted,#6f6862); margin:0 0 10px; }
+  .sos-arch-sample__title{ font-family:var(--g-font-2,'EB Garamond',Georgia,serif); font-weight:400; font-size:clamp(22px,2.4vw,30px); line-height:1.15; margin:0 0 12px; color:var(--fg,#030303); }
+  .sos-arch-sample__desc{ font-size:15px; line-height:1.7; color:var(--muted,#6f6862); margin:0 0 18px; }
+  .sos-arch-sample__price{ font-size:17px; font-weight:500; color:var(--fg,#030303); margin:0 0 20px; }
+  .sos-arch-sample__btn{ display:inline-flex; align-items:center; justify-content:center; height:46px; padding:0 28px; background:var(--fg,#030303); color:#fff; border:0; border-radius:4px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:opacity .2s; }
+  .sos-arch-sample__btn:hover{ opacity:.82; }
+  .sos-arch-sample__btn:disabled{ background:var(--line,#ece8e3); color:var(--muted,#6f6862); cursor:not-allowed; }
+  .sos-arch-sample__btn.is-loading{ opacity:.7; cursor:progress; }
+  .sos-arch-sample__btn.is-success{ background:#2a6b2a; }
+  .sos-arch-sample__msg{ min-height:1.2em; margin:10px 0 0; font-size:13px; line-height:1.5; color:var(--muted,#6f6862); }
+  .sos-arch-sample__msg.is-error{ color:#8a2424; }
+  .sos-arch-sample__msg.is-success{ color:#2a6b2a; }
+  @media(max-width:760px){
+    .sos-arch-sample__card{ grid-template-columns:1fr; gap:0; }
+    .sos-arch-sample__img{ aspect-ratio:16/9; }
+    .sos-arch-sample__body{ padding:24px 20px; }
+  }
+
   /* SHARE */
   .sos-arch-share{ background:linear-gradient(135deg,#c2895b 0%,#a86a3f 100%); color:#fff; border-radius:8px; padding:40px; text-align:center; }
   .sos-arch-share__title{ font-family:var(--g-font-2, 'EB Garamond', Georgia, serif); font-weight:400; font-size:clamp(24px, 3vw, 32px); margin:0 0 14px; }
@@ -238,6 +262,52 @@
             {%- endif -%}
           </div>
 
+        {%- when 'sample_set' -%}
+          {%- liquid
+            assign _slug           = page.handle | remove: 'the-'
+            assign _sample_handle  = _slug | append: '-sample-set'
+            assign _sample_product = all_products[_sample_handle]
+            assign _sample_variant = _sample_product.selected_or_first_available_variant
+          -%}
+          {%- if _sample_product != blank -%}
+          <div class="sos-arch__block sos-arch-sample" {{ block.shopify_attributes }}>
+            <div class="sos-arch-sample__card">
+              {%- if _sample_product.featured_image -%}
+                <div class="sos-arch-sample__img">
+                  <img src="{{ _sample_product.featured_image | image_url: width: 700 }}"
+                       srcset="{{ _sample_product.featured_image | image_url: width: 400 }} 400w, {{ _sample_product.featured_image | image_url: width: 700 }} 700w"
+                       sizes="(max-width:760px) 100vw, 300px"
+                       alt="{{ _sample_product.featured_image.alt | default: _sample_product.title | escape }}"
+                       loading="lazy"
+                       width="{{ _sample_product.featured_image.width }}"
+                       height="{{ _sample_product.featured_image.height }}">
+                </div>
+              {%- endif -%}
+              <div class="sos-arch-sample__body">
+                <p class="sos-arch-sample__eyebrow">{{ block.settings.eyebrow | default: 'Sample Set' }}</p>
+                <h3 class="sos-arch-sample__title">{{ _sample_product.title }}</h3>
+                {%- assign _desc = block.settings.description | default: _sample_product.description -%}
+                {%- if _desc != blank -%}
+                  <p class="sos-arch-sample__desc">{{ _desc | strip_html | truncate: 180 }}</p>
+                {%- endif -%}
+                <p class="sos-arch-sample__price">{{ _sample_variant.price | money }}</p>
+                {%- if _sample_variant.available -%}
+                  <button type="button"
+                          class="sos-arch-sample__btn"
+                          data-sos-sample-add
+                          data-variant-id="{{ _sample_variant.id }}"
+                          data-section="{{ section.id }}">
+                    {{ block.settings.btn_text | default: 'Add to Cart' }}
+                  </button>
+                {%- else -%}
+                  <button type="button" class="sos-arch-sample__btn" disabled>Sold out</button>
+                {%- endif -%}
+                <p class="sos-arch-sample__msg" id="sos-sample-msg-{{ section.id }}" role="status" aria-live="polite"></p>
+              </div>
+            </div>
+          </div>
+          {%- endif -%}
+
         {%- when 'share' -%}
           <div class="sos-arch__block" {{ block.shopify_attributes }}>
             <div class="sos-arch-share">
@@ -258,6 +328,56 @@
     {%- endfor -%}
   </div>
 </section>
+
+<script>
+/* Sample-set Add to Cart — delegated, handles any .sos-arch-sample__btn on page */
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-sos-sample-add]');
+    if (!btn) return;
+    var variantId = btn.dataset.variantId;
+    var secId     = btn.dataset.section;
+    var msg       = document.getElementById('sos-sample-msg-' + secId);
+    if (!variantId) return;
+
+    function setBtn(state) {
+      btn.classList.remove('is-loading', 'is-success');
+      if (state === 'loading') { btn.disabled = true; btn.classList.add('is-loading'); btn.textContent = 'Adding…'; }
+      else if (state === 'success') { btn.disabled = true; btn.classList.add('is-success'); btn.textContent = 'Added ✓'; }
+      else { btn.disabled = false; btn.textContent = btn.dataset.origText || 'Add to Cart'; }
+    }
+    function setMsg(text, kind) {
+      if (!msg) return;
+      msg.textContent = text || '';
+      msg.className = 'sos-arch-sample__msg' + (kind ? ' is-' + kind : '');
+    }
+
+    if (!btn.dataset.origText) btn.dataset.origText = btn.textContent.trim();
+    setBtn('loading'); setMsg('', null);
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ items: [{ id: Number(variantId), quantity: 1 }] })
+    })
+    .then(function (r) { return r.ok ? r.json() : r.json().then(function (d) { throw d; }); })
+    .then(function () {
+      setBtn('success'); setMsg('Added to your cart!', 'success');
+      /* Refresh cart drawer */
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+      document.dispatchEvent(new CustomEvent('cart:build'));
+      var drawer = document.querySelector('.cardraw, .js-mini-cart, [data-cart-drawer]');
+      if (drawer && !drawer.classList.contains('active')) drawer.classList.add('active');
+      setTimeout(function () { setBtn('reset'); setMsg('', null); }, 3500);
+    })
+    .catch(function (err) {
+      var m = (err && (err.description || err.message)) || 'Could not add to cart. Please try again.';
+      setMsg(m, 'error'); setBtn('reset');
+    });
+  });
+})();
+</script>
 
 {%- comment -%}
   Save archetype result so the account dashboard can show it.
@@ -437,6 +557,17 @@
         { "type": "text", "id": "title", "label": "Heading", "info": "Use a pipe character to split italic, e.g. 'The Mineralist | companions'." },
         { "type": "text", "id": "subtitle", "label": "Subheading" },
         { "type": "range", "id": "product_limit", "label": "Number of products", "min": 2, "max": 12, "step": 1, "default": 6 }
+      ]
+    },
+    {
+      "type": "sample_set",
+      "name": "Sample Set — Add to Cart",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "Auto-resolves the sample set product from the page handle (e.g. page 'the-mineralist' → product handle 'mineralist-sample-set'). No manual configuration needed." },
+        { "type": "text",    "id": "eyebrow",     "label": "Eyebrow label",     "default": "Sample Set" },
+        { "type": "text",    "id": "description", "label": "Description override", "info": "Leave blank to use the product description." },
+        { "type": "text",    "id": "btn_text",    "label": "Button text",       "default": "Add to Cart" }
       ]
     },
     {

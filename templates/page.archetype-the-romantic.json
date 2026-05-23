@@ -76,6 +76,10 @@
             "content": "<p>The Romantic gravitates toward fragrance as a love language — rose absolute, iris butter, vanilla orchid, soft woods. Compositions that bloom on the skin and stay close, never shouting. This is scent as intimacy, not announcement.</p>"
           }
         },
+        "sample_set": {
+          "type": "sample_set",
+          "settings": {}
+        },
         "products": {
           "type": "products",
           "settings": {
@@ -102,6 +106,7 @@
         "text-2",
         "row-3",
         "read-more",
+        "sample_set",
         "products",
         "share"
       ],

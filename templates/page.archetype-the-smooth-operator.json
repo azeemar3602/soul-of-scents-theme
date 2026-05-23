@@ -76,6 +76,10 @@
             "content": "<p>The Smooth-Operator sits in the sweet spot between fresh and warm — neroli, blonde woods, cardamom, ambrette, soft musks. Compositions that flow rather than announce. Charisma rendered as scent.</p>"
           }
         },
+        "sample_set": {
+          "type": "sample_set",
+          "settings": {}
+        },
         "products": {
           "type": "products",
           "settings": {
@@ -102,6 +106,7 @@
         "text-2",
         "row-3",
         "read-more",
+        "sample_set",
         "products",
         "share"
       ],
