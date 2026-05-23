@@ -249,9 +249,11 @@
                 <ul class="row grid product-grid  grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop" role="list">
                   {%- for item in search.results -%}
                     {%- if item.object_type == 'product' -%}
+                    {%- unless item.handle contains 'sample-set' -%}
                       <li class="grid__item {{ gridColumn }}">
                           {%- render 'product-card', product: item , size_image_grid: size_image_grid, cover_contain: cover_contain -%}
                     </li>
+                    {%- endunless -%}
                     {%- endif -%}
                     
                   {%- endfor -%}

@@ -172,9 +172,9 @@
               {% if collection.products_count == 4 %} grid--4-col-desktop{% else %} grid--3-col-tablet grid--one-third-max grid--4-col-desktop grid--quarter-max{% endif %}
             {% endif %}">
             {%- for product in collection.products -%}
-              
+              {%- unless product.handle contains 'sample-set' -%}
               {%- if forloop.index > 2 -%}
-                
+
               {%- endif -%}
 
               <li class="grid__item {{ gridProduct }}">
@@ -184,6 +184,7 @@
                 -%}
                 {%- render 'product-card', product: product, size_image_grid: size_image_grid, cover_contain: cover_contain , enable_edit_item: enable_edit_item, select_item: select_item -%}
               </li>
+              {%- endunless -%}
             {%- endfor -%}
           </ul>
           {% case type_pagi %}
