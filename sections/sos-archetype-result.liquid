@@ -409,10 +409,17 @@
     .then(function (r) { return r.ok ? r.json() : r.json().then(function (d) { throw d; }); })
     .then(function () {
       setBtn('success'); setMsg('Added to your cart!', 'success');
-      /* Refresh cart drawer */
-      document.dispatchEvent(new CustomEvent('cart:refresh'));
-      document.dispatchEvent(new CustomEvent('cart:build'));
-      var drawer = document.querySelector('.cardraw, .js-mini-cart, [data-cart-drawer]');
+      /* Refresh the theme's mini-cart drawer the same way the rest of the
+         theme does it (see theme.js cart.prototype.success). Without these
+         calls the drawer stays empty until a hard reload. */
+      try {
+        if (window.theme && window.theme.miniCart) {
+          if (typeof window.theme.miniCart.updateElements === 'function') window.theme.miniCart.updateElements();
+          if (typeof window.theme.miniCart.generateCart   === 'function') window.theme.miniCart.generateCart();
+        }
+      } catch (e) { /* non-fatal: refresh failed, item is still in cart server-side */ }
+      /* Open the drawer (theme uses .active on .js-mini-cart) */
+      var drawer = document.querySelector('.js-mini-cart, .cardraw, [data-cart-drawer]');
       if (drawer && !drawer.classList.contains('active')) drawer.classList.add('active');
       setTimeout(function () { setBtn('reset'); setMsg('', null); }, 3500);
     })
