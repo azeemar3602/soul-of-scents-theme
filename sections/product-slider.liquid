@@ -104,6 +104,8 @@
       <div class="product-slider__track product-slider__track--{{ default_view }}" data-slider-track>
         {%- if collection_obj and collection_obj.products.size > 0 -%}
           {%- for product in collection_obj.products limit: products_to_show -%}
+            {%- comment -%} Hide sample sets from generic listings; they only belong on archetype result pages. {%- endcomment -%}
+            {%- if product.handle contains 'sample-set' -%}{%- continue -%}{%- endif -%}
             <div class="product-slider__card" data-hidden="false">
               <a href="{{ product.url }}" class="product-slider__card-link">
                 <div class="product-slider__card-image">
