@@ -25,7 +25,8 @@ jobs:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
         run: |
           shopify theme push \
-            --store=soul-of-scents-4.myshopify.com \
-            --theme=186999341441 \
+            --store=rsurch-sn.myshopify.com \
+            --theme=186552680833 \
             --allow-live \
+            --nodelete \
             --no-color
