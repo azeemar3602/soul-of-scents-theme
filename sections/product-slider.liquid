@@ -173,11 +173,19 @@
                     <p class="product-slider__vendor">{{ product.vendor }}</p>
                   {%- endif -%}
                   {%- if show_price -%}
+                    {%- assign _ps_variant = nil -%}
+                    {%- for _pv in product.variants -%}
+                      {%- assign _pvo = _pv.option1 | downcase | strip -%}
+                      {%- if _pvo != '50ml' -%}{%- assign _pvo = _pv.option2 | downcase | strip -%}{%- endif -%}
+                      {%- if _pvo != '50ml' -%}{%- assign _pvo = _pv.option3 | downcase | strip -%}{%- endif -%}
+                      {%- if _pvo == '50ml' -%}{%- assign _ps_variant = _pv -%}{%- break -%}{%- endif -%}
+                    {%- endfor -%}
+                    {%- if _ps_variant == nil -%}{%- assign _ps_variant = product.selected_or_first_available_variant -%}{%- endif -%}
                     <p class="product-slider__price">
-                      {%- if product.compare_at_price > product.price -%}
-                        <span class="product-slider__price--compare">{{ product.compare_at_price | money }}</span>
+                      {%- if _ps_variant.compare_at_price > _ps_variant.price -%}
+                        <span class="product-slider__price--compare">{{ _ps_variant.compare_at_price | money }}</span>
                       {%- endif -%}
-                      <span class="{% if product.compare_at_price > product.price %}product-slider__price--sale{% endif %}">{{ product.price | money }}</span>
+                      <span class="{% if _ps_variant.compare_at_price > _ps_variant.price %}product-slider__price--sale{% endif %}">{{ _ps_variant.price | money }}</span>
                     </p>
                   {%- endif -%}
                 </div>
