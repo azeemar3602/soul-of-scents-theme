@@ -33,28 +33,32 @@
       {%- endif -%}
 {% endcapture %}
 
+{%- comment -%} Prefer 50ml variant for price display; fall back to first available {%- endcomment -%}
+{%- assign _card_variant = nil -%}
+{%- for _v in product.variants -%}
+  {%- assign _vopt = _v.option1 | downcase | strip -%}
+  {%- if _vopt != '50ml' -%}{%- assign _vopt = _v.option2 | downcase | strip -%}{%- endif -%}
+  {%- if _vopt != '50ml' -%}{%- assign _vopt = _v.option3 | downcase | strip -%}{%- endif -%}
+  {%- if _vopt == '50ml' -%}
+    {%- assign _card_variant = _v -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if _card_variant == nil -%}
+  {%- assign _card_variant = product.selected_or_first_available_variant -%}
+{%- endif -%}
+
 {%- comment -%} price {%- endcomment -%}
 {% capture price %}
-  <div class="product-card__price {% if product.compare_at_price > product.price %} product-card__pricesale {% endif %}">
-  {%- if product.compare_at_price > product.price -%}
-  {%- if product.price_varies -%}
-  {%- assign sale_price = product.price | money -%}
-  {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
-  <s class="product-card__regular-price">{{- product.compare_at_price | money -}}</s>
+  <div class="product-card__price {% if _card_variant.compare_at_price > _card_variant.price %} product-card__pricesale {% endif %}">
+  {%- if _card_variant.compare_at_price > _card_variant.price -%}
+    <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+    {{ _card_variant.price | money }}
+    <s class="product-card__regular-price">{{ _card_variant.compare_at_price | money }}</s>
+    <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
   {%- else -%}
-  <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-  {{ product.price | money }}
-  <s class="product-card__regular-price">{{ product.compare_at_price | money }}</s>
-  <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
-  {%- endif -%}
-  {%- else -%}
-  {%- if product.price_varies -%}
-  {%- assign price = product.price | money -%}
-  {{ 'products.product.from_text_html' | t: price: price }}
-  {%- else -%}
-  <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-  {{ product.price | money }}
-  {%- endif -%}
+    <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+    {{ _card_variant.price | money }}
   {%- endif -%}
   </div>
 {% endcapture %}

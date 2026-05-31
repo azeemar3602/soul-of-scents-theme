@@ -191,7 +191,31 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
   data-autoplay="{{ section.settings.e_autoplay }}"
   data-videoloop="{{ section.settings.e_loop }}">
   {%- liquid
-    assign current_variant = product.selected_or_first_available_variant
+    comment
+      Default to 50ml variant when no specific variant is requested via URL.
+      product.selected_variant is non-nil only when ?variant=ID is in the URL.
+    endcomment
+    if product.selected_variant != blank
+      assign current_variant = product.selected_variant
+    else
+      assign current_variant = nil
+      for _v in product.variants
+        assign _vopt = _v.option1 | downcase | strip
+        if _vopt != '50ml'
+          assign _vopt = _v.option2 | downcase | strip
+        endif
+        if _vopt != '50ml'
+          assign _vopt = _v.option3 | downcase | strip
+        endif
+        if _vopt == '50ml' and _v.available
+          assign current_variant = _v
+          break
+        endif
+      endfor
+      if current_variant == nil
+        assign current_variant = product.selected_or_first_available_variant
+      endif
+    endif
     assign left_size = 'col-md-6 col-12'
     assign right_size = 'col-md-6 col-12'
     case section.settings.media_size 

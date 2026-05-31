@@ -150,13 +150,12 @@
   fetch(src, { mode: 'cors', credentials: 'omit' })
     .then(function (r) { return r.ok ? r.text() : Promise.reject(r.status); })
     .then(function (html) {
-      var blob    = new Blob([html], { type: 'text/html' });
-      var blobUrl = URL.createObjectURL(blob);
-      iframe.src  = blobUrl;
-      iframe.addEventListener('load', function () { URL.revokeObjectURL(blobUrl); }, { once: true });
+      /* srcdoc works on all browsers incl. Safari/iOS — no Blob URL needed */
+      iframe.srcdoc = html;
     })
     .catch(function () {
-      iframe.src = src; /* direct fallback */
+      /* Last-resort: direct src (may hit MIME issues on some hosts) */
+      iframe.src = src;
     });
 })();
 </script>
