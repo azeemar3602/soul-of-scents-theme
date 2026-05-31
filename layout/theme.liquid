@@ -227,6 +227,28 @@
       }
     }
 
+    /* Archetype key → page handle mapping */
+    var ARCHETYPE_MAP = {
+      'the-seducer':          '/pages/the-seducer',
+      'the-cosmopolitan':     '/pages/the-cosmopolitan',
+      'the-romantic':         '/pages/the-romantic',
+      'the-indulger':         '/pages/the-indulger',
+      'the-luxury-hedonist':  '/pages/the-luxury-hedonist',
+      'the-nostalgic':        '/pages/the-nostalgic',
+      'the-mineralist':       '/pages/the-mineralist',
+      'the-smooth-operator':  '/pages/the-smooth-operator',
+      'the-maximalist':       '/pages/the-maximalist'
+    };
+
+    function redirectToArchetype(archetypeKey) {
+      if (!archetypeKey) return false;
+      /* Normalise: lowercase + handle-ise (replace spaces with hyphens) */
+      var key = archetypeKey.toLowerCase().replace(/\s+/g, '-');
+      var url = ARCHETYPE_MAP[key];
+      if (url) { window.location.assign(url); return true; }
+      return false;
+    }
+
     window.addEventListener('message', function(event) {
       if (!event.data) return;
       var data;
@@ -237,8 +259,18 @@
           var quiz = window.quiz || {};
           var meta = quiz.metadata || {};
           var responseId = meta.responseId || '';
-          if (responseId) { saveArchetypeData(responseId); return; }
-          checkAndSave();
+          if (responseId) { saveArchetypeData(responseId); }
+          else { checkAndSave(); }
+
+          /* Redirect to archetype result page */
+          var archetypeKey = (quiz.variables && quiz.variables.highest) ? quiz.variables.highest : '';
+          if (!redirectToArchetype(archetypeKey)) {
+            /* Fallback: read from stored data */
+            try {
+              var stored = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
+              if (stored.archetypeKey) redirectToArchetype(stored.archetypeKey);
+            } catch(e) {}
+          }
         }, 1500);
       }
     });
