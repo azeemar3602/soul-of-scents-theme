@@ -364,6 +364,23 @@ html:not(.no-js) .slideshow.slick-initialized .slideshow__slide{
   .slideshow__btn-wrapper--push {
     margin-top: 32px;
   }
+
+  /* ── Stack slideshow buttons vertically on mobile ── */
+  .slideshow__btn-wrapper {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px;
+    width: 100%;
+    column-gap: 0;
+  }
+
+  .slideshow__btn-wrapper .btn {
+    width: 100% !important;
+    max-width: 280px;
+    text-align: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
 }
 
 .slideshow .slick-prev {
