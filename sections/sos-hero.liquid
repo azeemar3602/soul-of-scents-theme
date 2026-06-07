@@ -1,0 +1,210 @@
+{{ 'sos-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign overlay_opacity  = section.settings.overlay_opacity | divided_by: 100.0
+  assign mobile_layout    = section.settings.mobile_btn_layout | default: 'stacked'
+  assign mobile_btn_gap   = section.settings.mobile_btn_gap | default: 12
+  assign content_align    = section.settings.content_align | default: 'center'
+  assign section_height   = section.settings.section_height | default: 'medium'
+  assign has_btn1         = section.settings.btn1_label != blank
+  assign has_btn2         = section.settings.btn2_label != blank
+-%}
+
+<section
+  id="sos-hero-{{ section.id }}"
+  class="sos-hero sos-hero--{{ section_height }} sos-hero--align-{{ content_align }}"
+  style="
+    --sos-hero-overlay: {{ overlay_opacity }};
+    --sos-hero-mob-gap: {{ mobile_btn_gap }}px;
+    --sos-hero-btn1-bg: {{ section.settings.btn1_bg }};
+    --sos-hero-btn1-text: {{ section.settings.btn1_text_color }};
+    --sos-hero-btn1-border: {{ section.settings.btn1_border_color }};
+    --sos-hero-btn2-bg: {{ section.settings.btn2_bg }};
+    --sos-hero-btn2-text: {{ section.settings.btn2_text_color }};
+    --sos-hero-btn2-border: {{ section.settings.btn2_border_color }};
+    --sos-hero-btn-radius: {{ section.settings.btn_radius }}px;
+    --sos-hero-heading-color: {{ section.settings.heading_color }};
+    --sos-hero-sub-color: {{ section.settings.subheading_color }};
+    --sos-hero-heading-size: {{ section.settings.heading_size }}px;
+    --sos-hero-heading-size-mob: {{ section.settings.heading_size_mobile }}px;
+    --sos-hero-sub-size: {{ section.settings.subheading_size }}px;
+    --sos-hero-padding-top: {{ section.settings.padding_top }}px;
+    --sos-hero-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+
+  {%- comment -%} Background image {%- endcomment -%}
+  <div class="sos-hero__media" aria-hidden="true">
+    {%- if section.settings.bg_image != blank -%}
+      <img
+        class="sos-hero__image"
+        src="{{ section.settings.bg_image | image_url: width: 1920 }}"
+        srcset="
+          {{ section.settings.bg_image | image_url: width: 750 }} 750w,
+          {{ section.settings.bg_image | image_url: width: 1100 }} 1100w,
+          {{ section.settings.bg_image | image_url: width: 1500 }} 1500w,
+          {{ section.settings.bg_image | image_url: width: 1920 }} 1920w
+        "
+        sizes="100vw"
+        alt="{{ section.settings.bg_image.alt | escape }}"
+        width="{{ section.settings.bg_image.width }}"
+        height="{{ section.settings.bg_image.height }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- else -%}
+      <div class="sos-hero__placeholder"></div>
+    {%- endif -%}
+    <div class="sos-hero__overlay"></div>
+  </div>
+
+  {%- comment -%} Content {%- endcomment -%}
+  <div class="sos-hero__content">
+    <div class="sos-hero__inner">
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="sos-hero__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="sos-hero__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if has_btn1 or has_btn2 -%}
+        <div class="sos-hero__btns sos-hero__btns--mob-{{ mobile_layout }}">
+          {%- if has_btn1 -%}
+            <a
+              href="{{ section.settings.btn1_link | default: '#' }}"
+              class="sos-hero__btn sos-hero__btn--primary"
+              {% if section.settings.btn1_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+            >
+              {{- section.settings.btn1_label -}}
+            </a>
+          {%- endif -%}
+          {%- if has_btn2 -%}
+            <a
+              href="{{ section.settings.btn2_link | default: '#' }}"
+              class="sos-hero__btn sos-hero__btn--secondary"
+              {% if section.settings.btn2_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+            >
+              {{- section.settings.btn2_label -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "SoS Hero",
+  "tag": "section",
+  "class": "sos-hero-section",
+  "settings": [
+
+    { "type": "header", "content": "Background" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background image" },
+    {
+      "type": "range", "id": "overlay_opacity", "label": "Dark overlay opacity",
+      "min": 0, "max": 80, "step": 5, "unit": "%", "default": 35
+    },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select", "id": "section_height", "label": "Section height",
+      "default": "medium",
+      "options": [
+        { "value": "small",  "label": "Small (300px)"  },
+        { "value": "medium", "label": "Medium (500px)" },
+        { "value": "large",  "label": "Large (700px)"  },
+        { "value": "full",   "label": "Full screen"    }
+      ]
+    },
+    {
+      "type": "select", "id": "content_align", "label": "Content alignment",
+      "default": "center",
+      "options": [
+        { "value": "left",   "label": "Left"   },
+        { "value": "center", "label": "Center" }
+      ]
+    },
+    {
+      "type": "range", "id": "padding_top",    "label": "Padding top",    "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80
+    },
+    {
+      "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80
+    },
+
+    { "type": "header", "content": "Text" },
+    { "type": "text",   "id": "subheading", "label": "Subheading", "placeholder": "e.g. Find a scent that just fits" },
+    {
+      "type": "richtext", "id": "heading", "label": "Heading",
+      "info": "Use italic (I) for words you want styled in the serif italic font, e.g. <em>Olfactory Match</em>.",
+      "default": "<p>Your <em>Olfactory Match</em> in Niche Perfume</p>"
+    },
+    {
+      "type": "range", "id": "heading_size",        "label": "Heading size — desktop", "min": 20, "max": 90, "step": 2, "unit": "px", "default": 48
+    },
+    {
+      "type": "range", "id": "heading_size_mobile", "label": "Heading size — mobile",  "min": 20, "max": 60, "step": 2, "unit": "px", "default": 32
+    },
+    {
+      "type": "range", "id": "subheading_size",     "label": "Subheading size",        "min": 10, "max": 28, "step": 1, "unit": "px", "default": 14
+    },
+    { "type": "color", "id": "heading_color",    "label": "Heading colour",    "default": "#ffffff" },
+    { "type": "color", "id": "subheading_color", "label": "Subheading colour", "default": "#ffffff" },
+
+    { "type": "header", "content": "Primary button" },
+    { "type": "text",     "id": "btn1_label",       "label": "Label",           "default": "Take the archetype quiz" },
+    { "type": "url",      "id": "btn1_link",         "label": "Link" },
+    { "type": "checkbox", "id": "btn1_new_tab",      "label": "Open in new tab", "default": false },
+    { "type": "color",    "id": "btn1_bg",           "label": "Background",      "default": "#ffffff" },
+    { "type": "color",    "id": "btn1_text_color",   "label": "Text colour",     "default": "#1a1a1a" },
+    { "type": "color",    "id": "btn1_border_color", "label": "Border colour",   "default": "#ffffff" },
+
+    { "type": "header", "content": "Secondary button" },
+    { "type": "text",     "id": "btn2_label",       "label": "Label",           "default": "Shop" },
+    { "type": "url",      "id": "btn2_link",         "label": "Link" },
+    { "type": "checkbox", "id": "btn2_new_tab",      "label": "Open in new tab", "default": false },
+    { "type": "color",    "id": "btn2_bg",           "label": "Background",      "default": "#1a1a1a" },
+    { "type": "color",    "id": "btn2_text_color",   "label": "Text colour",     "default": "#ffffff" },
+    { "type": "color",    "id": "btn2_border_color", "label": "Border colour",   "default": "#1a1a1a" },
+
+    { "type": "header", "content": "Button style" },
+    { "type": "range", "id": "btn_radius", "label": "Border radius", "min": 0, "max": 50, "step": 2, "unit": "px", "default": 50 },
+
+    { "type": "header", "content": "Mobile button layout" },
+    {
+      "type": "select", "id": "mobile_btn_layout", "label": "Mobile layout",
+      "default": "stacked",
+      "options": [
+        { "value": "stacked", "label": "Top / bottom (stacked)" },
+        { "value": "inline",  "label": "Side by side" }
+      ]
+    },
+    {
+      "type": "range", "id": "mobile_btn_gap", "label": "Button spacing (mobile)",
+      "min": 6, "max": 24, "step": 1, "unit": "px", "default": 12
+    }
+
+  ],
+  "presets": [
+    {
+      "name": "SoS Hero",
+      "settings": {
+        "heading": "<p>Your <em>Olfactory Match</em> in Niche Perfume</p>",
+        "subheading": "Find a scent that just fits with soul of scents",
+        "btn1_label": "Take the archetype quiz",
+        "btn2_label": "Shop",
+        "overlay_opacity": 35,
+        "section_height": "medium",
+        "content_align": "center",
+        "mobile_btn_layout": "stacked"
+      }
+    }
+  ]
+}
+{% endschema %}

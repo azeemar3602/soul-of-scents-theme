@@ -1,0 +1,244 @@
+/* ==========================================================================
+   SoS Hero — custom hero section for soscurates.com
+   ========================================================================== */
+
+.sos-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+  padding-top: var(--sos-hero-padding-top, 80px);
+  padding-bottom: var(--sos-hero-padding-bottom, 80px);
+}
+
+/* Heights */
+.sos-hero--small  { min-height: 300px; }
+.sos-hero--medium { min-height: 500px; }
+.sos-hero--large  { min-height: 700px; }
+.sos-hero--full   { min-height: 100vh; }
+
+/* ==========================================================================
+   Background
+   ========================================================================== */
+
+.sos-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.sos-hero__image,
+.sos-hero__placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sos-hero__placeholder {
+  background: #2a2a2a;
+}
+
+.sos-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, var(--sos-hero-overlay, 0.35));
+}
+
+/* ==========================================================================
+   Content
+   ========================================================================== */
+
+.sos-hero__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* Alignment variants */
+.sos-hero--align-center .sos-hero__content { text-align: center; }
+.sos-hero--align-left   .sos-hero__content { text-align: left; }
+
+.sos-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.sos-hero--align-left .sos-hero__inner { align-items: flex-start; }
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+.sos-hero__subheading {
+  font-size: var(--sos-hero-sub-size, 14px);
+  color: var(--sos-hero-sub-color, #ffffff);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 18px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.sos-hero__heading {
+  font-size: var(--sos-hero-heading-size, 48px);
+  color: var(--sos-hero-heading-color, #ffffff);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 32px;
+}
+
+/* Strip richtext wrapper <p> */
+.sos-hero__heading p {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+/* Italic emphasis — switches to serif */
+.sos-hero__heading em {
+  font-style: italic;
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  color: inherit;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.sos-hero__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.sos-hero--align-center .sos-hero__btns { justify-content: center; }
+.sos-hero--align-left   .sos-hero__btns { justify-content: flex-start; }
+
+.sos-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: var(--sos-hero-btn-radius, 50px);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.sos-hero__btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.sos-hero__btn--primary {
+  background: var(--sos-hero-btn1-bg, #ffffff);
+  color: var(--sos-hero-btn1-text, #1a1a1a);
+  border-color: var(--sos-hero-btn1-border, #ffffff);
+}
+
+.sos-hero__btn--secondary {
+  background: var(--sos-hero-btn2-bg, #1a1a1a);
+  color: var(--sos-hero-btn2-text, #ffffff);
+  border-color: var(--sos-hero-btn2-border, #1a1a1a);
+}
+
+/* ==========================================================================
+   Mobile — ≤749px
+   ========================================================================== */
+
+@media screen and (max-width: 749px) {
+
+  .sos-hero__content {
+    padding-inline: 20px;
+  }
+
+  .sos-hero__heading {
+    font-size: var(--sos-hero-heading-size-mob, 32px);
+    margin-bottom: 24px;
+  }
+
+  .sos-hero__subheading {
+    margin-bottom: 12px;
+  }
+
+  /* Base: apply the configurable gap */
+  .sos-hero__btns {
+    gap: var(--sos-hero-mob-gap, 12px);
+    width: 100%;
+  }
+
+  /* ── Stacked (default) ── */
+  .sos-hero__btns--mob-stacked {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center;
+  }
+
+  .sos-hero__btns--mob-stacked .sos-hero__btn {
+    width: 100% !important;
+    max-width: 320px;
+    align-self: center;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* ── Inline (side by side) ── */
+  .sos-hero__btns--mob-inline {
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sos-hero__btns--mob-inline .sos-hero__btn {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 155px;
+    padding: 13px 10px;
+    font-size: 13px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+  }
+}
+
+/* Extra-small — 320px */
+@media screen and (max-width: 374px) {
+
+  .sos-hero__content {
+    padding-inline: 16px;
+  }
+
+  .sos-hero__btns--mob-stacked .sos-hero__btn {
+    font-size: 13px;
+    padding: 13px 16px;
+  }
+
+  .sos-hero__btns--mob-inline .sos-hero__btn {
+    font-size: 12px;
+    padding: 12px 8px;
+    max-width: 140px;
+  }
+}
