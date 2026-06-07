@@ -123,106 +123,70 @@
     .sos-arch-sample__body{ padding:24px 20px; }
   }
 
-  /* SHARE — download one-pager */
+  /* SHARE — two centred buttons */
   .sos-arch-share {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border-radius: 16px;
-    overflow: hidden;
-    min-height: 340px;
-    background: #0a0a0a;
-  }
-
-  .sos-arch-share__visual {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .sos-arch-share__crystal {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .sos-arch-share__crystal-placeholder {
-    width: 100%;
-    height: 100%;
-    min-height: 280px;
-    background: linear-gradient(135deg, #1a2e1a 0%, #0d1f0d 100%);
-  }
-
-  .sos-arch-share__body-wrap {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0 48px;
+    text-align: center;
+  }
+
+  .sos-arch-share__btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
     justify-content: center;
-    align-items: flex-start;
-    padding: 48px 44px;
-    color: #fff;
+    align-items: center;
   }
 
-  .sos-arch-share__eyebrow {
-    font-size: 11px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.55);
-    margin: 0 0 16px;
-  }
-
-  .sos-arch-share__title {
-    font-family: var(--g-font-2, 'EB Garamond', Georgia, serif);
-    font-weight: 400;
-    font-size: clamp(22px, 2.6vw, 30px);
-    line-height: 1.2;
-    margin: 0 0 12px;
-    color: #fff;
-  }
-
-  .sos-arch-share__subtitle {
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(255,255,255,.65);
-    margin: 0 0 32px;
-  }
-
+  /* Shared button base */
   .sos-arch-share__btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     height: 48px;
     padding: 0 28px;
-    background: #fff;
-    color: #0a0a0a;
     border-radius: 50px;
     font-size: 13px;
     font-weight: 600;
     letter-spacing: .04em;
     text-decoration: none;
-    transition: opacity .2s;
+    cursor: pointer;
+    border: 1.5px solid var(--fg, #030303);
+    background: transparent;
+    color: var(--fg, #030303);
+    transition: background .2s, color .2s, opacity .2s;
     white-space: nowrap;
+    line-height: 1;
+    font-family: inherit;
   }
 
-  .sos-arch-share__btn:hover { opacity: .85; }
-
-  .sos-arch-share__btn svg {
-    flex-shrink: 0;
+  .sos-arch-share__btn:hover {
+    background: var(--fg, #030303);
+    color: #fff;
   }
+
+  /* Filled variant — download/primary */
+  .sos-arch-share__btn--filled {
+    background: var(--fg, #030303);
+    color: #fff;
+  }
+
+  .sos-arch-share__btn--filled:hover {
+    opacity: .78;
+    background: var(--fg, #030303);
+    color: #fff;
+  }
+
+  .sos-arch-share__btn svg { flex-shrink: 0; }
 
   @media (max-width: 760px) {
-    .sos-arch-share {
-      grid-template-columns: 1fr;
-      min-height: auto;
-    }
-    .sos-arch-share__visual {
-      aspect-ratio: 16 / 9;
-      min-height: 180px;
-    }
-    .sos-arch-share__body-wrap {
-      padding: 32px 24px;
-      align-items: center;
-      text-align: center;
-    }
+    .sos-arch-share { padding: 0 0 40px; gap: 14px; }
+    .sos-arch-share__btns { flex-direction: column; width: 100%; }
+    .sos-arch-share__btn { width: 100%; max-width: 280px; }
   }
 
   /* SPACER */
@@ -460,55 +424,45 @@
           {%- endif -%}
 
         {%- when 'share' -%}
-          {%- liquid
-            assign share_download_url = block.settings.download_url
-            assign share_crystal = block.settings.crystal_image
-          -%}
+          {%- assign share_download_url = block.settings.download_url -%}
           <div class="sos-arch__block" {{ block.shopify_attributes }}>
             <div class="sos-arch-share">
+              <div class="sos-arch-share__btns">
 
-              {%- comment -%} Left — crystal image {%- endcomment -%}
-              <div class="sos-arch-share__visual">
-                {%- if share_crystal != blank -%}
-                  <img
-                    class="sos-arch-share__crystal"
-                    src="{{ share_crystal | image_url: width: 900 }}"
-                    srcset="{{ share_crystal | image_url: width: 500 }} 500w, {{ share_crystal | image_url: width: 900 }} 900w"
-                    sizes="(max-width:760px) 100vw, 50vw"
-                    alt="{{ share_crystal.alt | default: 'Crystal' | escape }}"
-                    loading="lazy"
-                    width="{{ share_crystal.width }}"
-                    height="{{ share_crystal.height }}"
-                  >
-                {%- else -%}
-                  <div class="sos-arch-share__crystal-placeholder"></div>
-                {%- endif -%}
-              </div>
+                {%- comment -%} Button 1 — Share with friends via Web Share API {%- endcomment -%}
+                <button
+                  type="button"
+                  class="sos-arch-share__btn"
+                  data-sos-share
+                  data-share-title="{{ archetype_name | escape }}"
+                  data-share-text="{{ block.settings.share_text | default: 'My scent archetype is ' | append: archetype_name | escape }}"
+                  data-share-url="{{ share_download_url | default: page.url | prepend: shop.url }}"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="1.8"/>
+                    <circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+                    <circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="1.8"/>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="currentColor" stroke-width="1.8"/>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="currentColor" stroke-width="1.8"/>
+                  </svg>
+                  {{ block.settings.btn_share_label | default: 'Share with friends' }}
+                </button>
 
-              {%- comment -%} Right — text + download button {%- endcomment -%}
-              <div class="sos-arch-share__body-wrap">
-                {%- if block.settings.eyebrow != blank -%}
-                  <p class="sos-arch-share__eyebrow">{{ block.settings.eyebrow }}</p>
-                {%- endif -%}
-                <h3 class="sos-arch-share__title">{{ block.settings.title | default: 'Share your archetype' }}</h3>
-                {%- if block.settings.subtitle != blank -%}
-                  <p class="sos-arch-share__subtitle">{{ block.settings.subtitle }}</p>
-                {%- endif -%}
-                {%- if block.settings.button_text != blank -%}
+                {%- comment -%} Button 2 — Download one-pager {%- endcomment -%}
+                {%- if share_download_url != blank -%}
                   <a
-                    href="{{ share_download_url | default: '#' }}"
-                    class="sos-arch-share__btn"
-                    {% if share_download_url != blank %}download{% endif %}
-                    {% if share_download_url == blank %}aria-disabled="true"{% endif %}
+                    href="{{ share_download_url }}"
+                    class="sos-arch-share__btn sos-arch-share__btn--filled"
+                    download
                   >
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                       <path d="M8 1v9M8 10l-3-3M8 10l3-3M2 13h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    {{ block.settings.button_text }}
+                    {{ block.settings.btn_download_label | default: 'Download your profile' }}
                   </a>
                 {%- endif -%}
-              </div>
 
+              </div>
             </div>
           </div>
 
@@ -519,6 +473,39 @@
     {%- endfor -%}
   </div>
 </section>
+
+<script>
+/* ── Web Share API — "Share with friends" button ────────────────────────
+   Opens the native share sheet (WhatsApp, iMessage, Instagram, etc.)
+   Falls back to copying the URL to clipboard on unsupported browsers.   */
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-sos-share]');
+    if (!btn) return;
+
+    var shareData = {
+      title: btn.dataset.shareTitle || document.title,
+      text:  btn.dataset.shareText  || '',
+      url:   btn.dataset.shareUrl   || window.location.href
+    };
+
+    if (navigator.share) {
+      navigator.share(shareData).catch(function () {}); /* user cancelled — ignore */
+    } else {
+      /* Clipboard fallback */
+      try {
+        navigator.clipboard.writeText(shareData.url).then(function () {
+          var orig = btn.textContent.trim();
+          btn.textContent = 'Link copied!';
+          setTimeout(function () { btn.textContent = orig; }, 2200);
+        });
+      } catch (_) {
+        window.prompt('Copy this link:', shareData.url);
+      }
+    }
+  });
+})();
+</script>
 
 <script>
 /* Sample-set Add to Cart — delegated, handles any .sos-arch-sample__btn on page */
@@ -773,12 +760,10 @@
       "name": "Share & Download",
       "limit": 1,
       "settings": [
-        { "type": "image_picker", "id": "crystal_image", "label": "Crystal image", "info": "Upload sos_crystal_green here. Displays on the left side." },
-        { "type": "text",         "id": "eyebrow",       "label": "Eyebrow label",  "default": "Your result" },
-        { "type": "text",         "id": "title",         "label": "Heading",        "default": "Share your scent archetype" },
-        { "type": "textarea",     "id": "subtitle",      "label": "Subtitle text",  "default": "Download your personalised one-pager and share it with friends." },
-        { "type": "text",         "id": "button_text",   "label": "Button label",   "default": "Download your profile" },
-        { "type": "url",          "id": "download_url",  "label": "One-pager file URL", "info": "Paste the Shopify Files CDN URL of the PDF/image for this archetype. The button will trigger a download." }
+        { "type": "text", "id": "btn_share_label",    "label": "Share button label",    "default": "Share with friends" },
+        { "type": "text", "id": "btn_download_label", "label": "Download button label", "default": "Download your profile" },
+        { "type": "text", "id": "share_text",         "label": "Share message",         "info": "Text sent when sharing. Archetype name appended automatically.", "default": "My scent archetype is " },
+        { "type": "url",  "id": "download_url",       "label": "One-pager file URL",    "info": "Shopify Files CDN URL of the PDF for this archetype. Used for both the download button and the share link." }
       ]
     },
     {
