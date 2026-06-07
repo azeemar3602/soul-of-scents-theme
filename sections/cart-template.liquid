@@ -58,6 +58,12 @@
               </thead>
               <tbody id="CartProducts">
                 {% for item in cart.items %}
+                  {%- comment -%} Hide complimentary / free gift items from cart display {%- endcomment -%}
+                  {%- assign item_title_lower = item.product.title | downcase -%}
+                  {%- assign item_type_lower  = item.product.product_type | downcase -%}
+                  {%- if item_title_lower contains 'complimentary' or item_title_lower contains 'free gift' or item_type_lower == 'gift' or item_type_lower == 'complementary gift' -%}
+                    {%- continue -%}
+                  {%- endif -%}
                   <tr class="cart__row responsive-table__row">
                     <td class="cart__cell--image">
                       <div class="d-flex">

@@ -26,7 +26,7 @@
       <div class="shipping-calculator-input d-flex flex-column text-left">
         <p class="field ship-field">
           <label for="address_country">Country</label>
-          <select id="address_country" name="address[country]" data-default="{% if shop.customer_accounts_enabled and customer %}{{ customer.default_address.country }}{% elsif settings.shipping_calculator_default_country != '' %}{{ settings.shipping_calculator_default_country }}{% endif %}">{{ country_option_tags }}</select>
+          <select id="address_country" name="address[country]" data-default="{% if shop.customer_accounts_enabled and customer and customer.default_address.country != blank %}{{ customer.default_address.country }}{% elsif settings.shipping_calculator_default_country != '' %}{{ settings.shipping_calculator_default_country }}{% else %}Germany{% endif %}">{{ country_option_tags }}</select>
         </p>
         <p class="field ship-field" id="address_province_container" style="display:none;">
           <label for="address_province" id="address_province_label">Province</label>
