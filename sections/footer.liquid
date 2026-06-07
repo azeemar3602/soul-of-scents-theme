@@ -610,6 +610,41 @@
     border-radius: 3px;
   }
 
+  /* ── Mobile newsletter form fix ── */
+  @media (max-width: 749px) {
+    /* Stack input above button cleanly — no overlap */
+    .site-footer .footer-email .form-group.flex-column {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px;
+    }
+    .site-footer .footer-email .form-group input[type="email"] {
+      width: 100% !important;
+      margin-bottom: 0 !important;
+      border: 1px solid rgba(3,3,3,0.2) !important;
+      border-radius: 6px !important;
+      padding: 12px 14px !important;
+      font-size: 14px !important;
+      background: rgba(255,255,255,0.55) !important;
+      box-shadow: none !important;
+    }
+    .site-footer .footer-email .form-group > .d-flex {
+      width: 100%;
+    }
+    .site-footer .footer-email .btn-theme {
+      width: 100% !important;
+      text-align: center;
+      padding: 12px 16px !important;
+      border-radius: 6px !important;
+      font-size: 14px !important;
+    }
+  }
+
+  /* ── Nav column top-alignment fix ── */
+  /* Desktop: align all footer nav column headings and lists to top */
+  .site-footer--head .row { align-items: flex-start !important; }
+  .site-footer__section { vertical-align: top; }
+
   /* Newsletter placeholder — force visible muted brand color so the
      "Email Address" label is legible against the beige input fill. */
   .site-footer .footer-email .form-control,
@@ -903,7 +938,7 @@
             -%}
           </div>
           {%- if section.settings.copyright -%}
-            <div>&copy; {{ 'now' | date: "%Y" }}, <b class="text-capitalize">{{ shop.name | link_to: '/' }}</b>.{%- if section.settings.customcopyright != blank %} {{ section.settings.customcopyright }}{%- endif -%}</div>
+            <div>&copy; {{ 'now' | date: "%Y" }}, <b style="text-transform:lowercase;font-weight:inherit;">{{ shop.name | link_to: '/' }}</b>.{%- if section.settings.customcopyright != blank %} {{ section.settings.customcopyright }}{%- endif -%}</div>
           {%- endif -%}
         </div>
       {%- endif -%}
