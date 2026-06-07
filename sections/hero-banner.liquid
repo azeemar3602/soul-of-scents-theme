@@ -9,6 +9,8 @@
   assign card_position = section.settings.card_position
   assign section_height = section.settings.section_height
   assign button_count = section.settings.button_count
+  assign mobile_btn_layout = section.settings.mobile_button_layout | default: 'stacked'
+  assign mobile_btn_gap = section.settings.mobile_button_gap | default: 12
 
   assign padding_top = section.settings.padding_top
   assign padding_bottom = section.settings.padding_bottom
@@ -169,7 +171,7 @@
       {%- endif -%}
 
       {%- if has_btn1 or has_btn2 -%}
-        <div class="hero-banner__buttons">
+        <div class="hero-banner__buttons hero-banner__buttons--mobile-{{ mobile_btn_layout }}" style="--hero-mobile-btn-gap: {{ mobile_btn_gap }}px;">
           {%- if has_btn1 -%}
             <a
               href="{{ section.settings.button_link_1 }}"
@@ -508,6 +510,30 @@
       "id": "button_new_tab_2",
       "label": "Open secondary link in new tab",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Mobile Button Layout"
+    },
+    {
+      "type": "select",
+      "id": "mobile_button_layout",
+      "label": "Mobile button layout",
+      "default": "stacked",
+      "options": [
+        { "value": "stacked", "label": "Top / bottom (stacked)" },
+        { "value": "inline", "label": "Side by side" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_gap",
+      "label": "Mobile button spacing",
+      "min": 6,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
     },
     {
       "type": "header",

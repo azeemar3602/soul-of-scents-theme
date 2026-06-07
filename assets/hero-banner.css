@@ -277,24 +277,50 @@
     font-size: 14px;
   }
 
-  /* ── Mobile: stack buttons vertically, full width ── */
+  /* ── Mobile: base button wrapper reset ── */
   .hero-banner__buttons {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    justify-content: center;
-    gap: 12px;
     margin-top: 20px;
     width: 100%;
+    gap: var(--hero-mobile-btn-gap, 12px);
   }
 
-  .hero-banner__btn {
-    display: flex !important;
+  /* ── Stacked layout (default) ── */
+  .hero-banner__buttons--mobile-stacked {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .hero-banner__buttons--mobile-stacked .hero-banner__btn {
     width: 100% !important;
+    max-width: 300px;
+    display: flex !important;
+    justify-content: center;
     box-sizing: border-box;
     padding: 15px 20px;
     font-size: 14px;
-    text-align: center;
+    white-space: normal;
+  }
+
+  /* ── Inline layout (side by side) — no overflow ── */
+  .hero-banner__buttons--mobile-inline {
+    flex-direction: row !important;
+    flex-wrap: nowrap;
     justify-content: center;
+    align-items: center;
+  }
+
+  .hero-banner__buttons--mobile-inline .hero-banner__btn {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 160px;
+    display: flex !important;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 12px 10px;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -304,9 +330,15 @@
     padding: 22px 16px;
   }
 
-  .hero-banner__btn {
+  .hero-banner__buttons--mobile-stacked .hero-banner__btn {
     font-size: 13px;
     padding: 14px 16px;
+  }
+
+  .hero-banner__buttons--mobile-inline .hero-banner__btn {
+    font-size: 12px;
+    padding: 11px 8px;
+    max-width: 140px;
   }
 }
 
