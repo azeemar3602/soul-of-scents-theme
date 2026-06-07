@@ -194,6 +194,42 @@
     -%}
 
 <script>
+/* ── Scroll-position restoration on back/forward navigation ──
+   Saves scroll Y before leaving any page and restores it when
+   the user returns via the browser back button.               */
+(function () {
+  var SCROLL_KEY = 'sos_scroll_';
+
+  /* Save scroll position before navigating away */
+  window.addEventListener('beforeunload', function () {
+    try { sessionStorage.setItem(SCROLL_KEY + location.href, window.scrollY); } catch (_) {}
+  });
+
+  /* Restore on page load if it was a back/forward navigation */
+  window.addEventListener('pageshow', function (e) {
+    if (!e.persisted && !(window.performance && window.performance.navigation &&
+        window.performance.navigation.type === 2)) return;
+    try {
+      var saved = sessionStorage.getItem(SCROLL_KEY + location.href);
+      if (saved) window.scrollTo(0, parseInt(saved, 10));
+    } catch (_) {}
+  });
+
+  /* Also restore after a normal page load coming from back button
+     (covers browsers that don't support pageshow.persisted)    */
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.performance && window.performance.navigation &&
+        window.performance.navigation.type === 2) {
+      try {
+        var saved = sessionStorage.getItem(SCROLL_KEY + location.href);
+        if (saved) setTimeout(function() { window.scrollTo(0, parseInt(saved, 10)); }, 100);
+      } catch (_) {}
+    }
+  });
+})();
+</script>
+
+<script>
   (function() {
     var QUIZ_ID = 'KFeGjY';
     var QUIZ_PAGE = '/pages/quiz';

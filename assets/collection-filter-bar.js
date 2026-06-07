@@ -1,8 +1,78 @@
 /* ============================================================
    Collection Filter Bar — soul of scents
+   Supports multi-filter: clicking a filter adds/removes it
+   from the URL params without clearing other active filters.
    ============================================================ */
 (function () {
   'use strict';
+
+  /* ── URL filter helpers ───────────────────────────────── */
+
+  /**
+   * Parse the current page's active filters from the URL.
+   * Returns an object { paramName: Set<value> }
+   * e.g. { 'filter.p.vendor': Set{'Sarah Baker'}, 'filter.p.option.size': Set{'50ml'} }
+   */
+  function getActiveFilters() {
+    var params = new URLSearchParams(window.location.search);
+    var active = {};
+    params.forEach(function (val, key) {
+      if (!key.startsWith('filter.')) return;
+      if (!active[key]) active[key] = new Set();
+      active[key].add(val);
+    });
+    return active;
+  }
+
+  /**
+   * Given a filter link href, extract the filter param key + value it represents.
+   * Handles both:
+   *  - collection URLs:  /collections/sarah-baker
+   *  - param URLs:       /collections/all?filter.p.vendor=Sarah+Baker
+   * Returns null for plain collection or non-filter links.
+   */
+  function parseFilterLink(href) {
+    try {
+      var url = new URL(href, window.location.origin);
+      var params = url.searchParams;
+      var filterKey = null, filterVal = null;
+      params.forEach(function (v, k) {
+        if (k.startsWith('filter.')) { filterKey = k; filterVal = v; }
+      });
+      return filterKey ? { key: filterKey, val: filterVal, baseCollection: url.pathname } : null;
+    } catch (_) { return null; }
+  }
+
+  /**
+   * Build a new URL by toggling a specific filter key/value.
+   * Stays on the same collection path if no brand filter is active.
+   */
+  function buildToggleUrl(filterKey, filterVal, baseCollection) {
+    var currentPath = window.location.pathname;
+    var params = new URLSearchParams(window.location.search);
+
+    // Determine if the filter is currently active
+    var currentVals = params.getAll(filterKey);
+    var isActive = currentVals.includes(filterVal);
+
+    if (isActive) {
+      // REMOVE: delete only this specific value
+      params.delete(filterKey);
+      currentVals.filter(function (v) { return v !== filterVal; })
+                 .forEach(function (v) { params.append(filterKey, v); });
+    } else {
+      // ADD: append to existing values for this key
+      params.append(filterKey, filterVal);
+    }
+
+    // Always reset to page 1 when filters change
+    params.delete('page');
+
+    var query = params.toString();
+    return currentPath + (query ? '?' + query : '');
+  }
+
+  /* ── Filter Bar UI ────────────────────────────────────── */
 
   class CollectionFilterBar {
     constructor(el) {
@@ -10,7 +80,25 @@
       this.trigger = el.querySelector('[data-cfb-trigger]');
       this.panel   = el.querySelector('[data-cfb-panel]');
       if (!this.trigger || !this.panel) return;
+      this._markActive();
       this._bind();
+    }
+
+    /** Mark links whose filter matches a currently-active URL param */
+    _markActive() {
+      var active = getActiveFilters();
+      this.panel.querySelectorAll('.cfb__link').forEach(function (a) {
+        var info = parseFilterLink(a.href);
+        if (!info) return;
+        var vals = active[info.key];
+        if (vals && vals.has(info.val)) {
+          a.classList.add('is-active');
+          a.setAttribute('aria-current', 'true');
+        } else {
+          a.classList.remove('is-active');
+          a.removeAttribute('aria-current');
+        }
+      });
     }
 
     _bind() {
@@ -24,9 +112,17 @@
         if (this.isOpen() && !this.el.contains(e.target)) this.close();
       });
 
-      // Links navigate naturally — just close panel visually
+      /* Intercept filter link clicks → build multi-filter URL */
       this.panel.querySelectorAll('.cfb__link').forEach((a) => {
-        a.addEventListener('click', () => this.close());
+        var info = parseFilterLink(a.href);
+        if (!info) return; // plain collection link — let it navigate normally
+
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          var newUrl = buildToggleUrl(info.key, info.val, info.baseCollection);
+          this.close();
+          window.location.assign(newUrl);
+        });
       });
     }
 

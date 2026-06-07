@@ -175,10 +175,15 @@
   position: absolute;
   top: 12px;
   left: 12px;
+  /* Leave room for the 36px wishlist button + 12px gap + 12px from right = 60px */
+  right: 60px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   z-index: 2;
+  /* Cap at 2 rows so pills never bury the card content */
+  max-height: calc((1.3em + 10px) * 2 + 6px);
+  overflow: hidden;
 }
 
 .product-slider__pill {
