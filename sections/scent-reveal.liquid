@@ -136,8 +136,11 @@
   }
   @media (max-width: 749px) {
     #sr-{{ sec_id }} .sr-iframe-wrap { width: 100%; }
-    #sr-{{ sec_id }} .sr-iframe { height: {{ section.settings.iframe_height_mobile | default: 420 }}px; }
+    /* Shorter container on mobile — reduces blank space */
+    #sr-{{ sec_id }} .sr-iframe { height: {{ section.settings.iframe_height_mobile | default: 320 }}px; }
     #sr-{{ sec_id }} .sr-heading { font-size: {{ section.settings.heading_size | times: 0.75 | round }}px; }
+    /* Extra top spacing to separate from the image slider above */
+    #sr-{{ sec_id }} { margin-top: max({{ section.settings.margin_top }}px, 32px) !important; }
   }
 </style>
 

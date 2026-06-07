@@ -77,12 +77,34 @@
 <div id="dual-slider-{{ section.id }}">
 <div class="ds-wrap"><div class="ds-rows">
 <div class="ds-row ds-fwd">
+{%- comment -%} Load at 2× the display height for crisp retina rendering {%- endcomment -%}
+{%- assign img_src_h = img_height | times: 2 -%}
 {%- if use_metafield -%}
-{%- for img in metafield_images -%}<div class="ds-img"><img src="{{ img | image_url: height: img_height }}" alt="Slide {{ forloop.index }}" loading="lazy"></div>{%- endfor -%}
-{%- for img in metafield_images -%}<div class="ds-img"><img src="{{ img | image_url: height: img_height }}" alt="Slide {{ forloop.index }}" loading="lazy"></div>{%- endfor -%}
+{%- for img in metafield_images -%}
+<div class="ds-img"><img
+  src="{{ img | image_url: height: img_src_h }}"
+  srcset="{{ img | image_url: height: img_height }} 1x, {{ img | image_url: height: img_src_h }} 2x"
+  alt="Slide {{ forloop.index }}" loading="lazy"></div>
+{%- endfor -%}
+{%- for img in metafield_images -%}
+<div class="ds-img"><img
+  src="{{ img | image_url: height: img_src_h }}"
+  srcset="{{ img | image_url: height: img_height }} 1x, {{ img | image_url: height: img_src_h }} 2x"
+  alt="Slide {{ forloop.index }}" loading="lazy"></div>
+{%- endfor -%}
 {%- else -%}
-{%- for block in section.blocks -%}{%- if block.settings.image != blank -%}<div class="ds-img" {{ block.shopify_attributes }}><img src="{{ block.settings.image | image_url: height: img_height }}" alt="{{ block.settings.image.alt | default: 'Slide' }}" loading="lazy"></div>{%- endif -%}{%- endfor -%}
-{%- for block in section.blocks -%}{%- if block.settings.image != blank -%}<div class="ds-img"><img src="{{ block.settings.image | image_url: height: img_height }}" alt="{{ block.settings.image.alt | default: 'Slide' }}" loading="lazy"></div>{%- endif -%}{%- endfor -%}
+{%- for block in section.blocks -%}{%- if block.settings.image != blank -%}
+<div class="ds-img" {{ block.shopify_attributes }}><img
+  src="{{ block.settings.image | image_url: height: img_src_h }}"
+  srcset="{{ block.settings.image | image_url: height: img_height }} 1x, {{ block.settings.image | image_url: height: img_src_h }} 2x"
+  alt="{{ block.settings.image.alt | default: 'Slide' }}" loading="lazy"></div>
+{%- endif -%}{%- endfor -%}
+{%- for block in section.blocks -%}{%- if block.settings.image != blank -%}
+<div class="ds-img"><img
+  src="{{ block.settings.image | image_url: height: img_src_h }}"
+  srcset="{{ block.settings.image | image_url: height: img_height }} 1x, {{ block.settings.image | image_url: height: img_src_h }} 2x"
+  alt="{{ block.settings.image.alt | default: 'Slide' }}" loading="lazy"></div>
+{%- endif -%}{%- endfor -%}
 {%- endif -%}
 </div>
 
