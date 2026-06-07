@@ -51,7 +51,7 @@
 
 @media screen and (max-width: 999px) {
   .text-statement__text {
-    font-size: calc(var(--ts-font-size, 32px) * 0.75);
+    font-size: calc(var(--ts-font-size, 32px) * 0.78);
   }
 }
 
@@ -60,7 +60,15 @@
     padding-inline: 16px;
   }
 
+  /* Slightly larger on mobile for readability (was 0.6×, now 0.78×) */
   .text-statement__text {
-    font-size: calc(var(--ts-font-size, 32px) * 0.6);
+    font-size: calc(var(--ts-font-size, 32px) * 0.78);
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .text-statement__text {
+    font-size: calc(var(--ts-font-size, 32px) * 0.72);
   }
 }
