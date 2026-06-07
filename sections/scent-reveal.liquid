@@ -150,32 +150,29 @@
   var src    = {{ scent_html_url | json }};
   if (!iframe || !src) return;
 
-  /* Resize script injected into the HTML — fires postMessage with real content height */
-  var resizeScript = '<script>' +
-    '(function(){' +
-    'function send(){' +
-    'var h=document.documentElement.scrollHeight||document.body.scrollHeight;' +
-    'window.parent.postMessage({sos_iframe_h:h,sos_id:"{{ sec_id }}"},"*");' +
-    '}' +
-    'window.addEventListener("load",function(){send();setTimeout(send,300);setTimeout(send,800);});' +
-    'if(document.readyState==="complete")send();' +
-    '})();' +
-    '<\/script>';
-
-  /* Listen for height messages from the iframe */
-  window.addEventListener('message', function (e) {
-    if (!e.data || e.data.sos_id !== '{{ sec_id }}') return;
-    var h = e.data.sos_iframe_h;
-    if (h && h > 0) iframe.style.height = h + 'px';
-  });
+  /* Auto-fit iframe to its content height.
+     srcdoc creates a same-origin document so contentDocument is readable. */
+  function fitHeight() {
+    try {
+      var d = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
+      if (!d || !d.body) return;
+      /* Temporarily shrink so scrollHeight reflects real content, not stretched iframe */
+      iframe.style.height = '1px';
+      var h = d.documentElement.scrollHeight || d.body.scrollHeight;
+      if (h > 10) iframe.style.height = h + 'px';
+    } catch (_) {}
+  }
 
   fetch(src, { mode: 'cors', credentials: 'omit' })
     .then(function (r) { return r.ok ? r.text() : Promise.reject(r.status); })
     .then(function (html) {
-      /* Inject the resize script before </body> or at the end */
-      var injected = html.replace('</body>', resizeScript + '</body>');
-      if (injected === html) injected = html + resizeScript; /* no </body> tag */
-      iframe.srcdoc = injected;
+      /* srcdoc = same-origin; safe to read contentDocument after load */
+      iframe.srcdoc = html;
+      iframe.addEventListener('load', function () {
+        fitHeight();
+        setTimeout(fitHeight, 250);
+        setTimeout(fitHeight, 700);
+      }, { once: true });
     })
     .catch(function () {
       iframe.src = src;
