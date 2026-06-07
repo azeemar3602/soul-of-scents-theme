@@ -150,33 +150,35 @@
   var src    = {{ scent_html_url | json }};
   if (!iframe || !src) return;
 
-  /* Auto-resize iframe to fit its HTML content — removes blank space */
-  function fitIframe() {
-    try {
-      var doc = iframe.contentWindow && iframe.contentWindow.document;
-      if (!doc) return;
-      var h = doc.documentElement.scrollHeight || doc.body.scrollHeight;
-      if (h && h > 0) iframe.style.height = h + 'px';
-    } catch (_) {}
-  }
+  /* Resize script injected into the HTML — fires postMessage with real content height */
+  var resizeScript = '<script>' +
+    '(function(){' +
+    'function send(){' +
+    'var h=document.documentElement.scrollHeight||document.body.scrollHeight;' +
+    'window.parent.postMessage({sos_iframe_h:h,sos_id:"{{ sec_id }}"},"*");' +
+    '}' +
+    'window.addEventListener("load",function(){send();setTimeout(send,300);setTimeout(send,800);});' +
+    'if(document.readyState==="complete")send();' +
+    '})();' +
+    '<\/script>';
+
+  /* Listen for height messages from the iframe */
+  window.addEventListener('message', function (e) {
+    if (!e.data || e.data.sos_id !== '{{ sec_id }}') return;
+    var h = e.data.sos_iframe_h;
+    if (h && h > 0) iframe.style.height = h + 'px';
+  });
 
   fetch(src, { mode: 'cors', credentials: 'omit' })
     .then(function (r) { return r.ok ? r.text() : Promise.reject(r.status); })
     .then(function (html) {
-      iframe.srcdoc = html;
-      /* Resize once on load, then again after fonts/images settle */
-      iframe.addEventListener('load', function () {
-        fitIframe();
-        setTimeout(fitIframe, 300);
-        setTimeout(fitIframe, 800);
-      }, { once: true });
+      /* Inject the resize script before </body> or at the end */
+      var injected = html.replace('</body>', resizeScript + '</body>');
+      if (injected === html) injected = html + resizeScript; /* no </body> tag */
+      iframe.srcdoc = injected;
     })
     .catch(function () {
       iframe.src = src;
-      iframe.addEventListener('load', function () {
-        fitIframe();
-        setTimeout(fitIframe, 300);
-      }, { once: true });
     });
 })();
 </script>
