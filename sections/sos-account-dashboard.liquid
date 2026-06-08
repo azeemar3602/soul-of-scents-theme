@@ -133,6 +133,35 @@
               <a class="sos-account__linkbtn" href="{{ quiz_url }}">Get sample bundle</a>
             </div>
           </div>
+
+          {%- comment -%} Your olfactory match — recommended products from RH collection {%- endcomment -%}
+          {%- assign arch_handle = archetype_name | handleize -%}
+          {%- assign rh_col = collections['rh-' | append: arch_handle] -%}
+          {%- if rh_col != blank and rh_col.products.size > 0 -%}
+            <div class="sos-account__section" style="margin-top:32px;">
+              <div class="sos-account__section-head">
+                <h2 class="sos-account__section-title">Your olfactory match</h2>
+                <a class="sos-account__showall" href="{{ archetype_result_url | default: '#' }}">Show all &rsaquo;</a>
+              </div>
+              <div class="sos-account__product-grid">
+                {%- for product in rh_col.products limit: 4 -%}
+                  <div class="sos-account__product-card sos-account__fav-card">
+                    <a href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+                      {%- if product.featured_image -%}
+                        <img src="{{ product.featured_image | image_url: width: 360 }}" alt="{{ product.title | escape }}" loading="lazy" width="360" height="360">
+                      {%- endif -%}
+                      <div class="sos-account__fav-meta">
+                        <p class="sos-account__fav-title">{{ product.title }}</p>
+                        <p class="sos-account__fav-vendor">{{ product.vendor }}</p>
+                        <p class="sos-account__fav-price">{{ product.price | money }}</p>
+                      </div>
+                    </a>
+                  </div>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+
         {%- else -%}
           <div class="sos-account__empty"><p>You haven't taken the archetype quiz yet.</p><a class="sos-account__btn" href="{{ quiz_url }}">Take the Quiz</a></div>
         {%- endif -%}
@@ -260,12 +289,12 @@
         <div class="sos-account__support-grid">
           <a class="sos-account__support-link" href="/pages/faq">FAQ</a>
           <a class="sos-account__support-link" href="/pages/quiz">Archetype Quiz</a>
-          <a class="sos-account__support-link" href="/pages/shipping">Shipping</a>
+          <a class="sos-account__support-link" href="/pages/shipping-returns">Shipping</a>
           <a class="sos-account__support-link" href="/blogs/magazine">Blog</a>
-          <a class="sos-account__support-link" href="/pages/returns">Returns &amp; Exchanges</a>
-          <a class="sos-account__support-link" href="/pages/gift-guide">Gift Guide</a>
+          <a class="sos-account__support-link" href="/pages/shipping-returns">Returns &amp; Exchanges</a>
+          <a class="sos-account__support-link" href="/pages/vision">SOS Guide</a>
         </div>
-        <a class="sos-account__btn sos-account__btn--block" href="/pages/contact">Get in touch</a>
+        <a class="sos-account__btn sos-account__btn--block" href="/pages/contact-us">Get in touch</a>
       </div>
     </section>
 
