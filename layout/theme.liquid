@@ -298,10 +298,12 @@
           if (responseId) { saveArchetypeData(responseId); }
           else { checkAndSave(); }
 
-          /* Redirect to archetype result page */
+          /* Only redirect to archetype when the user is ON the quiz page itself
+             — prevents inline quiz blocks on other pages triggering the redirect */
+          if (window.location.pathname !== QUIZ_PAGE) return;
+
           var archetypeKey = (quiz.variables && quiz.variables.highest) ? quiz.variables.highest : '';
           if (!redirectToArchetype(archetypeKey)) {
-            /* Fallback: read from stored data */
             try {
               var stored = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
               if (stored.archetypeKey) redirectToArchetype(stored.archetypeKey);
