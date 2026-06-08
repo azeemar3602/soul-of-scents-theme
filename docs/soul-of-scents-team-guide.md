@@ -1,36 +1,22 @@
-# soul of scents — Shopify Store Guide
-**For the team: everything you need to manage and update the store without a developer.**
+# soul of scents — Store Management Guide
+**Your complete guide to managing and updating the store — no developer needed.**
 
 ---
 
 ## Table of Contents
-1. [How the store is organised](#1-how-the-store-is-organised)
-2. [Editing pages in the theme editor](#2-editing-pages-in-the-theme-editor)
-3. [The quiz and archetype system](#3-the-quiz-and-archetype-system)
-4. [Adding and editing products](#4-adding-and-editing-products)
-5. [Product metafields explained](#5-product-metafields-explained)
-6. [Collections and filtering](#6-collections-and-filtering)
-7. [The scent profile (HTML files)](#7-the-scent-profile-html-files)
-8. [Shipping details](#8-shipping-details)
-9. [Contact & legal pages](#9-contact--legal-pages)
-10. [What only a developer should touch](#10-what-only-a-developer-should-touch)
+1. [Editing pages in the theme editor](#1-editing-pages-in-the-theme-editor)
+2. [The quiz and archetype system](#2-the-quiz-and-archetype-system)
+3. [Adding and editing products](#3-adding-and-editing-products)
+4. [Product metafields explained](#4-product-metafields-explained)
+5. [Collections and filtering](#5-collections-and-filtering)
+6. [The scent profile (HTML files)](#6-the-scent-profile-html-files)
+7. [Shipping details](#7-shipping-details)
+8. [Contact & legal pages](#8-contact--legal-pages)
+9. [What to leave to your developer](#9-what-to-leave-to-your-developer)
 
 ---
 
-## 1. How the store is organised
-
-The store runs on **Shopify** with a custom theme called `soul-of-scents-theme/main`. The theme lives in two places:
-
-- **GitHub** — `github.com/azeemar3602/soul-of-scents-theme` — the source code backup
-- **Shopify live theme** — what customers actually see at `soscurates.com`
-
-Every time code is pushed to GitHub, it automatically deploys to the live store (via GitHub Actions). Changes made directly in the **Shopify theme editor** are safe and do NOT need to go through GitHub.
-
-**Rule of thumb:** Use the theme editor for content. Use GitHub/code for structural changes.
-
----
-
-## 2. Editing pages in the theme editor
+## 1. Editing pages in the theme editor
 
 Go to: **Online Store → Themes → Customise**
 
@@ -58,7 +44,7 @@ You can then navigate to any page using the top bar. Most content on the site is
 
 ---
 
-## 3. The quiz and archetype system
+## 2. The quiz and archetype system
 
 The quiz is powered by **RevenueHunt** (a Shopify app). Here is the full flow:
 
@@ -100,7 +86,7 @@ Log in to [RevenueHunt](https://admin.revenuehunt.com) with your credentials. Al
 
 ---
 
-## 4. Adding and editing products
+## 3. Adding and editing products
 
 ### Adding a new product
 
@@ -123,7 +109,7 @@ Upload images at the highest quality available. The theme loads them at 2× reso
 
 ---
 
-## 5. Product metafields explained
+## 4. Product metafields explained
 
 Metafields are extra data fields on products. Here is what each one does:
 
@@ -153,7 +139,7 @@ Metafields are extra data fields on products. Here is what each one does:
 
 ---
 
-## 6. Collections and filtering
+## 5. Collections and filtering
 
 ### Brand collections
 
@@ -185,7 +171,7 @@ To add a new brand to the filter bar: go to **Customise → any collection page 
 
 ---
 
-## 7. The scent profile (HTML files)
+## 6. The scent profile (HTML files)
 
 The scent profile is an interactive diagram shown on product pages. It is an **HTML file** uploaded to Shopify Files and displayed in an invisible frame on the page.
 
@@ -199,7 +185,7 @@ The profile automatically resizes to fit its content — no height adjustments n
 
 ---
 
-## 8. Shipping details
+## 7. Shipping details
 
 Shipping rates are managed in **Settings → Shipping and delivery**. You can:
 - Add or remove shipping zones (countries)
@@ -210,7 +196,7 @@ The cart shipping estimator defaults to **Germany**. If a logged-in customer has
 
 ---
 
-## 9. Contact & legal pages
+## 8. Contact & legal pages
 
 | Page | URL | How to edit |
 |---|---|---|
@@ -230,7 +216,7 @@ The contact form uses Shopify's built-in form — submissions go to the store's 
 
 ---
 
-## 10. What only a developer should touch
+## 9. What to leave to your developer
 
 These things require code changes and should not be edited without developer involvement:
 
