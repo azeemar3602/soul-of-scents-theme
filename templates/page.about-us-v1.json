@@ -70,7 +70,7 @@
             "section_width": "container",
             "custom_width": 1920,
             "container_padding": 15,
-            "media_type": "Video",
+            "media_type": "video",
             "image": "shopify://shop_images/Col.png",
             "image_fit": "cover",
             "video_url": "https://cdn.shopify.com/videos/c/o/v/c4ec71cdd72c4761bb3d564de91cccde.mp4",
