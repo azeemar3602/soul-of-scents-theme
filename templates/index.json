@@ -19,7 +19,7 @@
         "line2_color": "#1a1a1a",
         "bg_color": "#ffffff",
         "border_color": "#e0e0e0",
-        "font_size": 26,
+        "font_size": 30,
         "line_height": 1.4,
         "font_weight": "400",
         "line2_weight": "600",
@@ -138,6 +138,8 @@
         "button_label_2": "Shop all",
         "button_link_2": "",
         "button_new_tab_2": false,
+        "mobile_button_layout": "stacked",
+        "mobile_button_gap": 12,
         "padding_top": 40,
         "padding_bottom": 40,
         "padding_left": 40,
@@ -575,6 +577,7 @@
         "review_WzdVfN",
         "review_yDyY6c"
       ],
+      "disabled": true,
       "name": "Reviews Slider",
       "settings": {
         "heading": "Reviews",
@@ -602,6 +605,57 @@
     },
     "177247739214285602": {
       "type": "_blocks",
+      "disabled": true,
+      "settings": {}
+    },
+    "blocks_dfMWPh": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_50e3212_k3mRVT": {
+          "type": "ai_gen_block_50e3212",
+          "settings": {
+            "layout": "image_left",
+            "vertical_alignment": "center",
+            "content_gap": 40,
+            "mobile_gap": 30,
+            "section_width": "container",
+            "custom_width": 1200,
+            "subheading": "",
+            "heading": "<p>Meet the <em>curator</em></p>",
+            "text": "<h5>Discover the story behind our carefully curated collection. Each piece is selected with intention, bringing together timeless design and contemporary elegance.</h5>",
+            "image": "shopify://shop_images/NV_Portrait_bw_square_e70949ea-bc80-48b5-8fc8-7da80f3736b8.png",
+            "image_ratio": "landscape",
+            "image_border_radius": 14,
+            "background_color": "#ffffff",
+            "subheading_color": "#999999",
+            "heading_color": "#222222",
+            "text_color": "#222222",
+            "subheading_size": 14,
+            "subheading_size_mobile": 12,
+            "subheading_spacing": 8,
+            "subheading_weight": "500",
+            "subheading_transform": "uppercase",
+            "heading_size": 44,
+            "heading_size_mobile": 28,
+            "heading_spacing": 16,
+            "text_size": 14,
+            "text_size_mobile": 14,
+            "padding_top": 50,
+            "padding_bottom": 50,
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "padding_top_mobile": 30,
+            "padding_bottom_mobile": 30,
+            "margin_top_mobile": 0,
+            "margin_bottom_mobile": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_50e3212_k3mRVT"
+      ],
+      "name": "Text and image",
       "settings": {}
     },
     "177250432466bddc37": {
@@ -645,6 +699,7 @@
       "block_order": [
         "ai_gen_block_ef87b26_mBXczU"
       ],
+      "disabled": true,
       "settings": {}
     },
     "product_slider_RDmVW8": {
@@ -739,6 +794,7 @@
     },
     "blog_carousel_EwDDa8": {
       "type": "blog-carousel",
+      "disabled": true,
       "name": "Blog Carousel",
       "settings": {
         "blog": "magazine",
@@ -818,6 +874,8 @@
         "button_label_2": "Shop all",
         "button_link_2": "",
         "button_new_tab_2": false,
+        "mobile_button_layout": "stacked",
+        "mobile_button_gap": 12,
         "padding_top": 40,
         "padding_bottom": 40,
         "padding_left": 40,
@@ -895,6 +953,7 @@
     "662cf23c-2a28-41c4-9bd8-b6517c99ba49",
     "reviews_slider_xtqCd8",
     "177247739214285602",
+    "blocks_dfMWPh",
     "177250432466bddc37",
     "product_slider_RDmVW8",
     "0a081843-18cc-4628-a950-350c7308b356",
