@@ -189,6 +189,22 @@
     .sos-arch-share__btn { width: 100%; max-width: 280px; }
   }
 
+  /* RETAKE QUIZ */
+  .sos-arch-retake-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted, #6b6258);
+    text-decoration: none;
+    letter-spacing: .04em;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: opacity .2s;
+  }
+  .sos-arch-retake-btn:hover { opacity: .65; }
+  .sos-arch-retake-btn::before { content: '↺ '; font-size: 14px; }
+
   /* SPACER */
   .sos-arch-spacer{ height:32px; }
 
@@ -476,6 +492,13 @@
 
               </div>
             </div>
+          </div>
+
+        {%- when 'retake_quiz' -%}
+          <div class="sos-arch__block" style="text-align:center; padding-bottom: 16px;" {{ block.shopify_attributes }}>
+            <a href="/pages/quiz" class="sos-arch-retake-btn">
+              {{ block.settings.label | default: 'Take the quiz again' }}
+            </a>
           </div>
 
         {%- when 'spacer' -%}
@@ -780,6 +803,14 @@
         { "type": "header",   "content": "One-pager files — paste Shopify Files CDN URLs" },
         { "type": "url",      "id": "download_url_image", "label": "Image file URL (.jpg / .png)", "info": "Used for 'Save as image' button and as the shared link." },
         { "type": "url",      "id": "download_url_pdf",   "label": "PDF file URL (.pdf)",          "info": "Used for 'Download PDF' button." }
+      ]
+    },
+    {
+      "type": "retake_quiz",
+      "name": "Retake quiz button",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Button label", "default": "Take the quiz again" }
       ]
     },
     {
