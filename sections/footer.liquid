@@ -316,6 +316,15 @@
   .site-footer .site-footer__section-title{
     font-weight: 600;
     color: var(--sos-black);
+    /* Override theme uppercase setting — show text as typed in editor */
+    text-transform: none !important;
+  }
+
+  /* "soul of scents" wordmark in footer bottom bar — force lowercase */
+  .site-footer__wordmark,
+  .site-footer__copyright b,
+  .site-footer__copyright b a {
+    text-transform: lowercase !important;
   }
 
   .site-footer .footer-email .form-group{
