@@ -25,127 +25,59 @@
       "settings": {
         "display_type": "all",
         "layout": "grid",
-        "sort": "alphabetical"
+        "sort": "alphabetical",
+        "title": "Shop Categories"
       }
     },
-    "16634028377c76965e": {
-      "type": "line",
-      "disabled": true,
+    "hero_banner_cats": {
+      "type": "hero-banner",
+      "name": "Hero Banner",
       "settings": {
-        "animation": "fade",
-        "paddingsection": "0px 0px 0px 0px",
-        "marginsection": "0px 0px 0px 0px",
-        "bgsection": "#ffffff",
-        "setwidth": "container",
-        "bgborder": "#dddddd",
-        "wborder": "1px"
-      }
-    },
-    "166340498714830ffb": {
-      "type": "parallax-banner",
-      "blocks": {
-        "449c4ba1-609f-49f7-9e5e-c85be12f11c2": {
-          "type": "sub_title",
-          "settings": {
-            "subtitle": "Extended return period"
-          }
-        },
-        "aa316a40-0fd3-4aee-9b8f-94f9ce188d6c": {
-          "type": "heading",
-          "settings": {
-            "title": "Open return policy valid until 31\/01\/24",
-            "size_text": "h2"
-          }
-        },
-        "4ca26696-8c69-457b-b768-8f4ea309d003": {
-          "type": "paragraph",
-          "settings": {
-            "subtext": "Discover more about our products."
-          }
-        },
-        "b86a326b-4e5c-4ff4-8312-15fa764d2fdb": {
-          "type": "button",
-          "settings": {
-            "button": "discover now",
-            "link": "shopify:\/\/collections\/all",
-            "style_btn": "btn-theme"
-          }
-        }
-      },
-      "block_order": [
-        "449c4ba1-609f-49f7-9e5e-c85be12f11c2",
-        "aa316a40-0fd3-4aee-9b8f-94f9ce188d6c",
-        "4ca26696-8c69-457b-b768-8f4ea309d003",
-        "b86a326b-4e5c-4ff4-8312-15fa764d2fdb"
-      ],
-      "settings": {
-        "animation": "fade-up",
-        "setwidth": "full",
-        "bgsection": "#ffffff",
-        "parrallax_enable": true,
-        "image": "shopify:\/\/shop_images\/b4.jpg",
-        "height_section": "550",
-        "height_section_mobile": "450",
-        "align": "left",
-        "position_text": "mid-left",
-        "bg_box": "#ffffff",
-        "opacity_bgbox": 1,
-        "title_color": "#000000",
-        "bg_overlay": "#000000",
-        "gradient_bg": "",
-        "opacity_bg_overlay": 0.1,
-        "paddingsection": "0px 0px 0px 0px",
-        "marginsection": "0px 0px 0px 0px"
-      }
-    },
-    "166340581364695c71": {
-      "type": "product-list-swiper",
-      "settings": {
-        "animation": "fade-up",
-        "setwidth": "container",
-        "e_size": "auto",
-        "e_repeat": "no-repeat",
-        "e_position": "center center",
-        "bgsection": "#ffffff",
-        "title_color": "rgba(0,0,0,0)",
-        "title_top": "collection",
-        "title": "Latest Arrivals",
-        "des": "",
-        "align-heading": "left",
-        "collection": "bras",
-        "limit": 8,
-        "perviewDesktop": 4,
-        "spaceBetween": 30,
-        "nowrap": true,
-        "arrows": true,
-        "scrollbar": false,
-        "buttonall": "",
-        "buttonall_link": "",
-        "style_btn": "btn-theme",
-        "enable_first_banner": false,
-        "width_banner": 30,
-        "subtitle_banner": "Sub Title",
-        "title_banner": "Title Banner",
-        "size_text": "h2",
-        "des_banner": "Protection from the",
-        "pos_banner": "mid-center",
-        "button_banner": "discover now",
-        "link_banner": "",
-        "style_btn_banner": "btn-underline btn-underline-white",
-        "text_banner_color": "#ffffff",
-        "overlay_banner": "#000000",
-        "opacity_banner": 0.2,
-        "paddingsection": "60px 0px 60px 0px",
-        "paddingmobile": "40px 0px 40px 0px",
-        "marginsection": "0px 0px 0px 0px",
-        "marginmobile": "0px 0px 0px 0px"
+        "background_type": "image",
+        "image": "shopify://shop_images/Col_1.png",
+        "video_url": "",
+        "overlay_opacity": 30,
+        "section_width": "full",
+        "custom_width": 1200,
+        "custom_width_unit": "px",
+        "section_height": "medium",
+        "card_position": "left",
+        "subheading": "Find a scent that just fits with soul of scents",
+        "desktop_subheading_size": 18,
+        "mobile_subheading_size": 13,
+        "subheading_letter_spacing": 0,
+        "heading": "<p>Not sure which perfume matches your energy?</p>",
+        "heading_tag": "h2",
+        "desktop_heading_size": 30,
+        "mobile_heading_size": 28,
+        "description": "",
+        "button_count": "one",
+        "button_label_1": "Take the archetype quiz",
+        "button_link_1": "/pages/quiz",
+        "button_new_tab_1": false,
+        "button_bg_color_1": "#ffffff",
+        "button_text_color_1": "#928171",
+        "button_border_color_1": "#030303",
+        "button_hover_bg_color_1": "#f0f0f0",
+        "button_hover_text_color_1": "#1a1a1a",
+        "button_hover_border_color_1": "#030303",
+        "button_border_radius": 10,
+        "button_font_size": 15,
+        "button_font_weight": "500",
+        "button_label_2": "Shop all",
+        "button_link_2": "/collections/all",
+        "button_new_tab_2": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 40,
+        "padding_right": 40,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     }
   },
   "order": [
     "main",
-    "16634028377c76965e",
-    "166340498714830ffb",
-    "166340581364695c71"
+    "hero_banner_cats"
   ]
 }
