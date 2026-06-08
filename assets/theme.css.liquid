@@ -1,3 +1,17 @@
+/* ── Contact form — override dark input_bg theme setting ── */
+.contact .field__input,
+.contact .form-control,
+.contact .text-area {
+  background-color: #ffffff !important;
+  color: #030303 !important;
+  border: 1px solid rgba(3,3,3,0.2) !important;
+}
+.contact .field__input::placeholder,
+.contact .form-control::placeholder {
+  color: #888 !important;
+  opacity: 1 !important;
+}
+
 /* ── Brand name: force "soul of scents" lowercase everywhere ──
    The shop.name in Shopify is stored as "Soul of scents" (capital S).
    Any element that renders the shop name must display lowercase.       */
