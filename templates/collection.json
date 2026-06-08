@@ -202,6 +202,7 @@
     },
     "product-grid": {
       "type": "main-collection-template",
+      "disabled": true,
       "settings": {
         "collection_width": "container",
         "products_per_page": 12,
@@ -229,7 +230,6 @@
     },
     "product_slider_gQW6GA": {
       "type": "product-slider",
-      "disabled": true,
       "name": "Product Slider",
       "settings": {
         "collection": "{{ collection }}",
