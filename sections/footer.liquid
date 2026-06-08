@@ -601,42 +601,68 @@
   /* Hardcoded payment-methods row container (rendered just below). */
   .sos-footer-payments{
     display: flex; align-items: center; justify-content: center;
-    gap: 10px; padding: 0; margin: 0;
+    flex-wrap: wrap;
+    gap: 8px; padding: 0; margin: 0;
     list-style: none;
   }
-  .sos-footer-payments li{ display: inline-flex; }
+  .sos-footer-payments li{ display: inline-flex; flex-shrink: 0; }
   .sos-footer-payments svg{
     width: 38px; height: 24px; display: block;
     border-radius: 3px;
   }
-
-  /* ── Mobile newsletter form fix ── */
   @media (max-width: 749px) {
-    /* Stack input above button cleanly — no overlap */
+    .sos-footer-payments { gap: 6px; justify-content: center; }
+    .sos-footer-payments svg { width: 34px; height: 22px; }
+  }
+
+  /* ── Mobile newsletter form — clean stacked layout ── */
+  @media (max-width: 749px) {
+    /* Strip any pill/card styling off the container */
     .site-footer .footer-email .form-group.flex-column {
       display: flex !important;
       flex-direction: column !important;
-      gap: 10px;
-    }
-    .site-footer .footer-email .form-group input[type="email"] {
-      width: 100% !important;
-      margin-bottom: 0 !important;
-      border: 1px solid rgba(3,3,3,0.2) !important;
-      border-radius: 6px !important;
-      padding: 12px 14px !important;
-      font-size: 14px !important;
-      background: rgba(255,255,255,0.55) !important;
+      gap: 0 !important;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
       box-shadow: none !important;
     }
-    .site-footer .footer-email .form-group > .d-flex {
-      width: 100%;
-    }
-    .site-footer .footer-email .btn-theme {
+    /* Input: flat, full-width, distinct */
+    .site-footer .footer-email .form-group input[type="email"] {
+      display: block !important;
       width: 100% !important;
-      text-align: center;
-      padding: 12px 16px !important;
-      border-radius: 6px !important;
+      margin: 0 0 10px 0 !important;
+      padding: 13px 16px !important;
+      border: 1px solid rgba(3,3,3,0.22) !important;
+      border-radius: 8px !important;
+      background: rgba(255,255,255,0.7) !important;
       font-size: 14px !important;
+      box-shadow: none !important;
+      color: #030303 !important;
+    }
+    /* Label: hidden on mobile (placeholder handles it) */
+    .site-footer .footer-email label[for^="NewsletterEmail"] {
+      display: none !important;
+    }
+    /* Button wrapper */
+    .site-footer .footer-email .form-group > .d-flex {
+      width: 100% !important;
+      display: block !important;
+    }
+    /* Submit button: full-width, solid */
+    .site-footer .footer-email .btn-theme {
+      display: block !important;
+      width: 100% !important;
+      padding: 13px 16px !important;
+      border-radius: 8px !important;
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      text-align: center !important;
+      letter-spacing: 0.02em !important;
+      background-color: #030303 !important;
+      color: #ffffff !important;
+      border: none !important;
     }
   }
 
