@@ -488,6 +488,21 @@
 
   var name    = data.name;
   var url     = data.url || '#archetype';
+
+  /* ── Sync localStorage → Shopify metafield (logged-in users only) ──
+     If the customer took the quiz while NOT logged in, their result only
+     exists in localStorage. On first visit to the dashboard while signed in,
+     we silently POST the data to /account so it persists on the server. */
+  {%- if customer -%}
+  try {
+    var fd = new FormData();
+    fd.append('_method', 'put');
+    fd.append('customer[metafields][custom][archetype_name]',       name);
+    fd.append('customer[metafields][custom][archetype_result_url]', url);
+    fd.append('customer[metafields][custom][archetype_date]',       data.date || '');
+    fetch('/account', { method: 'POST', credentials: 'same-origin', headers: { 'Accept': 'application/json' }, body: fd }).catch(function(){});
+  } catch (_) {}
+  {%- endif -%}
   var rawDate = data.date || '';
 
   /* Format date for display */
