@@ -91,6 +91,7 @@
     "currency_enable_image": true,
     "selector_enable_name": false,
     "mobile_phone": "",
+    "mobile_email": "",
     "enable_post": false,
     "enable_article": false,
     "enable_collection": false,

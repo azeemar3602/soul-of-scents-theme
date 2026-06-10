@@ -1205,14 +1205,12 @@
       {
         "type": "text",
         "id": "mobile_phone",
-        "label": "Mobile Phone",
-        "default": ""
+        "label": "Mobile Phone"
       },
       {
         "type": "text",
         "id": "mobile_email",
-        "label": "Mobile Email",
-        "default": ""
+        "label": "Mobile Email"
       }
     ]
   },
