@@ -1206,13 +1206,13 @@
         "type": "text",
         "id": "mobile_phone",
         "label": "Mobile Phone",
-        "default": "+012345678"
+        "default": ""
       },
       {
         "type": "text",
         "id": "mobile_email",
         "label": "Mobile Email",
-        "default": "mailsupport@gmail.com"
+        "default": ""
       }
     ]
   },
