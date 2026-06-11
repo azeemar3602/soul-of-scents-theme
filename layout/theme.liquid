@@ -285,20 +285,16 @@
       return false;
     }
 
-    /* Track whether the user actively completed the quiz this session.
-       RevenueHunt fires 'isResult' on load when it has a cached result,
-       which would auto-redirect returning visitors. We only redirect when
-       the quiz was freshly completed (a 'isQuestion' was seen first). */
-    var quizInteracted = false;
+    /* Track page load time so we can distinguish a fresh quiz completion
+       from a cached result that RevenueHunt fires on page load.
+       If isResult arrives within 10 seconds of page load, it's cached. */
+    var pageLoadTime = Date.now();
 
     window.addEventListener('message', function(event) {
       if (!event.data) return;
       var data;
       try { data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data; } catch(e) { return; }
       if (data.channel !== 'revenuehunt:quiz-renderer') return;
-
-      /* Mark that the user is actively taking the quiz */
-      if (data.type === 'isQuestion') { quizInteracted = true; }
 
       if (data.type === 'isResult') {
         setTimeout(function() {
@@ -312,10 +308,11 @@
              — prevents inline quiz blocks on other pages triggering the redirect */
           if (window.location.pathname !== QUIZ_PAGE) return;
 
-          /* Only redirect if the user freshly completed the quiz.
-             If this is a cached result on page load, don't redirect —
-             let them see the quiz and choose to retake or view results. */
-          if (!quizInteracted) return;
+          /* If isResult fired within 10s of page load, it's a cached result
+             from a previous quiz session — don't redirect. The user probably
+             clicked "Quiz" in the menu to retake it. */
+          var elapsed = Date.now() - pageLoadTime;
+          if (elapsed < 10000) return;
 
           var archetypeKey = (quiz.variables && quiz.variables.highest) ? quiz.variables.highest : '';
           if (!redirectToArchetype(archetypeKey)) {
