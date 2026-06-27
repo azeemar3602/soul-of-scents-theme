@@ -148,7 +148,7 @@
           "type": "button",
           "settings": {
             "button": "Contact us",
-            "link": "#",
+            "link": "/pages/contact-us",
             "style_btn": "btn-theme"
           }
         }

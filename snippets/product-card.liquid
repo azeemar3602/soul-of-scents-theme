@@ -26,12 +26,8 @@
   </a>
 {%- endcapture -%}
 
-{%- comment -%} vendor {%- endcomment -%}
-{% capture vendor %}
- {%- if settings.enable_type and product.vendor != blank -%}
-      <a class="mb-1 product-card__type d-inline-block" href="/collections/vendors?filter.p.vendor={{ product.vendor }}&q={{ product.vendor }}">{{ product.vendor }}</a>
-      {%- endif -%}
-{% endcapture %}
+{%- comment -%} vendor tag removed per brand guidelines {%- endcomment -%}
+{%- assign vendor = '' -%}
 
 {%- comment -%} Prefer 50ml variant for price display; fall back to first available {%- endcomment -%}
 {%- assign _card_variant = nil -%}

@@ -230,7 +230,7 @@
             "description_max_width": 400,
             "description_color": "#666666",
             "button_label": "Take the Quiz",
-            "button_link": "",
+            "button_link": "/pages/quiz",
             "button_font_size": 15,
             "button_font_weight": "600",
             "button_padding_vertical": 10,

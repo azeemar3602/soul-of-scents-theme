@@ -79,7 +79,7 @@
     <div class="d-flex bgvideo-{{ section.id }} {{ positiontxt }} bg-herovideo" data-section-id="{{ section.id }}" data-section-type="background-video" >
       {% if section.settings.link_video != blank %}
         <div class="hero-video" >
-         <video id="Mp4{{ section.id }}" class="lazyload" src="{{ section.settings.link_video }}" loop="" muted="" playsinline="" autoplay="" ></video>
+         <video id="Mp4{{ section.id }}" src="{{ section.settings.link_video }}" loop="" muted="" playsinline="" autoplay="" ></video>
         </div>
         {% else if %}
         <div class="hero-video">

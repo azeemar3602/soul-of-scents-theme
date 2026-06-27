@@ -168,7 +168,7 @@
           "type": "button",
           "settings": {
             "button": "Take the archetype quiz",
-            "link": "#",
+            "link": "/pages/quiz",
             "style_btn": "btn-underline btn-underline-white"
           }
         },
@@ -235,7 +235,7 @@
           "type": "button",
           "settings": {
             "button": "Take the archetype quiz",
-            "link": "#",
+            "link": "/pages/quiz",
             "style_btn": "btn-theme btn-white"
           }
         }
