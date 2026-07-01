@@ -1048,6 +1048,17 @@
       }
     }
   },
+  "sos_seo_text_section": {
+    "type": "sos-seo-text",
+    "settings": {
+      "heading": "More information",
+      "seo_text": "",
+      "padding_top": 0,
+      "padding_bottom": 32,
+      "padding_h": 20,
+      "margin_top": 0
+    }
+  },
   "order": [
     "main",
     "curators_note_wgGUDd",
@@ -1067,6 +1078,7 @@
     "bcb1cba3-80fc-49a2-a033-40cf0618e9c8",
     "product-recommendations",
     "product-recent",
-    "product_slider_pkkbGk"
+    "product_slider_pkkbGk",
+    "sos_seo_text_section"
   ]
 }

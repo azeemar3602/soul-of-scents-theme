@@ -56,6 +56,10 @@
       padding:40px;
     }
   {% endif %}
+  /* Clip video so no black corner artifacts show */
+  .bgvideo-{{ section.id }} {
+    overflow: hidden;
+  }
   .bgvideo-{{ section.id }}::before{
       content:"";
       position: absolute;

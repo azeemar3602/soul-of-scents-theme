@@ -1,24 +1,53 @@
 {%- if section.settings.seo_text != blank -%}
-<div
-  class="sos-seo-text"
-  id="sos-seo-{{ section.id }}"
-  style="
-    background: {{ section.settings.bg_color }};
-    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_h }}px {{ section.settings.padding_bottom }}px;
-    margin-top: {{ section.settings.margin_top }}px;
-  "
->
-  <div class="sos-seo-text__inner" style="max-width: {{ section.settings.max_width }}px; margin: 0 auto;">
-    {%- if section.settings.heading != blank -%}
-      <h2 class="sos-seo-text__heading" style="font-size:{{ section.settings.heading_size }}px; color:{{ section.settings.text_color }}; margin:0 0 12px; font-weight:{{ section.settings.font_weight }};">
-        {{ section.settings.heading }}
-      </h2>
-    {%- endif -%}
-    <div class="sos-seo-text__body" style="font-size:{{ section.settings.font_size }}px; color:{{ section.settings.text_color }}; line-height:1.7; opacity:{{ section.settings.text_opacity | divided_by: 100.0 }};">
-      {{ section.settings.seo_text }}
+<style>
+  #sos-seo-{{ section.id }} { background: {{ section.settings.bg_color }}; margin-top: {{ section.settings.margin_top }}px; }
+  #sos-seo-{{ section.id }} .sos-seo-text__inner { max-width: {{ section.settings.max_width }}px; margin: 0 auto; padding: 0 {{ section.settings.padding_h }}px; }
+  #sos-seo-{{ section.id }} .sos-seo-text__toggle {
+    width: 100%; background: none; border: none;
+    border-top: 1px solid rgba(0,0,0,0.1); padding: 14px 0;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: {{ section.settings.text_color }}; opacity: 0.55;
+  }
+  #sos-seo-{{ section.id }} .sos-seo-text__toggle svg { transition: transform 0.3s ease; }
+  #sos-seo-{{ section.id }} .sos-seo-text__toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+  #sos-seo-{{ section.id }} .sos-seo-text__body {
+    overflow: hidden; max-height: 0; transition: max-height 0.4s ease;
+  }
+  #sos-seo-{{ section.id }} .sos-seo-text__body.is-open { max-height: 800px; }
+  #sos-seo-{{ section.id }} .sos-seo-text__content {
+    font-size: {{ section.settings.font_size }}px; color: {{ section.settings.text_color }};
+    line-height: 1.75; opacity: {{ section.settings.text_opacity | divided_by: 100.0 }};
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    column-count: 2; column-gap: 40px;
+  }
+  @media (max-width: 749px) { #sos-seo-{{ section.id }} .sos-seo-text__content { column-count: 1; } }
+</style>
+<div class="sos-seo-text" id="sos-seo-{{ section.id }}" style="padding-top: {{ section.settings.padding_top }}px;">
+  <div class="sos-seo-text__inner">
+    <button class="sos-seo-text__toggle" aria-expanded="false" aria-controls="sos-seo-body-{{ section.id }}">
+      <span>{{ section.settings.heading | default: 'More information' }}</span>
+      <svg width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true">
+        <path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="sos-seo-text__body" id="sos-seo-body-{{ section.id }}">
+      <div class="sos-seo-text__content rte">{{ section.settings.seo_text }}</div>
     </div>
   </div>
 </div>
+<script>
+(function(){
+  var btn = document.querySelector('#sos-seo-{{ section.id }} .sos-seo-text__toggle');
+  var body = document.getElementById('sos-seo-body-{{ section.id }}');
+  if (!btn || !body) return;
+  btn.addEventListener('click', function() {
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    body.classList.toggle('is-open', !open);
+  });
+})();
+</script>
 {%- endif -%}
 
 {% schema %}

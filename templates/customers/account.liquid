@@ -397,28 +397,45 @@
   });
 })();
 
-// Hydrate Favorites tab from existing wishlist localStorage (read-only count).
+// Hydrate Favorites tab from localWishlist (handle array, matches product-slider wishlist key).
 (function(){
   var grid = document.getElementById('sosFavoritesGrid');
   var empty = document.getElementById('sosFavoritesEmpty');
   if (!grid) return;
-  var ids = [];
+
+  var handles = [];
   try {
-    var raw = localStorage.getItem('shopify_wishlist') || localStorage.getItem('ps-wishlist') || localStorage.getItem('wishlist');
-    if (raw) {
-      var parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) { ids = parsed; }
-      else if (parsed && typeof parsed === 'object') { ids = Object.keys(parsed); }
-    }
-  } catch(e) { ids = []; }
-  if (!ids.length) {
+    var raw = localStorage.getItem('localWishlist');
+    var parsed = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(parsed)) handles = parsed;
+  } catch(e) { handles = []; }
+
+  if (!handles.length) {
     grid.classList.add('sos-account__hide');
     if (empty) empty.classList.remove('sos-account__hide');
+    return;
   }
-  // Note: rendering full product cards from IDs alone would require a Shopify
-  // products-by-id JSON fetch per item. Left intentionally as an empty grid +
-  // "View full wishlist" link for now; can be wired up when the existing
-  // wishlist page already does this.
+
+  if (empty) empty.classList.add('sos-account__hide');
+  grid.classList.remove('sos-account__hide');
+
+  /* Fetch each product's JSON and render a card */
+  handles.slice(0, 8).forEach(function(handle) {
+    fetch('/products/' + handle + '.js')
+      .then(function(r) { return r.json(); })
+      .then(function(p) {
+        var img = p.featured_image ? '<img src="' + p.featured_image + '" alt="' + p.title.replace(/"/g,'&quot;') + '" loading="lazy" width="300" height="300">' : '';
+        var price = p.variants && p.variants[0] ? (p.variants[0].price / 100).toLocaleString('de-DE', {style:'currency', currency: p.variants[0].price_currency || 'EUR'}) : '';
+        var card = document.createElement('div');
+        card.className = 'sos-account__product-card sos-account__fav-card';
+        card.innerHTML = '<a href="/products/' + handle + '" aria-label="' + p.title.replace(/"/g,'&quot;') + '">'
+          + img
+          + '<p class="sos-account__fav-title">' + p.title + '</p>'
+          + '</a>';
+        grid.appendChild(card);
+      })
+      .catch(function() {});
+  });
 })();
 </script>
 

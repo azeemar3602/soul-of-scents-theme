@@ -194,37 +194,41 @@
     -%}
 
 <script>
-/* ── Scroll-position restoration on back/forward navigation ──
-   Saves scroll Y before leaving any page and restores it when
-   the user returns via the browser back button.               */
+/* ── Scroll-position restoration on back/forward navigation ── */
 (function () {
   var SCROLL_KEY = 'sos_scroll_';
 
-  /* Save scroll position before navigating away */
+  /* Let JS own scroll restoration so the browser doesn't fight us */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  function isBackForward() {
+    try {
+      var nav = performance.getEntriesByType('navigation')[0];
+      if (nav && nav.type === 'back_forward') return true;
+    } catch (_) {}
+    /* Legacy fallback */
+    return !!(window.performance && window.performance.navigation &&
+              window.performance.navigation.type === 2);
+  }
+
   window.addEventListener('beforeunload', function () {
     try { sessionStorage.setItem(SCROLL_KEY + location.href, window.scrollY); } catch (_) {}
   });
 
-  /* Restore on page load if it was a back/forward navigation */
+  /* pageshow fires for both bfcache hits and fresh loads */
   window.addEventListener('pageshow', function (e) {
-    if (!e.persisted && !(window.performance && window.performance.navigation &&
-        window.performance.navigation.type === 2)) return;
+    if (!e.persisted && !isBackForward()) return;
     try {
       var saved = sessionStorage.getItem(SCROLL_KEY + location.href);
-      if (saved) window.scrollTo(0, parseInt(saved, 10));
+      if (saved) {
+        /* Delay until layout is stable so scroll lands in the right place */
+        var y = parseInt(saved, 10);
+        requestAnimationFrame(function () {
+          window.scrollTo(0, y);
+          setTimeout(function () { window.scrollTo(0, y); }, 200);
+        });
+      }
     } catch (_) {}
-  });
-
-  /* Also restore after a normal page load coming from back button
-     (covers browsers that don't support pageshow.persisted)    */
-  document.addEventListener('DOMContentLoaded', function () {
-    if (window.performance && window.performance.navigation &&
-        window.performance.navigation.type === 2) {
-      try {
-        var saved = sessionStorage.getItem(SCROLL_KEY + location.href);
-        if (saved) setTimeout(function() { window.scrollTo(0, parseInt(saved, 10)); }, 100);
-      } catch (_) {}
-    }
   });
 })();
 </script>
@@ -328,7 +332,17 @@
     if (window.location.pathname === QUIZ_PAGE) {
       var urlParams = new URLSearchParams(window.location.search);
       var r = urlParams.get('r');
-      if (r) saveArchetypeData(r);
+      if (r) {
+        saveArchetypeData(r);
+      } else {
+        /* Fresh quiz visit (no ?r= result param) — clear cached RH response
+           so the quiz always starts at question 1, not the result screen */
+        try {
+          Object.keys(localStorage).forEach(function(k) {
+            if (k.indexOf('revenuehunt') !== -1) localStorage.removeItem(k);
+          });
+        } catch(_) {}
+      }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
