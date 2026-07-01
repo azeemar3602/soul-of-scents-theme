@@ -40,9 +40,14 @@
     <link rel="dns-prefetch" href="https://{{shop.permanent_domain }}" crossorigin>
     <link rel="dns-prefetch" href="https://cdn.shopify.com" crossorigin>
     <link rel="dns-prefetch" href="https://fonts.shopifycdn.com" crossorigin>
-    <link rel="preconnect" href="https//fonts.shopifycdn.com/" crossorigin>
-    <link rel="preconnect" href="https//cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {%- if template == 'page' and page.handle == 'quiz' -%}
+    <link rel="dns-prefetch" href="https://admin.revenuehunt.com">
+    <link rel="dns-prefetch" href="https://quiz.revenuehunt.com">
+    <link rel="preconnect" href="https://admin.revenuehunt.com" crossorigin>
+    <link rel="preconnect" href="https://quiz.revenuehunt.com" crossorigin>
+    {%- endif -%}
     {%- unless settings.font_family.system? -%}
       <link rel="preload" as="font" href="{{ settings.font_family | font_url }}" type="font/woff2" crossorigin>
       <link rel="preload" as="font" href="{{ settings.font_family | font_url: 'woff' }}" type="font/woff" crossorigin>
