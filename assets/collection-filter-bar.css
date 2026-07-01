@@ -152,7 +152,7 @@
 }
 
 .cfb__link:hover  { color: var(--sos-chai); }
-.cfb__link.is-active { font-weight: 600; color: var(--sos-chocolate); }
+.cfb__link.is-active { font-weight: 600; color: var(--sos-chocolate); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 
 /* ── MOBILE ── */
 @media screen and (max-width: 749px) {
