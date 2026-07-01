@@ -401,3 +401,23 @@ class FacetRemove extends HTMLElement {
 
 customElements.define('facet-remove', FacetRemove);
 
+/* ── Numbered pagination: route through renderPage + pushState ──────────
+   Plain <a> pagination links do a full page reload which loses history state.
+   Instead we intercept the click, AJAX-load the right page via renderPage
+   (same path as filters), and store the page param in pushState so the
+   browser back button naturally restores the correct page.              */
+document.addEventListener('click', function(e) {
+  if (typeof FacetFiltersForm === 'undefined') return;
+  var link = e.target.closest('a.pagination__item, a.pagination__item-arrow');
+  if (!link) return;
+  var href = link.href;
+  if (!href || href === '#') return;
+  e.preventDefault();
+  var qIdx = href.indexOf('?');
+  var searchParams = qIdx !== -1 ? href.slice(qIdx + 1) : '';
+  /* Scroll product grid into view before the AJAX swap */
+  var grid = document.getElementById('ProductGridContainer');
+  if (grid) grid.scrollIntoView({ behavior: 'auto', block: 'start' });
+  FacetFiltersForm.renderPage(searchParams);
+});
+
