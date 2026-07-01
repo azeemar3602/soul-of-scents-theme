@@ -65,14 +65,16 @@ data-section-type="newletter-footer"  >
               </div>
             {%- endif -%}
             <div class="form-vertical mail-section-footer  {% if e_left %} col-lg-6 col-12  pt-2 {% else %} mt-n3  {% endif %}">
-              <form action="https://soscurates.us5.list-manage.com/subscribe/post?u=4cd882414d84a0f8a5e450302&amp;id=a43eab1989" method="post" id="ContactFooterTop" novalidate>
+              <iframe name="sos_mc_top_frame" style="display:none;width:0;height:0;border:0;" tabindex="-1" title="newsletter" aria-hidden="true"></iframe>
+              <div id="newsletter-top-msg" style="display:none; padding: 12px 0; font-size: 15px;"></div>
+              <form action="https://soscurates.us5.list-manage.com/subscribe/post?u=4cd882414d84a0f8a5e450302&amp;id=a43eab1989" method="post" id="ContactFooterTop" target="sos_mc_top_frame" novalidate>
                 <div style="position: absolute; left: -5000px;" aria-hidden="true">
                   <input type="text" name="b_4cd882414d84a0f8a5e450302_a43eab1989" tabindex="-1" value="">
                 </div>
-                <label for="NewsletterEmail-{{ block.id }}" class="label--hidden">{{ 'general.newsletter_form.newsletter_label' | t }}</label>
+                <label for="NewsletterEmailTop" class="label--hidden">{{ 'general.newsletter_form.newsletter_label' | t }}</label>
                 <div class=" form-group text-center input-group mb-0 align-items-center pl-4 pr-2 py-1">
                   {%- render 'icon-email' -%}
-                  <input class="form-control" type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" name="EMAIL" id="NewsletterEmail-{{ block.id }}" autocorrect="off" autocapitalize="off" required>
+                  <input class="form-control" type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" name="EMAIL" id="NewsletterEmailTop" autocorrect="off" autocapitalize="off" required>
                   <button type="submit" class="btn">
                     <span class="icon__fallback-text">{{ 'general.newsletter_form.submit' | t }}</span>
                       <svg class="svg-submit" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,6 +83,20 @@ data-section-type="newletter-footer"  >
                   </button>
                 </div>
               </form>
+              <script>
+              (function() {
+                var form  = document.getElementById('ContactFooterTop');
+                var msgEl = document.getElementById('newsletter-top-msg');
+                if (!form) return;
+                form.addEventListener('submit', function() {
+                  setTimeout(function() {
+                    form.style.display = 'none';
+                    msgEl.textContent  = 'Thank you for subscribing!';
+                    msgEl.style.display = 'block';
+                  }, 600);
+                });
+              })();
+              </script>
             </div>
             {%- if e_left -%}
           </div>
