@@ -56,9 +56,13 @@
       padding:40px;
     }
   {% endif %}
-  /* Clip video so no black corner artifacts show */
+  /* Clip video corners */
   .bgvideo-{{ section.id }} {
     overflow: hidden;
+    border-radius: 16px;
+  }
+  .bgvideo-{{ section.id }} video {
+    border-radius: 16px;
   }
   .bgvideo-{{ section.id }}::before{
       content:"";
