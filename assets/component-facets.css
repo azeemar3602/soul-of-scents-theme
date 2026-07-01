@@ -1899,7 +1899,7 @@ background-color: transparent !important;
   left:4px;
 }
 /* Selected filter: underline the label text */
-.facet-checkbox:has(input[type='checkbox']:checked) .facet__label-text {
+.facet-checkbox input[type='checkbox']:checked ~ .facet__label-text {
   text-decoration: underline !important;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
