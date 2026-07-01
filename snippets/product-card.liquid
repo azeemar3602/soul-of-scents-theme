@@ -69,7 +69,9 @@
   {%- if product.metafields.custom.mood_tags != blank -%}
   <div class="mood-tags-block">
     {%- for tag in product.metafields.custom.mood_tags.value -%}
-    <span class="mood-tag mood-tag--{{ tag | handle }}">{{ tag }}</span>
+      {%- unless tag == product.vendor -%}
+      <span class="mood-tag mood-tag--{{ tag | handle }}">{{ tag }}</span>
+      {%- endunless -%}
     {%- endfor -%}
   </div>
   {%- endif -%}
