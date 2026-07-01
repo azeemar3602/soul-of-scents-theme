@@ -1693,21 +1693,13 @@ input.mobile-facets__checkbox {
 
 .facets__collection__list li a{
   position: relative;
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
-.facets__collection__list li a::before{
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: -4px;
-  width: 0;
-  border-bottom: 1px solid var(--color-body-text);
-  -webkit-transition: width .3s ease;
-  transition: width .3s ease;
-  z-index: 7;
-}
-.facets__collection__list li a:hover:before,.facets__collection__list li a.active:before{
-  width: 100%;
-  left: 0;
+.facets__collection__list li a:hover,
+.facets__collection__list li a.active{
+  text-decoration: underline;
 }
 .noUi-horizontal .noUi-handle{
   width: 24px;
@@ -1908,7 +1900,7 @@ background-color: transparent !important;
 }
 /* Selected filter: underline the label text */
 .facet-checkbox:has(input[type='checkbox']:checked) .facet__label-text {
-  text-decoration: underline;
+  text-decoration: underline !important;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
 }
