@@ -56,11 +56,16 @@
       padding:40px;
     }
   {% endif %}
-  /* Clip video corners — position:relative is required so overflow:hidden
-     clips the absolutely-positioned .hero-video child */
+  /* Clip video corners */
   .bgvideo-{{ section.id }} {
     position: relative;
     overflow: hidden;
+    border-radius: 16px;
+  }
+  /* Apply border-radius to the video element itself to eliminate
+     browser-default black corners on the video canvas */
+  .bgvideo-{{ section.id }} .hero-video,
+  .bgvideo-{{ section.id }} .hero-video video {
     border-radius: 16px;
   }
   .bgvideo-{{ section.id }}::before{

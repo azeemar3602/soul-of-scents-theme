@@ -430,12 +430,12 @@
             "description": "<p>You were not made to smell like everyone else. So make it your own. </p><p>Here we embrace identity, highlight a part of your uniqueness, and offer an unfading way to express your truest, most authentic self. We celebrate outstanding artistry, pouring their talent into bottles, while bringing you closer to you. Individuality is not negotiable. Scent isn't just about how you smell - it's about how you feel. And <strong>this</strong> is where we close the gap. </p>",
             "link_text": "Enter our universe",
             "link_url": "shopify://collections/all",
-            "container_type": "full",
+            "container_type": "boxed",
             "desktop_width_percent": 100,
             "text_max_width": 600,
-            "content_spacing": 50,
+            "content_spacing": 40,
             "padding_top": 40,
-            "padding_bottom": 50,
+            "padding_bottom": 40,
             "padding_left": 20,
             "padding_right": 20,
             "margin_top": 0,
@@ -450,7 +450,9 @@
             "heading_spacing": 24,
             "description_size": 16,
             "description_spacing": 24,
-            "link_size": 14
+            "link_size": 14,
+            "layout": "side_by_side",
+            "image_px_size": 140
           },
           "blocks": {}
         }

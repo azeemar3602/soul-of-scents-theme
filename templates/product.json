@@ -246,6 +246,12 @@
             "size_text": "h6",
             "product_limit": 3
           }
+        },
+        "details_metafield_sos": {
+          "type": "details",
+          "settings": {
+            "tab_label": "Details"
+          }
         }
       },
       "block_order": [
@@ -275,6 +281,7 @@
         "9cd2d8a0-a8b4-46d7-b3a7-b1609af99285",
         "1be7473b-00b2-4ad9-a7c0-356b86de67a7",
         "83a6f5b6-88e4-4eb3-9899-a085ea9c58bd",
+        "details_metafield_sos",
         "883720d7-3346-4495-85a0-add8b3d7a51f",
         "2d534ed0-517d-48ca-8370-8659965f32c4",
         "a405ef88-bdbe-486d-9fb3-6c91aa4e1509",

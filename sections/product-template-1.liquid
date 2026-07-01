@@ -1042,10 +1042,24 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
               </div>
             {%- when 'shippingtime' -%}
                 <div class="product-block product-shippingtime">
-                  {% render 'shipping-time', 
+                  {% render 'shipping-time',
                     shipping_button : block.settings.shipping_button,
                     page_shipping: block.settings.page_shipping %}
                 </div>
+            {%- when 'details' -%}
+              {%- assign details_content = product.metafields.custom.details.value -%}
+              {%- if details_content != blank -%}
+              <div class="accordion">
+                <div class="tabcustom collapsed d-flex align-items-center h6" data-toggle="collapse" data-target="#tabp-{{ block.id }}">
+                  {{ block.settings.tab_label | default: 'Details' }}
+                </div>
+                <div id="tabp-{{ block.id }}" class="collapse tab-content">
+                  <div class="py-3">
+                  {{ details_content | newline_to_br }}
+                  </div>
+                </div>
+              </div>
+              {%- endif -%}
             {%- when 'countdown' -%}
               <div class="product-block">
                 {% render 'product-countdown', product : product, title_heading: block.settings.title_heading %}
@@ -1868,6 +1882,23 @@ initPhotoSwipeFromDOM('.my-gallery');
           "type": "page",
           "id": "page_shipping",
           "label": "Shipping page"
+        }
+      ]
+    },
+    {
+      "type": "details",
+      "name": "Details (metafield)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Reads from product metafield custom.details. Set the metafield value in Shopify admin to populate this tab."
+        },
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "default": "Details"
         }
       ]
     },
