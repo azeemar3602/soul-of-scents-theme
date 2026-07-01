@@ -320,7 +320,7 @@
           showPage(currentPage);
           renderPagination();
           section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          try { sessionStorage.setItem('ps-page-{{ section.id }}', currentPage); } catch(e){}
+          try { history.replaceState(null, '', currentPage > 1 ? '?ps=' + currentPage : window.location.pathname); } catch(e){}
         });
       });
     }
@@ -368,9 +368,8 @@
     if (currentView === 'slider') { slideTo(0); }
     else if (currentView === 'grid') {
       try {
-        var _saved = parseInt(sessionStorage.getItem('ps-page-{{ section.id }}'), 10);
-        var _fromSite = document.referrer && document.referrer.indexOf(window.location.hostname) !== -1;
-        if (_saved > 1 && _fromSite) currentPage = _saved;
+        var _ps = new URLSearchParams(window.location.search).get('ps');
+        if (_ps && parseInt(_ps, 10) > 1) currentPage = parseInt(_ps, 10);
       } catch(e){}
       showPage(currentPage); renderPagination();
     }
