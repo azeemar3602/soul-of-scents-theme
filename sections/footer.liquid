@@ -860,37 +860,27 @@
           {%- endif -%}
           <div class="site-footer-block ">
             <div class="form-vertical footer-email ">
-              {%- form 'customer' , id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
-              {% render 'sos-honeypot' %}
-              {{ form.errors | default_errors }}
-              {%- if form.posted_successfully? -%}
-              <p class="form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
-              {%- else -%}
-              <input type="hidden" name="contact[tags]" value="newsletter">
+              <form action="https://soscurates.us5.list-manage.com/subscribe/post?u=4cd882414d84a0f8a5e450302&amp;id=a43eab1989" method="post" id="ContactFooter" class="footer__newsletter newsletter-form" novalidate>
+                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                  <input type="text" name="b_4cd882414d84a0f8a5e450302_a43eab1989" tabindex="-1" value="">
+                </div>
               {%- if block.settings.subheading != blank -%}
               <div class="site-footer__newsletter-label mb-3">
                 {{ block.settings.subheading }}
               </div>
               {%- endif -%}
               <div class="form-group flex-column">
-                <input 
-                type="email" 
-                value="{{ form.email }}"
-                placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" 
-                name="contact[email]" 
-                id="NewsletterEmail-{{ block.id }}" 
-                class="form-control w-100 mb-3" 
+                <input
+                type="email"
+                value="{% if customer %}{{ customer.email }}{% endif %}"
+                placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}"
+                name="EMAIL"
+                id="NewsletterEmail-{{ block.id }}"
+                class="form-control w-100 mb-3"
                 aria-required="true"
-                autocorrect="off" 
+                autocorrect="off"
                 autocapitalize="off"
                 autocomplete="email"
-                {% if form.errors %}
-                        autofocus
-                        aria-invalid="true"
-                        aria-describedby="ContactFooter-error"
-                      {% elsif form.posted_successfully? %}
-                        aria-describedby="ContactFooter-success"
-                      {% endif %}
                 required
                 style="background-color:{{ block.settings.bg_new }};border-color:{{ block.settings.border_new }}"
                 >
@@ -901,8 +891,7 @@
                   </button>
                 </div>
               </div>
-              {%- endif -%}
-              {%- endform -%}
+              </form>
             </div>
             {% if block.settings.enablesocial %}
               {%- render 'block-social' -%}
