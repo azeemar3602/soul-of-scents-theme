@@ -65,26 +65,22 @@ data-section-type="newletter-footer"  >
               </div>
             {%- endif -%}
             <div class="form-vertical mail-section-footer  {% if e_left %} col-lg-6 col-12  pt-2 {% else %} mt-n3  {% endif %}">
-              {%- form 'customer' , id: 'ContactFooterTop' -%}
-                {% render 'sos-honeypot' %}
-                {{ form.errors | default_errors }}
-                {%- if form.posted_successfully? -%}
-                  <p class="form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
-                {%- else -%}
-                  <input type="hidden" name="contact[tags]" value="newsletter">
-                  <label for="NewsletterEmail-{{ block.id }}" class="label--hidden">{{ 'general.newsletter_form.newsletter_label' | t }}</label>
-                  <div class=" form-group text-center input-group mb-0 align-items-center pl-4 pr-2 py-1">
-                    {%- render 'icon-email' -%}
-                    <input class="form-control" type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" name="contact[email]" id="NewsletterEmail-{{ block.id }}" autocorrect="off" autocapitalize="off">
-                    <button type="submit" class="btn" name="commit">
-                      <span class="icon__fallback-text" >{{ 'general.newsletter_form.submit' | t }}</span>
-                        <svg class="svg-submit" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15.1433 11.6483L10.6733 7.17833L11.8517 6L18.3333 12.4817L11.8517 18.9633L10.6733 17.785L15.1433 13.315H5V11.6483H15.1433Z" />
-                        </svg>
-                    </button>
-                  </div>
-                {%- endif -%}
-              {%- endform -%}
+              <form action="https://soscurates.us5.list-manage.com/subscribe/post?u=4cd882414d84a0f8a5e450302&amp;id=a43eab1989" method="post" id="ContactFooterTop" novalidate>
+                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                  <input type="text" name="b_4cd882414d84a0f8a5e450302_a43eab1989" tabindex="-1" value="">
+                </div>
+                <label for="NewsletterEmail-{{ block.id }}" class="label--hidden">{{ 'general.newsletter_form.newsletter_label' | t }}</label>
+                <div class=" form-group text-center input-group mb-0 align-items-center pl-4 pr-2 py-1">
+                  {%- render 'icon-email' -%}
+                  <input class="form-control" type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" name="EMAIL" id="NewsletterEmail-{{ block.id }}" autocorrect="off" autocapitalize="off" required>
+                  <button type="submit" class="btn">
+                    <span class="icon__fallback-text">{{ 'general.newsletter_form.submit' | t }}</span>
+                      <svg class="svg-submit" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15.1433 11.6483L10.6733 7.17833L11.8517 6L18.3333 12.4817L11.8517 18.9633L10.6733 17.785L15.1433 13.315H5V11.6483H15.1433Z" />
+                      </svg>
+                  </button>
+                </div>
+              </form>
             </div>
             {%- if e_left -%}
           </div>
