@@ -860,7 +860,8 @@
           {%- endif -%}
           <div class="site-footer-block ">
             <div class="form-vertical footer-email ">
-              <form action="https://soscurates.us5.list-manage.com/subscribe/post?u=4cd882414d84a0f8a5e450302&amp;id=a43eab1989" method="post" id="ContactFooter" class="footer__newsletter newsletter-form" novalidate>
+              <div id="footer-newsletter-msg-{{ block.id }}" style="display:none; padding: 12px 0; font-size: 15px;"></div>
+              <form action="https://soscurates.us5.list-manage.com/subscribe/post?u=4cd882414d84a0f8a5e450302&amp;id=a43eab1989" method="post" id="ContactFooter-{{ block.id }}" class="footer__newsletter newsletter-form" novalidate>
                 <div style="position: absolute; left: -5000px;" aria-hidden="true">
                   <input type="text" name="b_4cd882414d84a0f8a5e450302_a43eab1989" tabindex="-1" value="">
                 </div>
@@ -892,6 +893,42 @@
                 </div>
               </div>
               </form>
+              <script>
+              (function() {
+                var formId = 'ContactFooter-{{ block.id }}';
+                var msgId  = 'footer-newsletter-msg-{{ block.id }}';
+                var cbName = 'sosNLcb{{ block.id | replace: "-","" | replace: "_","" }}';
+                var form   = document.getElementById(formId);
+                var msgEl  = document.getElementById(msgId);
+                if (!form) return;
+                form.addEventListener('submit', function(e) {
+                  e.preventDefault();
+                  var email = form.querySelector('[name="EMAIL"]').value;
+                  if (!email) return;
+                  window[cbName] = function(data) {
+                    form.style.display = 'none';
+                    msgEl.style.display = 'block';
+                    if (data.result === 'success') {
+                      msgEl.innerHTML = 'Thank you for subscribing!';
+                    } else {
+                      var raw = data.msg || '';
+                      if (raw.indexOf('already subscribed') > -1) {
+                        msgEl.innerHTML = 'You’re already subscribed — thank you!';
+                      } else {
+                        msgEl.innerHTML = 'Something went wrong. Please try again.';
+                        form.style.display = '';
+                      }
+                    }
+                    delete window[cbName];
+                  };
+                  var url = 'https://soscurates.us5.list-manage.com/subscribe/post-json?u=4cd882414d84a0f8a5e450302&id=a43eab1989&EMAIL=' + encodeURIComponent(email) + '&c=' + cbName;
+                  var s = document.createElement('script');
+                  s.src = url;
+                  document.body.appendChild(s);
+                  s.onload = function() { document.body.removeChild(s); };
+                });
+              })();
+              </script>
             </div>
             {% if block.settings.enablesocial %}
               {%- render 'block-social' -%}
