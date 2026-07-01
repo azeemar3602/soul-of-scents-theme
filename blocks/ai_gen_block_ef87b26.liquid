@@ -67,22 +67,47 @@
     position: relative;
     {% if block.settings.layout == 'side_by_side' %}
       flex-shrink: 0;
-      width: {{ block.settings.image_px_size }}px;
-      height: {{ block.settings.image_px_size }}px;
-      border-radius: 50%;
+      width: {{ block.settings.image_width_percent }}%;
+      {% if block.settings.image_shape == 'circle' or block.settings.image_shape == 'square' %}
+        aspect-ratio: 1 / 1;
+      {% endif %}
+      {% if block.settings.image_shape == 'circle' %}
+        border-radius: 50%;
+      {% elsif block.settings.image_shape == 'square' %}
+        border-radius: 0;
+      {% elsif block.settings.image_shape == 'rounded' %}
+        border-radius: 12px;
+      {% else %}
+        border-radius: {{ block.settings.image_border_radius }}px;
+      {% endif %}
       margin: 0;
     {% else %}
       width: {{ block.settings.desktop_width_percent }}%;
       max-width: 100%;
       margin: 0 auto;
-      border-radius: {{ block.settings.image_border_radius }}px {{ block.settings.image_border_radius }}px 0 0;
+      {% if block.settings.image_shape == 'circle' %}
+        border-radius: 50%;
+        aspect-ratio: 1 / 1;
+      {% elsif block.settings.image_shape == 'square' %}
+        border-radius: 0;
+        aspect-ratio: 1 / 1;
+      {% elsif block.settings.image_shape == 'rounded' %}
+        border-radius: 12px;
+      {% else %}
+        border-radius: {{ block.settings.image_border_radius }}px {{ block.settings.image_border_radius }}px 0 0;
+      {% endif %}
     {% endif %}
     overflow: hidden;
   }
 
   .ai-featured-curator__image-{{ ai_gen_id }} {
     width: 100%;
-    height: auto;
+    {% if block.settings.image_shape == 'circle' or block.settings.image_shape == 'square' %}
+      height: 100%;
+      object-fit: cover;
+    {% else %}
+      height: auto;
+    {% endif %}
     display: block;
   }
 
@@ -183,8 +208,8 @@
         max-width: 100%;
       }
       .ai-featured-curator__image-wrapper-{{ ai_gen_id }} {
-        width: {{ block.settings.image_px_size | times: 0.85 | round }}px;
-        height: {{ block.settings.image_px_size | times: 0.85 | round }}px;
+        width: {{ block.settings.image_width_percent | times: 1.4 | round | at_most: 60 }}%;
+        max-width: 200px;
       }
     {% else %}
       .ai-featured-curator__image-wrapper-{{ ai_gen_id }} {
@@ -270,14 +295,36 @@
       "label": "Curator image"
     },
     {
+      "type": "select",
+      "id": "image_shape",
+      "label": "Image shape",
+      "options": [
+        { "value": "circle", "label": "Circle" },
+        { "value": "square", "label": "Square" },
+        { "value": "rounded", "label": "Rounded" },
+        { "value": "natural", "label": "Natural (use radius below)" }
+      ],
+      "default": "circle"
+    },
+    {
       "type": "range",
       "id": "image_border_radius",
       "min": 0,
       "max": 40,
       "step": 2,
       "unit": "px",
-      "label": "Image border radius",
+      "label": "Image border radius (Natural shape only)",
       "default": 12
+    },
+    {
+      "type": "range",
+      "id": "image_width_percent",
+      "label": "Image width — side by side (%)",
+      "min": 15,
+      "max": 55,
+      "step": 5,
+      "unit": "%",
+      "default": 30
     },
     {
       "type": "header",
