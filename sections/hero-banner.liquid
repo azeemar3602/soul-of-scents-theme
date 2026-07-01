@@ -169,12 +169,15 @@
       {%- if button_count == 'two' and section.settings.button_label_2 != blank -%}
         {%- assign has_btn2 = true -%}
       {%- endif -%}
+      {%- comment -%} Strip permanent domain so links stay on the custom domain without a redirect {%- endcomment -%}
+      {%- assign btn1_link = section.settings.button_link_1 | split: shop.permanent_domain | last -%}
+      {%- assign btn2_link = section.settings.button_link_2 | split: shop.permanent_domain | last -%}
 
       {%- if has_btn1 or has_btn2 -%}
         <div class="hero-banner__buttons hero-banner__buttons--mobile-{{ mobile_btn_layout }}" style="--hero-mobile-btn-gap: {{ mobile_btn_gap }}px;">
           {%- if has_btn1 -%}
             <a
-              href="{{ section.settings.button_link_1 }}"
+              href="{{ btn1_link }}"
               class="hero-banner__btn hero-banner__btn--primary"
               {% if section.settings.button_new_tab_1 %}target="_blank" rel="noopener noreferrer"{% endif %}
             >
@@ -184,7 +187,7 @@
 
           {%- if has_btn2 -%}
             <a
-              href="{{ section.settings.button_link_2 }}"
+              href="{{ btn2_link }}"
               class="hero-banner__btn hero-banner__btn--secondary"
               {% if section.settings.button_new_tab_2 %}target="_blank" rel="noopener noreferrer"{% endif %}
             >
