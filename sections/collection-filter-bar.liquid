@@ -2,6 +2,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
 {{ 'collection-filter-bar.css' | asset_url | stylesheet_tag }}
+<style>.cfb__link.is-active{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;}</style>
 
 {%- liquid
   assign current_collection = collection
