@@ -1060,6 +1060,11 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
                 </div>
               </div>
               {%- endif -%}
+            {%- when 'seo_content' -%}
+              {%- assign seo_content = product.metafields.custom.seo_content.value -%}
+              {%- if seo_content != blank -%}
+                <div class="visually-hidden">{{ seo_content }}</div>
+              {%- endif -%}
             {%- when 'countdown' -%}
               <div class="product-block">
                 {% render 'product-countdown', product : product, title_heading: block.settings.title_heading %}
@@ -1899,6 +1904,17 @@ initPhotoSwipeFromDOM('.my-gallery');
           "id": "tab_label",
           "label": "Tab label",
           "default": "Details"
+        }
+      ]
+    },
+    {
+      "type": "seo_content",
+      "name": "SEO Content (hidden metafield)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Reads from product metafield custom.seo_content. Renders in the page HTML for search engines but is never visible to shoppers (visually-hidden)."
         }
       ]
     },
