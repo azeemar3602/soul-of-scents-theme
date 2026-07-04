@@ -72,6 +72,21 @@
     return currentPath + (query ? '?' + query : '');
   }
 
+  /** Toggle a link's active state and expose a "click to remove" hint. */
+  function setActive(a, isActive) {
+    if (isActive) {
+      a.classList.add('is-active');
+      a.setAttribute('aria-current', 'true');
+      a.setAttribute('title', 'Click to remove filter');
+      a.setAttribute('aria-label', a.textContent.trim() + ' — click to remove filter');
+    } else {
+      a.classList.remove('is-active');
+      a.removeAttribute('aria-current');
+      a.removeAttribute('title');
+      a.removeAttribute('aria-label');
+    }
+  }
+
   /* ── Filter Bar UI ────────────────────────────────────── */
 
   class CollectionFilterBar {
@@ -95,22 +110,14 @@
         if (info) {
           var vals = active[info.key];
           if (vals && vals.has(info.val)) {
-            a.classList.add('is-active');
-            a.setAttribute('aria-current', 'true');
+            setActive(a, true);
           } else {
-            a.classList.remove('is-active');
-            a.removeAttribute('aria-current');
+            setActive(a, false);
           }
           return;
         }
         var linkPath = new URL(a.href, window.location.origin).pathname.replace(/\/$/, '');
-        if (linkPath && linkPath === currentPath) {
-          a.classList.add('is-active');
-          a.setAttribute('aria-current', 'true');
-        } else {
-          a.classList.remove('is-active');
-          a.removeAttribute('aria-current');
-        }
+        setActive(a, !!linkPath && linkPath === currentPath);
       });
     }
 
