@@ -84,14 +84,27 @@
       this._bind();
     }
 
-    /** Mark links whose filter matches a currently-active URL param */
+    /** Mark links whose filter matches a currently-active URL param,
+     *  or — for plain collection links (category/brand/size) — whose
+     *  path matches the current page. */
     _markActive() {
       var active = getActiveFilters();
+      var currentPath = window.location.pathname.replace(/\/$/, '');
       this.panel.querySelectorAll('.cfb__link').forEach(function (a) {
         var info = parseFilterLink(a.href);
-        if (!info) return;
-        var vals = active[info.key];
-        if (vals && vals.has(info.val)) {
+        if (info) {
+          var vals = active[info.key];
+          if (vals && vals.has(info.val)) {
+            a.classList.add('is-active');
+            a.setAttribute('aria-current', 'true');
+          } else {
+            a.classList.remove('is-active');
+            a.removeAttribute('aria-current');
+          }
+          return;
+        }
+        var linkPath = new URL(a.href, window.location.origin).pathname.replace(/\/$/, '');
+        if (linkPath && linkPath === currentPath) {
           a.classList.add('is-active');
           a.setAttribute('aria-current', 'true');
         } else {
@@ -112,10 +125,24 @@
         if (this.isOpen() && !this.el.contains(e.target)) this.close();
       });
 
+      var allUrl = this.panel.getAttribute('data-cfb-all-url');
+
       /* Intercept filter link clicks → build multi-filter URL */
       this.panel.querySelectorAll('.cfb__link').forEach((a) => {
         var info = parseFilterLink(a.href);
-        if (!info) return; // plain collection link — let it navigate normally
+
+        if (!info) {
+          // Plain collection link (category/brand/size). If it's already
+          // the active filter, clicking again deselects it back to "All products".
+          if (!allUrl) return;
+          a.addEventListener('click', (e) => {
+            if (!a.classList.contains('is-active')) return; // let it navigate normally
+            e.preventDefault();
+            this.close();
+            window.location.assign(allUrl);
+          });
+          return;
+        }
 
         a.addEventListener('click', (e) => {
           e.preventDefault();
