@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Manrope', sans-serif; background: transparent; }
+  .scent-wrapper { width: 100%; padding: 1rem; display: flex; flex-direction: column; align-items: center; }
+  .circles-container { position: relative; width: 390px; height: 315px; }
+  .circle { position: absolute; width: 200px; height: 200px; border-radius: 50%; }
+  .circle-top   { top: 0;     left: 95px; z-index: 3; }
+  .circle-heart { top: 115px; left: 0;    z-index: 1; }
+  .circle-base  { top: 115px; left: 190px; z-index: 1; }
+  .circle-front,
+  .circle-back {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    -webkit-transition: opacity 0.7s ease;
+    transition: opacity 0.7s ease;
+  }
+  .circle-front { opacity: 1; z-index: 2; }
+  .circle-back  { opacity: 0; z-index: 1; }
+  .circle.show-back .circle-front { opacity: 0; }
+  .circle.show-back .circle-back  { opacity: 1; }
+  .circle-top .circle-front,
+  .circle-top .circle-back {
+    background: rgba(230, 191, 192, 0.45);
+    border: 0.5px solid rgba(179, 148, 149, 0.65);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+  .circle-heart .circle-front,
+  .circle-heart .circle-back {
+    background: rgba(193, 158, 161, 0.45);
+    border: 0.5px solid rgba(150, 123, 125, 0.65);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+  .circle-base .circle-front,
+  .circle-base .circle-back {
+    background: rgba(168, 143, 137, 0.45);
+    border: 0.5px solid rgba(131, 111, 106, 0.65);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+  .adj-label { font-size: 18px; font-weight: 500; letter-spacing: 0.01em; }
+  .circle-top   .adj-label { color: #403535; }
+  .circle-heart .adj-label { color: #362C2D; }
+  .circle-base  .adj-label { color: #FFFFFF; }
+  .note-names { font-size: 11px; font-weight: 400; line-height: 1.6; text-align: center; }
+  .circle-top   .note-names { color: #403535; }
+  .circle-heart .note-names { color: #362C2D; }
+  .circle-base  .note-names { color: #FFFFFF; }
+  .progress-bar-track {
+    width: 100%; max-width: 390px;
+    height: 2px; background: #e0e0e0;
+    border-radius: 2px; margin-top: 1.75rem; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; width: 0%;
+    background: rgba(131, 111, 106, 0.65);
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="scent-wrapper">
+  <div class="circles-container" id="circles-container">
+    <div class="circle circle-top" id="c-top">
+      <div class="circle-front"><span class="adj-label">Almondy</span></div>
+      <div class="circle-back"><span class="note-names">Cherry<br>Oud<br>Labdanum</span></div>
+    </div>
+    <div class="circle circle-heart" id="c-heart">
+      <div class="circle-front"><span class="adj-label">Creamy</span></div>
+      <div class="circle-back"><span class="note-names">Incense<br>Patchouli<br>Rose</span></div>
+    </div>
+    <div class="circle circle-base" id="c-base">
+      <div class="circle-front"><span class="adj-label">Cosy</span></div>
+      <div class="circle-back"><span class="note-names">Sandalwood<br>Vanilla</span></div>
+    </div>
+  </div>
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+</div>
+<script>
+(function () {
+  var LOOP    = 8000;
+  var FLIP_AT = 2000;
+  var HOLD    = 4000;
+  var circles = ['c-top', 'c-heart', 'c-base'];
+  var cycleStart = null;
+  function getEl(id) { return document.getElementById(id); }
+  function showBack(on) {
+    for (var i = 0; i < circles.length; i++) {
+      var el = getEl(circles[i]);
+      if (!el) continue;
+      if (on) {
+        if (el.className.indexOf('show-back') === -1) el.className += ' show-back';
+      } else {
+        el.className = el.className.replace(/\s*show-back/g, '');
+      }
+    }
+  }
+  function startCycle() {
+    cycleStart = Date.now();
+    showBack(false);
+    setTimeout(function () { showBack(true); }, FLIP_AT);
+    setTimeout(function () { startCycle(); }, FLIP_AT + HOLD);
+  }
+  function animateProgress() {
+    var fill = getEl('progress-fill');
+    if (fill && cycleStart !== null) {
+      var elapsed = Date.now() - cycleStart;
+      var pct = Math.min((elapsed / LOOP) * 100, 100);
+      fill.style.width = pct + '%';
+    }
+    requestAnimationFrame(animateProgress);
+  }
+  function scaleContainer() {
+    var container = getEl('circles-container');
+    var wrapper = container ? container.parentElement : null;
+    if (!container || !wrapper) return;
+    var available = wrapper.clientWidth;
+    var natural = 390;
+    if (available < natural) {
+      var scale = available / natural;
+      container.style.transform = 'scale(' + scale + ')';
+      container.style.transformOrigin = 'top center';
+      container.style.marginBottom = '-' + (315 * (1 - scale)) + 'px';
+    } else {
+      container.style.transform = '';
+      container.style.marginBottom = '';
+    }
+  }
+  window.addEventListener('resize', scaleContainer);
+  scaleContainer();
+  startCycle();
+  animateProgress();
+})();
+</script>
+</body>
+</html>
