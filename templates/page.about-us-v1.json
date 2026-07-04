@@ -82,7 +82,7 @@
             "padding_bottom": 10,
             "padding_top_mobile": 30,
             "padding_bottom_mobile": 30,
-            "border_radius": 0,
+            "border_radius": 14,
             "background_color": "#ffffff",
             "enable_overlay": false,
             "overlay_color": "#000000",
