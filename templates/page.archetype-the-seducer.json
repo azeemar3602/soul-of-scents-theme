@@ -81,7 +81,6 @@
         },
         "share": {
           "type": "share",
-          "disabled": true,
           "settings": {
             "body": "Let your circle find their olfactory match — the discovery is more interesting when it's compared.",
             "button_url": "",
