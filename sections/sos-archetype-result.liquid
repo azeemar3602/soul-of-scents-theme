@@ -441,7 +441,16 @@
 
         {%- when 'share' -%}
           {%- liquid
-            assign share_img_url = block.settings.download_url_image
+            assign share_img_setting = block.settings.download_url_image
+            assign share_img_url = ''
+            if share_img_setting != blank
+              assign share_img_lower = share_img_setting | downcase
+              if share_img_lower contains 'https://' or share_img_lower contains 'http://'
+                assign share_img_url = share_img_setting
+              else
+                assign share_img_url = share_img_setting | asset_url
+              endif
+            endif
             assign share_pdf_url = block.settings.download_url_pdf
             assign share_any_url = share_img_url | default: share_pdf_url | default: page.url | prepend: shop.url
           -%}
@@ -800,8 +809,8 @@
         { "type": "text",     "id": "btn_image_label",  "label": "Image button",       "default": "Save as image" },
         { "type": "text",     "id": "btn_pdf_label",    "label": "PDF button",         "default": "Download PDF" },
         { "type": "text",     "id": "share_text",       "label": "Share message",      "info": "Text sent when sharing via WhatsApp etc. Archetype name is appended.", "default": "My scent archetype is " },
-        { "type": "header",   "content": "One-pager files — paste Shopify Files CDN URLs" },
-        { "type": "url",      "id": "download_url_image", "label": "Image file URL (.jpg / .png)", "info": "Used for 'Save as image' button and as the shared link." },
+        { "type": "header",   "content": "One-pager files" },
+        { "type": "text",     "id": "download_url_image", "label": "Image filename or URL (.jpg / .png)", "info": "Theme asset filename (e.g. seducer_result.png) or a full Shopify Files CDN URL. Used for 'Save as image' button and as the shared link." },
         { "type": "url",      "id": "download_url_pdf",   "label": "PDF file URL (.pdf)",          "info": "Used for 'Download PDF' button." }
       ]
     },
