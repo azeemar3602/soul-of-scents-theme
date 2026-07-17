@@ -1063,7 +1063,16 @@ Judge    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
             {%- when 'seo_content' -%}
               {%- assign seo_content = product.metafields.custom.seo_content.value -%}
               {%- if seo_content != blank -%}
-                <div class="visually-hidden">{{ seo_content }}</div>
+              <div class="accordion">
+                <div class="tabcustom collapsed d-flex align-items-center h6" data-toggle="collapse" data-target="#tabp-{{ block.id }}">
+                  {{ block.settings.tab_label | default: 'Details' }}
+                </div>
+                <div id="tabp-{{ block.id }}" class="collapse tab-content">
+                  <div class="py-3">
+                  {{ seo_content | newline_to_br }}
+                  </div>
+                </div>
+              </div>
               {%- endif -%}
             {%- when 'countdown' -%}
               <div class="product-block">
@@ -1909,12 +1918,18 @@ initPhotoSwipeFromDOM('.my-gallery');
     },
     {
       "type": "seo_content",
-      "name": "SEO Content (hidden metafield)",
+      "name": "SEO Content (metafield)",
       "limit": 1,
       "settings": [
         {
           "type": "paragraph",
-          "content": "Reads from product metafield custom.seo_content. Renders in the page HTML for search engines but is never visible to shoppers (visually-hidden)."
+          "content": "Reads from product metafield custom.seo_content. Shows as a collapsible tab, same style as Ingredients / Craftsmanship Note."
+        },
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "default": "Details"
         }
       ]
     },

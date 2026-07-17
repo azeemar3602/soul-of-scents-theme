@@ -255,7 +255,9 @@
         },
         "seo_content_metafield_sos": {
           "type": "seo_content",
-          "settings": {}
+          "settings": {
+            "tab_label": "Details"
+          }
         }
       },
       "block_order": [
