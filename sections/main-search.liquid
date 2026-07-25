@@ -1,6 +1,7 @@
 {{ 'ion.rangeSlider.min.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'product-slider.css' | asset_url | stylesheet_tag }}
 
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 
@@ -246,18 +247,27 @@
             {% paginate search.results by 24 %}
               <div class="template-search__results collection{% if section.settings.filter_type != 'vertical' %} {% endif %}" id="product-grid" data-id="{{ section.id }}">
                 <div class="loading-overlay gradient"></div>
-                <ul class="row grid product-grid  grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop" role="list">
-                  {%- for item in search.results -%}
-                    {%- if item.object_type == 'product' -%}
-                    {%- unless item.handle contains 'sample-set' -%}
-                      <li class="grid__item {{ gridColumn }}">
-                          {%- render 'product-card', product: item , size_image_grid: size_image_grid, cover_contain: cover_contain -%}
-                    </li>
-                    {%- endunless -%}
-                    {%- endif -%}
-                    
-                  {%- endfor -%}
-                </ul>
+                <div class="product-slider" data-view="grid" style="--ps-products-per-row: {{ itemPerrow }};">
+                  <div class="product-slider__track-wrapper">
+                    <div class="product-slider__track product-slider__track--grid">
+                      {%- for item in search.results -%}
+                        {%- if item.object_type == 'product' -%}
+                          {%- unless item.handle contains 'sample-set' -%}
+                            {%- render 'product-slider-card',
+                              product: item,
+                              show_category_pills: true,
+                              show_badges: true,
+                              show_wishlist: true,
+                              show_vendor: false,
+                              show_price: true,
+                              products_per_row: itemPerrow
+                            -%}
+                          {%- endunless -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
                 {%- if paginate.pages > 1 -%}
                   {% render 'pagination', paginate: paginate %}
                 {%- endif -%}

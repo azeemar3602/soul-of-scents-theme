@@ -106,93 +106,15 @@
           {%- for product in collection_obj.products limit: products_to_show -%}
             {%- comment -%} Hide sample sets from generic listings; they only belong on archetype result pages. {%- endcomment -%}
             {%- if product.handle contains 'sample-set' -%}{%- continue -%}{%- endif -%}
-            <div class="product-slider__card" data-hidden="false">
-              <a href="{{ product.url }}" class="product-slider__card-link">
-                <div class="product-slider__card-image">
-
-                  {%- if show_category_pills and product.collections.size > 0 -%}
-                    {%- assign brand_str = ',meo-fuscioni,meo-fuscuini,sarah-baker,thomas-de-monaco,vapor-mundum,frontpage,manuel-mathieu,une-nuit-nomade,' -%}
-                    {%- assign sos_archetype_handles = ',the-seducer,the-cosmopolitan,the-romantic,the-indulger,the-luxury-hedonist,the-nostalgic,the-mineralist,the-smooth-operator,the-maximalist,' -%}
-                    {%- assign product_vendor_handle = product.vendor | handle -%}
-                    <div class="product-slider__pills">
-                      {%- for col in product.collections -%}
-                        {%- assign sos_h_prefix = col.handle | slice: 0, 3 -%}
-                        {%- assign sos_h_needle = ',' | append: col.handle | append: ',' -%}
-                        {%- if sos_h_prefix == 'rh-' -%}{%- continue -%}{%- endif -%}
-                        {%- if sos_archetype_handles contains sos_h_needle -%}{%- continue -%}{%- endif -%}
-                        {%- if col.handle == product_vendor_handle -%}{%- continue -%}{%- endif -%}
-                        {%- unless brand_str contains col.handle -%}
-                          <span class="product-slider__pill mood-tag--{{ col.title | handle }}" role="link" tabindex="0" onclick="event.preventDefault();event.stopPropagation();window.location.href='{{ col.url }}';">{{ col.title }}</span>
-                        {%- endunless -%}
-                      {%- endfor -%}
-                    </div>
-                  {%- endif -%}
-
-                  {%- if show_badges -%}
-                    {%- assign badge_html = '' -%}
-                    {%- for tag in product.tags -%}
-                      {%- assign tag_lower = tag | downcase -%}
-                      {%- if tag contains 'badge:' -%}
-                        {%- assign badge_text = tag | split: 'badge:' | last -%}
-                        {%- capture badge_item -%}<span class="product-slider__badge product-slider__badge--{{ badge_text | handleize }}">{{ badge_text }}</span>{%- endcapture -%}
-                        {%- assign badge_html = badge_html | append: badge_item -%}
-                      {%- elsif tag_lower == 'new' or tag_lower == 'hot' or tag_lower == 'community favorite' -%}
-                        {%- capture badge_item -%}<span class="product-slider__badge product-slider__badge--{{ tag | handleize }}">{{ tag }}</span>{%- endcapture -%}
-                        {%- assign badge_html = badge_html | append: badge_item -%}
-                      {%- endif -%}
-                    {%- endfor -%}
-                    {%- if badge_html != '' -%}
-                      <div class="product-slider__badges">{{ badge_html }}</div>
-                    {%- endif -%}
-                  {%- endif -%}
-
-                  {%- if show_wishlist -%}
-                    <button class="product-slider__wishlist" type="button" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}" aria-label="Add {{ product.title | escape }} to wishlist" onclick="event.preventDefault();event.stopPropagation();var h=this.dataset.productHandle;this.classList.toggle('is-active');var list=[];try{list=JSON.parse(localStorage.getItem('localWishlist')||'[]');if(!Array.isArray(list))list=[]}catch(e){list=[]}var idx=list.indexOf(h);if(this.classList.contains('is-active')){if(idx===-1)list.push(h)}else{if(idx>-1)list.splice(idx,1)}localStorage.setItem('localWishlist',JSON.stringify(list));var c=document.querySelector('.js-wishlist-count');if(c)c.textContent=list.length;">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                      </svg>
-                    </button>
-                  {%- endif -%}
-
-                  {%- if product.featured_image -%}
-                    <img
-                      src="{{ product.featured_image | image_url: width: 600 }}"
-                      srcset="{{ product.featured_image | image_url: width: 300 }} 300w, {{ product.featured_image | image_url: width: 450 }} 450w, {{ product.featured_image | image_url: width: 600 }} 600w"
-                      sizes="(max-width: 749px) 50vw, (max-width: 999px) 33vw, {{ 100 | divided_by: products_per_row }}vw"
-                      alt="{{ product.title | escape }}"
-                      width="{{ product.featured_image.width }}"
-                      height="{{ product.featured_image.height }}"
-                      loading="lazy"
-                    >
-                  {%- else -%}
-                    <div class="product-slider__card-placeholder">{{ 'product-1' | placeholder_svg_tag }}</div>
-                  {%- endif -%}
-                </div>
-
-                <div class="product-slider__card-info">
-                  <h3 class="product-slider__product-title">{{ product.title }}</h3>
-                  {%- if show_vendor and product.vendor != blank -%}
-                    <p class="product-slider__vendor">{{ product.vendor }}</p>
-                  {%- endif -%}
-                  {%- if show_price -%}
-                    {%- assign _ps_variant = nil -%}
-                    {%- for _pv in product.variants -%}
-                      {%- assign _pvo = _pv.option1 | downcase | strip -%}
-                      {%- if _pvo != '50ml' -%}{%- assign _pvo = _pv.option2 | downcase | strip -%}{%- endif -%}
-                      {%- if _pvo != '50ml' -%}{%- assign _pvo = _pv.option3 | downcase | strip -%}{%- endif -%}
-                      {%- if _pvo == '50ml' -%}{%- assign _ps_variant = _pv -%}{%- break -%}{%- endif -%}
-                    {%- endfor -%}
-                    {%- if _ps_variant == nil -%}{%- assign _ps_variant = product.selected_or_first_available_variant -%}{%- endif -%}
-                    <p class="product-slider__price">
-                      {%- if _ps_variant.compare_at_price > _ps_variant.price -%}
-                        <span class="product-slider__price--compare">{{ _ps_variant.compare_at_price | money }}</span>
-                      {%- endif -%}
-                      <span class="{% if _ps_variant.compare_at_price > _ps_variant.price %}product-slider__price--sale{% endif %}">{{ _ps_variant.price | money }}</span>
-                    </p>
-                  {%- endif -%}
-                </div>
-              </a>
-            </div>
+            {%- render 'product-slider-card',
+              product: product,
+              show_category_pills: show_category_pills,
+              show_badges: show_badges,
+              show_wishlist: show_wishlist,
+              show_vendor: show_vendor,
+              show_price: show_price,
+              products_per_row: products_per_row
+            -%}
           {%- endfor -%}
         {%- else -%}
           {%- for i in (1..6) -%}
