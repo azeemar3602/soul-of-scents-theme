@@ -33,6 +33,12 @@
     <span class="cfb__bar-title">
       {%- if section.settings.bar_title != blank -%}
         {{ section.settings.bar_title }}
+      {%- elsif request.page_type == 'search' -%}
+        {%- if search.terms != blank -%}
+          Search results for &ldquo;{{ search.terms }}&rdquo;
+        {%- else -%}
+          Search results
+        {%- endif -%}
       {%- elsif current_collection and current_collection.handle != 'all' -%}
         {{ current_collection.title | upcase }}
       {%- else -%}
