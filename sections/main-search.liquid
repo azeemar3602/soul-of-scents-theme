@@ -169,7 +169,25 @@
   </div>
 
   {%- if search.performed -%}
-    {% section 'collection-filter-bar' %}
+    {%- render 'collection-filter-bar-content',
+      trigger_label: 'FILTER',
+      col_left_title: 'Categories',
+      col_right_title: 'Brand',
+      col_size_title: 'Size',
+      show_all_link: true,
+      exclude_collection_handles: 'meo-fuscioni,sarah-baker,thomas-de-monaco,vapor-mundum,manuel-mathieu,une-nuit-nomade,pour-toi,frontpage',
+      brand_label_1: 'Sarah Baker', brand_url_1: '/collections/all?filter.p.vendor=Sarah+Baker',
+      brand_label_2: 'Thomas de Monaco', brand_url_2: '/collections/all?filter.p.vendor=Thomas+de+Monaco',
+      brand_label_3: 'Vapor Mundum', brand_url_3: '/collections/all?filter.p.vendor=Vapor+Mundum',
+      brand_label_4: 'Manuel Mathieu', brand_url_4: '/collections/all?filter.p.vendor=Manuel+Mathieu',
+      brand_label_5: 'Une Nuit Nomade', brand_url_5: '/collections/all?filter.p.vendor=Une+Nuit+Nomade',
+      brand_label_6: 'pour toi', brand_url_6: '/collections/all?filter.p.vendor=pour+toi',
+      size_label_1: '2ml', size_url_1: '/collections/all?filter.p.option.size=2ml',
+      size_label_2: '50ml', size_url_2: '/collections/all?filter.p.option.size=50ml',
+      size_label_3: '100ml', size_url_3: '/collections/all?filter.p.option.size=100ml',
+      section_width: 'container',
+      custom_width: 1200
+    -%}
     <div class="container">
       <div class="product-grid-container" id="ProductGridContainer">
         {%- if search.results.size == 0 and search.filters != empty -%}

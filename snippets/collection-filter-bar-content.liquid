@@ -1,0 +1,158 @@
+{%- comment -%}
+  Renders the "Collection Filter Bar" UI (title + FILTER trigger + Categories/
+  Brand/Size dropdown panel). Used by sections/collection-filter-bar.liquid
+  (via section.settings) and sections/main-search.liquid (via explicit params,
+  since Shopify does not allow {% section %} inside another section) so both
+  pages share the identical look.
+
+  Params (all optional, mirror the Collection Filter Bar section schema):
+    bar_title, trigger_label, col_left_title, col_right_title, col_size_title,
+    show_all_link, exclude_collection_handles,
+    brand_label_1..10, brand_url_1..10, size_label_1..5, size_url_1..5,
+    section_width, custom_width, padding_top, padding_bottom, margin_top, margin_bottom
+{%- endcomment -%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+{{ 'collection-filter-bar.css' | asset_url | stylesheet_tag }}
+<style>.cfb__link.is-active{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;}</style>
+
+{%- liquid
+  assign current_collection = collection
+  assign cfb_section_width = section_width | default: 'full'
+  assign cfb_custom_width = custom_width | default: 1200
+  assign cfb_padding_top = padding_top | default: 0
+  assign cfb_padding_bottom = padding_bottom | default: 0
+  assign cfb_margin_top = margin_top | default: 0
+  assign cfb_margin_bottom = margin_bottom | default: 0
+-%}
+
+{%- capture width_style -%}
+  {%- case cfb_section_width -%}
+    {%- when 'full' -%}
+      max-width: 100%;
+    {%- when 'container' -%}
+      max-width: var(--page-width, 1200px); margin-left: auto; margin-right: auto;
+    {%- when 'boxed' -%}
+      max-width: 1000px; margin-left: auto; margin-right: auto;
+    {%- when 'custom' -%}
+      max-width: {{ cfb_custom_width }}px; margin-left: auto; margin-right: auto;
+  {%- endcase -%}
+{%- endcapture -%}
+
+<div class="cfb" data-cfb style="margin-top: {{ cfb_margin_top }}px; margin-bottom: {{ cfb_margin_bottom }}px;">
+
+  <div class="cfb__bar" style="{{ width_style }} padding-top: {{ cfb_padding_top }}px; padding-bottom: {{ cfb_padding_bottom }}px;">
+    <span class="cfb__bar-title">
+      {%- if bar_title != blank -%}
+        {{ bar_title }}
+      {%- elsif request.page_type == 'search' -%}
+        {%- if search.terms != blank -%}
+          Search results for &ldquo;{{ search.terms }}&rdquo;
+        {%- else -%}
+          Search results
+        {%- endif -%}
+      {%- elsif current_collection and current_collection.handle != 'all' -%}
+        {{ current_collection.title | upcase }}
+      {%- else -%}
+        ALL PRODUCTS
+      {%- endif -%}
+    </span>
+
+    <button
+      class="cfb__trigger"
+      aria-expanded="false"
+      aria-controls="cfb-panel"
+      aria-label="Toggle filters"
+      data-cfb-trigger
+    >
+      <span class="cfb__state-closed">
+        <svg class="cfb__icon" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M0.5 1.5H12.5L8 6.5V11.5L5 10V6.5L0.5 1.5Z" stroke="currentColor" stroke-width="1.15" stroke-linejoin="round"/>
+        </svg>
+        <span class="cfb__trigger-label">{{ trigger_label | default: 'FILTER' }}</span>
+      </span>
+      <span class="cfb__state-open">
+        <span class="cfb__trigger-x">X</span>
+        <span class="cfb__trigger-label">CLOSE</span>
+      </span>
+    </button>
+  </div>
+
+  <div
+    class="cfb__panel"
+    id="cfb-panel"
+    role="region"
+    aria-label="Filter options"
+    aria-hidden="true"
+    data-cfb-panel
+    data-cfb-all-url="{{ routes.all_products_collection_url }}"
+  >
+    <div class="cfb__panel-inner" style="{{ width_style }}">
+
+      <div class="cfb__col">
+        <h3 class="cfb__col-heading">{{ col_left_title | default: 'Categories' }}</h3>
+        <ul class="cfb__list" role="list">
+          {%- if show_all_link -%}
+            <li>
+              <a class="cfb__link{% if current_collection.handle == 'all' or current_collection == nil %} is-active{% endif %}"
+                href="{{ routes.all_products_collection_url }}">All products</a>
+            </li>
+          {%- endif -%}
+          {%- assign excluded = exclude_collection_handles | split: ',' -%}
+          {%- assign sos_archetype_handles = ',the-seducer,the-cosmopolitan,the-romantic,the-indulger,the-luxury-hedonist,the-nostalgic,the-mineralist,the-smooth-operator,the-maximalist,' -%}
+          {%- for col in collections -%}
+            {%- assign skip = false -%}
+            {%- if col.handle == 'all' -%}{%- assign skip = true -%}{%- endif -%}
+            {%- assign sos_h_prefix = col.handle | slice: 0, 3 -%}
+            {%- if sos_h_prefix == 'rh-' -%}{%- assign skip = true -%}{%- endif -%}
+            {%- assign sos_h_needle = ',' | append: col.handle | append: ',' -%}
+            {%- if sos_archetype_handles contains sos_h_needle -%}{%- assign skip = true -%}{%- endif -%}
+            {%- for ex in excluded -%}
+              {%- assign ex_clean = ex | strip -%}
+              {%- if col.handle == ex_clean -%}{%- assign skip = true -%}{%- endif -%}
+            {%- endfor -%}
+            {%- unless skip -%}
+              <li>
+                <a class="cfb__link{% if current_collection.handle == col.handle %} is-active{% endif %}"
+                  href="{{ col.url }}">{{ col.title }}</a>
+              </li>
+            {%- endunless -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="cfb__col">
+        <h3 class="cfb__col-heading">{{ col_right_title | default: 'Brand' }}</h3>
+        <ul class="cfb__list" role="list">
+          {%- if brand_label_1 != blank and brand_url_1 != blank -%}<li><a class="cfb__link" href="{{ brand_url_1 }}">{{ brand_label_1 }}</a></li>{%- endif -%}
+          {%- if brand_label_2 != blank and brand_url_2 != blank -%}<li><a class="cfb__link" href="{{ brand_url_2 }}">{{ brand_label_2 }}</a></li>{%- endif -%}
+          {%- if brand_label_3 != blank and brand_url_3 != blank -%}<li><a class="cfb__link" href="{{ brand_url_3 }}">{{ brand_label_3 }}</a></li>{%- endif -%}
+          {%- if brand_label_4 != blank and brand_url_4 != blank -%}<li><a class="cfb__link" href="{{ brand_url_4 }}">{{ brand_label_4 }}</a></li>{%- endif -%}
+          {%- if brand_label_5 != blank and brand_url_5 != blank -%}<li><a class="cfb__link" href="{{ brand_url_5 }}">{{ brand_label_5 }}</a></li>{%- endif -%}
+          {%- if brand_label_6 != blank and brand_url_6 != blank -%}<li><a class="cfb__link" href="{{ brand_url_6 }}">{{ brand_label_6 }}</a></li>{%- endif -%}
+          {%- if brand_label_7 != blank and brand_url_7 != blank -%}<li><a class="cfb__link" href="{{ brand_url_7 }}">{{ brand_label_7 }}</a></li>{%- endif -%}
+          {%- if brand_label_8 != blank and brand_url_8 != blank -%}<li><a class="cfb__link" href="{{ brand_url_8 }}">{{ brand_label_8 }}</a></li>{%- endif -%}
+          {%- if brand_label_9 != blank and brand_url_9 != blank -%}<li><a class="cfb__link" href="{{ brand_url_9 }}">{{ brand_label_9 }}</a></li>{%- endif -%}
+          {%- if brand_label_10 != blank and brand_url_10 != blank -%}<li><a class="cfb__link" href="{{ brand_url_10 }}">{{ brand_label_10 }}</a></li>{%- endif -%}
+        </ul>
+      </div>
+
+      <div class="cfb__col">
+        <h3 class="cfb__col-heading">{{ col_size_title | default: 'Size' }}</h3>
+        <ul class="cfb__list" role="list">
+          {%- if size_label_1 != blank and size_url_1 != blank -%}<li><a class="cfb__link" href="{{ size_url_1 }}">{{ size_label_1 }}</a></li>{%- endif -%}
+          {%- if size_label_2 != blank and size_url_2 != blank -%}<li><a class="cfb__link" href="{{ size_url_2 }}">{{ size_label_2 }}</a></li>{%- endif -%}
+          {%- if size_label_3 != blank and size_url_3 != blank -%}<li><a class="cfb__link" href="{{ size_url_3 }}">{{ size_label_3 }}</a></li>{%- endif -%}
+          {%- if size_label_4 != blank and size_url_4 != blank -%}<li><a class="cfb__link" href="{{ size_url_4 }}">{{ size_label_4 }}</a></li>{%- endif -%}
+          {%- if size_label_5 != blank and size_url_5 != blank -%}<li><a class="cfb__link" href="{{ size_url_5 }}">{{ size_label_5 }}</a></li>{%- endif -%}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="{{ 'collection-filter-bar.js' | asset_url }}" defer="defer"></script>
