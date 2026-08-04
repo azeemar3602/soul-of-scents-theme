@@ -385,11 +385,15 @@
 .sos-account__fav-card .sos-account__product-info { padding-top: 8px; }
 .sos-account__fav-card {
   display: block;
+  align-self: start;
   position: relative;
   background: var(--sos-powder);
   border-radius: 8px;
   overflow: hidden;
   aspect-ratio: auto;
+  height: auto;
+}
+.sos-account__fav-card .sos-account__fav-link {
   height: auto;
 }
 .sos-account__fav-link {
@@ -446,6 +450,28 @@
 .sos-account__fav-remove:hover {
   background: var(--sos-black);
   color: #fff;
+}
+.sos-account__fav-add-cart {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 10px 12px;
+  border: 0;
+  border-top: 1px solid var(--sos-beige, #e5e0d8);
+  background: var(--sos-black);
+  color: #fff;
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.sos-account__fav-add-cart:hover { opacity: .85; }
+.sos-account__fav-add-cart:disabled {
+  background: var(--sos-beige, #e5e0d8);
+  color: var(--sos-muted);
+  cursor: not-allowed;
 }
 .sos-account__fav-note {
   display: block;

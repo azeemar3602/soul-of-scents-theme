@@ -397,6 +397,51 @@
     try { localStorage.setItem('localWishlistNotes', JSON.stringify(notes)); } catch(e){}
   }
 
+  function refreshCartDrawer(){
+    try {
+      if (window.theme && window.theme.miniCart) {
+        if (typeof window.theme.miniCart.updateElements === 'function') window.theme.miniCart.updateElements();
+        if (typeof window.theme.miniCart.generateCart   === 'function') window.theme.miniCart.generateCart();
+      }
+    } catch (_) {}
+    document.dispatchEvent(new CustomEvent('cart:refresh'));
+    document.dispatchEvent(new CustomEvent('cart:build'));
+    document.dispatchEvent(new CustomEvent('cart:open'));
+    var drawerTrigger = document.querySelector('.js-mini-cart, .cardraw, [data-cart-drawer]');
+    if (drawerTrigger && !drawerTrigger.classList.contains('active')) {
+      drawerTrigger.classList.add('active');
+    }
+  }
+
+  function addToCart(btn){
+    var variantId = btn.getAttribute('data-variant-id');
+    if (!variantId) return;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Adding…';
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+      body: JSON.stringify({ items: [{ id: Number(variantId), quantity: 1 }] })
+    })
+      .then(function(res){ return res.ok ? res.json() : Promise.reject(res); })
+      .then(function(){
+        btn.textContent = 'Added ✓';
+        refreshCartDrawer();
+        setTimeout(function(){
+          var drawerOpen = document.querySelector('.cardraw.active, .js-mini-cart.active, [data-cart-drawer].is-open');
+          if (!drawerOpen) window.location.href = '/cart';
+        }, 700);
+        setTimeout(function(){ btn.disabled = false; btn.textContent = originalText; }, 3500);
+      })
+      .catch(function(){
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      });
+  }
+
   function showEmpty(){
     grid.classList.add('sos-account__hide');
     if (empty) empty.classList.remove('sos-account__hide');
@@ -404,6 +449,16 @@
   function showGrid(){
     grid.classList.remove('sos-account__hide');
     if (empty) empty.classList.add('sos-account__hide');
+  }
+
+  function pickVariant(product){
+    var variants = product.variants || [];
+    var fifty = variants.find(function(v){
+      return [v.option1, v.option2, v.option3].some(function(o){ return o && o.toLowerCase().trim() === '50ml'; });
+    });
+    if (fifty) return fifty;
+    var available = variants.find(function(v){ return v.available; });
+    return available || variants[0];
   }
 
   function renderCard(product){
@@ -415,6 +470,7 @@
       ? ('from ' + formatMoney(product.price_min))
       : formatMoney(product.price);
     var savedNote = readNotes()[product.handle] || '';
+    var variant = pickVariant(product);
     var card = document.createElement('div');
     card.className = 'sos-account__product-card sos-account__fav-card';
     card.setAttribute('data-handle', product.handle);
@@ -428,6 +484,9 @@
       +   '</div>'
       + '</a>'
       + '<button type="button" class="sos-account__fav-remove" aria-label="Remove from favorites" data-handle="' + product.handle + '">&times;</button>'
+      + (variant
+          ? '<button type="button" class="sos-account__fav-add-cart" data-variant-id="' + variant.id + '"' + (variant.available ? '' : ' disabled') + '>' + (variant.available ? 'Add to cart' : 'Sold out') + '</button>'
+          : '')
       + '<input type="text" class="sos-account__fav-note" data-handle="' + product.handle + '" placeholder="Add a note (e.g. buy for mom&#39;s birthday)" value="' + savedNote.replace(/"/g,'&quot;') + '">';
     return card;
   }
@@ -484,6 +543,15 @@
               input.addEventListener('keydown', function(e){ if (e.key === 'Enter') { e.preventDefault(); input.blur(); } });
               input.addEventListener('blur', function(){
                 saveNote(input.getAttribute('data-handle'), input.value.trim());
+              });
+            });
+            // attach add-to-cart handlers
+            grid.querySelectorAll('.sos-account__fav-add-cart').forEach(function(btn){
+              if (btn.disabled) return;
+              btn.addEventListener('click', function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                addToCart(btn);
               });
             });
           }
