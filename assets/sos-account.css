@@ -446,6 +446,26 @@
   background: var(--sos-black);
   color: #fff;
 }
+.sos-account__fav-note {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 8px 12px 12px;
+  border: 0;
+  border-top: 1px solid var(--sos-beige, #e5e0d8);
+  background: transparent;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--sos-black);
+  box-sizing: border-box;
+}
+.sos-account__fav-note::placeholder {
+  color: var(--sos-muted);
+}
+.sos-account__fav-note:focus {
+  outline: none;
+  background: #fff;
+}
 
 /* Addresses */
 .sos-account__address {

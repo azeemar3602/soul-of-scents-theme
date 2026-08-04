@@ -381,6 +381,21 @@
     } catch(e) { return []; }
   }
 
+  function readNotes(){
+    try {
+      var raw = localStorage.getItem('localWishlistNotes');
+      if (!raw) return {};
+      var parsed = JSON.parse(raw);
+      return (parsed && typeof parsed === 'object') ? parsed : {};
+    } catch(e) { return {}; }
+  }
+
+  function saveNote(handle, text){
+    var notes = readNotes();
+    if (text) { notes[handle] = text; } else { delete notes[handle]; }
+    try { localStorage.setItem('localWishlistNotes', JSON.stringify(notes)); } catch(e){}
+  }
+
   function showEmpty(){
     grid.classList.add('sos-account__hide');
     if (empty) empty.classList.remove('sos-account__hide');
@@ -398,6 +413,7 @@
     var price = product.price_varies
       ? ('from ' + formatMoney(product.price_min))
       : formatMoney(product.price);
+    var savedNote = readNotes()[product.handle] || '';
     var card = document.createElement('div');
     card.className = 'sos-account__product-card sos-account__fav-card';
     card.setAttribute('data-handle', product.handle);
@@ -410,7 +426,8 @@
       +     '<p class="sos-account__fav-price">' + price + '</p>'
       +   '</div>'
       + '</a>'
-      + '<button type="button" class="sos-account__fav-remove" aria-label="Remove from favorites" data-handle="' + product.handle + '">&times;</button>';
+      + '<button type="button" class="sos-account__fav-remove" aria-label="Remove from favorites" data-handle="' + product.handle + '">&times;</button>'
+      + '<input type="text" class="sos-account__fav-note" data-handle="' + product.handle + '" placeholder="Add a note (e.g. buy for mom&#39;s birthday)" value="' + savedNote.replace(/"/g,'&quot;') + '">';
     return card;
   }
 
@@ -459,6 +476,13 @@
                 removeHandle(handle);
                 if (card) card.remove();
                 if (!grid.children.length) showEmpty();
+              });
+            });
+            // attach note handlers — save on blur and Enter
+            grid.querySelectorAll('.sos-account__fav-note').forEach(function(input){
+              input.addEventListener('keydown', function(e){ if (e.key === 'Enter') { e.preventDefault(); input.blur(); } });
+              input.addEventListener('blur', function(){
+                saveNote(input.getAttribute('data-handle'), input.value.trim());
               });
             });
           }
