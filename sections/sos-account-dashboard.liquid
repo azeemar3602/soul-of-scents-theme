@@ -136,7 +136,8 @@
 
           {%- comment -%} Your olfactory match — recommended products from RH collection {%- endcomment -%}
           {%- assign arch_handle = archetype_name | handleize -%}
-          {%- assign rh_col = collections['rh-' | append: arch_handle] -%}
+          {%- assign rh_handle = 'rh-' | append: arch_handle -%}
+          {%- assign rh_col = collections[rh_handle] -%}
           {%- if rh_col != blank and rh_col.products.size > 0 -%}
             <div class="sos-account__section" style="margin-top:32px;">
               <div class="sos-account__section-head">
