@@ -384,6 +384,7 @@
 /* Favorites card layout (with info under image) */
 .sos-account__fav-card .sos-account__product-info { padding-top: 8px; }
 .sos-account__fav-card {
+  display: block;
   position: relative;
   background: var(--sos-powder);
   border-radius: 8px;
