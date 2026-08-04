@@ -551,7 +551,8 @@
 .sos-account__support-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0;
+  column-gap: 64px;
+  row-gap: 0;
   border-top: 1px solid var(--sos-line);
   border-bottom: 1px solid var(--sos-line);
   margin-bottom: 22px;
